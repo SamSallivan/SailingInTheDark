@@ -17,10 +17,10 @@ public class Map : MonoBehaviour
     void Update()
     {
         lighthouseIcon.transform.localPosition = new Vector3
-        (lighthouseObject.transform.localPosition.x/500f, lighthouseObject.transform.localPosition.z/ 500f, -1);
+        (lighthouseObject.transform.position.x/500f, lighthouseObject.transform.position.z/ 500f, -0.18f);
 
         playerIcon.transform.localPosition = new Vector3
-        (playerObject.transform.localPosition.x/500f, playerObject.transform.localPosition.z/ 500f, -1);
+        (playerObject.transform.position.x/500f, playerObject.transform.position.z/ 500f, -0.18f);
 
     }
 }
