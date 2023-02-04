@@ -8,7 +8,7 @@ namespace NWH.DWP2.ShipController
     ///     Manages vehicle input by retrieving it from the active InputProvider and filling in the InputStates with the
     ///     fetched data.
     /// </summary>
-    [Serializable]
+    [Serializable] 
     public class ShipInputHandler
     {
         /// <summary>

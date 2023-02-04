@@ -1,7 +1,9 @@
+using Hertzole.GoldPlayer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 //Added Function Die(), Damage(),
 //And postprocessing effect when taken damage.
@@ -9,9 +11,11 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 {
 	public static PlayerController instance;
 
-	//public WeaponManager weapons; 
+	public bool enableMovement = true;
 
-	public Transform t;
+    //public WeaponManager weapons; 
+
+    public Transform t;
 
 	public Transform tHead;
 
@@ -24,6 +28,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	public Grounder grounder;
 
 	//public PlayerSlide slide;
+
 	//public PlayerDash dash;
 
 	//public MouseLook mouseLook;
@@ -84,14 +89,19 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 	public bool extraUpForce;
 
-	public float damageTimer;   
+	public float damageTimer;
+
+	public Interactable targetInteractable;
+
 	public PostProcessVolume volume;
     public Bloom bloom;
     public ChromaticAberration ca;
     public ColorGrading cg;
     public Vignette vg;
 
-	private void Awake()
+	public LayerMask interactableLayer;
+
+    private void Awake()
 	{
         Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
@@ -407,9 +417,14 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     
 	private void Update()
 	{
-		InputUpdate();
+		if (enableMovement)
+		{
+			InputUpdate();
+			BobUpdate();
+		}
 
-		BobUpdate();
+        HandleInteractableCheck();
+		HandleInteraction();
 
 		headPosition.PositionUpdate();
 
@@ -519,6 +534,36 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 			rb.AddForce(Vector3.up * 12f);
 			extraUpForce = false;
 		}
-	}
+    }
+    private void HandleInteractableCheck()
+	{
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, 1000,interactableLayer))
+        {
+			Debug.Log(hitInfo.collider.name);
+            if (targetInteractable == null || targetInteractable.name != hitInfo.collider.name)
+            {
+				if (targetInteractable != null && targetInteractable.name != hitInfo.collider.name)
+                {
+                    targetInteractable.UnTarget();
+                }
+
+                targetInteractable = hitInfo.collider.GetComponent<Interactable>();
+                targetInteractable.Target();
+            }
+        }
+        else if (targetInteractable != null)
+        {
+			targetInteractable.UnTarget();
+            targetInteractable = null;
+        }
+    }
+
+    private void HandleInteraction()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && targetInteractable != null)
+        {
+            targetInteractable.Interact();
+        }
+    }
 
 }
