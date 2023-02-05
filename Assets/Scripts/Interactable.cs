@@ -10,6 +10,7 @@ public abstract class Interactable : MonoBehaviour
 
     public GameObject highlightTarget;
     
+    public string textName;
     public string textPrompt;
 
 
@@ -41,6 +42,14 @@ public abstract class Interactable : MonoBehaviour
         {
             highlightTarget.layer = 6;
         }
+        UI.instance.interactionName.text = textName;
+        //UI.instance.interactionPrompt.text = textPrompt;
+
+        if (textPrompt != "")
+        {
+            UI.instance.interactionPrompt.text = "[E] " + textPrompt;
+            //enable button prompt image instead
+        }
     }
     public void UnTarget()
     {
@@ -48,6 +57,9 @@ public abstract class Interactable : MonoBehaviour
         {
             highlightTarget.layer = 0;
         }
+        UI.instance.interactionName.text = "";
+        UI.instance.interactionPrompt.text = "";
+        //disable button prompt image here
     }
 
     public virtual void SetTargetHighlight(bool highlighted)
