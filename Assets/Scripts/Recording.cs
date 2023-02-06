@@ -7,6 +7,7 @@ public class Recording : ScriptableObject
 {
     public string nameOfFile;
     public List<string> subtitles = new List<string>();
+    public List<int> TimeStamps = new List<int>();
     public AudioClip recordingFile;
 
     private void Start()

@@ -6,7 +6,7 @@ public class TestRecordingTrigger : Trigger
 {
     public override IEnumerator TriggerEvent()
     {
-        UIManager.instance.interactionName.text = recording.subtitles[0];
+        UIManager.instance.PlaySubtitle(recording);
         yield return null;
     }
 }

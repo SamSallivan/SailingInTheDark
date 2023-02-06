@@ -22,4 +22,9 @@ public class UIManager : MonoBehaviour
     {
 
     }
+
+    public void PlaySubtitle(Recording tempRecording)
+    {
+
+    }
 }
