@@ -1,4 +1,5 @@
 using NWH.DWP2.ShipController;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class Interactable_BoatPower : Interactable
         else
             boat.input.Throttle = 0;
 
+        textPrompt = boat.input.Throttle==1 ? "Turn Off" : "Turn On";
+        UI.instance.interactionPrompt.text = "[E] " + textPrompt;
         yield return null;
     }
 }

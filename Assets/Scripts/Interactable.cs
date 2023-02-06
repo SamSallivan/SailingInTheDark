@@ -1,12 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public bool interactOnce;
+    public enum InteractionType
+    {
+        OneTimeInteration,
+         
+    }
+    public bool oneTimeInteraction;
 
+    [ConditionalField("oneTimeInteraction")]
     public bool interacted;
+
+
 
     public GameObject highlightTarget;
     
@@ -29,7 +38,7 @@ public abstract class Interactable : MonoBehaviour
         if (!interacted)
         {
             StartCoroutine(InteractionEvent());
-            if (interactOnce)
+            if (oneTimeInteraction)
             {
                 interacted = true;
             }

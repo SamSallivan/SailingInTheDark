@@ -15,6 +15,8 @@ public class Interactable_Wheel : Interactable
     {
         activated = !activated;
         PlayerController.instance.enableMovement = !PlayerController.instance.enableMovement;
+        textPrompt = activated ? "Exit" : "Use";
+        UI.instance.interactionPrompt.text = "[E] " + textPrompt;
         yield return null;
     }
     void Update()
