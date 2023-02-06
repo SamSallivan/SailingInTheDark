@@ -427,6 +427,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136216226}
   m_Mesh: {fileID: 1443292862657225706, guid: f4c422a79ea14f340ab86b303b617c81, type: 3}
+--- !u!1 &162863724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 162863726}
+  - component: {fileID: 162863725}
+  m_Layer: 0
+  m_Name: Recording
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &162863725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162863724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398d1292d9aa841cba754a693d93e9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfFile: Recording #1
+  subtitles:
+  - I on a boat.
+  - Is cool.
+  recordingFile: {fileID: 0}
+  audioSource: {fileID: 0}
+--- !u!4 &162863726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162863724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -196.47739, y: 2.550682, z: -198.17003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177113143
 GameObject:
   m_ObjectHideFlags: 0
@@ -3482,6 +3532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e57008964edd344ad29a052c5e55a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableMovement: 1
   t: {fileID: 0}
   tHead: {fileID: 0}
   rb: {fileID: 0}
@@ -3538,11 +3589,15 @@ MonoBehaviour:
   slamVFX: {fileID: 0}
   extraUpForce: 0
   damageTimer: 0
+  targetInteractable: {fileID: 0}
   volume: {fileID: 0}
   bloom: {fileID: 0}
   ca: {fileID: 0}
   cg: {fileID: 0}
   vg: {fileID: 0}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1239912988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3678,8 +3733,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9efc33bd3dd47e791ff8343573c74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  north: {fileID: 1402341619}
-  compass2D: {fileID: 1543994601}
+  type: 0
+  target: {fileID: 0}
 --- !u!23 &1277300463
 MeshRenderer:
   m_ObjectHideFlags: 0

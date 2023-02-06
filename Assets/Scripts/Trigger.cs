@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Trigger : MonoBehaviour
 {
+    public Recording recording;
     public bool triggerOnce;
     private bool triggered;
 
