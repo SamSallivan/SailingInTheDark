@@ -16,6 +16,8 @@ public class Interactable_BoatPower : Interactable
 
         textPrompt = boat.input.Throttle==1 ? "Turn Off" : "Turn On";
         UI.instance.interactionPrompt.text = "[E] " + textPrompt;
+
+        ObjectiveManager.instance.CompleteObjetive("Turn on boat engine");
         yield return null;
     }
 }

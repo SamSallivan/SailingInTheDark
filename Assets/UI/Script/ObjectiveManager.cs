@@ -17,10 +17,11 @@ public class ObjectiveManager : MonoBehaviour
     private void Start()
     {
         instance = this;
-        AddObejctive("Press 'F' for fun!");
+        /*AddObejctive("Press 'F' for fun!");
         AddComplexObjective("Spell Gun!", new string[] { "Press 'G' ", "Press 'U' ", "Press 'N' " });
         AddObejctive("Press 'P' for pun!");
-        AddObejctive("Press 'Z' for zun!");
+        AddObejctive("Press 'Z' for zun!");*/
+        AddObejctive("Turn on boat engine");
     }
 
     public void AddObejctive(string ObjectiveText)
