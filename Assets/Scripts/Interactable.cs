@@ -51,12 +51,12 @@ public abstract class Interactable : MonoBehaviour
         {
             highlightTarget.layer = 6;
         }
-        UI.instance.interactionName.text = textName;
+        UIManager.instance.interactionName.text = textName;
         //UI.instance.interactionPrompt.text = textPrompt;
 
         if (textPrompt != "")
         {
-            UI.instance.interactionPrompt.text = "[E] " + textPrompt;
+            UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
             //enable button prompt image instead
         }
     }
@@ -66,8 +66,8 @@ public abstract class Interactable : MonoBehaviour
         {
             highlightTarget.layer = 0;
         }
-        UI.instance.interactionName.text = "";
-        UI.instance.interactionPrompt.text = "";
+        UIManager.instance.interactionName.text = "";
+        UIManager.instance.interactionPrompt.text = "";
         //disable button prompt image here
     }
 
