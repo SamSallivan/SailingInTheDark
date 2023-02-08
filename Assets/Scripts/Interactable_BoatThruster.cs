@@ -24,7 +24,7 @@ public class Interactable_BoatThruster : Interactable
             PlayerController.instance.TetherToBoat(10, 7.5f);
             textPrompt = "Turn On";
         }
-        UI.instance.interactionPrompt.text = "[E] " + textPrompt;
+        UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
         yield return null;
     }
 

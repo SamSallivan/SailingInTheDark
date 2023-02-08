@@ -10,6 +10,7 @@ public class ObjectiveManager : MonoBehaviour
     public static ObjectiveManager instance;
     public Objective[] ObjectiveArray = new Objective[20];
     public GameObject ObjectivePrefab;
+    public GameObject ObjectiveTransform;
 
     private int ObjectiveCount = 0;
     private int ObjectiveSpaceOnScreen = 0;

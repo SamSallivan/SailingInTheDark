@@ -45,7 +45,7 @@ public class Objective : MonoBehaviour
         {
             if (MySubObjective.Count < 1)
             {
-                //this is a normal objective
+                //this is a single objective
                 this.transform.GetChild(0).GetComponent<Image>().DOFade(0, 0.25f).OnComplete(() => Destroy(gameObject));
                 GetComponent<TMP_Text>().DOFade(0, 0.25f);
                 for (int i = myPosition; i < ObjectiveManager.instance.ObjectiveArray.Length - 1; i++)
@@ -66,7 +66,7 @@ public class Objective : MonoBehaviour
             }
             else
             {
-                //this is a main objective
+                //this is a parent objective
                 this.transform.GetChild(0).GetComponent<Image>().DOFade(0, 0.3f).OnComplete(() => Destroy(gameObject));
                 GetComponent<TMP_Text>().DOFade(0, 0.25f);
                 for (int i = 0; i < MySubObjective.Count; i++)

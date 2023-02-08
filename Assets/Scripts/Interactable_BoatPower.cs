@@ -24,7 +24,7 @@ public class Interactable_BoatPower : Interactable
             textPrompt = "Turn On";
         }
 
-        UI.instance.interactionPrompt.text = "[E] " + textPrompt;
+        UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
 
         ObjectiveManager.instance.CompleteObjetive("Turn on boat engine");
         yield return null;

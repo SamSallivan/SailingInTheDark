@@ -20,7 +20,7 @@ public class Interactable_BoatAnchor : Interactable
             boat.Anchor.Weigh();
             textPrompt = "Drop";
         }
-        UI.instance.interactionPrompt.text = "[E] " + textPrompt;
+        UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
         yield return null;
     }
     void Update(){
