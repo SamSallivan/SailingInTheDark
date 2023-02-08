@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UIManager : MonoBehaviour
     public TMP_Text interactionName;
     public TMP_Text interactionPrompt;
     public AudioSource audioSource;
+
+    public TMP_Text subtitlePlayer;
 
     void Awake()
     {
@@ -23,8 +26,14 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void PlaySubtitle(Recording tempRecording)
+    public void DisplaySubtitle(string tempSubtitle)
     {
-
+        float subtitleFadeDuration = 0.5f;
+        subtitlePlayer.DOFade(0, subtitleFadeDuration).OnComplete(() =>
+        {
+            subtitlePlayer.text = tempSubtitle;
+            subtitlePlayer.DOFade(1, subtitleFadeDuration);
+        }
+        );
     }
 }
