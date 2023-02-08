@@ -185,7 +185,7 @@ namespace NWH.DWP2.ShipController
                 }
 
                 // Reset bool inputs
-                //input.Anchor          = false;
+                input.Anchor          = false;
                 input.EngineStartStop = false;
 
                 if (stabilizePitch || stabilizeRoll)

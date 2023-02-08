@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 {
 	public static PlayerController instance;
 
+    [Header("Movements")]
 	public bool enableMovement = true;
 
     //public WeaponManager weapons; 
@@ -100,6 +101,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     public Vignette vg;
 
 	public LayerMask interactableLayer;
+
+	public SpringJoint frontJoint;
+	public SpringJoint backJoint;
 
     private void Awake()
 	{
@@ -566,4 +570,14 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         }
     }
 
+	public void TetherToBoat(float spring1, float spring2){
+		frontJoint.spring = spring1;
+		backJoint.spring = spring2;
+	}
+
+	public void UntetherFromBoat(){
+		frontJoint.spring = 0;
+		backJoint.spring = 0;
+		
+	}
 }
