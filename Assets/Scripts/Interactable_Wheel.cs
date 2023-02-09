@@ -11,6 +11,7 @@ public class Interactable_Wheel : Interactable
     public Transform wheel;
     public float wheelAngle;
     public float hTemp;
+
     public override IEnumerator InteractionEvent()
     {
         activated = !activated;
@@ -19,6 +20,7 @@ public class Interactable_Wheel : Interactable
         UI.instance.interactionPrompt.text = "[E] " + textPrompt;
         yield return null;
     }
+
     void Update()
     {
         if (activated)
