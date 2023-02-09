@@ -6,6 +6,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
     public List<Recording> RecordingWaitList;
+    public bool radioPaused;
     private void Start()
     {
         instance = this;
@@ -26,7 +27,8 @@ public class DialogueManager : MonoBehaviour
             AudioManager.instance.playRecording(listOfClips[i]);
             float timeLength = listOfClips[i].length;
             //Debug.Log(timeLength);
-            yield return new WaitForSeconds(timeLength);
+            yield return new WaitWhile(() => AudioManager.instance.RadioPlayer.isPlaying || radioPaused);
+            //yield return new WaitForSeconds(timeLength);
         }
         UIManager.instance.DisplaySubtitle(" ");
         yield return null;
@@ -62,6 +64,16 @@ public class DialogueManager : MonoBehaviour
             }
             yield return new WaitForSeconds(timeLength);
         }
+    }
+
+    public void PauseRadio(){
+        radioPaused = true;
+        AudioManager.instance.RadioPlayer.Pause();
+    }
+
+    public void UnpauseRadio(){
+        radioPaused = false;
+        AudioManager.instance.RadioPlayer.Play();
     }
 
 }
