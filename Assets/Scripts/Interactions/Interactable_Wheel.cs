@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Interactable_Wheel : Interactable
 {
-    public AdvancedShipController boat;
-    public bool activated;
     public Transform playerTargetPos;
     public Transform wheel;
     public float wheelAngle;
@@ -25,18 +23,14 @@ public class Interactable_Wheel : Interactable
         {
             PlayerController.instance.transform.position = Vector3.Lerp(PlayerController.instance.transform.position, playerTargetPos.position, Time.deltaTime * 5f);
 
-            hTemp = 0f;
-            hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
-            hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
-            hTemp = Mathf.Clamp(hTemp, -1, 1);
-            boat.input.Steering = hTemp;
+            BoatController.instance.boat.input.Steering = hTemp;
             //wheelAngle = Mathf.MoveTowards(wheelAngle, -hTemp * 90, 1.5f);
             wheelAngle = Mathf.Lerp(wheelAngle, -hTemp * 90, Time.deltaTime * 5);
         }
         else
         {
             hTemp = 0;
-            boat.input.Steering = 0;
+            BoatController.instance.boat.input.Steering = 0;
             wheelAngle = Mathf.Lerp(wheelAngle, -hTemp * 90, Time.deltaTime * 5);
         }
         wheel.localEulerAngles = new Vector3(0, 0, wheelAngle);

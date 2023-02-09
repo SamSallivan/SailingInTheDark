@@ -499,7 +499,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113508746172176}
   serializedVersion: 2
-  m_Mass: 950
+  m_Mass: 0.0000001
   m_Drag: 0.025
   m_AngularDrag: 0.3
   m_UseGravity: 1
@@ -537,13 +537,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMass: 950
-  totalMass: 950
+  totalMass: 0
   dimensions: {x: 2.14, y: 1.26, z: 5.7}
   useDefaultCenterOfMass: 0
-  centerOfMass: {x: -0.000013828278, y: -0.349652, z: -0.5830196}
+  centerOfMass: {x: 0, y: -0.43, z: -0.4}
   centerOfMassOffset: {x: 0, y: -0.43, z: -0.4}
   useDefaultInertia: 1
-  inertiaTensor: {x: 1588.4133, y: 1562.3555, z: 408.6739}
+  inertiaTensor: {x: 1, y: 1, z: 1}
   inertiaScale: {x: 1, y: 1, z: 1}
   updateInterval: 1
 --- !u!114 &1818936572

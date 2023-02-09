@@ -326,9 +326,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 				climbStartDir.y += 2f;
 				bob.Sway(new Vector4(10f, 0f, -5f, 2f));
 				
-				poofVFX.transform.position = climbTargetPos;
-				ParticleSystem particle = poofVFX.GetComponent<ParticleSystem>();
-				particle.Play();
+				//poofVFX.transform.position = climbTargetPos;
+				//ParticleSystem particle = poofVFX.GetComponent<ParticleSystem>();
+				//particle.Play();
 
 				climbState--;
 				break;

@@ -8,7 +8,6 @@ public class Interactable_BoatPower : Interactable
 {
     public AdvancedShipController boat;
     public Interactable_BoatThruster thruster;
-    public bool activated;
     public override IEnumerator InteractionEvent()
     {
         if (!activated){

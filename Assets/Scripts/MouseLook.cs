@@ -38,16 +38,20 @@ public class MouseLook : MonoBehaviour
 	public float framesOfSmoothing = 5;
  
 	Quaternion originalRotation;
-	
-	void Start ()
+
+    Quaternion originalLocalRotation;
+
+    void Start ()
 	{			
 		if (GetComponent<Rigidbody>())
 		{
 			GetComponent<Rigidbody>().freezeRotation = true;
 		}
 		
-		originalRotation = transform.localRotation;
-	}
+		originalRotation = transform.rotation;
+        originalLocalRotation = transform.localRotation;
+
+    }
  
 	void Update ()
 	{
@@ -71,7 +75,7 @@ public class MouseLook : MonoBehaviour
 			rotAverageX = ClampAngle(rotAverageX, minimumX, maximumX);
  
 			Quaternion xQuaternion = Quaternion.AngleAxis (rotAverageX, Vector3.up);
-			transform.localRotation = originalRotation * xQuaternion;			
+			transform.rotation = originalRotation * xQuaternion;			
 		}
 		else
 		{			
@@ -99,7 +103,7 @@ public class MouseLook : MonoBehaviour
 			rotAverageY /= rotArrayY.Count;
  
 			Quaternion yQuaternion = Quaternion.AngleAxis (rotAverageY, Vector3.left);
-			transform.localRotation = originalRotation * yQuaternion;
+			transform.localRotation = originalLocalRotation * yQuaternion;
 		}
 	}
 	

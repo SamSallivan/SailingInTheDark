@@ -7,14 +7,16 @@ public abstract class Interactable : MonoBehaviour
 {
     public enum InteractionType
     {
-        OneTimeInteration,
-         
+        OnceOnly,
+        Toggle
+
     }
     public bool oneTimeInteraction;
 
     [ConditionalField("oneTimeInteraction")]
     public bool interacted;
 
+    public bool activated;
 
 
     public GameObject highlightTarget;

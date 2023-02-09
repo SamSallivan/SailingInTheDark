@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ShipCamera
   - Ship
+  - Water
+  - Boat
   layers:
   - Default
   - TransparentFX

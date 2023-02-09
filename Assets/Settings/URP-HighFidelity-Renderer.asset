@@ -182,13 +182,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0f847b2f420ea54ba779e55bdc277ad, type: 3}
-  m_Name: '[SCPE] PixelizeRenderer'
+  m_Name: SCPE PixelizeRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
     injectionPoint: 550
     alwaysEnable: 0
-    cameraTypes: 5
+    cameraTypes: 7
 --- !u!114 &2119880061416943457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,13 +199,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 039ea2c8d80d11f4aa1926e992d660b4, type: 3}
-  m_Name: '[SCPE] ColorSplitRenderer'
+  m_Name: SCPE ColorSplitRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
     injectionPoint: 550
     alwaysEnable: 0
-    cameraTypes: 5
+    cameraTypes: 7
 --- !u!114 &2852561647265246548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,13 +243,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8173f089832511149b44a215bb4a2f39, type: 3}
-  m_Name: '[SCPE] DitheringRenderer'
+  m_Name: SCPE DitheringRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
     injectionPoint: 550
     alwaysEnable: 0
-    cameraTypes: 5
+    cameraTypes: 7
 --- !u!114 &5025361728655610113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f88484802267f2548ad84d0108298b39, type: 3}
-  m_Name: '[SCPE] KaleidoscopeRenderer'
+  m_Name: SCPE KaleidoscopeRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
@@ -316,13 +316,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 856792627b7ad87479de639d23b34329, type: 3}
-  m_Name: '[SCPE] PosterizeRenderer'
+  m_Name: SCPE PosterizeRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
     injectionPoint: 550
     alwaysEnable: 0
-    cameraTypes: 5
+    cameraTypes: 7
 --- !u!114 &7439034758868368130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,10 +361,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97a529de71a3723409dc5bcc5e30cf8c, type: 3}
-  m_Name: '[SCPE] ScanlinesRenderer'
+  m_Name: SCPE ScanlinesRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
     injectionPoint: 550
     alwaysEnable: 0
-    cameraTypes: 5
+    cameraTypes: 7

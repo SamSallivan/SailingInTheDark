@@ -4,15 +4,17 @@ using UnityEngine;
 
 public abstract class Trigger : MonoBehaviour
 {
-    public Recording recording;
+    public string targetTag = "Player";
     public bool triggerOnce;
+    public Recording recording;
+
     private bool triggered;
 
     public abstract IEnumerator TriggerEvent();
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !triggered)
+        if (other.CompareTag(targetTag) && !triggered)
         {
             StartCoroutine(TriggerEvent());
             if (triggerOnce)
