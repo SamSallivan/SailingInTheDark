@@ -8,8 +8,8 @@ public class DialogueManager : MonoBehaviour
     public int currentIndex;
     public int interuptedIndex;
     public Line currentLine;
-    public Recording currentRecording;
-    public List<Recording> recordingWaitList;
+    public DialogueData currentRecording;
+    public List<DialogueData> recordingWaitList;
     public bool radioPaused = true;
     public bool radioInBound;
     public Coroutine currentCoroutine;
@@ -18,7 +18,7 @@ public class DialogueManager : MonoBehaviour
         instance = this;
     }
 
-    public void OverrideDialogue(Recording tempRecording)
+    public void OverrideDialogue(DialogueData tempRecording)
     {
         if (currentRecording == null)
         {
@@ -59,7 +59,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
-    public void WaitlistDialogue(Recording tempRecording)
+    public void WaitlistDialogue(DialogueData tempRecording)
     {
         recordingWaitList.Add(tempRecording);
         if (currentRecording == null && radioInBound && !radioPaused)
@@ -68,7 +68,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    IEnumerator SubtitleSequence(Recording tempRecording, int fromLine)
+    IEnumerator SubtitleSequence(DialogueData tempRecording, int fromLine)
     {
         yield return new WaitWhile(() => radioPaused);
         currentRecording = tempRecording;

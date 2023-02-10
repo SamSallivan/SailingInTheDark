@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RecordingScriptableObject", menuName = "ScriptableObjects/RecordingScriptableObject", order = 1)]
-public class Recording : ScriptableObject
+[CreateAssetMenu(fileName = "DialogueData", menuName = "ScriptableObjects/DialogueData")]
+public class DialogueData : ScriptableObject
 {
     public List<Line> lines = new List<Line>();
     public List<string> subtitles = new List<string>();

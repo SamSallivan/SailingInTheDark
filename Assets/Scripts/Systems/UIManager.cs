@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public AudioSource audioSource;
 
     public TMP_Text subtitlePlayer;
+    public GameObject inventoryUI;
+    public GameObject recordingUI;
 
     void Awake()
     {

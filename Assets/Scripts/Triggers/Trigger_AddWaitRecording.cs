@@ -8,7 +8,7 @@ public class Trigger_AddWaitRecording : Trigger
      * when player enter this trigger, add the recording clip attached to this to the audio waitlist.
      */
 
-    public Recording RecordingClip;
+    public DialogueData RecordingClip;
     public override IEnumerator TriggerEvent()
     {
         DialogueManager.instance.WaitlistDialogue(RecordingClip);

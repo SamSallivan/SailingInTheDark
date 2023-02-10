@@ -6,7 +6,7 @@ public abstract class Trigger : MonoBehaviour
 {
     public string targetTag = "Player";
     public bool triggerOnce;
-    public Recording recording;
+    public DialogueData recording;
 
     private bool triggered;
 

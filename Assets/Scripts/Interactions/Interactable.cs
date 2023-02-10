@@ -2,21 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MyBox;
+using static InventoryManager;
 
 public abstract class Interactable : MonoBehaviour
 {
     public enum InteractionType
     {
         OnceOnly,
-        Toggle
+        Toggle,
+        InventoryItem
 
     }
-    public bool oneTimeInteraction;
 
-    [ConditionalField("oneTimeInteraction")]
+    public InteractionType interactionType;
+
+    [ConditionalField(nameof(interactionType), false,InteractionType.OnceOnly)]
     public bool interacted;
 
+    [ConditionalField(nameof(interactionType), false, InteractionType.Toggle)]
     public bool activated;
+
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]
+    public ItemData itemData;
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]
+    public ItemStatus itemStatus;
 
 
     public GameObject highlightTarget;
@@ -40,7 +49,7 @@ public abstract class Interactable : MonoBehaviour
         if (!interacted)
         {
             StartCoroutine(InteractionEvent());
-            if (oneTimeInteraction)
+            if (interactionType == InteractionType.OnceOnly)
             {
                 interacted = true;
             }
