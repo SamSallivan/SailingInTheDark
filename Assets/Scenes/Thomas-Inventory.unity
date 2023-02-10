@@ -1722,8 +1722,12 @@ MonoBehaviour:
   textPrompt: Use
   activated: 0
   playerTargetPos: {fileID: 1201007696}
+  lockMouse: {fileID: 740045609}
+  mouseLooks:
+  - {fileID: 740045610}
+  - {fileID: 694845938}
   listOfRecordings: {fileID: 1833443034}
-  recordingButton: {fileID: 8017736394182964278, guid: bdc39314f939c4422aa6dbb4607d3cbe,
+  recordingButtonClone: {fileID: 6225590496749731686, guid: bdc39314f939c4422aa6dbb4607d3cbe,
     type: 3}
 --- !u!65 &338098273
 BoxCollider:
@@ -4362,10 +4366,10 @@ MonoBehaviour:
   totalMass: 5000
   dimensions: {x: 5.03833, y: 9.034785, z: 12.962145}
   useDefaultCenterOfMass: 0
-  centerOfMass: {x: 0.00068227865, y: -5.5341883, z: -0.92020774}
+  centerOfMass: {x: 0.00016483005, y: -5.535596, z: -0.916824}
   centerOfMassOffset: {x: 0, y: -5, z: -0.76}
   useDefaultInertia: 1
-  inertiaTensor: {x: 169443.81, y: 43706.64, z: 136207.08}
+  inertiaTensor: {x: 169408.72, y: 43673.996, z: 136211.17}
   inertiaScale: {x: 1, y: 1, z: 1}
   updateInterval: 1
 --- !u!114 &926783476
@@ -11732,6 +11736,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6750539702818164518, guid: bdc39314f939c4422aa6dbb4607d3cbe,
+        type: 3}
+      propertyPath: m_text
+      value: "Recording 1: \n-by Arnii"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdc39314f939c4422aa6dbb4607d3cbe, type: 3}

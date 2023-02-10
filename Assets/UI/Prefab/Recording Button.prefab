@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3261471252234698755}
   - component: {fileID: 2176962307880707265}
   - component: {fileID: 8017736394182964278}
+  - component: {fileID: 6225590496749731686}
   m_Layer: 5
   m_Name: Recording Button
   m_TagString: Untagged
@@ -122,6 +123,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6225590496749731686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751660021872235123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f9a835a4ec6a45e1aca9549b87d2671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textbox: {fileID: 6750539702818164518}
+  button: {fileID: 8017736394182964278}
 --- !u!1 &7177208667184685855
 GameObject:
   m_ObjectHideFlags: 0
