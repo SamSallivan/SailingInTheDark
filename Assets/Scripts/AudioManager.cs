@@ -19,9 +19,10 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator PlayAudioCo(AudioClip tempClip)
     {
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         RadioPlayer.clip = tempClip;
         RadioPlayer.Play();
+        yield return null;
     }
 
     public void StopRadio()

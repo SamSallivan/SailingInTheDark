@@ -9,7 +9,7 @@ public class Trigger_PlayRecording : Trigger
      */
     public override IEnumerator TriggerEvent()
     {
-        DialogueManager.instance.EnterDialogue(recording);
+        DialogueManager.instance.OverrideDialogue(recording);
         yield return null;
     }
 }

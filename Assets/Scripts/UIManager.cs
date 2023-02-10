@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using static Line;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,13 +27,42 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void DisplaySubtitle(string tempSubtitle)
+    public void FadeInSubtitle(CharacterName speaker, string tempSubtitle)
     {
+        string name = speaker.ToString();
+        switch (speaker)
+        {
+            case CharacterName.Mira:
+                name = "<style=\"Blue\">" + name + "</style>";
+                break;
+            case CharacterName.Arnii:
+                name = "<style=\"Yellow\">" + name + "</style>";
+                break;
+            default:
+                name = "";
+                break;
+        }
+
         float subtitleFadeDuration = 0.5f;
         subtitlePlayer.DOFade(0, subtitleFadeDuration).OnComplete(() =>
         {
-            subtitlePlayer.text = tempSubtitle;
+            subtitlePlayer.text = name + ": " + tempSubtitle;
             subtitlePlayer.DOFade(1, subtitleFadeDuration);
+        }
+        );
+    }
+
+    public void FadeOutSubtitle()
+    {
+        float subtitleFadeDuration = 0.5f;
+        subtitlePlayer.DOFade(0, subtitleFadeDuration);
+    }
+
+    public void ClearSubtitle()
+    {
+        subtitlePlayer.DOFade(0, 0.5f).OnComplete(() =>
+        {
+            subtitlePlayer.text = "";
         }
         );
     }

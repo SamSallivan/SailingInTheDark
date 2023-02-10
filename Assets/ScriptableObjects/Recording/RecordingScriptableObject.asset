@@ -7,7 +7,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 398d1292d9aa841cba754a693d93e9eb, type: 3}
   m_Name: RecordingScriptableObject
@@ -15,20 +15,20 @@ MonoBehaviour:
   lines:
   - intervalBefore: 0
     speaker: 0
-    subtitle: My mind instantly thought that new dangers would mean that there would
-      be a new enemy
+    subtitle: 0 My mind instantly thought that new dangers would mean that there
+      would be a new enemy
     audioClip: {fileID: 8300000, guid: b95f0cfb8fb20493b8a6d25fc8ee6510, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
-    speaker: 0
-    subtitle: I thought the boundless sky and treacherous oceans meant to go check
+    speaker: 1
+    subtitle: 1 I thought the boundless sky and treacherous oceans meant to go check
       the center of the map where there are no islands
     audioClip: {fileID: 8300000, guid: e9741905086ad418d909e107744e48ac, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 0
-    subtitle: The world is changing, new dangers there be Between boundless sky and
-      treacherous sea On rolling waves with sails unfurled Ships come to plunder
+    subtitle: 2 The world is changing, new dangers there be Between boundless sky
+      and treacherous sea On rolling waves with sails unfurled Ships come to plunder
       this new world
     audioClip: {fileID: 8300000, guid: c9fab054f21a7485da07ab08e9ab179c, type: 3}
     intervalAfter: 0

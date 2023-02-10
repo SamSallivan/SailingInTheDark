@@ -11,6 +11,7 @@ public class Interactable_BoatAnchor : Interactable
     public bool dockable;
     public T_DockingZone dockingZone;
     public float dockingTimer;
+    public Vector3 playerPos;
 
     public override IEnumerator InteractionEvent()
     {
@@ -22,7 +23,7 @@ public class Interactable_BoatAnchor : Interactable
             if (dockable)
             {
                 textPrompt = "Undock";
-
+                playerPos = PlayerController.instance.transform.localPosition;
             }
         }
         else if (activated){
@@ -49,9 +50,12 @@ public class Interactable_BoatAnchor : Interactable
             {
                 dockingTimer += Time.fixedDeltaTime;
                 Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, boat.transform.position.y, dockingZone.dockingPos.position.z);
-                boat.transform.position = Vector3.Lerp(boat.transform.position, targetpos, dockingTimer*2);
-                boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, dockingZone.dockingPos.rotation, Time.fixedDeltaTime);
+                boat.transform.position = Vector3.Lerp(boat.transform.position, targetpos, dockingTimer / 2);
+                boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, dockingZone.dockingPos.rotation, Time.fixedDeltaTime/2);
                 boat.Anchor.AnchorPosition = boat.Anchor.AnchorPoint;
+
+                PlayerController.instance.transform.localPosition = playerPos;
+                //PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, playerPos, Time.fixedDeltaTime * 2);
             }
             else
             {

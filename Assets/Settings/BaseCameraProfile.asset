@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Bloom
   m_EditorClassIdentifier: 
   active: 0
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
   threshold:
     m_OverrideState: 1
     m_Value: 1.25
@@ -31,9 +34,12 @@ MonoBehaviour:
   highQualityFiltering:
     m_OverrideState: 1
     m_Value: 0
-  skipIterations:
+  downscale:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -182,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e21a9f18817d444b2c00478e04a58e, type: 3}
   m_Name: Posterize
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   hsvMode:
     m_OverrideState: 1
     m_Value: 0
@@ -214,13 +220,13 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.01
+    m_Value: 0.25
   amount:
     m_OverrideState: 1
     m_Value: 700
   speed:
     m_OverrideState: 1
-    m_Value: 0.051
+    m_Value: 0.05
   shader: {fileID: 4800000, guid: 9a37ab67e535e704b8e007d86c2be9ff, type: 3}
 --- !u!114 &6778028001447197594
 MonoBehaviour:
@@ -366,14 +372,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ce1611ace1a9a4a8284d45a924bdcd, type: 3}
   m_Name: Dithering
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   lut:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: 7a95f13299f9b0948aff699c1881bfc6, type: 3}
     dimension: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.268
+    m_Value: 0.25
   luminanceThreshold:
     m_OverrideState: 1
     m_Value: 0.195
