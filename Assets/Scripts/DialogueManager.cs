@@ -19,16 +19,14 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator SubtitleSequence(Recording tempRecording)
     {
-        List<AudioClip> listOfClips = tempRecording.audioClips;
-        List<string> listOfSubtitle = tempRecording.subtitles;
-        for (int i = 0; i < listOfClips.Count; i++)
+        for (int i = 0; i < tempRecording.lines.Count; i++)
         {
-            UIManager.instance.DisplaySubtitle(listOfSubtitle[i]);
-            AudioManager.instance.playRecording(listOfClips[i]);
-            float timeLength = listOfClips[i].length;
+            UIManager.instance.DisplaySubtitle(tempRecording.lines[i].subtitle);
+            AudioManager.instance.playRecording(tempRecording.lines[i].audioClip);
+            float timeLength = tempRecording.lines[i].audioClip.length;
             //Debug.Log(timeLength);
-            yield return new WaitWhile(() => AudioManager.instance.RadioPlayer.isPlaying || radioPaused);
             //yield return new WaitForSeconds(timeLength);
+            yield return new WaitWhile(() => AudioManager.instance.RadioPlayer.isPlaying || radioPaused);
         }
         UIManager.instance.DisplaySubtitle(" ");
         yield return null;
@@ -58,9 +56,9 @@ public class DialogueManager : MonoBehaviour
         {
             EnterDialogue(RecordingWaitList[i]);
             float timeLength = 0;
-            for (int j = 0; j < RecordingWaitList[i].audioClips.Count; j++)
+            for (int j = 0; j < RecordingWaitList[i].lines.Count; j++)
             {
-                timeLength += RecordingWaitList[i].audioClips[i].length;
+                timeLength += RecordingWaitList[i].lines[i].audioClip.length;
             }
             yield return new WaitForSeconds(timeLength);
         }

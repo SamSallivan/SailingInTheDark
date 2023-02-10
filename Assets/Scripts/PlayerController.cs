@@ -2,7 +2,6 @@ using Hertzole.GoldPlayer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 //Added Function Die(), Damage(),
@@ -94,11 +93,11 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 	public Interactable targetInteractable;
 
-	public PostProcessVolume volume;
+/*	public PostProcessVolume volume;
     public Bloom bloom;
     public ChromaticAberration ca;
     public ColorGrading cg;
-    public Vignette vg;
+    public Vignette vg;*/
 
 	public LayerMask interactableLayer;
 
@@ -178,10 +177,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     //Disables Player.
     public void Die(Vector3 dir)
 	{
-		bloom.intensity.value = 10;
+/*		bloom.intensity.value = 10;
 		ca.intensity.value = 10;
 		cg.mixerGreenOutRedIn.value = -100;
-		vg.intensity.value = 0.3f;
+		vg.intensity.value = 0.3f;*/
 
 		//playerDecapitate.gameObject.SetActive(true);
 		//playerDecapitate.Decapitate(tHead, dir);
@@ -470,10 +469,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		if (damageTimer != 0f)
 		{
 			damageTimer = Mathf.MoveTowards(damageTimer, 0f, Time.deltaTime);
-			bloom.intensity.value = Mathf.Lerp(0, 10, damageTimer/3);
+/*			bloom.intensity.value = Mathf.Lerp(0, 10, damageTimer/3);
 			ca.intensity.value = Mathf.Lerp(0, 1, damageTimer/3);
 			cg.mixerGreenOutRedIn.value = Mathf.Lerp(0, -100, damageTimer/3);
-			vg.intensity.value = Mathf.Lerp(0, 0.3f, damageTimer/3);
+			vg.intensity.value = Mathf.Lerp(0, 0.3f, damageTimer/3);*/
 		}
 	}
 

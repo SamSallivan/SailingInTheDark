@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -193,6 +194,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -253,6 +255,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1866213578}
   - {fileID: 1967320337}
@@ -288,6 +291,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -313,6 +317,7 @@ MonoBehaviour:
   _primaryLight: {fileID: 1589415980}
   _searchForPrimaryLightOnStartup: 1
   _material: {fileID: 2100000, guid: a6225161aeed1b4498458e238f08ce11, type: 2}
+  _waterTilePrefab: {fileID: 0}
   _layerName: 
   _layer: 4
   _gravityMultiplier: 1
@@ -323,6 +328,7 @@ MonoBehaviour:
   _lodDataResolution: 384
   _geometryDownSampleFactor: 4
   _lodCount: 7
+  _extentsSizeMultiplier: 100
   _renderingLayerMask: 255
   _simSettingsAnimatedWaves: {fileID: 11400000, guid: 78bc75eaffbf71d4c87e610d2b78940c,
     type: 2}
@@ -346,6 +352,7 @@ MonoBehaviour:
   _showOceanProxyPlane: 0
   _editModeFPS: 30
   _followSceneCamera: 1
+  _heightQueries: 1
   _forceBatchMode: 0
   _forceNoGPU: 0
   _attachDebugGUI: 0
@@ -473,6 +480,7 @@ Transform:
   m_LocalRotation: {x: 0.065557525, y: 0.86087245, z: -0.49133182, w: 0.11486467}
   m_LocalPosition: {x: 233.1, y: 9.2, z: 316}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -489,7 +497,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Version: 1
   m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!4 &1632311679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 563947595804475204, guid: 37a8c7927d78340499d17a3f00a4b9a1,
@@ -522,6 +537,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 496, y: 0, z: 618}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1632311679}
   - {fileID: 4872490115058787}
@@ -556,6 +572,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1015.3, y: 10, z: 1033.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 995304123}
   m_RootOrder: 0
@@ -572,23 +589,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a57126133720c243a7af00a156c9ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _version: 0
-  _windTurbulence: 0.145
   _spectrum: {fileID: 11400000, guid: 41f9a6a4715148041866267a9151022d, type: 2}
   _spectrumFixedAtRuntime: 1
   _waveDirectionHeadingAngle: 0
   _overrideGlobalWindSpeed: 0
   _windSpeed: 20
-  _weight: 1
   _respectShallowWaterAttenuation: 1
-  _componentsPerOctave: 8
-  _randomSeed: 0
+  _weight: 1
+  _blendMode: 0
+  _queue: 0
   _resolution: 32
   _debugDrawSlicesInEditor: 0
   _overrideSplineSettings: 0
   _radius: 50
   _subdivisions: 1
   _featherWaveStart: 0.1
+  _version: 0
+  _windTurbulence: 0.145
   _maxVerticalDisplacement: 10
   _maxHorizontalDisplacement: 15
   _enableBakedCollision: 0
@@ -720,7 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGlobal: 1
+  m_IsGlobal: 1
   priority: 0
   blendDistance: 0
   weight: 1
@@ -735,6 +752,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -863,6 +881,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -1031,50 +1050,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 689932330794810968, guid: 1652698e687333f41a064765912c15fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1091.1
+      value: 1098.7
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 66.6
+      value: -10.7
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 812.6
+      value: 794.3
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97382873
+      value: 0.9649886
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.09963061
+      value: -0.16451655
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.20322171
+      value: -0.20137691
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.020791236
+      value: -0.034331836
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -5.4670005
+      value: -19.35
       objectReference: {fileID: 0}
     - target: {fileID: 689932330794810975, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -23.808
+      value: -23.575
       objectReference: {fileID: 0}
     - target: {fileID: 1472634388493261328, guid: 1652698e687333f41a064765912c15fd,
         type: 3}
@@ -1241,6 +1265,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 830.64, y: 0, z: 1156.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 995304123}
   m_RootOrder: 2
