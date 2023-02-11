@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   type: 1
-  title: test
+  title: TestTape
   description: this is a test
   sprite: {fileID: 0}
   dropObject: {fileID: 0}
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
+  recordingName: 'DAY 0: Test'
   itemToggles:
     isStackable: 0
     isUsable: 0
     isDroppable: 0
   itemSettings:
-    maxStackAmount: 0
+    maxStackAmount: 1

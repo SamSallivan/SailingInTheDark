@@ -11,7 +11,7 @@ public class Trigger_AddWaitRecording : Trigger
     public DialogueData RecordingClip;
     public override IEnumerator TriggerEvent()
     {
-        DialogueManager.instance.WaitlistDialogue(RecordingClip);
+        DialogueManager.instance.WaitlistRecording(RecordingClip);
         yield return null;
     }
 }

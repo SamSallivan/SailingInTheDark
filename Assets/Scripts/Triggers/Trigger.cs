@@ -6,7 +6,6 @@ public abstract class Trigger : MonoBehaviour
 {
     public string targetTag = "Player";
     public bool triggerOnce;
-    public DialogueData recording;
 
     private bool triggered;
 
@@ -16,11 +15,13 @@ public abstract class Trigger : MonoBehaviour
     {
         if (other.CompareTag(targetTag) && !triggered)
         {
-            StartCoroutine(TriggerEvent());
+
             if (triggerOnce)
             {
                 triggered = true;
             }
+
+            StartCoroutine(TriggerEvent());
         }
     }
 }

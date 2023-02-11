@@ -12,38 +12,36 @@ public class DialogueManager : MonoBehaviour
     public List<DialogueData> recordingWaitList;
     public bool radioPaused = true;
     public bool radioInBound;
+    public bool autoUnpause;
     public Coroutine currentCoroutine;
     private void Start()
     {
         instance = this;
     }
 
-    public void OverrideDialogue(DialogueData tempRecording)
+    public void OverrideRecording(DialogueData tempRecording, bool autoUnpause = false)
     {
-        if (currentRecording == null)
+        //Push the current one back in waitlist
+        if (currentRecording != null)
         {
-        }
-        else if (currentRecording != null)
-        {
-            if (currentCoroutine != null)
-            {
-                StopCoroutine(currentCoroutine);
-                StopCurrentClip();
-            }
+            StopCurrentRecordingLine();
             recordingWaitList.Insert(0, currentRecording);
-            interuptedIndex = currentIndex;
         }
 
         if (radioInBound)
         {
             if (!radioPaused)
             {
-                currentCoroutine = StartCoroutine(SubtitleSequence(tempRecording, 0));
+                currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
             }
             else
             {
                 currentRecording = null;
-                recordingWaitList.Insert(0, tempRecording);
+                recordingWaitList.Insert(0, tempRecording); 
+                if (autoUnpause)
+                {
+                    UnpauseRadio();
+                }
             }
         }
         else
@@ -56,19 +54,23 @@ public class DialogueManager : MonoBehaviour
             {
                 currentRecording = null;
                 recordingWaitList.Insert(0, tempRecording);
+                if (autoUnpause)
+                {
+                    this.autoUnpause = true;
+                }
             }
         }
     }
-    public void WaitlistDialogue(DialogueData tempRecording)
+    public void WaitlistRecording(DialogueData tempRecording)
     {
         recordingWaitList.Add(tempRecording);
         if (currentRecording == null && radioInBound && !radioPaused)
         {
-            currentCoroutine = StartCoroutine(SubtitleSequence(tempRecording, 0));
+            currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
         }
     }
 
-    IEnumerator SubtitleSequence(DialogueData tempRecording, int fromLine)
+    IEnumerator PlayRecording(DialogueData tempRecording, int fromLine)
     {
         yield return new WaitWhile(() => radioPaused);
         currentRecording = tempRecording;
@@ -97,7 +99,7 @@ public class DialogueManager : MonoBehaviour
 
         if (recordingWaitList.Count != 0)
         {
-            currentCoroutine = StartCoroutine(SubtitleSequence(recordingWaitList[0], interuptedIndex));
+            currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], interuptedIndex));
             recordingWaitList.RemoveAt(0);
             interuptedIndex = 0;
         }
@@ -109,7 +111,7 @@ public class DialogueManager : MonoBehaviour
         yield return null;
     }
 
-    public void StopCurrentClip()
+    public void StopCurrentRecordingLine()
     {
         if (currentCoroutine != null)
         {
@@ -140,6 +142,9 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void UnpauseRadio(){
+        if (!radioPaused)
+            return;
+
         radioPaused = false;
         if(currentRecording != null)
         {
@@ -147,7 +152,7 @@ public class DialogueManager : MonoBehaviour
         }
         else if (recordingWaitList.Count != 0)
         {
-            currentCoroutine = StartCoroutine(SubtitleSequence(recordingWaitList[0], 0));
+            currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], 0));
         }
         AudioManager.instance.RadioPlayer.UnPause();
     }
@@ -156,9 +161,7 @@ public class DialogueManager : MonoBehaviour
     {
         radioInBound = false;
         if (!radioPaused && currentRecording != null) {
-            StopCoroutine(currentCoroutine);
-            interuptedIndex = currentIndex;
-            StopCurrentClip();
+            StopCurrentRecordingLine();
         }
     }
 
@@ -170,12 +173,17 @@ public class DialogueManager : MonoBehaviour
         {
             if (currentRecording != null)
             {
-                currentCoroutine = StartCoroutine(SubtitleSequence(currentRecording, interuptedIndex));
+                currentCoroutine = StartCoroutine(PlayRecording(currentRecording, interuptedIndex));
             }
             else if (recordingWaitList.Count != 0)
             {
-                currentCoroutine = StartCoroutine(SubtitleSequence(recordingWaitList[0], 0));
+                currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], 0));
             }
+        }
+        else if (autoUnpause)
+        {
+            UnpauseRadio();
+            autoUnpause = false;
         }
     }
 }

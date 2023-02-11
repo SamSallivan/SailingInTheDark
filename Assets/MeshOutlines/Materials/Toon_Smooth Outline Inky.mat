@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Toon_Smooth Outline Inky
   m_Shader: {fileID: 4800000, guid: 3dab8546dd7be9e4aa059b2249566637, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,6 +19,7 @@ Material:
   m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -37,8 +40,8 @@ Material:
     - _Lerp: 1
     - _NOISE: 0
     - _Offset: 4.59
-    - _Outline: 0.467
-    - _OutlineZ: -0.00419
+    - _Outline: 0.11
+    - _OutlineZ: -0.016
     - _Scale: 0.5
     - _Speed: 0
     m_Colors:

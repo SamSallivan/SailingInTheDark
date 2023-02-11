@@ -8,7 +8,9 @@ public class RecordingButton : MonoBehaviour
 
     public void playRecording()
     {
-        DialogueManager.instance.WaitlistDialogue(recording);
+        //DialogueManager.instance.WaitlistDialogue(recording);
+        DialogueManager.instance.OverrideRecording(recording, true);
+        DialogueManager.instance.UnpauseRadio();
     }
 
 }

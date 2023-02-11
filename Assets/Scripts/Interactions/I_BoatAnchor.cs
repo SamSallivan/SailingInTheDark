@@ -4,7 +4,7 @@ using UnityEngine;
 using NWH.DWP2.ShipController;
 using NWH.DWP2.WaterObjects;
 
-public class Interactable_BoatAnchor : Interactable
+public class I_BoatAnchor : Interactable
 {
     public AdvancedShipController boat;
     public WaterObject boatHull;
@@ -41,25 +41,32 @@ public class Interactable_BoatAnchor : Interactable
         UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
         yield return null;
     }
-    void Update(){
+    void FixedUpdate(){
         if (dockable && dockingZone != null && activated)
         {
             //boatHull.calculateWaterHeights = false;
 
-            if (dockingTimer <= 2)
+            if (dockingTimer <= 2.5f)
             {
                 dockingTimer += Time.fixedDeltaTime;
                 Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, boat.transform.position.y, dockingZone.dockingPos.position.z);
                 boat.transform.position = Vector3.Lerp(boat.transform.position, targetpos, dockingTimer / 2);
-                boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, dockingZone.dockingPos.rotation, Time.fixedDeltaTime/2);
+                boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, dockingZone.dockingPos.rotation, Time.fixedDeltaTime * 1.5f);
                 boat.Anchor.AnchorPosition = boat.Anchor.AnchorPoint;
 
-                PlayerController.instance.transform.localPosition = playerPos;
-                //PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, playerPos, Time.fixedDeltaTime * 2);
+                if (dockingTimer <= 1f && PlayerController.instance.transform.parent == BoatController.instance.transform)
+                {
+                    PlayerController.instance.enableMovement = false;
+                    PlayerController.instance.transform.localPosition = playerPos;
+                }
+                else
+                {
+                    PlayerController.instance.enableMovement = true;
+                }
             }
             else
             {
-                //PlayerController.instance.gameObject.transform.parent = null;
+                PlayerController.instance.enableMovement = true;
             }
         }
         else

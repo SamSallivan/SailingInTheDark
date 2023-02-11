@@ -7,15 +7,17 @@ public class I_PauseRadio : Interactable
 {
     public override IEnumerator InteractionEvent()
     {
-        if (!activated)
+        if (DialogueManager.instance.radioPaused)
         {
-            activated = true;
             DialogueManager.instance.UnpauseRadio();
+            activated = false;
+            textPrompt = "Pause";
         }
         else
         {
-            activated = false;
             DialogueManager.instance.PauseRadio();
+            activated = true;
+            textPrompt = "Resume";
         }
         yield return null;
     }

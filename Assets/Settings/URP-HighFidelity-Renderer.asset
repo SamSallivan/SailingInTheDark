@@ -133,6 +133,23 @@ MonoBehaviour:
   m_Name: PixelationRenderFeature
   m_EditorClassIdentifier: 
   m_Active: 0
+--- !u!114 &-2313931482028977375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400dc2baa0a22054cb259512e4ce8907, type: 3}
+  m_Name: '[SCPE] KuwaharaRenderer'
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    injectionPoint: 550
+    alwaysEnable: 0
+    cameraTypes: 5
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +228,7 @@ MonoBehaviour:
   - {fileID: -4817750857416976231}
   - {fileID: -7499076205958870924}
   - {fileID: 4943440636911098935}
+  - {fileID: -2313931482028977375}
   m_RendererFeatureMap: adc0de57c6d2eee554ed2565b4559627e6d7715ff83fb5c2965b699d79b12e727126f06dcce79dc502fb2112b3c23c67371c515b11a19a44
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}

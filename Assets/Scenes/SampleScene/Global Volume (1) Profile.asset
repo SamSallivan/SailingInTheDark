@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Value: 2
   bitsSynced:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 17
   bitsGray:
     m_OverrideState: 0
     m_Value: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
     m_Value: 0
   paletteId:
     m_OverrideState: 1
-    m_Value: 12
+    m_Value: 16
   paletteDelta:
     m_OverrideState: 1
     m_Value: 5
@@ -107,22 +107,22 @@ MonoBehaviour:
     m_Value: 480
   filmgrainOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   filmGrainAmount:
     m_OverrideState: 1
-    m_Value: 0.016
+    m_Value: 0.058
   signalNoiseOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   signalNoiseAmount:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.23
   signalNoisePower:
     m_OverrideState: 1
-    m_Value: 0.83
+    m_Value: 0.849
   lineNoiseOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   lineNoiseAmount:
     m_OverrideState: 1
     m_Value: 1
@@ -131,7 +131,7 @@ MonoBehaviour:
     m_Value: 5
   tapeNoiseOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   tapeNoiseTH:
     m_OverrideState: 1
     m_Value: 0.63
@@ -143,28 +143,28 @@ MonoBehaviour:
     m_Value: 1
   scanLinesOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   scanLineWidth:
     m_OverrideState: 1
     m_Value: 10
   linesFloatOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   linesFloatSpeed:
     m_OverrideState: 1
     m_Value: 1
   stretchOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   jitterHOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   jitterHAmount:
     m_OverrideState: 1
     m_Value: 0.5
   jitterVOn:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   jitterVAmount:
     m_OverrideState: 1
     m_Value: 1

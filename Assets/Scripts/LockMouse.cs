@@ -13,20 +13,33 @@ public class LockMouse : MonoBehaviour
     void Update()
     {
     	// lock when mouse is clicked
-    	if( Input.GetMouseButtonDown(0) && Time.timeScale > 0.0f )
+    	if( Input.GetMouseButtonDown(0) && Time.timeScale > 0.0f && !UIManager.instance.recordingUI.activeInHierarchy)
     	{
     		LockCursor(true);
     	}
+        else
+        {
+            //LockCursor(false);
+        }
     
     	// unlock when escape is hit
-        if  ( Input.GetKeyDown(KeyCode.Escape) )
+        if  ( Input.GetKeyDown(KeyCode.Escape))
         {
-        	LockCursor(!Screen.lockCursor);
+        	//LockCursor(Time.timeScale == 0.0f);
         }
     }
     
     public void LockCursor(bool lockCursor)
     {
-    	Screen.lockCursor = lockCursor;
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
     }
 }

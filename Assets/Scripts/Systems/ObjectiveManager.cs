@@ -10,7 +10,7 @@ public class ObjectiveManager : MonoBehaviour
     public static ObjectiveManager instance;
     public Objective[] ObjectiveArray = new Objective[20];
     public GameObject ObjectivePrefab;
-    public GameObject ObjectiveTransform;
+    public Transform ObjectiveTransform;
 
     private int ObjectiveCount = 0;
     private int ObjectiveSpaceOnScreen = 0;
@@ -28,7 +28,7 @@ public class ObjectiveManager : MonoBehaviour
     public void AddObejctive(string ObjectiveText)
     {
         int objectiveIndex = ObjectiveCount;
-        Objective tempObejctive = Instantiate(ObjectivePrefab, transform).GetComponent<Objective>();
+        Objective tempObejctive = Instantiate(ObjectivePrefab, ObjectiveTransform).GetComponent<Objective>();
         tempObejctive.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, ObjectiveSpaceOnScreen * -25);
         tempObejctive.GetComponent<TMP_Text>().text = ObjectiveText;
         tempObejctive.MyIndex = objectiveIndex;
@@ -49,7 +49,7 @@ public class ObjectiveManager : MonoBehaviour
     public void AddComplexObjective(string MainObjective, string[] SubObjective)
     {
         int objectiveIndex = ObjectiveCount;
-        Objective tempObejctive = Instantiate(ObjectivePrefab, transform).GetComponent<Objective>();
+        Objective tempObejctive = Instantiate(ObjectivePrefab, ObjectiveTransform).GetComponent<Objective>();
         tempObejctive.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, ObjectiveSpaceOnScreen * -25);
         tempObejctive.GetComponent<TMP_Text>().text = MainObjective;
         tempObejctive.MyIndex = objectiveIndex;
@@ -75,7 +75,7 @@ public class ObjectiveManager : MonoBehaviour
     public Objective AddSubObejctive(string ObjectiveText, Objective MainObjective)
     {
         int objectiveIndex = ObjectiveCount;
-        Objective tempObejctive = Instantiate(ObjectivePrefab, transform).GetComponent<Objective>();
+        Objective tempObejctive = Instantiate(ObjectivePrefab, ObjectiveTransform).GetComponent<Objective>();
         tempObejctive.GetComponent<RectTransform>().anchoredPosition += new Vector2(20, ObjectiveSpaceOnScreen * -25);
         tempObejctive.GetComponent<TMP_Text>().fontSize -= 4;
         tempObejctive.GetComponent<TMP_Text>().text = "-" + ObjectiveText;

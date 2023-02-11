@@ -27,6 +27,9 @@ public class ItemData : ScriptableObject
     //[Header("Recording")]
     public DialogueData recording;
 
+    [ConditionalField(nameof(type), false, ItemType.Tape)]
+    public string recordingName;
+
     [Serializable]
     public class Toggles
     {
@@ -46,7 +49,7 @@ public class ItemData : ScriptableObject
     public sealed class Settings
     {
         [Tooltip("How many items can be stored in one item.")]
-        public int maxStackAmount;
+        public int maxStackAmount = 1;
         //[Tooltip("Default Rotation of the examined item.")]
         //public Vector3 examineRotation;
     }
