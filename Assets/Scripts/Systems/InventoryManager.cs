@@ -55,7 +55,10 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inventoryUI.SetActive(Input.GetKeyDown(KeyCode.Tab));
+        inventoryUI.SetActive(Input.GetKey(KeyCode.Tab));
+
+        if (Input.GetKeyDown(KeyCode.P) && inventoryItemList.Count > 0)
+            DropItem(inventoryItemList[0]);
     }
 
     public void AddItem(ItemData itemData, ItemStatus itemStatus)
@@ -70,7 +73,7 @@ public class InventoryManager : MonoBehaviour
         newSlot.GetComponentInChildren<Image>().sprite = itemData.sprite;
     }
 
-    public void RemoveItem(InventoryItem removeMe)
+    public void DropItem(InventoryItem removeMe)
     {
         inventoryItemList.Remove(removeMe);
         Destroy(removeMe.slot.gameObject);
