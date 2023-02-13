@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
-
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct ItemStatus
@@ -15,7 +14,6 @@ public struct ItemStatus
 public class InventorySlot : MonoBehaviour
 {
     public TMP_Text descriptiontext;
-
 }
 
 [System.Serializable]
@@ -49,7 +47,6 @@ public class InventoryManager : MonoBehaviour
     public GameObject slotPrefab;
     public GameObject inventoryUI;
 
-
     void Awake()
     {
         instance = this;
@@ -67,6 +64,9 @@ public class InventoryManager : MonoBehaviour
         //inventoryitemlist[i].itemstatus.amount++
         //elseif new to inventory
             //InventorySlot slot = Instantiate(slotPrefab, Slots[i].transform); ;
-            inventoryItemList.Add(new InventoryItem(itemData, itemStatus));
+
+        inventoryItemList.Add(new InventoryItem(itemData, itemStatus));
+        GameObject newSlot = Instantiate(slotPrefab, inventoryUI.transform);
+        newSlot.GetComponentInChildren<Image>().sprite = itemData.sprite;
     }
 }
