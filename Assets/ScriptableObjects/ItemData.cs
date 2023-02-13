@@ -14,8 +14,6 @@ public class ItemData : ScriptableObject
     {
         Standard,
         Tape,
-
-
     }
     public ItemType type;
     public string title;
