@@ -16,7 +16,8 @@ MonoBehaviour:
   title: TestTape
   description: this is a test
   sprite: {fileID: 21300000, guid: 5913cad140d516946854880b8d8a4a0e, type: 3}
-  dropObject: {fileID: 0}
+  dropObject: {fileID: 787135118462861994, guid: f1ba50e2200f043318c9400a79cf2817,
+    type: 3}
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
   recordingName: 'DAY 0: Test'
   itemToggles:

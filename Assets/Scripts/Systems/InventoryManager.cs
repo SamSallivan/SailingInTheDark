@@ -21,17 +21,12 @@ public class InventoryItem
 {
     public ItemData data;
     public ItemStatus status;
-    public InventorySlot slot;
+    public GameObject slot;
 
     public InventoryItem()
     {
     }
-    public InventoryItem(ItemData data, ItemStatus status)
-    {
-        this.data = data;
-        this.status = status;
-    }
-    public InventoryItem(ItemData data, ItemStatus status, InventorySlot slot)
+    public InventoryItem(ItemData data, ItemStatus status, GameObject slot)
     {
         this.data = data;
         this.status = status;
@@ -66,11 +61,11 @@ public class InventoryManager : MonoBehaviour
         //if exists in inventory
         //inventoryitemlist[i].itemstatus.amount++
         //elseif new to inventory
-            //InventorySlot slot = Instantiate(slotPrefab, Slots[i].transform); ;
+        //InventorySlot slot = Instantiate(slotPrefab, Slots[i].transform); ;
 
-        inventoryItemList.Add(new InventoryItem(itemData, itemStatus));
         GameObject newSlot = Instantiate(slotPrefab, inventoryUI.transform);
         newSlot.GetComponentInChildren<Image>().sprite = itemData.sprite;
+        inventoryItemList.Add(new InventoryItem(itemData, itemStatus, newSlot));
     }
 
     public void DropItem(InventoryItem removeMe)
