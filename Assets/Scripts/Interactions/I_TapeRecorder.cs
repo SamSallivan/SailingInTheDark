@@ -4,9 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Interactable_TapeRecorder : Interactable
+public class I_TapeRecorder : Interactable
 {
-    public Transform playerTargetPos;
+    //public Transform playerTargetPos;
     public LockMouse lockMouse;
     public List<MouseLook> mouseLooks = new List<MouseLook>();
     public RecordingButton recordingButtonClone;

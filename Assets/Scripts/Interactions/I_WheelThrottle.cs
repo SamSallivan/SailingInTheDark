@@ -21,11 +21,12 @@ public class I_WheelThrottle : Interactable
     public float wheelSpeed;
     public float wheelAngle;
     public Transform wheel;
-    public Transform playerTargetPos;
+    public Vector3 playerPos;
 
     public override IEnumerator InteractionEvent()
     {
         activated = !activated;
+        playerPos = PlayerController.instance.transform.localPosition;
         PlayerController.instance.enableMovement = !PlayerController.instance.enableMovement;
         textPrompt = activated ? "Exit" : "Use";
         UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
@@ -36,7 +37,7 @@ public class I_WheelThrottle : Interactable
     {
         if (activated)
         {
-            PlayerController.instance.transform.position = Vector3.Lerp(PlayerController.instance.transform.position, playerTargetPos.position, Time.deltaTime * 5f);
+            PlayerController.instance.transform.localPosition = playerPos;
 
 
             hTemp = 0f;

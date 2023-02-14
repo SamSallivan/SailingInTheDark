@@ -91,15 +91,17 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 	public float damageTimer;
 
-	public Interactable targetInteractable;
+    public Interactable targetInteractable;
 
-/*	public PostProcessVolume volume;
-    public Bloom bloom;
-    public ChromaticAberration ca;
-    public ColorGrading cg;
-    public Vignette vg;*/
+    public float interactDistance = 5;
 
-	public LayerMask interactableLayer;
+    /*	public PostProcessVolume volume;
+        public Bloom bloom;
+        public ChromaticAberration ca;
+        public ColorGrading cg;
+        public Vignette vg;*/
+
+    public LayerMask interactableLayer;
 
 	public SpringJoint frontJoint;
 	public SpringJoint backJoint;
@@ -540,7 +542,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     }
     private void HandleInteractableCheck()
 	{
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, 1000,interactableLayer))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, interactDistance, interactableLayer))
         {
 			Debug.Log(hitInfo.collider.name);
             if (targetInteractable == null || targetInteractable.name != hitInfo.collider.name)

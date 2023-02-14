@@ -53,15 +53,12 @@ public class ItemData : ScriptableObject
         //public Vector3 examineRotation;
     }
     public Settings itemSettings = new Settings();
-    //public UnityEvent Ok;
-    void Start()
-    {
-        
-    }
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+[System.Serializable]
+public struct ItemStatus
+{
+    public int amount;
+    public int durability;
 }
