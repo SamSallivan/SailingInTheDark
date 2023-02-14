@@ -20,6 +20,7 @@ public class ItemData : ScriptableObject
     public string description;
     public Sprite sprite;
     public GameObject dropObject;
+    public GameObject heldObject;
 
     [ConditionalField(nameof(type), false, ItemType.Tape)]
     //[Header("Recording")]

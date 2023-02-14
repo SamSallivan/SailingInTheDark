@@ -41,6 +41,7 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject slotPrefab;
     public GameObject inventoryUI;
+    public GameObject currentItem;
 
     void Awake()
     {
