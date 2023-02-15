@@ -11,7 +11,6 @@ public abstract class Interactable : MonoBehaviour
         OnceOnly,
         Toggle,
         InventoryItem
-
     }
 
     public InteractionType interactionType;
