@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 787135117468841131}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4983003, y: 0.49830022, z: 0.4983003}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 787135118462861997}
@@ -104,8 +104,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.801822, y: 2.1526346, z: 2.8933237}
-  m_Center: {x: 0.17372479, y: 0.57631403, z: -0.28904644}
+  m_Size: {x: 3.5, y: 3.5, z: 3.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &787135117468841133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: ee6e9312d9f41344bb970056b4a1075e, type: 2}
   itemStatus:
     amount: 1
+    durability: 0
   highlightTarget: {fileID: 787135118462861994}
   textName: Tape
   textPrompt: Pickup

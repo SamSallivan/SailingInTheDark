@@ -32,6 +32,7 @@ public class InventoryManager : MonoBehaviour
     public int2 selectedPosition;
     public InventoryItem selectedItem;
     public InventoryItem equippedItem;
+    public Transform holdHeldObject;
 
     public int slotPerRow = 8;
     public int slotPerColumn = 4;
@@ -49,6 +50,22 @@ public class InventoryManager : MonoBehaviour
             activated = !activated;
             UIManager.instance.inventoryUI.SetActive(activated);
             PlayerController.instance.enableMovement = !activated;
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (inventoryItemList.Count > 0)
+            {
+                Destroy(holdHeldObject.GetChild(0).gameObject);
+                GameObject newObject = Instantiate(inventoryItemList[0].data.dropObject, holdHeldObject);
+                newObject.name = inventoryItemList[0].data.dropObject.name;
+                newObject.transform.localPosition = new Vector3(0, 0, 0);
+                newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+                Destroy(newObject.transform.GetChild(0).gameObject);
+                Destroy(newObject.GetComponent<Collider>());
+                Destroy(newObject.GetComponent<Rigidbody>());
+            }
         }
 
         if (activated)
@@ -106,7 +123,7 @@ public class InventoryManager : MonoBehaviour
         newSlot.inventoryItem = newItem;
         newSlot.image.sprite = itemData.sprite;
         newSlot.name.text = itemData.name;
-        newSlot.amount.text = "" + itemStatus.amount;
+        newSlot.amount.text = $"{itemStatus.amount}";
     }
 
     public void DropItem(InventoryItem inventoryItem)
