@@ -6,6 +6,10 @@ using static InventoryManager;
 
 public abstract class Interactable : MonoBehaviour
 {
+    public string textName;
+    public string textPrompt;
+    public GameObject highlightTarget;
+
     public enum InteractionType
     {
         OnceOnly,
@@ -26,11 +30,6 @@ public abstract class Interactable : MonoBehaviour
     [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]
     public ItemStatus itemStatus;
 
-
-    public GameObject highlightTarget;
-    
-    public string textName;
-    public string textPrompt;
 
 
     public abstract IEnumerator InteractionEvent();

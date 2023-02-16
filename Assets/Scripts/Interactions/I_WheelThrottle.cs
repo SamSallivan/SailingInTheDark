@@ -27,9 +27,14 @@ public class I_WheelThrottle : Interactable
     {
         activated = !activated;
         playerPos = PlayerController.instance.transform.localPosition;
-        PlayerController.instance.enableMovement = !PlayerController.instance.enableMovement;
         textPrompt = activated ? "Exit" : "Use";
         UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
+        if (activated){
+            PlayerController.instance.LockMovement(true);
+        }
+        else{
+            PlayerController.instance.LockMovement(false);
+        }
         yield return null;
     }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//[ExecuteInEditMode]
 public class CompassRotate : MonoBehaviour
 {
     public enum CompassType
@@ -36,7 +37,13 @@ public class CompassRotate : MonoBehaviour
                 ref Vector3 reference = ref newRotation;
                 Vector3 eulerAngles = PlayerController.instance.transform.eulerAngles;
                 reference.y = - eulerAngles.y;
-                target.transform.localEulerAngles = newRotation;
+                if (transform.IsChildOf(PlayerController.instance.transform)){
+                    target.transform.localEulerAngles = newRotation;
+                }
+                else{
+                    //target.transform.eulerAngles = new Vector3(target.transform.eulerAngles.x, 0, target.transform.eulerAngles.z);
+                    target.transform.eulerAngles = new Vector3(0, 0, 0);
+                }
                 break;
             case CompassType.test:
                 target.transform.eulerAngles = new Vector3(target.transform.eulerAngles.x, 0, target.transform.eulerAngles.z);

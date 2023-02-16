@@ -32,7 +32,6 @@ public class InventoryManager : MonoBehaviour
     public int2 selectedPosition;
     public InventoryItem selectedItem;
     public InventoryItem equippedItem;
-    public Transform holdHeldObject;
 
     public int slotPerRow = 8;
     public int slotPerColumn = 4;
@@ -40,7 +39,8 @@ public class InventoryManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-    }
+        equippedItem = null;
+}
 
     // Update is called once per frame
     void Update()
@@ -48,66 +48,81 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             activated = !activated;
+            //Time.timeScale = activated ? 0.0f : 1.0f;
+            PlayerController.instance.LockMovement(activated);
+            PlayerController.instance.LockCamera(activated);
             UIManager.instance.inventoryUI.SetActive(activated);
-            PlayerController.instance.enableMovement = !activated;
+            PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(!activated);
+
+            if (equippedItem != null) {
+                selectedPosition = GetGridPosition(equippedItem.slot.GetIndex());
+            }
+            else
+            {
+                selectedPosition = 0;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.P) && equippedItem != null)
         {
-            if (inventoryItemList.Count > 0)
-            {
-                Destroy(holdHeldObject.GetChild(0).gameObject);
-                GameObject newObject = Instantiate(inventoryItemList[0].data.dropObject, holdHeldObject);
-                newObject.name = inventoryItemList[0].data.dropObject.name;
-                newObject.transform.localPosition = new Vector3(0, 0, 0);
-                newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-
-                Destroy(newObject.transform.GetChild(0).gameObject);
-                Destroy(newObject.GetComponent<Collider>());
-                Destroy(newObject.GetComponent<Rigidbody>());
-            }
+            DropItem(equippedItem);
         }
 
         if (activated)
         {
-            selectedPosition.x += Input.GetKeyDown(KeyCode.D) ? 1 : 0;
-            selectedPosition.x -= Input.GetKeyDown(KeyCode.A) ? 1 : 0;
-            if(selectedPosition.x < 0)
-            {
-                selectedPosition.x = slotPerRow-1;
-            }
-            if (selectedPosition.x > slotPerRow-1)
-            {
-                selectedPosition.x = 0;
-            }
-            selectedPosition.y += Input.GetKeyDown(KeyCode.S) ? 1 : 0;
-            selectedPosition.y -= Input.GetKeyDown(KeyCode.W) ? 1 : 0;
-            if (selectedPosition.y < 0)
-            {
-                selectedPosition.y = slotPerColumn - 1;
-            }
-            if (selectedPosition.y > slotPerColumn - 1)
-            {
-                selectedPosition.y = 0;
-            }
-            selectedIndex = GetGridIndex(selectedPosition);
+            SelectItem();
 
-            for (int i = 0; i < UIManager.instance.inventoryBackGrid.transform.childCount; i++)
-            {
-                UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetComponent<Image>().color = Color.white;
-            }
-            UIManager.instance.inventoryBackGrid.transform.GetChild(selectedIndex).GetComponent<Image>().color = Color.red;
-
-            if (UIManager.instance.inventoryItemGrid.transform.childCount >= selectedIndex)
+            if (UIManager.instance.inventoryItemGrid.transform.childCount > selectedIndex)
             {
                 selectedItem = UIManager.instance.inventoryItemGrid.transform.GetChild(selectedIndex).GetComponent<InventorySlot>().inventoryItem;
-                if (Input.GetKeyDown(KeyCode.P) && inventoryItemList.Count > 0)
-                    DropItem(selectedItem);
-            }
 
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    EquipItem(selectedItem);
+                }
+                if (Input.GetKeyDown(KeyCode.P) )
+                {
+                    DropItem(selectedItem);
+                }
+            }
+            else
+            {
+                selectedItem = null;
+            }
 
         }
 
+    }
+
+    public void SelectItem()
+    {
+        selectedPosition.x += Input.GetKeyDown(KeyCode.D) ? 1 : 0;
+        selectedPosition.x -= Input.GetKeyDown(KeyCode.A) ? 1 : 0;
+        if (selectedPosition.x < 0)
+        {
+            selectedPosition.x = slotPerRow - 1;
+        }
+        if (selectedPosition.x > slotPerRow - 1)
+        {
+            selectedPosition.x = 0;
+        }
+        selectedPosition.y += Input.GetKeyDown(KeyCode.S) ? 1 : 0;
+        selectedPosition.y -= Input.GetKeyDown(KeyCode.W) ? 1 : 0;
+        if (selectedPosition.y < 0)
+        {
+            selectedPosition.y = slotPerColumn - 1;
+        }
+        if (selectedPosition.y > slotPerColumn - 1)
+        {
+            selectedPosition.y = 0;
+        }
+        selectedIndex = GetGridIndex(selectedPosition);
+
+        for (int i = 0; i < UIManager.instance.inventoryBackGrid.transform.childCount; i++)
+        {
+            UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetComponent<Image>().color = Color.grey;
+        }
+        UIManager.instance.inventoryBackGrid.transform.GetChild(selectedIndex).GetComponent<Image>().color = Color.white;
     }
 
     public void AddItem(ItemData itemData, ItemStatus itemStatus)
@@ -134,27 +149,71 @@ public class InventoryManager : MonoBehaviour
             {
                 inventoryItem.status.amount--;
                 inventoryItem.slot.amount.text = "" + inventoryItem.status.amount;
-                GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + Vector3.forward, PlayerController.instance.tHead.transform.rotation);
+                GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
+
             }
             else
             {
                 inventoryItemList.Remove(inventoryItem);
                 Destroy(inventoryItem.slot.gameObject);
-                GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + Vector3.forward, PlayerController.instance.tHead.transform.rotation);
+                GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
+                if (equippedItem == inventoryItem)
+                {
+                    UnequipItem();
+                }
             }
         }
         else
         {
             inventoryItemList.Remove(inventoryItem);
             Destroy(inventoryItem.slot.gameObject);
-            GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + Vector3.forward, PlayerController.instance.tHead.transform.rotation);
+            GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
             droppdeObject.GetComponentInChildren<I_InventoryItem>().itemStatus = inventoryItem.status;
+            if (equippedItem == inventoryItem)
+            {
+                UnequipItem();
+            }
         }
     }
 
+    public void EquipItem(InventoryItem inventoryItem)
+    {
+        if (equippedItem == inventoryItem)
+        {
+            UnequipItem();
+        }
+        else
+        {
+            if (PlayerController.instance.equippedTransform.childCount > 0)
+            {
+                Destroy(PlayerController.instance.equippedTransform.GetChild(0).gameObject);
+            }
+            equippedItem = inventoryItem;
+            GameObject newObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.equippedTransform);
+            newObject.name = inventoryItem.data.dropObject.name + " Equipped";
+            newObject.transform.localPosition = new Vector3(0, 0, 0);
+           // newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+            //Destroy(newObject.transform.GetChild(0).gameObject);
+            Destroy(newObject.transform.GetComponentInChildren<Interactable>());
+            Destroy(newObject.GetComponent<Collider>());
+            Destroy(newObject.GetComponent<Rigidbody>());
+        }
+    }
+
+    public void UnequipItem()
+    {
+        equippedItem = null;
+        if (PlayerController.instance.equippedTransform.childCount > 0)
+        {
+            Destroy(PlayerController.instance.equippedTransform.GetChild(0).gameObject);
+        }
+    }
+
+
     public int2 GetGridPosition(int index)
     {
-        return(new int2(index/ slotPerRow + 1, index% slotPerRow));
+        return(new int2(index% slotPerRow, index / slotPerRow));
     }
     public int GetGridIndex(int2 position)
     {

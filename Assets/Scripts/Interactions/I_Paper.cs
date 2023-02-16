@@ -5,7 +5,6 @@ using TMPro;
 
 public class I_Paper : Interactable
 {
-    public TMP_Text paper;
 
     public override IEnumerator InteractionEvent()
     {
@@ -14,11 +13,25 @@ public class I_Paper : Interactable
             //InventoryManager.instance.AddItem(itemData, itemStatus);
             //Destroy(highlightTarget.gameObject);
             activated = !activated;
-            PlayerController.instance.enableMovement = !PlayerController.instance.enableMovement;
+            //Time.timeScale = activated ? 0.0f : 1.0f;
+            PlayerController.instance.LockMovement(activated);
+            PlayerController.instance.LockCamera(activated);
 
-            paper.transform.parent.gameObject.SetActive(activated);
-            paper.text = itemData.description;
+            UIManager.instance.paperUI.SetActive(activated);
+            UIManager.instance.paperText.text = itemStatus.text;
+            ObjectiveManager.instance.CompleteObjetive("Read Paper");
         }
         yield return null;
     }
+    private void Update()
+    {
+        if (activated)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                StartCoroutine(InteractionEvent());
+            }
+        }
+    }
+
 }

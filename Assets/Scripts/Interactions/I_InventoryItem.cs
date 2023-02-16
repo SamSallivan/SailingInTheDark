@@ -10,7 +10,8 @@ public class I_InventoryItem : Interactable
         if(itemData != null)
         {
             InventoryManager.instance.AddItem(itemData, itemStatus);
-            Destroy(highlightTarget.gameObject);
+            Destroy(transform.parent.gameObject);
+            UnTarget();
         }
         yield return null; 
     }

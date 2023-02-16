@@ -22,7 +22,7 @@ public class ObjectiveManager : MonoBehaviour
         AddComplexObjective("Spell Gun!", new string[] { "Press 'G' ", "Press 'U' ", "Press 'N' " });
         AddObejctive("Press 'P' for pun!");
         AddObejctive("Press 'Z' for zun!");*/
-        AddObejctive("Turn on boat engine");
+        AddObejctive("Read Paper");
     }
 
     public void AddObejctive(string ObjectiveText)

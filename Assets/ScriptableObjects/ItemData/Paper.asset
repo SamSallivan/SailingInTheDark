@@ -23,6 +23,6 @@ MonoBehaviour:
   itemToggles:
     isStackable: 0
     isUsable: 1
-    isDroppable: 0
+    isDroppable: 1
   itemSettings:
     maxStackAmount: 1

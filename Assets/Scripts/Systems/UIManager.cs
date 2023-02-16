@@ -11,18 +11,18 @@ public class UIManager : MonoBehaviour
 
     public TMP_Text interactionName;
     public TMP_Text interactionPrompt;
-    public AudioSource audioSource;
 
-    public TMP_Text subtitlePlayer;
+    public TMP_Text subtitleUI;
     public GameObject inventoryUI;
     public GameObject inventoryItemGrid;
     public GameObject inventoryBackGrid;
     public GameObject recordingUI;
+    public GameObject paperUI;
+    public TMP_Text paperText;
 
     void Awake()
     {
         instance = this;
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,10 +48,10 @@ public class UIManager : MonoBehaviour
         }
 
         float subtitleFadeDuration = 0.5f;
-        subtitlePlayer.DOFade(0, subtitleFadeDuration).OnComplete(() =>
+        subtitleUI.DOFade(0, subtitleFadeDuration).OnComplete(() =>
         {
-            subtitlePlayer.text = name + ": " + tempSubtitle;
-            subtitlePlayer.DOFade(1, subtitleFadeDuration);
+            subtitleUI.text = name + ": " + tempSubtitle;
+            subtitleUI.DOFade(1, subtitleFadeDuration);
         }
         );
     }
@@ -59,14 +59,14 @@ public class UIManager : MonoBehaviour
     public void FadeOutSubtitle()
     {
         float subtitleFadeDuration = 0.5f;
-        subtitlePlayer.DOFade(0, subtitleFadeDuration);
+        subtitleUI.DOFade(0, subtitleFadeDuration);
     }
 
     public void ClearSubtitle()
     {
-        subtitlePlayer.DOFade(0, 0.5f).OnComplete(() =>
+        subtitleUI.DOFade(0, 0.5f).OnComplete(() =>
         {
-            subtitlePlayer.text = "";
+            subtitleUI.text = "";
         }
         );
     }

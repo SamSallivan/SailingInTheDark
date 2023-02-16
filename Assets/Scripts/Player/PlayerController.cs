@@ -19,67 +19,69 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 	public Transform tHead;
 
-	public Rigidbody rb;
+    public Transform equippedTransform;
 
-	public CapsuleCollider playerCollider;
+    public Rigidbody rb;
 
-	//public PlayerDecapitate playerDecapitate;
+    private CapsuleCollider playerCollider;
 
-	public Grounder grounder;
+    //public PlayerDecapitate playerDecapitate;
 
-	//public PlayerSlide slide;
+    private Grounder grounder;
 
-	//public PlayerDash dash;
+    //public PlayerSlide slide;
 
-	//public MouseLook mouseLook;
+    //public PlayerDash dash;
 
-	public CameraBob bob;
+    //public MouseLook mouseLook;
 
-	public HeadPosition headPosition;
+    private CameraBob bob;
 
-	public float hTemp;
+    public HeadPosition headPosition;
 
-	public float vTemp;
+    private float hTemp;
 
-	public float h;
+    private float vTemp;
 
-	public float v;
+    private float h;
+
+    private float v;
 
 	public float speed = 1f;
 
-	public Vector3 inputDir;
+    private Vector3 inputDir;
 
-	public Vector3 vel;
+    public Vector3 vel;
 
-	public Vector3 gVel;
+    private Vector3 gVel;
 
-	public Vector3 gDir;
+    private Vector3 gDir;
 
-	public Vector3 gDirCross;
+    private Vector3 gDirCross;
 
-	public Vector3 gDirCrossProject;
+    private Vector3 gDirCrossProject;
 
-	public RaycastHit hit;
+    private RaycastHit hit;
 
-	public float airControl = 1f;
+    private float airControl = 1f;
 
-	public float airControlBlockTimer;
+    private float airControlBlockTimer;
 
 	public Vector3 jumpForce = new Vector3(0f, 15f, 0f);
 
-	public float gTimer;
+    public float gTimer;
 
 	public float gravity = -40f;
 
-	public int climbState;
+    private int climbState;
 
-	public float climbTimer;
+    private float climbTimer;
 
-	public Vector3 climbStartPos;
+    private Vector3 climbStartPos;
 
-	public Vector3 climbStartDir;
+    private Vector3 climbStartDir;
 
-	public Vector3 climbTargetPos;
+    private Vector3 climbTargetPos;
 
 	public AnimationCurve climbCurve;
 
@@ -89,9 +91,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 	public bool extraUpForce;
 
-	public float damageTimer;
+    private float damageTimer;
 
-    public Interactable targetInteractable;
+    private Interactable targetInteractable;
 
     public float interactDistance = 5;
 
@@ -113,7 +115,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		instance = this;
 		t = base.transform;
 		tHead = t.Find("Head Pivot").transform;
-		rb = GetComponent<Rigidbody>();
+        //equippedTransform = tHead.Find("Equip Pivot").transform;
+        rb = GetComponent<Rigidbody>();
 		playerCollider = GetComponent<CapsuleCollider>();
 		grounder = GetComponent<Grounder>();
 		//slide = GetComponent<PlayerSlide>();
@@ -299,7 +302,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	{	//if climbing, or no surface to climb up to, or surface too low, or obsticle on top of landing spot, too close to ground
 		//no climbing
 		if (climbState > 0
-			|| !Physics.Raycast(t.position + Vector3.up * 1.5f + tHead.forward * 2f, Vector3.down, out hit, 4f, 1)
+			|| !Physics.Raycast(t.position + Vector3.up * 3f + tHead.forward * 2f, Vector3.down, out hit, 4f, 1)
 			|| !(hit.point.y + 1f > t.position.y)
 			|| Physics.Raycast(new Vector3(t.position.x, hit.point.y + 1f, t.position.z), tHead.forward.normalized, 2f, 1) 
 			|| Physics.Raycast(t.position, Vector3.down, 1.5f, 1)
@@ -357,34 +360,41 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 	private void InputUpdate()
 	{
-
-		vTemp = 0f;
-		vTemp += (Input.GetKey(KeyCode.W) ? 1 : 0);
-		vTemp += (Input.GetKey(KeyCode.S) ? (-1) : 0);
-		hTemp = 0f;
-		hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
-		hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
-		v = vTemp;
-		h = hTemp;
-
-		inputDir.x = h;
-		inputDir.y = 0f;
-		inputDir.z = v;
-		inputDir = inputDir.normalized;
-
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (enableMovement)
 		{
-			JumpOrClimb();
-		}
+			vTemp = 0f;
+			vTemp += (Input.GetKey(KeyCode.W) ? 1 : 0);
+			vTemp += (Input.GetKey(KeyCode.S) ? (-1) : 0);
+			hTemp = 0f;
+			hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
+			hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
+			v = vTemp;
+			h = hTemp;
 
-		if (Input.GetKeyDown(KeyCode.LeftShift))
-		{
-			//slide.Slide();
+			inputDir.x = h;
+			inputDir.y = 0f;
+			inputDir.z = v;
+			inputDir = inputDir.normalized;
+
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				JumpOrClimb();
+			}
+
+			if (Input.GetKeyDown(KeyCode.LeftShift))
+			{
+				//slide.Slide();
+			}
+			if (Input.GetKeyDown(KeyCode.E))
+			{
+				//dash.Dash();
+			}
 		}
-		if (Input.GetKeyDown(KeyCode.E))
+		else
 		{
-			//dash.Dash();
-		}
+			inputDir = Vector3.zero;
+
+        }
 
 	}
 
@@ -396,7 +406,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         //if (slide.slideState == 0 && !rb.isKinematic)
         {
 
-            bob.Angle(h * -4f - damageTimer * 3f);
+            bob.Angle(inputDir.x * -4f - damageTimer * 3f);
 		}
 
         //applies camera bob when grounded, walking, and not sliding
@@ -422,16 +432,13 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     
 	private void Update()
 	{
-		if (enableMovement)
-		{
-			InputUpdate();
-			BobUpdate();
-		}
+		InputUpdate();
+        BobUpdate();
+        headPosition.PositionUpdate();
 
         HandleInteractableCheck();
 		HandleInteraction();
 
-		headPosition.PositionUpdate();
 
 		if (climbState > 0)
 		{
@@ -544,7 +551,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	{
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, interactDistance, interactableLayer))
         {
-			Debug.Log(hitInfo.collider.name);
+			//Debug.Log(hitInfo.collider.name);
             if (targetInteractable == null || targetInteractable.name != hitInfo.collider.name)
             {
 				if (targetInteractable != null && targetInteractable.name != hitInfo.collider.name)
@@ -553,7 +560,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
                 }
 
                 targetInteractable = hitInfo.collider.GetComponent<Interactable>();
-                targetInteractable.Target();
+				if (targetInteractable != null)
+				{
+					targetInteractable.Target();
+				}
             }
         }
         else if (targetInteractable != null)
@@ -579,6 +589,15 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	public void UntetherFromBoat(){
 		frontJoint.spring = 0;
 		backJoint.spring = 0;
-		
-	}
+    }
+    public void LockMovement(bool state)
+    {
+		enableMovement = !state;
+    }
+
+    public void LockCamera(bool state)
+    {
+		GetComponent<MouseLook>().enabled = !state;
+        tHead.GetComponent<MouseLook>().enabled = !state;
+    }
 }

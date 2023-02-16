@@ -104,7 +104,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5, y: 3.5, z: 3.5}
+  m_Size: {x: 4.43, y: 2.73, z: 0.58}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &787135117468841133
 MonoBehaviour:
@@ -118,6 +118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423cd0cb80b62614db80d064f8a87f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textName: Tape
+  textPrompt: Pickup
+  highlightTarget: {fileID: 787135118462861994}
   interactionType: 2
   interacted: 0
   activated: 0
@@ -125,9 +128,7 @@ MonoBehaviour:
   itemStatus:
     amount: 1
     durability: 0
-  highlightTarget: {fileID: 787135118462861994}
-  textName: Tape
-  textPrompt: Pickup
+    text: 
 --- !u!1 &787135118462861994
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,9 +138,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787135118462861997}
-  - component: {fileID: 787135118462861998}
+  - component: {fileID: 6031609714405361452}
   - component: {fileID: 787135118462861999}
-  - component: {fileID: 787135118462861996}
+  - component: {fileID: 3845496386255917567}
   - component: {fileID: 787135118462862001}
   m_Layer: 0
   m_Name: Tape Test
@@ -155,23 +156,23 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787135118462861994}
-  m_LocalRotation: {x: -0, y: 0.8381304, z: -0, w: 0.5454699}
-  m_LocalPosition: {x: -0.49594498, y: 4.613638, z: -21.62464}
-  m_LocalScale: {x: 0.9732485, y: 0.97324854, z: 0.97324806}
+  m_LocalRotation: {x: 0.2432104, y: 0.33036605, z: -0.08852133, w: 0.9076734}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 787135117468841130}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &787135118462861998
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 30, y: 40, z: 0}
+--- !u!33 &6031609714405361452
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787135118462861994}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 2384419390186911481, guid: c36ab832931cade45b1f205646952af4, type: 3}
 --- !u!23 &787135118462861999
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -192,7 +193,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 92ba4ae6f8e43e0498a974682c1dbdb6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -214,8 +215,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &787135118462861996
-BoxCollider:
+--- !u!64 &3845496386255917567
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -232,9 +233,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2384419390186911481, guid: c36ab832931cade45b1f205646952af4, type: 3}
 --- !u!54 &787135118462862001
 Rigidbody:
   m_ObjectHideFlags: 0

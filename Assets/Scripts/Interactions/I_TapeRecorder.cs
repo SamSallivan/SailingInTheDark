@@ -8,13 +8,15 @@ public class I_TapeRecorder : Interactable
 {
     //public Transform playerTargetPos;
     public LockMouse lockMouse;
-    public List<MouseLook> mouseLooks = new List<MouseLook>();
     public RecordingButton recordingButtonClone;
 
     public override IEnumerator InteractionEvent()
     {
         activated = !activated;
-        PlayerController.instance.enableMovement = !PlayerController.instance.enableMovement;
+        //Time.timeScale = activated ? 0.0f : 1.0f;
+        PlayerController.instance.LockMovement(activated);
+        PlayerController.instance.LockCamera(activated);
+
         textPrompt = activated ? "Exit" : "Use";
         UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
         UIManager.instance.recordingUI.SetActive(activated);
@@ -30,8 +32,6 @@ public class I_TapeRecorder : Interactable
             //Time.timeScale = 1;
             lockMouse.LockCursor(true);
         }
-        for (int i = 0; i < mouseLooks.Count; i++)
-            mouseLooks[i].enabled = !mouseLooks[i].enabled;
         yield return null;
     }
 

@@ -28,18 +28,19 @@ public class MouseLook : MonoBehaviour
  
 	float rotationX = 0F;
 	float rotationY = 0F;
- 
-	private List<float> rotArrayX = new List<float>();
-	float rotAverageX = 0F;	
+
+    private List<float> rotArrayX = new List<float>();
+    public float rotAverageX = 0F;	
  
 	private List<float> rotArrayY = new List<float>();
 	float rotAverageY = 0F;
  
 	public float framesOfSmoothing = 5;
- 
-	Quaternion originalRotation;
 
     Quaternion originalLocalRotation;
+
+    Quaternion originalRotation;
+
 
     void Start ()
 	{			
@@ -75,7 +76,8 @@ public class MouseLook : MonoBehaviour
 			rotAverageX = ClampAngle(rotAverageX, minimumX, maximumX);
  
 			Quaternion xQuaternion = Quaternion.AngleAxis (rotAverageX, Vector3.up);
-			transform.rotation = originalRotation * xQuaternion;			
+            //transform.localRotation = originalLocalRotation * xQuaternion;
+            transform.rotation = originalRotation * xQuaternion;			
 		}
 		else
 		{			

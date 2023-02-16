@@ -62,4 +62,6 @@ public struct ItemStatus
 {
     public int amount;
     public int durability;
+    [TextArea(15, 20)]
+    public string text;
 }

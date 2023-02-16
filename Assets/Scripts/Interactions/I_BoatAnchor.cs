@@ -66,7 +66,7 @@ public class I_BoatAnchor : Interactable
             }
             else
             {
-                PlayerController.instance.enableMovement = true;
+                //PlayerController.instance.enableMovement = true;
             }
         }
         else
