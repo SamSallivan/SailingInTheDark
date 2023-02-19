@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 7596440030481567831}
   - component: {fileID: 7596440030481567828}
   m_Layer: 7
-  m_Name: Cylinder (2)
+  m_Name: Interact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -777,7 +777,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.25, y: 0.1, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
@@ -795,15 +795,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textName: Compass
   textPrompt: Pick Up
-  highlightTarget: {fileID: 5946243400117929435}
+  textPromptActivated: 
+  highlightTarget: {fileID: 7596440031121015847}
   interactionType: 2
-  interacted: 0
-  activated: 0
+  onceOnly: 0
+  interactedOnce: 0
+  examineText: 
   itemData: {fileID: 11400000, guid: 08e9a20b035f3ec45b64044d61473f13, type: 2}
   itemStatus:
-    amount: 0
+    amount: 1
     durability: 0
-    text: 
+  openInventory: 0
+  activated: 0
+  allowOtherInteraction: 0
 --- !u!1 &7596440031121015847
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,8 +836,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7596440031121015847}
-  m_LocalRotation: {x: -0.10324144, y: 0.016351843, z: 0.15557754, w: 0.9822777}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.15967344, y: 0.042113025, z: 0.25152275, w: 0.9536599}
+  m_LocalPosition: {x: -0.6399698, y: 4.49, z: -25.509}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -841,8 +845,8 @@ Transform:
   - {fileID: 4325376271472546282}
   - {fileID: 7596440029704841391}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -12, y: 0, z: 18}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: -19.01, y: 0, z: 29.55}
 --- !u!33 &7596440031121015771
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -907,6 +911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   target: {fileID: 7596440029704841391}
+  perspectiveAdjustment: 0
 --- !u!54 &7596440031121015770
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -436,9 +436,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         BobUpdate();
         headPosition.PositionUpdate();
 
-        HandleInteractableCheck();
-		HandleInteraction();
-
+		if(UIManager.instance.gameplayUI.activeInHierarchy){
+            HandleInteractableCheck();
+		    HandleInteraction();
+        }
 
 		if (climbState > 0)
 		{
@@ -600,4 +601,6 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		GetComponent<MouseLook>().enabled = !state;
         tHead.GetComponent<MouseLook>().enabled = !state;
     }
+
+
 }

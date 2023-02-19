@@ -218,18 +218,17 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
   - {fileID: 2852561647265246548}
+  - {fileID: -1046950117741300319}
   - {fileID: -4416553523581167642}
   - {fileID: 8227708705142561686}
-  - {fileID: -4206951611690375567}
   - {fileID: 7439034758868368130}
-  - {fileID: 5025361728655610113}
   - {fileID: -6944581970782544743}
   - {fileID: -5759338789419494917}
   - {fileID: -4817750857416976231}
   - {fileID: -7499076205958870924}
   - {fileID: 4943440636911098935}
   - {fileID: -2313931482028977375}
-  m_RendererFeatureMap: adc0de57c6d2eee554ed2565b4559627e6d7715ff83fb5c2965b699d79b12e727126f06dcce79dc502fb2112b3c23c67371c515b11a19a44
+  m_RendererFeatureMap: adc0de57c6d2eee554ed2565b4559627a1f579366a7c78f1e6d7715ff83fb5c2965b699d79b12e7202fb2112b3c23c67999cecd57de39f9ffbd185a3e2b712b099d853e71ee923bd74c83c28eceded97371c515b11a19a4421d311ab9343e3df
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -311,48 +310,6 @@ MonoBehaviour:
   m_Active: 1
   settings:
     renderPassEvent: 550
---- !u!114 &5025361728655610113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
-  m_Name: RenderObjects
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    passTag: RenderObjects
-    Event: 500
-    filterSettings:
-      RenderQueueType: 0
-      LayerMask:
-        serializedVersion: 2
-        m_Bits: 64
-      PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: e22eafd5f1f038f4fa1a79ec070ed243, type: 2}
-    overrideMaterialPassIndex: 0
-    overrideShader: {fileID: 0}
-    overrideShaderPassIndex: 0
-    overrideMode: 1
-    overrideDepthState: 0
-    depthCompareFunction: 4
-    enableWrite: 1
-    stencilSettings:
-      overrideStencilState: 0
-      stencilReference: 0
-      stencilCompareFunction: 8
-      passOperation: 0
-      failOperation: 0
-      zFailOperation: 0
-    cameraSettings:
-      overrideCamera: 0
-      restoreCamera: 1
-      offset: {x: 0, y: 0, z: 0, w: 0}
-      cameraFieldOfView: 60
 --- !u!114 &7439034758868368130
 MonoBehaviour:
   m_ObjectHideFlags: 0

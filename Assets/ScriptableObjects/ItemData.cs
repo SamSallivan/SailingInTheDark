@@ -14,46 +14,45 @@ public class ItemData : ScriptableObject
     {
         Standard,
         Tape,
-        Paper
+        Upgrade
     }
+    [Foldout("Base Info", true)]
+
     public ItemType type;
     public string title;
-    public string description;
     public Sprite sprite;
-    public GameObject dropObject;
-    public GameObject heldObject;
-
-    [ConditionalField(nameof(type), false, ItemType.Tape)]
-    //[Header("Recording")]
-    public DialogueData recording;
+    [TextArea(5, 5)]
+    public string description;
 
     [ConditionalField(nameof(type), false, ItemType.Tape)]
     public string recordingName;
 
-    [Serializable]
-    public class Toggles
-    {
-        [Tooltip("Item can be stored in one item depending on the MaxStackAmount.")]
-        public bool isStackable;
-        [Tooltip("Item can be used from inventory.")]
-        public bool isUsable;
-        [Tooltip("Item can be dropped to the ground.")]
-        public bool isDroppable;
+    [ConditionalField(nameof(type), false, ItemType.Tape)]
+    public DialogueData recording;
 
-        //[Tooltip("Item can be examined from the inventory.")]
-        //public bool canExamine;
-    }
-    public Toggles itemToggles = new Toggles();
+    //[Header("Recording")]
+    [Foldout("Settings", true)]
+    
+    public bool isStackable;
+    [ConditionalField(nameof(isStackable))]
+    public int maxStackAmount = 1;
 
-    [Serializable]
-    public sealed class Settings
-    {
-        [Tooltip("How many items can be stored in one item.")]
-        public int maxStackAmount = 1;
-        //[Tooltip("Default Rotation of the examined item.")]
-        //public Vector3 examineRotation;
-    }
-    public Settings itemSettings = new Settings();
+    public bool isEquippable;
+    [ConditionalField(nameof(isEquippable))]
+    public GameObject equipObject;
+
+    public bool isDroppable;
+    [ConditionalField(nameof(isDroppable))]
+    public GameObject dropObject;
+
+    public bool isExaminable;
+
+    [ConditionalField(nameof(isExaminable))]
+    public bool isReadable;
+    [ConditionalField(nameof(isReadable))]
+    [TextArea(10, 10)]
+    public string readText;
+
 }
 
 
@@ -62,6 +61,4 @@ public struct ItemStatus
 {
     public int amount;
     public int durability;
-    [TextArea(15, 20)]
-    public string text;
 }

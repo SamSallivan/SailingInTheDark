@@ -2,54 +2,104 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MyBox;
+using UnityEngine.Events;
 using static InventoryManager;
+using System;
+using TMPro;
 
-public abstract class Interactable : MonoBehaviour
+public enum InteractionType
 {
+    None = 0,
+    Examine = 1,
+    InventoryItem = 2,
+    ExamineAndInventory = 3,
+    CustomToggle = 4,
+}
+
+[Serializable]
+public class MyEvent : UnityEvent<string, GameObject> { }
+
+public class Interactable : MonoBehaviour
+{
+
+    //[Separator("Base Info")]
+    [Foldout("Base Info", true)]
     public string textName;
+
+    [ConditionalField(nameof(interactionType), true, InteractionType.None)]
     public string textPrompt;
+
+    [ConditionalField(nameof(interactionType), false, InteractionType.CustomToggle)]
+    public string textPromptActivated;
+
     public GameObject highlightTarget;
 
-    public enum InteractionType
-    {
-        OnceOnly,
-        Toggle,
-        InventoryItem
-    }
 
+
+    [Foldout("Settings", true)]
     public InteractionType interactionType;
 
-    [ConditionalField(nameof(interactionType), false,InteractionType.OnceOnly)]
-    public bool interacted;
+    [ConditionalField(nameof(interactionType), false, InteractionType.Examine, InteractionType.CustomToggle)]
+    public bool onceOnly;
 
-    [ConditionalField(nameof(interactionType), false, InteractionType.Toggle)]
-    public bool activated;
+    [ConditionalField(nameof(onceOnly))]
+    [ReadOnly]
+    public bool interactedOnce;
+    
+    [ConditionalField(nameof(interactionType), false, InteractionType.Examine, InteractionType.ExamineAndInventory)]
+    //public bool hasText;
+    //[ConditionalField(nameof(hasText))]
+    [TextArea(10, 10)]
+    public string examineText;
 
-    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem, InteractionType.ExamineAndInventory)]
     public ItemData itemData;
-    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem, InteractionType.ExamineAndInventory)]
     public ItemStatus itemStatus;
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem, InteractionType.ExamineAndInventory)]
+    public bool openInventory;
+
+    [ConditionalField(nameof(interactionType), false, InteractionType.CustomToggle)]
+    [ReadOnly]
+    public bool activated;
+    [ConditionalField(nameof(interactionType), false, InteractionType.CustomToggle)]
+    public bool allowOtherInteraction;
 
 
-
-    public abstract IEnumerator InteractionEvent();
-
-    public virtual void Start()
+    public virtual IEnumerator InteractionEvent()
     {
-        if (highlightTarget == null)
-        {
-            //highlightTarget = this.gameObject;
-        }
+        yield break;
     }
 
     public virtual void Interact()
     {
-        if (!interacted)
+
+        if (!interactedOnce)
         {
-            StartCoroutine(InteractionEvent());
-            if (interactionType == InteractionType.OnceOnly)
+            switch (interactionType)
             {
-                interacted = true;
+                case InteractionType.None:
+                    break;
+
+                case InteractionType.Examine:
+                    StartCoroutine(InteractionEvent());
+                    break;
+
+                case InteractionType.InventoryItem:
+                    StartCoroutine(InteractionEvent());
+                    break;
+                    
+                case InteractionType.CustomToggle:
+                    activated = !activated;
+                    StartCoroutine(InteractionEvent());
+                    UIManager.instance.interactionPrompt.text = "[E] ";
+                    UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+                    break;
+            }
+
+            if (onceOnly)
+            {
+                interactedOnce = true;
             }
         }
     }
@@ -58,33 +108,34 @@ public abstract class Interactable : MonoBehaviour
     {
         if (highlightTarget != null)
         {
-            highlightTarget.layer = 6;
+            OutlineRenderer outline = highlightTarget.AddComponent<OutlineRenderer>();
+            outline.OutlineMode = OutlineRenderer.Mode.OutlineVisible;
+            outline.OutlineWidth = 10;
         }
         UIManager.instance.interactionName.text = textName;
         //UI.instance.interactionPrompt.text = textPrompt;
 
-        if (textPrompt != "")
+        if (textPrompt != "" && interactionType != InteractionType.None)
         {
-            UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
+            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
             //enable button prompt image instead
         }
     }
+
     public void UnTarget()
     {
         if (highlightTarget != null)
         {
-            highlightTarget.layer = 0;
+            Destroy(highlightTarget.GetComponent<OutlineRenderer>());
         }
         UIManager.instance.interactionName.text = "";
         UIManager.instance.interactionPrompt.text = "";
         //disable button prompt image here
     }
 
-    public virtual void SetTargetHighlight(bool highlighted)
+    public virtual void ShutDown()
     {
-        if (highlightTarget != null)
-        {
-            highlightTarget.SetActive(highlighted);
-        }
+
     }
 }

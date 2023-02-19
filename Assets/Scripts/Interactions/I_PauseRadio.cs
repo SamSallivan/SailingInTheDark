@@ -11,13 +11,11 @@ public class I_PauseRadio : Interactable
         {
             DialogueManager.instance.UnpauseRadio();
             activated = false;
-            textPrompt = "Pause";
         }
         else
         {
             DialogueManager.instance.PauseRadio();
             activated = true;
-            textPrompt = "Resume";
         }
         yield return null;
     }

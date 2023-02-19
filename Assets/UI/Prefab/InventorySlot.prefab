@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7333259136997618107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -281,7 +281,6 @@ MonoBehaviour:
     status:
       amount: 0
       durability: 0
-      text: 
     slot: {fileID: 0}
   durability: {fileID: 0}
 --- !u!114 &1274750045436213349

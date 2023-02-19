@@ -16,6 +16,8 @@ public class CompassRotate : MonoBehaviour
     }
     public CompassType type;
     public Transform target;
+    public float perspectiveAdjustment = 20;
+
     private Vector3 newRotation;
 
     private void Awake()
@@ -36,8 +38,9 @@ public class CompassRotate : MonoBehaviour
             case CompassType.Flat:
                 ref Vector3 reference = ref newRotation;
                 Vector3 eulerAngles = PlayerController.instance.transform.eulerAngles;
-                reference.y = - eulerAngles.y;
-                if (transform.IsChildOf(PlayerController.instance.transform)){
+                reference.y = - eulerAngles.y + perspectiveAdjustment;
+                if (transform.IsChildOf(PlayerController.instance.transform) || transform.IsChildOf(UIManager.instance.inventoryUI.transform))
+                {
                     target.transform.localEulerAngles = newRotation;
                 }
                 else{

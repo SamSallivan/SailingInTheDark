@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,40 +48,36 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            activated = !activated;
-            //Time.timeScale = activated ? 0.0f : 1.0f;
-            PlayerController.instance.LockMovement(activated);
-            PlayerController.instance.LockCamera(activated);
-            UIManager.instance.inventoryUI.SetActive(activated);
-            PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(!activated);
-
-            if (equippedItem != null) {
-                selectedPosition = GetGridPosition(equippedItem.slot.GetIndex());
+            if (!activated)
+            {
+                if (!UIManager.instance.examineUI.activeInHierarchy)
+                {
+                    OpenInventory();
+                }
             }
             else
             {
-                selectedPosition = 0;
+                CloseInventory();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && equippedItem != null)
-        {
-            DropItem(equippedItem);
-        }
 
         if (activated)
         {
             SelectItem();
 
-            if (UIManager.instance.inventoryItemGrid.transform.childCount > selectedIndex)
+            if (inventoryItemList.Count - 1 >= selectedIndex)
             {
                 selectedItem = UIManager.instance.inventoryItemGrid.transform.GetChild(selectedIndex).GetComponent<InventorySlot>().inventoryItem;
 
-                if (Input.GetKeyDown(KeyCode.M))
+                UpdateDetailObject();
+                RotateDetailObject();
+
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     EquipItem(selectedItem);
                 }
-                if (Input.GetKeyDown(KeyCode.P) )
+                if (Input.GetKeyDown(KeyCode.Q) )
                 {
                     DropItem(selectedItem);
                 }
@@ -88,9 +85,87 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 selectedItem = null;
+                if (UIManager.instance.detailObjectPivot.childCount > 0)
+                {
+                    Destroy(UIManager.instance.detailObjectPivot.GetChild(0).gameObject);
+                }
+                UIManager.instance.detailName.text = "";
+                UIManager.instance.detailDescription.text = "";
             }
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseInventory();
+            }
         }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && equippedItem != null)
+            {
+                DropItem(equippedItem);
+            }
+        }
+
+    }
+
+    private void UpdateDetailObject()
+    {
+        if (UIManager.instance.detailName.text != selectedItem.data.name)
+        {
+            UIManager.instance.detailName.text = selectedItem.data.name;
+            UIManager.instance.detailDescription.text = selectedItem.data.description;
+
+            if (UIManager.instance.detailObjectPivot.childCount > 0)
+            {
+                Destroy(UIManager.instance.detailObjectPivot.GetChild(0).gameObject);
+            }
+
+            GameObject detailGameObject = Instantiate(selectedItem.data.dropObject, UIManager.instance.detailObjectPivot);
+            detailGameObject.transform.localScale *= 1200;
+            foreach (Transform child in UIManager.instance.detailObjectPivot.GetComponentsInChildren<Transform>())
+            {
+                child.gameObject.layer = 6;
+            }
+
+            Destroy(detailGameObject.transform.GetComponentInChildren<Interactable>());
+            Destroy(detailGameObject.GetComponent<Collider>());
+            Destroy(detailGameObject.GetComponent<Rigidbody>());
+        }
+    }
+
+    public void OpenInventory()
+    {
+        activated = true;
+        //Time.timeScale = activated ? 0.0f : 1.0f;
+        PlayerController.instance.LockMovement(true);
+        PlayerController.instance.LockCamera(true);
+
+        UIManager.instance.inventoryUI.SetActive(true);
+        UIManager.instance.gameplayUI.SetActive(false);
+
+        PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(false);
+
+        if (equippedItem != null)
+        {
+            selectedPosition = GetGridPosition(equippedItem.slot.GetIndex());
+        }
+        else
+        {
+            selectedPosition = 0;
+        }
+
+    }
+    public void CloseInventory()
+    {
+        activated = false;
+        //Time.timeScale = activated ? 0.0f : 1.0f;
+        PlayerController.instance.LockMovement(false);
+        PlayerController.instance.LockCamera(false);
+
+        UIManager.instance.inventoryUI.SetActive(false);
+        UIManager.instance.gameplayUI.SetActive(true);
+
+        PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(true);
 
     }
 
@@ -125,12 +200,25 @@ public class InventoryManager : MonoBehaviour
         UIManager.instance.inventoryBackGrid.transform.GetChild(selectedIndex).GetComponent<Image>().color = Color.white;
     }
 
-    public void AddItem(ItemData itemData, ItemStatus itemStatus)
+    public InventoryItem AddItem(ItemData itemData, ItemStatus itemStatus)
     {
         //if exists in inventory and stackable
             //if max amount not reached
                 //inventoryitemlist[i].itemstatus.amount++
             //else
+        
+        foreach(InventoryItem item in inventoryItemList)
+        {
+            if (item.data == itemData)
+            {
+                if (itemData.isStackable && item.status.amount < itemData.maxStackAmount)
+                {
+                    item.status.amount++;
+                    item.slot.amount.text = "" + item.status.amount;
+                    return item;
+                }
+            }
+        }
 
         InventorySlot newSlot = Instantiate(slotPrefab, UIManager.instance.inventoryItemGrid.transform);
         InventoryItem newItem = new InventoryItem(itemData, itemStatus, newSlot);
@@ -139,11 +227,13 @@ public class InventoryManager : MonoBehaviour
         newSlot.image.sprite = itemData.sprite;
         newSlot.name.text = itemData.name;
         newSlot.amount.text = $"{itemStatus.amount}";
+
+        return newItem;
     }
 
     public void DropItem(InventoryItem inventoryItem)
     {
-        if (inventoryItem.data.itemToggles.isStackable)
+        if (inventoryItem.data.isStackable)
         {
             if (inventoryItem.status.amount > 1)
             {
@@ -174,6 +264,9 @@ public class InventoryManager : MonoBehaviour
                 UnequipItem();
             }
         }
+
+        //loop through items and organize inventory.
+        //perhaps a separate functions for this?
     }
 
     public void EquipItem(InventoryItem inventoryItem)
@@ -210,6 +303,22 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void RotateDetailObject()
+    {
+        Vector2 lookVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 rotateValue = new Vector2();
+
+        if(Input.GetMouseButton(0)){
+            rotateValue.x = -(lookVector.x * 2.5f);
+            rotateValue.y = lookVector.y * 2.5f;
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.transform.up, rotateValue.x, Space.World);
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.transform.right, rotateValue.y, Space.World);
+        }
+        else
+        {
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.transform.up, 1, Space.Self);
+        }
+    }
 
     public int2 GetGridPosition(int index)
     {

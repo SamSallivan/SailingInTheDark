@@ -146,4 +146,5 @@ public class ObjectiveManager : MonoBehaviour
             CompleteObjetive("Press 'Z' for zun!");
         }
     }
+
 }

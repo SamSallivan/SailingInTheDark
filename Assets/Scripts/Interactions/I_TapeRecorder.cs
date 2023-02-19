@@ -12,13 +12,10 @@ public class I_TapeRecorder : Interactable
 
     public override IEnumerator InteractionEvent()
     {
-        activated = !activated;
         //Time.timeScale = activated ? 0.0f : 1.0f;
         PlayerController.instance.LockMovement(activated);
         PlayerController.instance.LockCamera(activated);
 
-        textPrompt = activated ? "Exit" : "Use";
-        UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
         UIManager.instance.recordingUI.SetActive(activated);
         if (activated)
         {

@@ -1,24 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using static Line;
+using System;
+using MyBox;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    [Foldout("GamePlay", true)]
+    public GameObject gameplayUI;
     public TMP_Text interactionName;
     public TMP_Text interactionPrompt;
-
     public TMP_Text subtitleUI;
+
+    [Foldout("Inventory", true)]
     public GameObject inventoryUI;
     public GameObject inventoryItemGrid;
     public GameObject inventoryBackGrid;
+    
+    public TMP_Text detailName;
+    public TMP_Text detailDescription;
+    public Transform detailObjectPivot;
+
+    public GameObject examineUI;
+    public TMP_Text examineText;
+    public Image examineImage;
+    public Transform examinePivot;
+
+    [Foldout("Recording", true)]
     public GameObject recordingUI;
-    public GameObject paperUI;
-    public TMP_Text paperText;
 
     void Awake()
     {
@@ -28,7 +43,32 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (examineUI.activeInHierarchy)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Unexamine();
+            }
+        }   
+    }
 
+    public void Examine(string text)
+    {
+        PlayerController.instance.LockMovement(true);
+        PlayerController.instance.LockCamera(true);
+
+        examineUI.SetActive(true);
+        gameplayUI.SetActive(false);
+        examineText.text = text;
+    }
+    public void Unexamine()
+    {
+        PlayerController.instance.LockMovement(false);
+        PlayerController.instance.LockCamera(false);
+
+        examineUI.SetActive(false);
+        gameplayUI.SetActive(true);
+        examineText.text = "";
     }
 
     public void FadeInSubtitle(CharacterName speaker, string tempSubtitle)

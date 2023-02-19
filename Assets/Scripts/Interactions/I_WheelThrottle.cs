@@ -1,34 +1,37 @@
+using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoatComponent))]
 public class I_WheelThrottle : Interactable
 {
+
+    [Foldout("Controls", true)]
     [Header("Boat Movements")]
-    public float speed;
+    private float speed;
+    [ReadOnly]
     public float currentGear = 0;
     public int currentMaxGear = 2;
     public int totalGearNumber = 5;
-    public float vTemp;
-    public float hTemp;
+    private float vTemp;
+    private float hTemp;
 
     [Header("Handle")]
     public float handleSpeed = 1;
-    public float handleAngle;
+    private float handleAngle;
     public Transform handle;
 
     [Header("Wheel")]
-    public float wheelSpeed;
-    public float wheelAngle;
+    public float wheelSpeed = 1;
+    private float wheelAngle;
     public Transform wheel;
+    [ReadOnly]
     public Vector3 playerPos;
 
     public override IEnumerator InteractionEvent()
     {
-        activated = !activated;
         playerPos = PlayerController.instance.transform.localPosition;
-        textPrompt = activated ? "Exit" : "Use";
-        UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
         if (activated){
             PlayerController.instance.LockMovement(true);
         }
@@ -46,12 +49,11 @@ public class I_WheelThrottle : Interactable
 
 
             hTemp = 0f;
-            hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
-            hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
+            hTemp += (Input.GetKey(KeyCode.A) ? (-wheelSpeed) : 0);
+            hTemp += (Input.GetKey(KeyCode.D) ? wheelSpeed : 0);
             hTemp = Mathf.Clamp(hTemp, -1, 1);
             wheelAngle = Mathf.Lerp(wheelAngle, -hTemp * 90, Time.deltaTime * 5);
             BoatController.instance.boat.input.Steering = hTemp;
-
 
             int speedPerGear = 100 / totalGearNumber;
 
@@ -63,6 +65,10 @@ public class I_WheelThrottle : Interactable
             currentGear = Mathf.Round(vTemp / speedPerGear);
             speed = currentGear * speedPerGear;
             BoatController.instance.boat.input.Throttle = speed / 100;
+            if (speed >= 0)
+            {
+                GetComponent<BoatComponent>().componentActivated = true;
+            }
 
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
             {
@@ -71,7 +77,7 @@ public class I_WheelThrottle : Interactable
             else
             {
                 vTemp = speed;
-                handleAngle = Mathf.Lerp(handleAngle, speed / 100 * 180, Time.deltaTime * 10);
+                //handleAngle = Mathf.Lerp(handleAngle, speed / 100 * 180, Time.deltaTime * 10);
             }
         }
         else
@@ -82,7 +88,18 @@ public class I_WheelThrottle : Interactable
         }
 
         wheel.localEulerAngles = new Vector3(0, 0, wheelAngle);
+        handleAngle = Mathf.Lerp(handleAngle, speed / 100 * 180, Time.deltaTime * 10);
         handle.localEulerAngles = new Vector3(handleAngle, 0, 0);
+
+
+        if (BoatController.instance.boat.input.Throttle != 0)
+        {
+            GetComponent<BoatComponent>().componentActivated = true;
+        }
+        else
+        {
+            GetComponent<BoatComponent>().componentActivated = false;
+        }
 
         if (PlayerController.instance.transform.parent == BoatController.instance.transform)
         {
@@ -94,5 +111,19 @@ public class I_WheelThrottle : Interactable
         }
 
         //Debug.Log(BoatController.instance.boat.Speed);
+    }
+
+    public override void ShutDown()
+    {
+        activated = false;
+        GetComponent<BoatComponent>().componentActivated = false;
+        PlayerController.instance.LockMovement(false);
+        BoatController.instance.boat.input.Throttle = 0; 
+        vTemp = 0f;
+        currentGear = 0;
+        speed = 0;
+        UIManager.instance.interactionPrompt.text = "[E] ";
+        UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+
     }
 }

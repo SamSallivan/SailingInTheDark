@@ -3,31 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using NWH.DWP2.ShipController;
 using NWH.DWP2.WaterObjects;
+using MyBox;
 
 public class I_BoatAnchor : Interactable
 {
+    [Foldout("Docking", true)]
     public AdvancedShipController boat;
     public WaterObject boatHull;
+    [ReadOnly]
     public bool dockable;
+    [ReadOnly]
     public T_DockingZone dockingZone;
+    [ReadOnly]
     public float dockingTimer;
+    [ReadOnly]
     public Vector3 playerPos;
+
+    [Foldout("Boat Component", true)]
+    public float wattConsumption = 10;
+
+    public bool componentActivated = false;
 
     public override IEnumerator InteractionEvent()
     {
-        if (!activated){
-            activated = true;
+        if (activated){
             boat.Anchor.Drop();
-            textPrompt = "Weigh";
+            textPromptActivated = "Weigh";
 
             if (dockable)
             {
-                textPrompt = "Undock";
+                textPromptActivated = "Undock";
                 playerPos = PlayerController.instance.transform.localPosition;
             }
         }
-        else if (activated){
-            activated = false;
+        else if (!activated){
             boat.Anchor.Weigh();
             textPrompt = "Drop";
 
@@ -38,7 +47,6 @@ public class I_BoatAnchor : Interactable
 
             }
         }
-        UIManager.instance.interactionPrompt.text = "[E] " + textPrompt;
         yield return null;
     }
     void FixedUpdate(){

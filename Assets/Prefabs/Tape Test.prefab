@@ -120,15 +120,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textName: Tape
   textPrompt: Pickup
+  textPromptActivated: 
   highlightTarget: {fileID: 787135118462861994}
   interactionType: 2
-  interacted: 0
+  onceOnly: 0
+  interactedOnce: 0
   activated: 0
+  allowOtherInteraction: 0
   itemData: {fileID: 11400000, guid: ee6e9312d9f41344bb970056b4a1075e, type: 2}
   itemStatus:
     amount: 1
     durability: 0
-    text: 
 --- !u!1 &787135118462861994
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +165,7 @@ Transform:
   m_Children:
   - {fileID: 787135117468841130}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 30, y: 40, z: 0}
 --- !u!33 &6031609714405361452
 MeshFilter:
