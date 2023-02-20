@@ -117,9 +117,10 @@ public class Interactable : MonoBehaviour
 
         if (textPrompt != "" && interactionType != InteractionType.None)
         {
-            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text = "'E' ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
             //enable button prompt image instead
+            UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
     }
 
@@ -132,6 +133,7 @@ public class Interactable : MonoBehaviour
         UIManager.instance.interactionName.text = "";
         UIManager.instance.interactionPrompt.text = "";
         //disable button prompt image here
+        UIManager.instance.interactionPromptAnimation.Play("PromptButtonDisappear");
     }
 
     public virtual void ShutDown()
