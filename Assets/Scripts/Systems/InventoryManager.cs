@@ -129,6 +129,8 @@ public class InventoryManager : MonoBehaviour
             selectedPosition = 0;
         }
 
+        //play the fade in effect
+        UIManager.instance.inventoryAnimation.Play("Basic Fade-in");
     }
     public void CloseInventory()
     {
@@ -137,11 +139,13 @@ public class InventoryManager : MonoBehaviour
         PlayerController.instance.LockMovement(false);
         PlayerController.instance.LockCamera(false);
 
-        UIManager.instance.inventoryUI.SetActive(false);
+        //UIManager.instance.inventoryUI.SetActive(false);
         UIManager.instance.gameplayUI.SetActive(true);
 
         PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(true);
 
+        //play the fade out effect
+        UIManager.instance.inventoryAnimation.Play("Basic Fade-out");
     }
 
     public void SelectItem()

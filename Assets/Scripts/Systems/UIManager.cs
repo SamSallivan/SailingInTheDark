@@ -17,11 +17,13 @@ public class UIManager : MonoBehaviour
     public TMP_Text interactionName;
     public TMP_Text interactionPrompt;
     public TMP_Text subtitleUI;
+    public Animation interactionPromptAnimation;
 
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;
     public GameObject inventoryItemGrid;
     public GameObject inventoryBackGrid;
+    public Animation inventoryAnimation;
     
     public TMP_Text detailName;
     public TMP_Text detailDescription;
