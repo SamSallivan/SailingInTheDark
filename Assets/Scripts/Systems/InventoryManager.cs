@@ -108,31 +108,6 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    private void UpdateDetailObject()
-    {
-        if (UIManager.instance.detailName.text != selectedItem.data.name)
-        {
-            UIManager.instance.detailName.text = selectedItem.data.name;
-            UIManager.instance.detailDescription.text = selectedItem.data.description;
-
-            if (UIManager.instance.detailObjectPivot.childCount > 0)
-            {
-                Destroy(UIManager.instance.detailObjectPivot.GetChild(0).gameObject);
-            }
-
-            GameObject detailGameObject = Instantiate(selectedItem.data.dropObject, UIManager.instance.detailObjectPivot);
-            detailGameObject.transform.localScale *= 1200;
-            foreach (Transform child in UIManager.instance.detailObjectPivot.GetComponentsInChildren<Transform>())
-            {
-                child.gameObject.layer = 6;
-            }
-
-            Destroy(detailGameObject.transform.GetComponentInChildren<Interactable>());
-            Destroy(detailGameObject.GetComponent<Collider>());
-            Destroy(detailGameObject.GetComponent<Rigidbody>());
-        }
-    }
-
     public void OpenInventory()
     {
         activated = true;
@@ -289,7 +264,10 @@ public class InventoryManager : MonoBehaviour
 
             //Destroy(newObject.transform.GetChild(0).gameObject);
             Destroy(newObject.transform.GetComponentInChildren<Interactable>());
-            Destroy(newObject.GetComponent<Collider>());
+            foreach (Collider collider in newObject.GetComponents<Collider>())
+            {
+                Destroy(collider);
+            }
             Destroy(newObject.GetComponent<Rigidbody>());
         }
     }
@@ -302,6 +280,35 @@ public class InventoryManager : MonoBehaviour
             Destroy(PlayerController.instance.equippedTransform.GetChild(0).gameObject);
         }
     }
+    
+    private void UpdateDetailObject()
+    {
+        if (UIManager.instance.detailName.text != selectedItem.data.name)
+        {
+            UIManager.instance.detailName.text = selectedItem.data.name;
+            UIManager.instance.detailDescription.text = selectedItem.data.description;
+
+            if (UIManager.instance.detailObjectPivot.childCount > 0)
+            {
+                Destroy(UIManager.instance.detailObjectPivot.GetChild(0).gameObject);
+            }
+
+            GameObject detailGameObject = Instantiate(selectedItem.data.dropObject, UIManager.instance.detailObjectPivot);
+            detailGameObject.transform.localScale *= 1200;
+            detailGameObject.transform.localRotation = selectedItem.data.examineRotation;
+            foreach (Transform child in UIManager.instance.detailObjectPivot.GetComponentsInChildren<Transform>())
+            {
+                child.gameObject.layer = 6;
+            }
+
+            Destroy(detailGameObject.transform.GetComponentInChildren<Interactable>());
+            Destroy(detailGameObject.GetComponent<Rigidbody>());
+            foreach (Collider collider in detailGameObject.GetComponents<Collider>())
+            {
+                Destroy(collider);
+            }
+        }
+    }
 
     public void RotateDetailObject()
     {
@@ -311,12 +318,12 @@ public class InventoryManager : MonoBehaviour
         if(Input.GetMouseButton(0)){
             rotateValue.x = -(lookVector.x * 2.5f);
             rotateValue.y = lookVector.y * 2.5f;
-            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.transform.up, rotateValue.x, Space.World);
-            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.transform.right, rotateValue.y, Space.World);
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, rotateValue.x, Space.World);
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.right, rotateValue.y, Space.World);
         }
         else
         {
-            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.transform.up, 1, Space.Self);
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
         }
     }
 

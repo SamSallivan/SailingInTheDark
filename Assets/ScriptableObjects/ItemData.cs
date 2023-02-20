@@ -40,12 +40,15 @@ public class ItemData : ScriptableObject
     public bool isEquippable;
     [ConditionalField(nameof(isEquippable))]
     public GameObject equipObject;
+    public Vector3 equipRotation;
 
     public bool isDroppable;
     [ConditionalField(nameof(isDroppable))]
     public GameObject dropObject;
 
     public bool isExaminable;
+    public Quaternion examineRotation;
+    //public Vector3 examineRotation;
 
     [ConditionalField(nameof(isExaminable))]
     public bool isReadable;

@@ -22,9 +22,11 @@ MonoBehaviour:
   maxStackAmount: 5
   isEquippable: 0
   equipObject: {fileID: 0}
+  equipRotation: {x: -19, y: 0, z: 30}
   isDroppable: 1
   dropObject: {fileID: 7596440031121015847, guid: 055b21b38b849f5429531a17d7d6e781,
     type: 3}
   isExaminable: 0
+  examineRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
   isReadable: 0
   readText: 
