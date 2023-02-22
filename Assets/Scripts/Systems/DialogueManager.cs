@@ -5,9 +5,11 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
+    public I_TapeRecorder recorder;
     public int currentIndex;
     public int interuptedIndex;
     public Line currentLine;
+    public ItemData generateTape;
     public DialogueData currentRecording;
     public List<DialogueData> recordingWaitList;
     public bool radioPaused = true;
@@ -24,6 +26,7 @@ public class DialogueManager : MonoBehaviour
         if (currentRecording != null)
         {
             StopCurrentRecordingLine();
+            recorder.ReturnTape();
         }
 
         if (radioInBound)
@@ -59,6 +62,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
+
     public void OverrideRecording(DialogueData tempRecording, bool autoUnpause = false)
     {
         //Push the current one back in waitlist
@@ -102,12 +106,21 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void ReplaceGenerate(ItemData data, bool autoUnpause = false)
+    {
+        //Push the current one back in waitlist
+        ReplaceRecording(data.recording, autoUnpause);
+        generateTape = data;
+    }
+
     public void WaitlistRecording(DialogueData tempRecording)
     {
-        recordingWaitList.Add(tempRecording);
         if (currentRecording == null && radioInBound && !radioPaused)
         {
             currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
+        }
+        else{
+            recordingWaitList.Add(tempRecording);
         }
     }
 
@@ -131,6 +144,14 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(tempRecording.lines[i].intervalAfter);
 
         }
+
+        if(generateTape != null){
+            recorder.ReturnTape(generateTape);
+            generateTape = null;
+        }
+        else{
+            recorder.ReturnTape();
+        }
         currentIndex = 0;
         currentLine = new Line();
         currentRecording = null;
@@ -146,10 +167,19 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            radioPaused = true;
+            //radioPaused = true;
         }
 
         yield return null;
+    }
+
+    public void PlayNext(){
+        if (recordingWaitList.Count != 0)
+        {
+            currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], interuptedIndex));
+            recordingWaitList.RemoveAt(0);
+            interuptedIndex = 0;
+        }
     }
 
     public void StopCurrentRecordingLine()
@@ -194,6 +224,7 @@ public class DialogueManager : MonoBehaviour
         else if (recordingWaitList.Count != 0)
         {
             currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], 0));
+            recordingWaitList.RemoveAt(0);
         }
         AudioManager.instance.RadioPlayer.UnPause();
     }
@@ -219,6 +250,7 @@ public class DialogueManager : MonoBehaviour
             else if (recordingWaitList.Count != 0)
             {
                 currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], 0));
+                recordingWaitList.RemoveAt(0);
             }
         }
         else if (autoUnpause)

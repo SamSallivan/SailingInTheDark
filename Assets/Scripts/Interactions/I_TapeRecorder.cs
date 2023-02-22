@@ -10,14 +10,11 @@ public class I_TapeRecorder : Interactable
     //public LockMouse lockMouse;
     //public RecordingButton recordingButtonClone;
     public GameObject tapeGameObject;
+    public GameObject tapeGamePrefab;
     public Transform targeTransform;
 
     public override IEnumerator InteractionEvent()
     {
-        if (tapeGameObject != null)
-        {
-            GameObject tape = Instantiate(tapeGameObject, targeTransform.position, targeTransform.rotation, null);
-        }
 
         if (InventoryManager.instance.equippedItem != null)
         {
@@ -31,6 +28,20 @@ public class I_TapeRecorder : Interactable
                 DialogueManager.instance.ReplaceRecording(recording);
             }
         }
+        else{
+            if(DialogueManager.instance.generateTape != null){
+                ReturnTape(DialogueManager.instance.generateTape);
+                DialogueManager.instance.generateTape = null;
+                DialogueManager.instance.StopCurrentRecordingLine();
+                DialogueManager.instance.currentRecording = null;
+            }
+            else{
+                ReturnTape();
+                DialogueManager.instance.StopCurrentRecordingLine();
+                DialogueManager.instance.currentRecording = null;
+            }
+            DialogueManager.instance.PlayNext();
+        }
 
         yield return null;
     }
@@ -39,6 +50,19 @@ public class I_TapeRecorder : Interactable
     private void Update()
     {
 
+    }
+
+    public void ReturnTape(){
+        if (tapeGameObject != null)
+        {
+            GameObject tape = Instantiate(tapeGameObject, targeTransform.position, targeTransform.rotation, null);
+            tapeGameObject = null;
+        }
+    }
+    
+    public void ReturnTape(ItemData data){
+        GameObject tape = Instantiate(tapeGamePrefab, targeTransform.position, targeTransform.rotation, null);
+        tape.GetComponentInChildren<I_InventoryItem>().itemData = data;
     }
 
     public void CreateButtons()
