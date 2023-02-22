@@ -38,7 +38,14 @@ public class ItemData : ScriptableObject
     public int maxStackAmount = 1;
 
     public bool isEquippable;
+    public enum EquipType
+    {
+        Left,
+        Right,
+        Both
+    }
     [ConditionalField(nameof(isEquippable))]
+    public EquipType equipType;
     public GameObject equipObject;
     public Vector3 equipRotation;
 

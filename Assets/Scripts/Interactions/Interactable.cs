@@ -12,7 +12,7 @@ public enum InteractionType
     None = 0,
     Examine = 1,
     InventoryItem = 2,
-    ExamineAndInventory = 3,
+    Custom = 3,
     CustomToggle = 4,
 }
 
@@ -46,17 +46,17 @@ public class Interactable : MonoBehaviour
     [ReadOnly]
     public bool interactedOnce;
     
-    [ConditionalField(nameof(interactionType), false, InteractionType.Examine, InteractionType.ExamineAndInventory)]
+    [ConditionalField(nameof(interactionType), false, InteractionType.Examine)]//, InteractionType.ExamineAndInventory)]
     //public bool hasText;
     //[ConditionalField(nameof(hasText))]
     [TextArea(10, 10)]
     public string examineText;
 
-    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem, InteractionType.ExamineAndInventory)]
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]//, InteractionType.ExamineAndInventory)]
     public ItemData itemData;
-    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem, InteractionType.ExamineAndInventory)]
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]//, InteractionType.ExamineAndInventory)]
     public ItemStatus itemStatus;
-    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem, InteractionType.ExamineAndInventory)]
+    [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]//, InteractionType.ExamineAndInventory)]
     public bool openInventory;
 
     [ConditionalField(nameof(interactionType), false, InteractionType.CustomToggle)]
@@ -88,7 +88,11 @@ public class Interactable : MonoBehaviour
                 case InteractionType.InventoryItem:
                     StartCoroutine(InteractionEvent());
                     break;
-                    
+
+                case InteractionType.Custom:
+                    StartCoroutine(InteractionEvent());
+                    break;
+
                 case InteractionType.CustomToggle:
                     activated = !activated;
                     StartCoroutine(InteractionEvent());
@@ -104,7 +108,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public void Target()
+    public virtual void Target()
     {
         if (highlightTarget != null)
         {

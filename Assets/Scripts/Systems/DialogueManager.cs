@@ -18,7 +18,47 @@ public class DialogueManager : MonoBehaviour
     {
         instance = this;
     }
+    public void ReplaceRecording(DialogueData tempRecording, bool autoUnpause = false)
+    {
+        //Push the current one back in waitlist
+        if (currentRecording != null)
+        {
+            StopCurrentRecordingLine();
+        }
 
+        if (radioInBound)
+        {
+            if (!radioPaused)
+            {
+                currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
+            }
+            else
+            {
+                currentRecording = null;
+                recordingWaitList.Insert(0, tempRecording);
+                if (autoUnpause)
+                {
+                    UnpauseRadio();
+                }
+            }
+        }
+        else
+        {
+            if (!radioPaused)
+            {
+                currentRecording = tempRecording;
+            }
+            else
+            {
+                currentRecording = null;
+                recordingWaitList.Insert(0, tempRecording);
+                if (autoUnpause)
+                {
+                    this.autoUnpause = true;
+                }
+            }
+        }
+    }
     public void OverrideRecording(DialogueData tempRecording, bool autoUnpause = false)
     {
         //Push the current one back in waitlist
@@ -61,6 +101,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
+
     public void WaitlistRecording(DialogueData tempRecording)
     {
         recordingWaitList.Add(tempRecording);

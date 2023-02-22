@@ -244,10 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae979ba049e535429dde8ab92b28488, type: 3}
   m_Name: Scanlines
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.082
   amount:
     m_OverrideState: 1
     m_Value: 700
@@ -342,7 +342,7 @@ MonoBehaviour:
     m_Value: 1
   resolution:
     m_OverrideState: 1
-    m_Value: 1080
+    m_Value: 960
   resolutionPreset:
     m_OverrideState: 1
     m_Value: 1

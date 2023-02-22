@@ -210,6 +210,40 @@ public class InventoryManager : MonoBehaviour
         return newItem;
     }
 
+    public void RemoveItem(InventoryItem inventoryItem)
+    {
+        if (inventoryItem.data.isStackable)
+        {
+            if (inventoryItem.status.amount > 1)
+            {
+                inventoryItem.status.amount--;
+                inventoryItem.slot.amount.text = "" + inventoryItem.status.amount;
+                
+            }
+            else
+            {
+                inventoryItemList.Remove(inventoryItem);
+                Destroy(inventoryItem.slot.gameObject);
+                if (equippedItem == inventoryItem)
+                {
+                    UnequipItem();
+                }
+            }
+        }
+        else
+        {
+            inventoryItemList.Remove(inventoryItem);
+            Destroy(inventoryItem.slot.gameObject);
+            if (equippedItem == inventoryItem)
+            {
+                UnequipItem();
+            }
+        }
+
+        //loop through items and organize inventory.
+        //perhaps a separate functions for this?
+    }
+
     public void DropItem(InventoryItem inventoryItem)
     {
         if (inventoryItem.data.isStackable)
@@ -327,7 +361,14 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
+            //Transform target = new RectTransform();
+            //target.localRotation = selectedItem.data.examineRotation;
+            //target.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
+
             UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
+            //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Lerp(UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation, new Quaternion(selectedItem.data.examineRotation.x, UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation.y, selectedItem.data.examineRotation.z, selectedItem.data.examineRotation.w), Time.fixedDeltaTime * 5);
+            //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Lerp(UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation, selectedItem.data.examineRotation, Time.fixedDeltaTime);
+            //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = selectedItem.data.examineRotation;
         }
     }
 

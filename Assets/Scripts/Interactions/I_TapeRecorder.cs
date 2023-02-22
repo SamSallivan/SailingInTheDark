@@ -7,42 +7,38 @@ using UnityEngine.UI;
 public class I_TapeRecorder : Interactable
 {
     //public Transform playerTargetPos;
-    public LockMouse lockMouse;
-    public RecordingButton recordingButtonClone;
+    //public LockMouse lockMouse;
+    //public RecordingButton recordingButtonClone;
+    public GameObject tapeGameObject;
+    public Transform targeTransform;
 
     public override IEnumerator InteractionEvent()
     {
-        //Time.timeScale = activated ? 0.0f : 1.0f;
-        PlayerController.instance.LockMovement(activated);
-        PlayerController.instance.LockCamera(activated);
+        if (tapeGameObject != null)
+        {
+            GameObject tape = Instantiate(tapeGameObject, targeTransform.position, targeTransform.rotation, null);
+        }
 
-        UIManager.instance.recordingUI.SetActive(activated);
-        if (activated)
+        if (InventoryManager.instance.equippedItem != null)
         {
-            CreateButtons();
-            //Time.timeScale = 0;
-            lockMouse.LockCursor(false);
+            DialogueData recording = InventoryManager.instance.equippedItem.data.recording;
+
+            if (recording != null)
+            {
+
+                tapeGameObject = InventoryManager.instance.equippedItem.data.dropObject;
+                InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItem);
+                DialogueManager.instance.ReplaceRecording(recording);
+            }
         }
-        else
-        {
-            ClearAllButtons();
-            //Time.timeScale = 1;
-            lockMouse.LockCursor(true);
-        }
+
         yield return null;
     }
 
 
     private void Update()
     {
-        if (activated)
-        {
-            //PlayerController.instance.transform.position = Vector3.Lerp(PlayerController.instance.transform.position, playerTargetPos.position, Time.deltaTime * 5f);
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                StartCoroutine(InteractionEvent());
-            }
-        }
+
     }
 
     public void CreateButtons()
@@ -55,28 +51,25 @@ public class I_TapeRecorder : Interactable
                 items.Add(InventoryManager.instance.inventoryItemList[i]);
             }
         }
-        for (int i = 0; i < items.Count; i++)
-        {
-            AddRecordingButton(items[i].data.title, items[i].data.recording);
-        }
-    }
-    public void AddRecordingButton(string buttonText, DialogueData recording)
-    {
-        RecordingButton newButton = Instantiate(recordingButtonClone, UIManager.instance.recordingUI.transform.GetChild(0));
-        newButton.transform.GetChild(0).GetComponent<TMP_Text>().text = buttonText;
-        newButton.recording = recording;
     }
 
-    public void ClearAllButtons()
+    public override void Target()
     {
-        foreach (Transform child in UIManager.instance.recordingUI.transform.GetChild(0))
+        if (highlightTarget != null)
         {
-            GameObject.Destroy(child.gameObject);
+            OutlineRenderer outline = highlightTarget.AddComponent<OutlineRenderer>();
+            outline.OutlineMode = OutlineRenderer.Mode.OutlineVisible;
+            outline.OutlineWidth = 10;
         }
-    }
+        UIManager.instance.interactionName.text = textName;
+        //UI.instance.interactionPrompt.text = textPrompt;
 
-    public void CloseMenu()
-    {
-        StartCoroutine(InteractionEvent());
+        if (textPrompt != "" && interactionType != InteractionType.None)
+        {
+            UIManager.instance.interactionPrompt.text = "'E' ";
+            UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+            //enable button prompt image instead
+            UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+        }
     }
 }
