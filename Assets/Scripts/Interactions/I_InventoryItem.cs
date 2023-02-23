@@ -24,12 +24,19 @@ public class I_InventoryItem : Interactable
         {
             InventoryItem newItem = InventoryManager.instance.AddItem(itemData, itemStatus);
             Destroy(highlightTarget.transform.gameObject);
-            UnTarget();
-            if (openInventory)
+            
+            if (equipOnPickUp)
+            {
+                InventoryManager.instance.EquipItem(newItem);
+            }
+
+            if (openInventoryOnPickUp)
             {
                 InventoryManager.instance.OpenInventory();
                 InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
             }
+
+            UnTarget();
         }
         yield return null; 
     }

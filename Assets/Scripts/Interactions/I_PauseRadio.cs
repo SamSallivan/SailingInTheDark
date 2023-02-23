@@ -7,14 +7,14 @@ public class I_PauseRadio : Interactable
 {
     public override IEnumerator InteractionEvent()
     {
-        if (DialogueManager.instance.radioPaused)
+        if (RecordingManager.instance.radioPaused)
         {
-            DialogueManager.instance.UnpauseRadio();
+            RecordingManager.instance.UnpauseRadio();
             activated = false;
         }
         else
         {
-            DialogueManager.instance.PauseRadio();
+            RecordingManager.instance.PauseRadio();
             activated = true;
         }
         yield return null;

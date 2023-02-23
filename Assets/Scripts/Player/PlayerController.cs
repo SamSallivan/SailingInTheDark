@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
@@ -93,7 +94,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     private float damageTimer;
 
-    private Interactable targetInteractable;
+	[ReadOnly]
+    public Interactable targetInteractable;
 
     public float interactDistance = 5;
 

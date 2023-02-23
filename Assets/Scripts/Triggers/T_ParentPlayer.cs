@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trigger_SetPlayerParent : Trigger
+public class T_ParentPlayer : Trigger
 {
     public Transform playerParent;
     public PhysicMaterial mat;

@@ -11,7 +11,7 @@ public class T_WaitlistRecording : Trigger
 
     public override IEnumerator TriggerEvent()
     {
-        DialogueManager.instance.WaitlistRecording(recording);
+        //RecordingManager.instance.WaitlistRecording(recording);
         yield return null;
     }
 }

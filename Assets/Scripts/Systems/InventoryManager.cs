@@ -37,6 +37,8 @@ public class InventoryManager : MonoBehaviour
     public int slotPerRow = 8;
     public int slotPerColumn = 4;
 
+    private float inputDelay;
+
     void Awake()
     {
         instance = this;
@@ -64,6 +66,7 @@ public class InventoryManager : MonoBehaviour
 
         if (activated)
         {
+            inputDelay++;
             SelectItem();
 
             if (inventoryItemList.Count - 1 >= selectedIndex)
@@ -73,7 +76,7 @@ public class InventoryManager : MonoBehaviour
                 UpdateDetailObject();
                 RotateDetailObject();
 
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E) && inputDelay > 5)
                 {
                     EquipItem(selectedItem);
                 }
@@ -116,11 +119,19 @@ public class InventoryManager : MonoBehaviour
         PlayerController.instance.LockCamera(true);
 
         UIManager.instance.inventoryUI.SetActive(true);
+        foreach (Animation animation in UIManager.instance.gameplayUI.transform.GetComponentsInChildren<Animation>())
+        {
+            foreach (AnimationState state in animation)
+            {
+                //state.normalizedTime = 1;
+            }
+        }
+
         UIManager.instance.gameplayUI.SetActive(false);
 
         PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(false);
 
-        if (equippedItem != null)
+        if (equippedItem != null && equippedItem.data != null)
         {
             selectedPosition = GetGridPosition(equippedItem.slot.GetIndex());
         }
@@ -146,6 +157,9 @@ public class InventoryManager : MonoBehaviour
 
         //play the fade out effect
         UIManager.instance.inventoryAnimation.Play("Basic Fade-out");
+        //UIManager.instance.inventoryAnimation
+
+        inputDelay = 0;
     }
 
     public void SelectItem()
@@ -307,6 +321,11 @@ public class InventoryManager : MonoBehaviour
                 Destroy(collider);
             }
             Destroy(newObject.GetComponent<Rigidbody>());
+        }
+
+        if (PlayerController.instance.targetInteractable != null)
+        {
+            PlayerController.instance.targetInteractable.Target();
         }
     }
 

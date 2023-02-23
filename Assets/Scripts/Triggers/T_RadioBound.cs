@@ -6,12 +6,12 @@ public class T_RadioBound : Trigger
 {
     public override IEnumerator TriggerEvent()
     {
-        DialogueManager.instance.EnterRadioBound();
+        RecordingManager.instance.EnterRadioBound();
         yield return null;
     }
 
     public void OnTriggerExit(Collider other)
     {
-        DialogueManager.instance.ExitRadioBound();
+        RecordingManager.instance.ExitRadioBound();
     }
 }

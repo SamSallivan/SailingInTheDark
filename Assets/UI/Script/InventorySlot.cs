@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class InventorySlot : MonoBehaviour, IPointerExitHandler
 {
     public TMP_Text name;
     public TMP_Text amount;
@@ -22,16 +22,16 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
+        //InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
 
     }
-
+/*
     public void OnPointerClick(PointerEventData eventData)
     {
         InventoryManager.instance.EquipItem(inventoryItem);
-    }
+    }*/
 }

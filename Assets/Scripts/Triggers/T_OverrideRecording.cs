@@ -11,7 +11,7 @@ public class T_OverrideRecording : Trigger
     public bool autoStartPlaying;
     public override IEnumerator TriggerEvent()
     {
-        DialogueManager.instance.OverrideRecording(recording, autoStartPlaying);
+        //RecordingManager.instance.OverrideRecording(recording, autoStartPlaying);
         yield return null;
     }
 }

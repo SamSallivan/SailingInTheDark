@@ -37,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -56.3, y: 13.82, z: 6.31}
 --- !u!33 &2361372250977967442
 MeshFilter:
@@ -124,7 +124,8 @@ MonoBehaviour:
   itemStatus:
     amount: 1
     durability: 1
-  openInventory: 1
+  openInventoryOnPickUp: 1
+  equipOnPickUp: 0
   activated: 0
   allowOtherInteraction: 0
 --- !u!64 &2361372250977967443
