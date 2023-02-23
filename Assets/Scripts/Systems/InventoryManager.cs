@@ -41,7 +41,7 @@ public class InventoryManager : MonoBehaviour
     {
         instance = this;
         equippedItem = null;
-}
+    }
 
     // Update is called once per frame
     void Update()
@@ -298,9 +298,6 @@ public class InventoryManager : MonoBehaviour
             GameObject newObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.equippedTransform);
             newObject.name = inventoryItem.data.dropObject.name + " Equipped";
             newObject.transform.localPosition = new Vector3(0, 0, 0);
-           // newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-
-            //Destroy(newObject.transform.GetChild(0).gameObject);
             Destroy(newObject.transform.GetComponentInChildren<Interactable>());
             foreach (Collider collider in newObject.GetComponents<Collider>())
             {
@@ -365,7 +362,7 @@ public class InventoryManager : MonoBehaviour
             //target.localRotation = selectedItem.data.examineRotation;
             //target.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
 
-            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
+            //UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
             //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Lerp(UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation, new Quaternion(selectedItem.data.examineRotation.x, UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation.y, selectedItem.data.examineRotation.z, selectedItem.data.examineRotation.w), Time.fixedDeltaTime * 5);
             //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Lerp(UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation, selectedItem.data.examineRotation, Time.fixedDeltaTime);
             //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = selectedItem.data.examineRotation;

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 968955240006473343}
   - component: {fileID: 8189837610700865805}
   m_Layer: 7
-  m_Name: Paper Test
+  m_Name: Light Upgrade Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,11 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423cd0cb80b62614db80d064f8a87f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: Paper
-  textPrompt: Pick Up
+  textName: 
+  textPrompt: 
   textPromptActivated: 
   highlightTarget: {fileID: 2361372250977967447}
-  interactionType: 2
+  interactionType: 5
   onceOnly: 0
   interactedOnce: 0
   examineText: 
@@ -127,8 +127,6 @@ MonoBehaviour:
   openInventory: 0
   activated: 0
   allowOtherInteraction: 0
-  examineType: 0
-  toUpgrade: {fileID: 0}
 --- !u!64 &2361372250977967443
 MeshCollider:
   m_ObjectHideFlags: 0
