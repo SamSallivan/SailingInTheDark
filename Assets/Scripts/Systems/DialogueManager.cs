@@ -5,178 +5,96 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
-
-    public I_TapeRecorder recorder;
+    
     public int currentIndex;
     public int interuptedIndex;
     public Line currentLine;
-    public ItemData generateTape;
-    public DialogueData currentRecording;
-    public List<DialogueData> recordingWaitList;
-    public bool radioPaused = true;
-    public bool radioInBound;
+    public DialogueData currentDialogue;
+    public List<DialogueData> dialogueWaitList;
+    public bool dialoguePaused = true;
+    public bool dialogueInBound;
     public bool autoUnpause;
     public Coroutine currentCoroutine;
+
     private void Start()
     {
         instance = this;
     }
-    public void ReplaceRecording(DialogueData tempRecording, bool autoUnpause = false)
+
+    public void OverrideRecording(DialogueData tempDialogue, bool autoUnpause = false)
     {
         //Push the current one back in waitlist
-        if (currentRecording != null)
+        if (currentDialogue != null)
         {
             StopCurrentRecordingLine();
-            recorder.EjectTape();
+            //if this one is also important
+            //dialogueWaitList.Insert(0, currentDialogue);
         }
 
-        if (radioInBound)
+        if (dialogueInBound)
         {
-            if (!radioPaused)
-            {
-                currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
-            }
-            else
-            {
-                currentRecording = null;
-                recordingWaitList.Insert(0, tempRecording);
-                if (autoUnpause)
-                {
-                    UnpauseRadio();
-                }
-            }
+            currentCoroutine = StartCoroutine(PlayRecording(tempDialogue, 0));
         }
         else
         {
-            if (!radioPaused)
-            {
-                currentRecording = tempRecording;
-            }
-            else
-            {
-                currentRecording = null;
-                recordingWaitList.Insert(0, tempRecording);
-                if (autoUnpause)
-                {
-                    this.autoUnpause = true;
-                }
-            }
+            currentDialogue = tempDialogue;
         }
     }
 
-    public void ReplaceAndGenerate(ItemData data, bool autoUnpause = false)
+    public void WaitlistRecording(DialogueData tempDialogue)
     {
-        ReplaceRecording(data.recording, autoUnpause);
-        generateTape = data;
-    }
-
-    public void OverrideRecording(DialogueData tempRecording, bool autoUnpause = false)
-    {
-        //Push the current one back in waitlist
-        if (currentRecording != null)
+        if (currentDialogue == null && dialogueInBound)
         {
-            StopCurrentRecordingLine();
-            recordingWaitList.Insert(0, currentRecording);
-        }
-
-        if (radioInBound)
-        {
-            if (!radioPaused)
-            {
-                currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
-            }
-            else
-            {
-                currentRecording = null;
-                recordingWaitList.Insert(0, tempRecording);
-                if (autoUnpause)
-                {
-                    UnpauseRadio();
-                }
-            }
+            currentCoroutine = StartCoroutine(PlayRecording(tempDialogue, 0));
         }
         else
         {
-            if (!radioPaused)
-            {
-                currentRecording = tempRecording;
-            }
-            else
-            {
-                currentRecording = null;
-                recordingWaitList.Insert(0, tempRecording);
-                if (autoUnpause)
-                {
-                    this.autoUnpause = true;
-                }
-            }
-        }
-    }
-
-    public void WaitlistRecording(DialogueData tempRecording)
-    {
-        if (currentRecording == null && radioInBound && !radioPaused)
-        {
-            currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
-        }
-        else
-        {
-            recordingWaitList.Add(tempRecording);
+            dialogueWaitList.Add(tempDialogue);
         }
     }
 
     IEnumerator PlayRecording(DialogueData tempRecording, int fromLine)
     {
-        yield return new WaitWhile(() => radioPaused);
-        currentRecording = tempRecording;
+        yield return new WaitWhile(() => dialoguePaused);
+        currentDialogue = tempRecording;
         for (int i = fromLine; i < tempRecording.lines.Count; i++)
         {
             currentIndex = i;
             currentLine = tempRecording.lines[i];
+
             yield return new WaitForSeconds(tempRecording.lines[i].intervalBefore);
-            UIManager.instance.FadeInSubtitle(tempRecording.lines[i].speaker, tempRecording.lines[i].subtitle);
-            yield return new WaitForSeconds(0.5f);
-            AudioManager.instance.playRecording(tempRecording.lines[i].audioClip);
-            float timeLength = tempRecording.lines[i].audioClip.length;
-            //Debug.Log(timeLength);
-            //yield return new WaitForSeconds(timeLength);
-            yield return new WaitWhile(() => (AudioManager.instance.RadioPlayer.isPlaying || radioPaused));
-            UIManager.instance.FadeOutSubtitle();
+            UIManager.instance.FadeInSubtitle(tempRecording.lines[i].speaker, tempRecording.lines[i].subtitle, UIManager.SubtitleType.Dialogue);
+            yield return new WaitForSeconds(0.25f);
+            AudioManager.instance.playDialogue(tempRecording.lines[i].audioClip);
+            yield return new WaitWhile(() => (AudioManager.instance.DialoguePlayer.isPlaying));
+            UIManager.instance.FadeOutSubtitle(UIManager.SubtitleType.Dialogue);
+            yield return new WaitForSeconds(0.25f);
+            if (i != tempRecording.lines.Count - 1)
+            {
+                UIManager.instance.dialogueSubtitleUI.gameObject.SetActive(true);
+            }
             yield return new WaitForSeconds(tempRecording.lines[i].intervalAfter);
 
         }
-        
-        //recorder.EjectTape();
 
         currentIndex = 0;
         currentLine = new Line();
-        currentRecording = null;
-        UIManager.instance.ClearSubtitle();
-        AudioManager.instance.RadioPlayer.clip = null;
-        //recordingWaitList.RemoveAt(0);
+        currentDialogue = null;
+        UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Dialogue);
+        AudioManager.instance.DialoguePlayer.clip = null;
+        //dialogueWaitList.RemoveAt(0);
 
-        if (recordingWaitList.Count != 0)
+        if (dialogueWaitList.Count != 0)
         {
-            currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], interuptedIndex));
-            recordingWaitList.RemoveAt(0);
+            currentCoroutine = StartCoroutine(PlayRecording(dialogueWaitList[0], interuptedIndex));
+            dialogueWaitList.RemoveAt(0);
             interuptedIndex = 0;
         }
         else
         {
-            //radioPaused = true;
         }
 
         yield return null;
-    }
-
-    public void PlayNext()
-    {
-        if (recordingWaitList.Count != 0)
-        {
-            currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], interuptedIndex));
-            recordingWaitList.RemoveAt(0);
-            interuptedIndex = 0;
-        }
     }
 
     public void StopCurrentRecordingLine()
@@ -189,74 +107,33 @@ public class DialogueManager : MonoBehaviour
         currentIndex = 0;
         currentLine = new Line();
         //currenRecording = null;
-        UIManager.instance.ClearSubtitle();
-        AudioManager.instance.RadioPlayer.Stop();
-        AudioManager.instance.RadioPlayer.clip = null;
-        //interuptedIndex = currentIndex;
+        UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Dialogue);
+        AudioManager.instance.DialoguePlayer.Stop();
+        AudioManager.instance.DialoguePlayer.clip = null;
     }
 
-    public void ClearAllClip()
+    public void ExitDialogueBound()
     {
-    }
-
-    public void SkipCurrentClip()
-    {
-    }
-
-    public void PauseRadio()
-    {
-        radioPaused = true;
-        UIManager.instance.ClearSubtitle();
-        AudioManager.instance.RadioPlayer.Pause();
-    }
-
-    public void UnpauseRadio()
-    {
-        if (!radioPaused)
-            return;
-
-        radioPaused = false;
-        if (currentRecording != null)
-        {
-            UIManager.instance.FadeInSubtitle(currentRecording.lines[currentIndex].speaker, currentRecording.lines[currentIndex].subtitle);
-        }
-        else if (recordingWaitList.Count != 0)
-        {
-            currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], 0));
-            recordingWaitList.RemoveAt(0);
-        }
-        AudioManager.instance.RadioPlayer.UnPause();
-    }
-
-    public void ExitRadioBound()
-    {
-        radioInBound = false;
-        if (!radioPaused && currentRecording != null)
+        dialogueInBound = false;
+        if (currentDialogue != null)
         {
             StopCurrentRecordingLine();
         }
     }
 
-    public void EnterRadioBound()
+    public void EnterDialogueBound()
     {
-        radioInBound = true;
+        dialogueInBound = true;
 
-        if (!radioPaused)
+        if (currentDialogue != null)
         {
-            if (currentRecording != null)
-            {
-                currentCoroutine = StartCoroutine(PlayRecording(currentRecording, interuptedIndex));
-            }
-            else if (recordingWaitList.Count != 0)
-            {
-                currentCoroutine = StartCoroutine(PlayRecording(recordingWaitList[0], 0));
-                recordingWaitList.RemoveAt(0);
-            }
+            currentCoroutine = StartCoroutine(PlayRecording(currentDialogue, interuptedIndex));
         }
-        else if (autoUnpause)
+        else if (dialogueWaitList.Count != 0)
         {
-            UnpauseRadio();
-            autoUnpause = false;
+            currentCoroutine = StartCoroutine(PlayRecording(dialogueWaitList[0], 0));
+            dialogueWaitList.RemoveAt(0);
         }
+        
     }
 }

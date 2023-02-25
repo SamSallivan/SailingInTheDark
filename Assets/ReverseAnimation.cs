@@ -7,7 +7,7 @@ public class ReverseAnimation : MonoBehaviour
 {
     void OnEnable()
     {
-        GetComponent<Animation>()["Any State"].normalizedTime = 1;
+        //GetComponent<Animation>()["Any State"].normalizedTime = 1;
         foreach (AnimationState state in GetComponent<Animation>())
         {
             //state.normalizedTime = 1;

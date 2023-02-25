@@ -28,6 +28,7 @@ public class I_TapeRecorder : Interactable
             tapeInserted = radioTapes[0];
             recordingPlayed = tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData.recording;
             RecordingManager.instance.ReplaceRecording(recordingPlayed);
+            RecordingManager.instance.UnpauseRadio();
 
             radioTapes.RemoveAt(0);
             if (radioTapes.Count <= 0)
@@ -45,6 +46,7 @@ public class I_TapeRecorder : Interactable
             tapeInserted = InventoryManager.instance.equippedItem.data.dropObject;
             recordingPlayed = tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData.recording;
             RecordingManager.instance.ReplaceRecording(recordingPlayed);
+            RecordingManager.instance.UnpauseRadio();
 
             InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItem);
         }
@@ -62,7 +64,7 @@ public class I_TapeRecorder : Interactable
                 //generate it early and stop playing
                 GenerateTape(RecordingManager.instance.generateTape);
                 RecordingManager.instance.StopCurrentLine();
-                RecordingManager.instance.currentRecording = null;
+                RecordingManager.instance.currentDialogue = null;
                 RecordingManager.instance.generateTape = null;
             }
             //if there is an old tape being played in the recorder
@@ -71,7 +73,7 @@ public class I_TapeRecorder : Interactable
                 //eject it early and stop playing
                 EjectTape();
                 RecordingManager.instance.StopCurrentLine();
-                RecordingManager.instance.currentRecording = null;
+                RecordingManager.instance.currentDialogue = null;
             }*/
 
         }
@@ -118,19 +120,19 @@ public class I_TapeRecorder : Interactable
         {
             UIManager.instance.interactionPrompt.text = "'E' ";
             UIManager.instance.interactionPrompt.text += "Receive Radio";
-            UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
         else if (InventoryManager.instance.equippedItem != null && InventoryManager.instance.equippedItem.data.type == ItemData.ItemType.Tape)
         {
             UIManager.instance.interactionPrompt.text = "'E' ";
             UIManager.instance.interactionPrompt.text += "Insert Tape";
-            UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
         else if (tapeInserted != null)
         {
             UIManager.instance.interactionPrompt.text = "'E' ";
             UIManager.instance.interactionPrompt.text += "Reject Tape";
-            UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
     }
 }

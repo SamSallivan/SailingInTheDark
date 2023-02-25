@@ -6,27 +6,27 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     public AudioSource RadioPlayer;
+    public AudioSource DialoguePlayer;
 
     private void Start()
     {
         instance = this;
     }
 
-    public void playRecording(AudioClip tempClip)
+    public void playRecording(AudioClip clip)
     {
-        StartCoroutine(PlayAudioCo(tempClip));
+        StartCoroutine(PlayAudioCo(clip, RadioPlayer));
     }
 
-    IEnumerator PlayAudioCo(AudioClip tempClip)
+    public void playDialogue(AudioClip clip)
     {
-        //yield return new WaitForSeconds(1f);
-        RadioPlayer.clip = tempClip;
-        RadioPlayer.Play();
+        StartCoroutine(PlayAudioCo(clip, DialoguePlayer));
+    }
+
+    IEnumerator PlayAudioCo(AudioClip clip, AudioSource source)
+    {
+        source.clip = clip;
+        source.Play();
         yield return null;
-    }
-
-    public void StopRadio()
-    {
-        RadioPlayer.Stop();
     }
 }

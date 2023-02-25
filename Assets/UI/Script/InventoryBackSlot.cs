@@ -13,22 +13,43 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        foreach (Transform child in transform.parent)
+        {
+            child.GetChild(0).gameObject.SetActive(false);
+        }
         transform.GetChild(0).gameObject.SetActive(true);
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
-        transform.GetChild(0).gameObject.SetActive(false);
+        //transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
-        InventoryManager.instance.selectedIndex = GetIndex();
-
-        if (UIManager.instance.inventoryItemGrid.transform.childCount > GetIndex())
+        if (InventoryManager.instance.detailObjectDrag)
         {
-            InventoryManager.instance.EquipItem(UIManager.instance.inventoryItemGrid.transform.GetChild(GetIndex()).gameObject.GetComponent<InventorySlot>().inventoryItem);
-        } 
+            return;
+        }
+        if (InventoryManager.instance.selectedIndex != GetIndex())
+        {
+            InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
+            InventoryManager.instance.selectedIndex = GetIndex();
+        }
+        else
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                if (UIManager.instance.inventoryItemGrid.transform.childCount > GetIndex())
+                {
+                    InventoryManager.instance.EquipItem(UIManager.instance.inventoryItemGrid.transform.GetChild(GetIndex())
+                        .gameObject.GetComponent<InventorySlot>().inventoryItem);
+                }
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+
+            }
+        }
     }
 }

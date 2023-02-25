@@ -7,6 +7,7 @@ using DG.Tweening;
 using static Line;
 using System;
 using MyBox;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class UIManager : MonoBehaviour
     public GameObject gameplayUI;
     public TMP_Text interactionName;
     public TMP_Text interactionPrompt;
-    public TMP_Text subtitleUI;
+    public TMP_Text radioSubtitleUI;
+    public TMP_Text dialogueSubtitleUI;
     public Animation interactionPromptAnimation;
 
     [Foldout("Inventory", true)]
@@ -28,7 +30,10 @@ public class UIManager : MonoBehaviour
     public TMP_Text detailName;
     public TMP_Text detailDescription;
     public Transform detailObjectPivot;
+    public bool detailObjectInBound;
+    public bool detailObjectDrag;
 
+    [Foldout("Examine", true)]
     public GameObject examineUI;
     public TMP_Text examineText;
     public Image examineImage;
@@ -47,11 +52,11 @@ public class UIManager : MonoBehaviour
     {
         if (examineUI.activeInHierarchy)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Tab))
             {
                 Unexamine();
             }
-        }   
+        }
     }
 
     public void Examine(string text)
@@ -73,8 +78,31 @@ public class UIManager : MonoBehaviour
         examineText.text = "";
     }
 
-    public void FadeInSubtitle(CharacterName speaker, string tempSubtitle)
+    public enum SubtitleType
     {
+        Radio,
+        Dialogue
+    }
+
+    public void FadeInSubtitle(CharacterName speaker, string tempSubtitle, SubtitleType type)
+    {
+        TMP_Text subtitleUI;
+        switch (type)
+        {
+            case SubtitleType.Radio:
+                subtitleUI = radioSubtitleUI;
+                break;
+
+            case SubtitleType.Dialogue:
+                subtitleUI = dialogueSubtitleUI;
+                break;
+
+            default:
+                subtitleUI = dialogueSubtitleUI;
+                break;
+        }
+
+        subtitleUI.gameObject.SetActive(true);
         string name = speaker.ToString();
         switch (speaker)
         {
@@ -89,26 +117,67 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
-        float subtitleFadeDuration = 0.5f;
+        float subtitleFadeDuration = 0.25f;
         subtitleUI.DOFade(0, subtitleFadeDuration).OnComplete(() =>
         {
             subtitleUI.text = name + ": " + tempSubtitle;
+
+            int line = 1 + subtitleUI.text.Length / 72;
+            subtitleUI.rectTransform.SetHeight(Math.Clamp(50 * line, 50, 200));
+
             subtitleUI.DOFade(1, subtitleFadeDuration);
         }
         );
     }
 
-    public void FadeOutSubtitle()
+    public void FadeOutSubtitle(SubtitleType type)
     {
-        float subtitleFadeDuration = 0.5f;
-        subtitleUI.DOFade(0, subtitleFadeDuration);
+        TMP_Text subtitleUI;
+        switch (type)
+        {
+            case SubtitleType.Radio:
+                subtitleUI = radioSubtitleUI;
+                break;
+
+            case SubtitleType.Dialogue:
+                subtitleUI = dialogueSubtitleUI;
+                break;
+
+            default:
+                subtitleUI = dialogueSubtitleUI;
+                break;
+        }
+
+        float subtitleFadeDuration = 0.25f;
+        subtitleUI.DOFade(0, subtitleFadeDuration).OnComplete(() =>
+        {
+            subtitleUI.gameObject.SetActive(false);
+        }
+        );
     }
 
-    public void ClearSubtitle()
+    public void ClearSubtitle(SubtitleType type)
     {
+        TMP_Text subtitleUI;
+        switch (type)
+        {
+            case SubtitleType.Radio:
+                subtitleUI = radioSubtitleUI;
+                break;
+
+            case SubtitleType.Dialogue:
+                subtitleUI = dialogueSubtitleUI;
+                break;
+
+            default:
+                subtitleUI = dialogueSubtitleUI;
+                break;
+        }
+
         subtitleUI.DOFade(0, 0.5f).OnComplete(() =>
         {
             subtitleUI.text = "";
+            subtitleUI.gameObject.SetActive(false);
         }
         );
     }

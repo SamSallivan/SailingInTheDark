@@ -36,7 +36,8 @@ public class I_BoatAnchor : Interactable
                 playerPos = PlayerController.instance.transform.localPosition;
             }
         }
-        else if (!activated){
+        else if (!activated)
+        {
             boat.Anchor.Weigh();
             textPrompt = "Drop";
 
@@ -44,8 +45,8 @@ public class I_BoatAnchor : Interactable
             {
                 textPrompt = "Dock";
                 PlayerController.instance.gameObject.transform.SetParent(boat.transform, true);
-
             }
+            PlayerController.instance.enableMovement = true;
         }
         yield return null;
     }

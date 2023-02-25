@@ -56,13 +56,16 @@ public class RecordingManager : MonoBehaviour
             currentLine = tempRecording.lines[i];
 
             yield return new WaitForSeconds(tempRecording.lines[i].intervalBefore);
-            UIManager.instance.FadeInSubtitle(tempRecording.lines[i].speaker, tempRecording.lines[i].subtitle);
-            yield return new WaitForSeconds(0.5f);
+            UIManager.instance.FadeInSubtitle(tempRecording.lines[i].speaker, tempRecording.lines[i].subtitle, UIManager.SubtitleType.Radio);
+            yield return new WaitForSeconds(0.25f);
             AudioManager.instance.playRecording(tempRecording.lines[i].audioClip);
-
             yield return new WaitWhile(() => (AudioManager.instance.RadioPlayer.isPlaying || radioPaused));
-            UIManager.instance.FadeOutSubtitle();
-
+            UIManager.instance.FadeOutSubtitle(UIManager.SubtitleType.Radio);
+            yield return new WaitForSeconds(0.25f);
+            if (i != tempRecording.lines.Count - 1)
+            {
+                UIManager.instance.radioSubtitleUI.gameObject.SetActive(true);
+            }
             yield return new WaitForSeconds(tempRecording.lines[i].intervalAfter);
 
         }
@@ -71,7 +74,7 @@ public class RecordingManager : MonoBehaviour
         currentIndex = 0;
         currentLine = new Line();
         currentRecording = null;
-        UIManager.instance.ClearSubtitle();
+        UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Radio);
         AudioManager.instance.RadioPlayer.clip = null;
 
         yield return null;
@@ -86,15 +89,15 @@ public class RecordingManager : MonoBehaviour
         interuptedIndex = currentIndex;
         currentIndex = 0;
         currentLine = new Line();
-        UIManager.instance.ClearSubtitle();
+        UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Radio);
         AudioManager.instance.RadioPlayer.Stop();
         AudioManager.instance.RadioPlayer.clip = null;
-        //currentRecording = null;
+        //currentDialogue = null;
     }
 
     public void PauseRadio(){
         radioPaused = true;
-        UIManager.instance.ClearSubtitle();
+        UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Radio);
         AudioManager.instance.RadioPlayer.Pause();
     }
 
@@ -105,7 +108,7 @@ public class RecordingManager : MonoBehaviour
         radioPaused = false;
         if(currentRecording != null)
         {
-            UIManager.instance.FadeInSubtitle(currentRecording.lines[currentIndex].speaker, currentRecording.lines[currentIndex].subtitle);
+            UIManager.instance.FadeInSubtitle(currentRecording.lines[currentIndex].speaker, currentRecording.lines[currentIndex].subtitle, UIManager.SubtitleType.Radio);
         }
         AudioManager.instance.RadioPlayer.UnPause();
     }

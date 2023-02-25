@@ -38,6 +38,8 @@ public class InventoryManager : MonoBehaviour
     public int slotPerColumn = 4;
 
     private float inputDelay;
+    private bool detailRotationFix;
+    public bool detailObjectDrag;
 
     void Awake()
     {
@@ -119,14 +121,6 @@ public class InventoryManager : MonoBehaviour
         PlayerController.instance.LockCamera(true);
 
         UIManager.instance.inventoryUI.SetActive(true);
-        foreach (Animation animation in UIManager.instance.gameplayUI.transform.GetComponentsInChildren<Animation>())
-        {
-            foreach (AnimationState state in animation)
-            {
-                //state.normalizedTime = 1;
-            }
-        }
-
         UIManager.instance.gameplayUI.SetActive(false);
 
         PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(false);
@@ -141,7 +135,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         //play the fade in effect
-        UIManager.instance.inventoryAnimation.Play("Basic Fade-in");
+        //UIManager.instance.inventoryAnimation.Play("Basic Fade-in");
     }
     public void CloseInventory()
     {
@@ -150,14 +144,13 @@ public class InventoryManager : MonoBehaviour
         PlayerController.instance.LockMovement(false);
         PlayerController.instance.LockCamera(false);
 
-        //UIManager.instance.inventoryUI.SetActive(false);
+        UIManager.instance.inventoryUI.SetActive(false);
         UIManager.instance.gameplayUI.SetActive(true);
 
         PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(true);
 
         //play the fade out effect
-        UIManager.instance.inventoryAnimation.Play("Basic Fade-out");
-        //UIManager.instance.inventoryAnimation
+        //UIManager.instance.inventoryAnimation.Play("Basic Fade-out");
 
         inputDelay = 0;
     }
@@ -371,23 +364,37 @@ public class InventoryManager : MonoBehaviour
     {
         Vector2 lookVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         Vector2 rotateValue = new Vector2();
+        
+        if (UIManager.instance.detailObjectInBound && Input.GetMouseButtonDown(0))
+        {
+            detailObjectDrag = true;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            detailObjectDrag = false;
 
-        if(Input.GetMouseButton(0)){
+        }
+
+        if(detailObjectDrag)
+        {
             rotateValue.x = -(lookVector.x * 2.5f);
             rotateValue.y = lookVector.y * 2.5f;
             UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, rotateValue.x, Space.World);
             UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.right, rotateValue.y, Space.World);
+            detailRotationFix = true;
         }
         else
         {
-            //Transform target = new RectTransform();
-            //target.localRotation = selectedItem.data.examineRotation;
-            //target.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
+            Quaternion currentRotation = UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation;
 
-            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, 1, Space.World);
-            //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Lerp(UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation, new Quaternion(selectedItem.data.examineRotation.x, UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation.y, selectedItem.data.examineRotation.z, selectedItem.data.examineRotation.w), Time.fixedDeltaTime * 5);
-            //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Lerp(UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation, selectedItem.data.examineRotation, Time.fixedDeltaTime);
-            //UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = selectedItem.data.examineRotation;
+            if (Quaternion.Angle(currentRotation, selectedItem.data.examineRotation) > 2f && detailRotationFix)
+            {
+                UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Slerp(currentRotation, selectedItem.data.examineRotation, Time.deltaTime * 10f);
+            }
+            else{
+                detailRotationFix = false;
+                UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, 0.5f, Space.World);
+            }
         }
     }
 
