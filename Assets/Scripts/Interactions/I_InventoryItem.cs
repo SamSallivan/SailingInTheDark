@@ -9,10 +9,10 @@ public class I_InventoryItem : Interactable
     {
         None,
         Paper,
-        Object
+        Object,
+        Upgrade
     }
 
-    //public ExamineType examineType;
 
     //[ConditionalField(nameof(examineType), false, ExamineType.Object, ExamineType.Paper)]
     //public bool canPickUp;

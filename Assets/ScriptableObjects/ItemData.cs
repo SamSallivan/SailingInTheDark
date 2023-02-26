@@ -14,7 +14,7 @@ public class ItemData : ScriptableObject
     {
         Standard,
         Tape,
-        Upgrade
+        Upgrade,
     }
     [Foldout("Base Info", true)]
 
@@ -62,7 +62,6 @@ public class ItemData : ScriptableObject
     [ConditionalField(nameof(isReadable))]
     [TextArea(10, 10)]
     public string readText;
-
 }
 
 

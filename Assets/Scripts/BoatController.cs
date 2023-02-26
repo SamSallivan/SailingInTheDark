@@ -19,6 +19,7 @@ public class BoatController : MonoBehaviour
     public TMP_Text second;
     public TMP_Text percentage;
     public TMP_Text componentCount;
+
     void Awake()
     {
         instance = this;
@@ -49,27 +50,19 @@ public class BoatController : MonoBehaviour
         string sec = seconds.ToString();
 
         if (minutes < 10)
-        {
             min = "0" + minutes.ToString();
-        }
         if (seconds < 10)
-        {
             sec = "0" + Mathf.RoundToInt(seconds).ToString();
-        }
+
         hour.text = "Estimated Life(s):";
         second.text = min + ":" + sec;
         percentage.text = estimatedPercentage + "%";
         componentCount.text = curActiveComponent + "/" + maxActiveComponent;
 
         if (curActiveComponent == 0)
-        {
             second.text = "N/A";
-        }
-
         if (curWattHour <= 0 || curActiveComponent > maxActiveComponent)
-        {
             ShutDown();
-        }
     }
 
     public void ShutDown()

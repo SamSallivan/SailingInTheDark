@@ -14,6 +14,7 @@ public enum InteractionType
     InventoryItem = 2,
     Custom = 3,
     CustomToggle = 4,
+    Upgrade = 5,
 }
 
 [Serializable]
@@ -33,7 +34,6 @@ public class Interactable : MonoBehaviour
     public string textPromptActivated;
 
     public GameObject highlightTarget;
-
 
 
     [Foldout("Settings", true)]
@@ -66,7 +66,6 @@ public class Interactable : MonoBehaviour
     public bool activated;
     [ConditionalField(nameof(interactionType), false, InteractionType.CustomToggle)]
     public bool allowOtherInteraction;
-
 
     public virtual IEnumerator InteractionEvent()
     {
