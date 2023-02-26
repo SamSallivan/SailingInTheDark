@@ -100,17 +100,6 @@ public class I_WheelThrottle : Interactable
         {
             GetComponent<BoatComponent>().componentActivated = false;
         }
-
-        if (PlayerController.instance.transform.parent == BoatController.instance.transform)
-        {
-            PlayerController.instance.TetherToBoat(BoatController.instance.boat.Speed * 0.75f, 0);
-        }
-        else
-        {
-            PlayerController.instance.UntetherFromBoat();
-        }
-
-        //Debug.Log(BoatController.instance.boat.Speed);
     }
 
     public override void ShutDown()

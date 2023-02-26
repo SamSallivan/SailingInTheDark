@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
     {
         if (examineUI.activeInHierarchy)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
             {
                 Unexamine();
             }

@@ -8,9 +8,10 @@ public class I_Examine : Interactable
 
     public override IEnumerator InteractionEvent()
     {
+        UIManager.instance.Examine(examineText);
+
         if (itemData != null)
         {
-            UIManager.instance.Examine(examineText);
             //ObjectiveManager.instance.CompleteObjetive("Read Paper");
 
         }

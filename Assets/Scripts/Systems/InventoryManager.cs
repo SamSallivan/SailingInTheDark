@@ -379,8 +379,8 @@ public class InventoryManager : MonoBehaviour
         {
             rotateValue.x = -(lookVector.x * 2.5f);
             rotateValue.y = lookVector.y * 2.5f;
-            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, rotateValue.x, Space.World);
-            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.right, rotateValue.y, Space.World);
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.GetChild(0).transform.up, rotateValue.x, Space.World);
+            UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.GetChild(0).transform.right, rotateValue.y, Space.World);
             detailRotationFix = true;
         }
         else
@@ -393,7 +393,7 @@ public class InventoryManager : MonoBehaviour
             }
             else{
                 detailRotationFix = false;
-                UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.transform.up, 0.5f, Space.World);
+                UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.GetChild(0).transform.up, 0.5f, Space.World);
             }
         }
     }

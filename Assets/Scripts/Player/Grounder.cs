@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Grounder : MonoBehaviour
@@ -11,7 +12,10 @@ public class Grounder : MonoBehaviour
 
 	public LayerMask groundMask;
 
-	public bool grounded;
+    public LayerMask boatMask;
+
+    public bool grounded;
+
 	public int groundContactCount;
 
 	public int stepSinceUngrounded;
@@ -33,8 +37,9 @@ public class Grounder : MonoBehaviour
 	public PlayerController pc;
 
 	public RaycastHit hit;
+    public RaycastHit hitBoat;
 
-	public ContactPoint contactPoint;
+    public ContactPoint contactPoint;
 
 	public Collider groundCollider;
 
@@ -60,7 +65,7 @@ public class Grounder : MonoBehaviour
 		pc.gTimer = 0f;
 
 		//if not climbing
-		if (!pc.rb.isKinematic)
+		if (!pc.isNonPhysics && pc.GetClimbState() == 0)
 		{
 			//recalculates velocity based on ground normal. 
 			pc.rb.velocity = Vector3.ProjectOnPlane(pc.vel, groundNormal);
@@ -88,9 +93,14 @@ public class Grounder : MonoBehaviour
 			
 			//sets a timeframe that allows player to jump after ungrounding
             pc.gTimer = 0.2f;
-		}
+        }
 
-		if(OnUnground != null)
+        if (pc.isNonPhysics)
+        {
+            pc.DetachFromBoat();
+        }
+
+        if (OnUnground != null)
 			OnUnground();
 		
 	}
@@ -98,9 +108,17 @@ public class Grounder : MonoBehaviour
 	//checks whether player is close enough to ground, if not grounded.
 	public bool CheckWithRaycast(float dot = 0f)
 	{
-		Physics.Raycast(rb.position, Vector3.down, out hit, 1.2f, groundMask);
+		Physics.Raycast(pc.transform.position, Vector3.down, out hit, 1.2f, groundMask);
 		return hit.normal.y > dot;
-	}
+    }
+    public bool CheckBoat()
+    {
+        Physics.Raycast(pc.transform.position, -pc.transform.up, out hitBoat, 1.2f, boatMask);
+        return hitBoat.normal.y > minGroundNormal;
+    }
+
+	
+
 
     void Update()
     {
@@ -134,6 +152,12 @@ public class Grounder : MonoBehaviour
 
 	private void UpdateState()
 	{
+        if (pc.isNonPhysics && !CheckWithRaycast(minGroundNormal))
+        {
+			Unground();
+        }
+
+
 		if (groundContactCount > 0)
 		{
 			if (groundContactCount > 1)
@@ -148,12 +172,17 @@ public class Grounder : MonoBehaviour
 			{
 				Ground();
 			}
+
+            if (!pc.isNonPhysics && CheckBoat())
+            {
+                pc.AttachToBoat(BoatController.instance.transform);
+            }
 		}
 		else
 		{	
 			//if player was ungrounded not long ago, and the normal of the ground below it still meets the minimal ground normal, ground the player.
 			//for smoother control on bumpy surfaces.
-			if (stepSinceUngrounded < 5 && CheckWithRaycast(minGroundNormal))
+			if (pc.isNonPhysics || stepSinceUngrounded < 5 && CheckWithRaycast(minGroundNormal))
 			{
 				if (!grounded)
 				{
@@ -162,15 +191,18 @@ public class Grounder : MonoBehaviour
 
 				tempGroundNormal = hit.normal;
 
-				//recalculates velocity based on ground normal.
-				//applies the velocity back if player is not climbing.
-				Vector3 normalized = Vector3.ProjectOnPlane(rb.velocity, hit.normal).normalized;
-				if (!rb.isKinematic && rb.velocity.y > normalized.y)
-				{
-					rb.velocity = normalized * rb.velocity.magnitude;
-				}
+                //recalculates velocity based on ground normal.
+                //applies the velocity back if player is not climbing.
+                if (!pc.isNonPhysics)
+                {
+                    Vector3 normalized = Vector3.ProjectOnPlane(rb.velocity, hit.normal).normalized;
+                    if (pc.GetClimbState() == 0 && rb.velocity.y > normalized.y)
+                    {
+                        rb.velocity = normalized * rb.velocity.magnitude;
+                    }
+                }
 
-			}
+            }
 			else
 			{	//if not on any ground, unground player.
 				if (grounded)
@@ -179,6 +211,11 @@ public class Grounder : MonoBehaviour
 					highestPoint = transform.position.y;
 
                     pc.gTimer = 0.2f;
+
+                    if (pc.isNonPhysics)
+                    {
+						pc.DetachFromBoat();
+                    }
 
 				}
 				tempGroundNormal = Vector3.up;

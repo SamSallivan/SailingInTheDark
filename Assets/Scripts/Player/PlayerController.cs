@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using MyBox;
+using NWH.DWP2.WaterObjects;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 //Added Function Die(), Damage(),
 //And postprocessing effect when taken damage.
@@ -11,8 +12,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 {
 	public static PlayerController instance;
 
-    [Header("Movements")]
-	public bool enableMovement = true;
+    [Foldout("References", true)]
 
     //public WeaponManager weapons; 
 
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public Rigidbody rb;
 
-    private CapsuleCollider playerCollider;
+    public CapsuleCollider playerCollider;
 
     //public PlayerDecapitate playerDecapitate;
 
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     private CameraBob bob;
 
     public HeadPosition headPosition;
+    [Foldout("Inputs", true)]
 
     private float hTemp;
 
@@ -48,9 +49,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     private float v;
 
-	public float speed = 1f;
-
     private Vector3 inputDir;
+
+    [Foldout("Dynamic Movements", true)]
 
     public Vector3 vel;
 
@@ -62,18 +63,40 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     private Vector3 gDirCrossProject;
 
+    private Vector3 localVelo;
+
     private RaycastHit hit;
 
     private float airControl = 1f;
 
     private float airControlBlockTimer;
 
-	public Vector3 jumpForce = new Vector3(0f, 15f, 0f);
+    public WaterObject waterObject;
+
+    [Foldout("Kinematic Movements", true)]
+
+    public bool isNonPhysics;
+    public float acceleration;
+    public float deaccerlation;
+
+    public float distance;
+    public float radius;
+    public float collisionCoefficient;
+
+    public LayerMask nonPhysicsCollisions;
+
+    [Foldout("Settings", true)]
+    public bool enableMovement = true;
+
+    public float dynamicSpeed = 1f;
+
+    public Vector3 jumpForce = new Vector3(0f, 15f, 0f);
 
     public float gTimer;
 
 	public float gravity = -40f;
 
+	[ReadOnly()]
     private int climbState;
 
     private float climbTimer;
@@ -94,7 +117,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     private float damageTimer;
 
-	[ReadOnly]
+
+    [Foldout("Interaction", true)]
+    [ReadOnly]
     public Interactable targetInteractable;
 
     public float interactDistance = 5;
@@ -110,13 +135,18 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	public SpringJoint frontJoint;
 	public SpringJoint backJoint;
 
+    public int GetClimbState()
+    {
+		return  climbState;
+    }
+
     private void Awake()
 	{
         Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		instance = this;
 		t = base.transform;
-		tHead = t.Find("Head Pivot").transform;
+		tHead = t.GetChild(0).Find("Head Pivot").transform;
         //equippedTransform = tHead.Find("Equip Pivot").transform;
         rb = GetComponent<Rigidbody>();
 		playerCollider = GetComponent<CapsuleCollider>();
@@ -126,6 +156,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		//playerDecapitate = GetComponentInChildren<PlayerDecapitate>(true);
 		bob = tHead.GetComponentInChildren<CameraBob>();
 		headPosition = tHead.GetComponentInChildren<HeadPosition>();
+        waterObject = GetComponentInChildren<WaterObject>();
         //mouseLook = tHead.GetComponentInChildren<MouseLook>();
 
         /*
@@ -197,7 +228,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	private void JumpOrClimb()
 	{
 		//if is climbing, return
-		if (rb.isKinematic)
+		if (climbState != 0)
 		{
 			return;
 		}
@@ -293,10 +324,14 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 			}
 		}
 
-		//ungrounds and jumps
-		grounder.Unground();
+        //ungrounds and jumps
+        if (isNonPhysics)
+        {
+            DetachFromBoat();
+        }
+        grounder.Unground();
 		gTimer = 0f;
-		rb.velocity = new Vector3(0, 0, 0);
+        rb.velocity = new Vector3(0, 0, 0);
 		rb.AddForce(jumpForce * multiplier, ForceMode.Impulse);
 	}
 
@@ -404,8 +439,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	{
 
 		//tilts camera based on horizontal input
-        if (!rb.isKinematic)
-        //if (slide.slideState == 0 && !rb.isKinematic)
+        if (climbState == 0)
+        //if (slide.slideState == 0 && climbState == 0)
         {
 
             bob.Angle(inputDir.x * -4f - damageTimer * 3f);
@@ -418,7 +453,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         {
             if (gVel.sqrMagnitude > 1f)
 			{
-				bob.Bob(speed);
+				bob.Bob(dynamicSpeed);
 			}
 			else
 			{
@@ -488,11 +523,22 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		}
 	}
 
-	private void FixedUpdate()
-	{
-		//recalculates the previous velocity based on new ground normals
-		vel = rb.velocity;
-		gVel = Vector3.ProjectOnPlane(vel, grounder.groundNormal);
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0.1f, 0.1f, 0.9f, 0.8f);
+        Gizmos.DrawSphere(base.transform.position + base.transform.up * 1, radius);
+        Gizmos.DrawSphere(base.transform.position + base.transform.up * -1, radius);
+    }
+
+    private void FixedUpdate()
+    {
+        //recalculates the previous velocity based on new ground normals
+        if (!isNonPhysics)
+        {
+            vel = rb.velocity;
+        }
+
+        gVel = Vector3.ProjectOnPlane(vel, grounder.groundNormal);
 
 		//recalculates direction based on new ground normals
 		gDir = tHead.TransformDirection(inputDir);
@@ -500,30 +546,67 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		gDirCrossProject = Vector3.ProjectOnPlane(grounder.groundNormal, gDirCross);
 		gDir = Vector3.Cross(gDirCross, gDirCrossProject);
 
-
-        if (!rb.isKinematic)
-		//if (slide.slideState == 0)
+        if (!isNonPhysics)
+        //if (slide.slideState == 0)
         {
-			//if moving fast, apply the calculated movement.
-			//based on new input subtracted by previous velocity
-			//so that player accelerates faster when start moving.
-			if (inputDir.sqrMagnitude > 0.25f)
+            //if moving fast, apply the calculated movement.
+            //based on new input subtracted by previous velocity
+            //so that player accelerates faster when start moving.
+            if (inputDir.sqrMagnitude > 0.25f)
 			{
 				if (grounder.grounded)
 				{
-					rb.AddForce(gDir * 100f - gVel * 10f * speed);
+					rb.AddForce(gDir * 100f - gVel * 10f * dynamicSpeed);
 				}
 				else if (airControl > 0f)
 				{
-					rb.AddForce((gDir * 100f - gVel * 10f * speed) * airControl);
+					rb.AddForce((gDir * 100f - gVel * 10f * dynamicSpeed) * airControl);
 				}
 			}
 			//if not fast, accelerates the slowing down process
 			else if (grounder.grounded && gVel.sqrMagnitude != 0f)
 			{
 				rb.AddForce(-gVel * 10f);
-			}
-		}
+            }
+
+            rb.AddForce(grounder.groundNormal * gravity);
+
+            if (extraUpForce)
+            {
+                rb.AddForce(Vector3.up * 12f);
+                extraUpForce = false;
+            }
+        }
+		else
+        {
+            localVelo += tHead.TransformDirection(inputDir) * acceleration * Time.fixedDeltaTime;
+            localVelo = Vector3.Lerp(localVelo, Vector3.zero, Time.fixedDeltaTime * deaccerlation);
+            if (localVelo != Vector3.zero)
+            {
+                Vector3 direction = tHead.transform.TransformDirection(localVelo);
+                 if (Physics.SphereCast(base.transform.position + base.transform.up * 1f, radius, localVelo, out RaycastHit hitInfo, distance, nonPhysicsCollisions))
+                {
+                    //Vector3 vector2 = base.transform.InverseTransformDirection(hitInfo.normal);
+                    Vector3 vector = hitInfo.normal;
+                     vector.y = 0f;
+                     localVelo += vector.normalized * (1f / Mathf.Max(0.1f, hitInfo.distance)) * collisionCoefficient *
+                                  Time.fixedDeltaTime;
+					 Debug.Log("hit");
+                 }
+
+                 if (Physics.SphereCast(base.transform.position + base.transform.up * (-1f), radius, localVelo, out RaycastHit hitInfo2, distance, nonPhysicsCollisions))
+                 {
+                     //Vector3 vector2 = base.transform.InverseTransformDirection(hitInfo2.normal);
+                     Vector3 vector2 = hitInfo2.normal;
+                     vector2.y = 0f;
+                     localVelo += vector2.normalized * (1f / Mathf.Max(0.1f, hitInfo2.distance)) * collisionCoefficient *
+                                  Time.fixedDeltaTime;
+                     Debug.Log("hit");
+                }
+
+                transform.position += localVelo * Time.fixedDeltaTime;
+            }
+        }
 		/*
 		else if (slide.slideState == 2)
 		{
@@ -542,13 +625,6 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 		//applies gravity in the direction of ground normal
 		//so player does not slide off within the tolerable angle
-		rb.AddForce(grounder.groundNormal * gravity);
-
-		if (extraUpForce)
-		{
-			rb.AddForce(Vector3.up * 12f);
-			extraUpForce = false;
-		}
     }
     private void HandleInteractableCheck()
 	{
@@ -585,13 +661,13 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     }
 
 	public void TetherToBoat(float spring1, float spring2){
-		frontJoint.spring = spring1;
-		backJoint.spring = spring2;
+		//frontJoint.spring = spring1;
+		//backJoint.spring = spring2;
 	}
 
 	public void UntetherFromBoat(){
-		frontJoint.spring = 0;
-		backJoint.spring = 0;
+		//frontJoint.spring = 0;
+		//backJoint.spring = 0;
     }
     public void LockMovement(bool state)
     {
@@ -600,9 +676,46 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public void LockCamera(bool state)
     {
-		GetComponent<MouseLook>().enabled = !state;
-        tHead.GetComponent<MouseLook>().enabled = !state;
+        foreach (MouseLook look in GetComponentsInChildren<MouseLook>())
+        {
+            look.enabled = !state;
+        }
+		//tHead.GetComponent<MouseLook>().enabled = !state;
+        //tHead.GetComponent<MouseLook>().enabled = !state;
     }
 
+    public void AttachToBoat(Transform playerParent)
+    {
+        transform.SetParent(playerParent.gameObject.transform, true);
+        isNonPhysics = true;
+        waterObject.enabled = false;
+        Destroy(PlayerController.instance.rb);
+		
+        Vector3 temp = PlayerController.instance.transform.localPosition;
+        //PlayerController.instance.transform.localPosition = new Vector3(temp.x, playerHeight.localPosition.y, temp.z);
 
+        PlayerController.instance.transform.localEulerAngles = new Vector3(0, PlayerController.instance.transform.localEulerAngles.y, 0);
+        GetComponentInChildren<PlayerSway>().enabled = true;
+        GetComponentInChildren<PlayerSway>().lastRotation = transform.rotation;
+    }
+
+    public void DetachFromBoat()
+    {
+        Rigidbody temp = transform.AddComponent<Rigidbody>();
+        temp.isKinematic = false;
+        temp.useGravity = false;
+        temp.angularDrag = 0;
+        temp.constraints = RigidbodyConstraints.FreezeRotation;
+
+        rb = temp;
+        grounder.rb = temp;
+        waterObject.targetRigidbody = temp;
+
+        gameObject.transform.SetParent(null, true);
+        isNonPhysics = false;
+        waterObject.enabled = true;
+		
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        GetComponentInChildren<PlayerSway>().enabled = false;
+    }
 }

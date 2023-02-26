@@ -100,7 +100,7 @@ public class CameraBob : MonoBehaviour
 			transform.localRotation = Quaternion.SlerpUnclamped(startRot, rot, swayCurve.Evaluate(rotTimer));
 		}
 
-        GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, defaultFOV + (PlayerController.instance.rb.isKinematic ? 15f : 0f), Time.deltaTime * 20f);
+        GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, defaultFOV + (PlayerController.instance.GetClimbState() != 0 ? 15f : 0f), Time.deltaTime * 20f);
 		/*
         WeaponManager weapon = transform.parent.GetComponentInChildren<WeaponManager>();
 		if (weapon.isActiveAndEnabled && weapon.Holding() > 0f)

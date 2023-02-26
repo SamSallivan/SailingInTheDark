@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class T_ParentPlayer : Trigger
 {
     public Transform playerParent;
-    public PhysicMaterial mat;
+    public Transform playerHeight;
     public override IEnumerator TriggerEvent()
     {
-        Vector3 temp = PlayerController.instance.transform.eulerAngles;
-        PlayerController.instance.gameObject.transform.SetParent(playerParent.gameObject.transform, true);
-        //PlayerController.instance.transform.localEulerAngles = new Vector3(0, 90, 0);
-        mat.staticFriction = 1;
-        mat.dynamicFriction = 1;
+        if (PlayerController.instance.gameObject.transform.parent != playerParent.gameObject.transform)
+        {
+            //Debug.Log("Parenting Player");
+            //PlayerController.instance.AttachToBoat(playerParent, playerHeight);
+        }
+
         yield return null;
     }
 
@@ -20,13 +22,16 @@ public class T_ParentPlayer : Trigger
     {
         if (other.CompareTag(targetTag))
         {
-            Vector3 temp = PlayerController.instance.transform.eulerAngles;
-            PlayerController.instance.gameObject.transform.SetParent(null, true);
-            //PlayerController.instance.transform.eulerAngles = new Vector3(0, temp.y + playerParent.transform.eulerAngles.y, 0);
-            PlayerController.instance.UntetherFromBoat();
-            mat.staticFriction = 0;
-            mat.dynamicFriction = 0;
+            //Debug.Log("Detaching Player");
+            //PlayerController.instance.DetachFromBoat();
 
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag(targetTag))
+        {
         }
     }
 }
