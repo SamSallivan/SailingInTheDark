@@ -37,7 +37,7 @@ public class CompassRotate : MonoBehaviour
                 break;
             case CompassType.Flat:
                 ref Vector3 reference = ref newRotation;
-                Vector3 eulerAngles = PlayerController.instance.transform.eulerAngles;
+                Vector3 eulerAngles = PlayerController.instance.tHead.eulerAngles;
                 reference.y = - eulerAngles.y + perspectiveAdjustment;
                 if (transform.IsChildOf(PlayerController.instance.transform) || transform.IsChildOf(UIManager.instance.inventoryUI.transform))
                 {

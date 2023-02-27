@@ -286,6 +286,7 @@ Shader "Crest/Ocean URP"
 			#include "OceanFoam.hlsl"
 			#include "Assets/Plugins/Azure[Sky] Dynamic Skybox/Shaders/Transparent/AzureFogCore.cginc"
 			#include "Assets/Plugins/BOXOPHOBIC/Atmospheric Height Fog/Core/Includes/AtmosphericHeightFog.cginc"
+			#include "Assets/Plugins/Enviro 3 - Sky and Weather/Resources/Shader/Includes/FogIncludeHLSL.hlsl"
 
 			struct Attributes
 			{
@@ -704,9 +705,20 @@ Shader "Crest/Ocean URP"
 				if (!underwater)
 				{
 					// Above water - do atmospheric fog. If you are using a third party sky package such as Azure, replace this with their stuff!
+					//Default
 					col = MixFog(col, input.positionWS_fogFactor.w);
-					col = ApplyAzureFog(real4(col, 1.0), input.positionWS_fogFactor.xyz);
+
+					//Azure
+					//col = ApplyAzureFog(real4(col, 1.0), input.positionWS_fogFactor.xyz);
+
+					//Boxphobic
 					//col = ApplyAtmosphericHeightFog(real4(col, 1.0),GetAtmosphericHeightFog(input.positionWS_fogFactor.xyz));
+
+					//Enviro3
+					col.rgb = ApplyFogAndVolumetricLights(col.rgb, input.screenPosXYW.xy / input.screenPosXYW.z, input.positionWS_fogFactor.xyz, sceneZ);
+
+
+
 				}
 #if CREST_UNDERWATER_BEFORE_TRANSPARENT
 				else

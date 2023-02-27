@@ -13,8 +13,7 @@ public enum InteractionType
     Examine = 1,
     InventoryItem = 2,
     Custom = 3,
-    CustomToggle = 4,
-    Upgrade = 5,
+    CustomToggle = 4
 }
 
 [Serializable]

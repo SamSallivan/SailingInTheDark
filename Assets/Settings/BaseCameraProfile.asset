@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
     m_Value: 2
@@ -215,13 +215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e21a9f18817d444b2c00478e04a58e, type: 3}
   m_Name: Posterize
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   hsvMode:
     m_OverrideState: 1
     m_Value: 0
   levels:
     m_OverrideState: 1
-    m_Value: 25
+    m_Value: 5
   hue:
     m_OverrideState: 1
     m_Value: 256
@@ -247,7 +247,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.1
   amount:
     m_OverrideState: 1
     m_Value: 700
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfc0ecd934e74246bcf9791abe617b0, type: 3}
   m_Name: Pixelize
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   amount:
     m_OverrideState: 1
     m_Value: 1
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ce1611ace1a9a4a8284d45a924bdcd, type: 3}
   m_Name: Dithering
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   lut:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: 7a95f13299f9b0948aff699c1881bfc6, type: 3}

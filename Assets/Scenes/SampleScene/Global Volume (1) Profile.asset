@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63c99b3ed38a41f39e4d2bc6c00dfba, type: 3}
   m_Name: VHSPro
   m_EditorClassIdentifier: 
-  active: 1
-  g_pixel: 0
-  g_color: 1
-  g_palette: 1
-  g_crt: 1
-  g_noise: 1
-  g_jitter: 1
+  active: 0
+  g_pixel: 1
+  g_color: 0
+  g_palette: 0
+  g_crt: 0
+  g_noise: 0
+  g_jitter: 0
   g_signal: 1
-  g_feedback: 1
+  g_feedback: 0
   g_extra: 0
   g_bypass: 0
   pixelOn:
