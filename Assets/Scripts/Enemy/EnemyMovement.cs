@@ -10,8 +10,9 @@ public class EnemyMovement : MonoBehaviour
 
     private float movementSpeed = 3f;
     private float rotationDamp = 5f;
-    private float raycastDistance = 5f;
-    private float raycastOffset = 2.5f;
+    public float raycastDistance = 5f;
+    public float raycastOffset = 2.5f;
+    public float raycastRadius = 2.5f;
 
     private Transform target;
 
@@ -20,6 +21,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform _transform;
 
     public LayerMask boatMask;
+    public LayerMask obstacleMask;
+
+    public Vector3 offset;
+      public  Vector3 offsetLeft = Vector3.zero;
+      public  Vector3 offsetRight = Vector3.zero;
+    public Vector3 left;
+    public Vector3 right;
 
     // ----------------------------------------------------------------------------------------------
     private void Awake()
@@ -56,10 +64,12 @@ public class EnemyMovement : MonoBehaviour
     private void PathFinding()
     {
         RaycastHit hit;
-        Vector3 offset = Vector3.zero;
+        offset = Vector3.zero;
+        //  offsetLeft = Vector3.zero;
+        //  offsetRight = Vector3.zero;
 
-        Vector3 left = transform.position - transform.right * raycastOffset;
-        Vector3 right = transform.position + transform.right * raycastOffset;
+         left = transform.position - transform.right * raycastOffset;
+         right = transform.position + transform.right * raycastOffset;
         // Vector3 down = transform.position - transform.up;
 
         Debug.DrawRay(left, transform.forward * raycastDistance, Color.red);
@@ -67,26 +77,48 @@ public class EnemyMovement : MonoBehaviour
         // Debug.DrawRay(down, -transform.up * 3f, Color.red);
 
 
-        if (Physics.Raycast(left, transform.forward, out hit, raycastDistance))
+        //if (Physics.Raycast(left, transform.forward, out hit, raycastDistance))
+        // if (Physics.SphereCast(left, raycastRadius, transform.forward, out hit, raycastDistance, obstacleMask))
+        // {
+        //     Debug.Log(hit.collider.gameObject);
+        //     offsetLeft += new Vector3(0, 1, 0);
+        //     // offset += hit.normal;
+        // }
+        //  if (Physics.SphereCast(right, raycastRadius, transform.forward, out hit, raycastDistance, obstacleMask))
+        // {
+        //     Debug.Log(hit.collider.gameObject);
+        //     offsetRight += new Vector3(0, -1, 0);
+        //     // offset += hit.normal;
+        // }
+        bool ray = Physics.SphereCast(transform.position, raycastRadius, transform.forward, out hit, raycastDistance, obstacleMask);
+         if (ray)
         {
-            Debug.Log(hit.collider.gameObject);
-            offset += Vector3.right;
-            // offset += hit.normal;
+            float angle = Vector3.Angle(hit.normal, -transform.forward);
+            Debug.Log(angle);
+
+            if(-hit.normal.x > transform.forward.x){
+                offset = 90 - angle;
+            }
+            else{
+
+                offset = -(90 - angle);
+            }
         }
-        else if (Physics.Raycast(right, transform.forward, out hit, raycastDistance))
-        {
-            Debug.Log(hit.collider.gameObject);
-            offset += Vector3.left;
-            // offset += hit.normal;
-        }
+
+
 
         if (offset != Vector3.zero)
         {
-            transform.Rotate(offset * Time.deltaTime);
+            transform.Rotate(offset * 10 * Time.deltaTime);
         }
         else
         {
             Turn();
         }
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.DrawSphere(transform.position + transform.forward * raycastDistance, raycastRadius);
+        //Gizmos.DrawSphere(left + transform.forward * raycastDistance, raycastRadius);
     }
 }
