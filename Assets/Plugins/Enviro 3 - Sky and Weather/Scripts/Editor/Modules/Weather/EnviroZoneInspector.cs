@@ -10,7 +10,7 @@ namespace Enviro
     {
         private EnviroZone myTarget;
 
-        private SerializedProperty autoWeatherChanges, weatherChangeIntervall, zoneScale, zoneGizmoColor;
+        private SerializedProperty autoWeatherChanges, weatherChangeIntervall, zoneScale, zoneGizmoColor, blendDistance;
 
         void OnEnable()
         {
@@ -19,7 +19,8 @@ namespace Enviro
             autoWeatherChanges = serializedObj.FindProperty("autoWeatherChanges"); 
             weatherChangeIntervall = serializedObj.FindProperty("weatherChangeIntervall"); 
             zoneScale = serializedObj.FindProperty("zoneScale"); 
-            zoneGizmoColor = serializedObj.FindProperty("zoneGizmoColor"); 
+            zoneGizmoColor = serializedObj.FindProperty("zoneGizmoColor");
+            blendDistance = serializedObj.FindProperty("blendDistance");
         }
 
         public override void OnInspectorGUI()
@@ -44,6 +45,7 @@ namespace Enviro
             GUILayout.BeginVertical("",boxStyleModified);
             EditorGUILayout.PropertyField(zoneScale);
             EditorGUILayout.PropertyField(zoneGizmoColor);
+            EditorGUILayout.PropertyField(blendDistance);
             GUILayout.EndVertical ();
             GUILayout.EndVertical ();
 

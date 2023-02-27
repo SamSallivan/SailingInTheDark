@@ -132,7 +132,7 @@ namespace Enviro
                 if(instantTransition)
                    instantTransition = false;
             }
-            else
+            else //if(currentZone == null)
             {
                 if(targetWeatherType != null)
                 {
@@ -146,6 +146,12 @@ namespace Enviro
                     BlendEnvironmentOverride(Settings.environmentTransitionSpeed * Time.deltaTime);
                     BlendLightningOverride(1f);
                 }
+            }
+            
+            if (currentZone == null)
+            {
+                //foreach
+                //blend in by distance interpolation
             }
         }
 
