@@ -108,7 +108,7 @@ public class Fish : MonoBehaviour
 
     private void Update()
     {
-        Wiggle();
+        // Wiggle();
         Wander();
         AvoidObstacles();
 
