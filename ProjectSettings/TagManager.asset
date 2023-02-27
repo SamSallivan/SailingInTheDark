@@ -19,9 +19,9 @@ TagManager:
   - Interactable
   - 
   - Player
-  - 
-  - 
-  - 
+  - Waypoint
+  - Enemy
+  - Boat
   - 
   - 
   - 
