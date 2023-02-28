@@ -59,13 +59,13 @@ public class I_WheelThrottle : Interactable
 
             vTemp += (Input.GetKey(KeyCode.S) ? (-handleSpeed) : 0);
             vTemp += (Input.GetKey(KeyCode.W) ? handleSpeed : 0);
-            vTemp = Mathf.Clamp(vTemp, 0, currentMaxGear * speedPerGear);
+            vTemp = Mathf.Clamp(vTemp, -1* speedPerGear, currentMaxGear * speedPerGear);
 
             //round to product of speed per gear
             currentGear = Mathf.Round(vTemp / speedPerGear);
             speed = currentGear * speedPerGear;
             BoatController.instance.boat.input.Throttle = speed / 100;
-            if (speed >= 0)
+            if (speed != 0)
             {
                 GetComponent<BoatComponent>().componentActivated = true;
             }

@@ -131,7 +131,7 @@ public class I_TapeRecorder : Interactable
         else if (tapeInserted != null)
         {
             UIManager.instance.interactionPrompt.text = "'E' ";
-            UIManager.instance.interactionPrompt.text += "Reject Tape";
+            UIManager.instance.interactionPrompt.text += "Eject Tape";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
     }
