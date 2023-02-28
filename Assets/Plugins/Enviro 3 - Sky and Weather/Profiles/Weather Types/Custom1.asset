@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cbac6e678443724c9bd2baf5d564c1d, type: 3}
   m_Name: Custom1
   m_EditorClassIdentifier: 
-  showEditor: 0
+  showEditor: 1
   showEffectControls: 0
   showCloudControls: 0
   showFlatCloudControls: 0
@@ -24,6 +24,7 @@ MonoBehaviour:
   showAmbientAudioControls: 1
   showWeatherAudioControls: 0
   showLightningControls: 0
+  showSkyControls: 0
   cloudsOverride:
     showLayer1: 0
     coverageLayer1: -1
@@ -83,7 +84,7 @@ MonoBehaviour:
     extinction: 0.742
     anistropy: 1
   auroraOverride:
-    auroraIntensity: 0.052
+    auroraIntensity: 0
   effectsOverride:
     rain1Emission: 0
     rain2Emission: 0
@@ -119,3 +120,5 @@ MonoBehaviour:
     windDirectionY: 0
     windSpeed: 0.25
     windTurbulence: 0.25
+  skyOverride:
+    multiplier: {r: 0, g: 0, b: 0, a: 0}

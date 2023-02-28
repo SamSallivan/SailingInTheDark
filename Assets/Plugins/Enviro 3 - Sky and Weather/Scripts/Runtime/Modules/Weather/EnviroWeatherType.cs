@@ -59,9 +59,15 @@ namespace Enviro
 		public float flatCloudsLightIntensity = 1.0f;
 		public float flatCloudsAmbientIntensity = 1.0f;
 		public float flatCloudsAbsorbtion = 0.6f;
-	} 
+    }
 
-	[Serializable] 
+    [Serializable]
+    public class EnviroWeatherTypeSkyOverride
+    {
+        public Color multiplier;
+    }
+
+    [Serializable] 
 	public class EnviroWeatherTypeLightingOverride
 	{
 		public float directLightIntensityModifier = 1.0f;
@@ -148,7 +154,7 @@ namespace Enviro
 	public class EnviroWeatherType : ScriptableObject 
 	{
 		//Inspector
-		public bool showEditor, showEffectControls, showCloudControls, showFlatCloudControls, showFogControls, showLightingControls, showAuroraControls,showEnvironmentControls, showAudioControls, showAmbientAudioControls, showWeatherAudioControls,showLightningControls;
+		public bool showEditor, showEffectControls, showCloudControls, showFlatCloudControls, showFogControls, showLightingControls, showAuroraControls,showEnvironmentControls, showAudioControls, showAmbientAudioControls, showWeatherAudioControls,showLightningControls, showSkyControls;
 		
 		public EnviroWeatherTypeCloudsOverride cloudsOverride;
 		public EnviroWeatherTypeFlatCloudsOverride flatCloudsOverride;
@@ -159,7 +165,8 @@ namespace Enviro
 		public EnviroWeatherTypeAudioOverride audioOverride;
 		public EnviroWeatherTypeLightningOverride lightningOverride;
 		public EnviroWeatherTypeEnvironmentOverride environmentOverride;
-	}
+		public EnviroWeatherTypeSkyOverride skyOverride;
+    }
 
 
 	public class EnviroWeatherTypeCreation {

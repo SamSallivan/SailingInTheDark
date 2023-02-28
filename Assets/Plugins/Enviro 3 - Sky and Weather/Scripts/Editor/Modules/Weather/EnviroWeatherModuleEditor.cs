@@ -300,7 +300,22 @@ namespace Enviro
                                 }
                                 GUILayout.EndVertical();
                                 }
-                                if(EnviroManager.instance.Aurora != null)
+
+                                if (EnviroManager.instance.Sky != null)
+                                {
+                                    //Sky
+                                    GUILayout.BeginVertical("", boxStyleModified);
+                                    curWT.showSkyControls = GUILayout.Toggle(curWT.showSkyControls, "Sky", headerFoldout);
+
+                                    if (curWT.showSkyControls)
+                                    {
+                                        GUILayout.Space(5);
+                                        curWT.skyOverride.multiplier = EditorGUILayout.ColorField("Sky Multiplier", curWT.skyOverride.multiplier);
+                                    }
+                                    GUILayout.EndVertical();
+                                }
+
+                                if (EnviroManager.instance.Aurora != null)
                                 {
                                 //Aurora
                                 GUILayout.BeginVertical ("", boxStyleModified);

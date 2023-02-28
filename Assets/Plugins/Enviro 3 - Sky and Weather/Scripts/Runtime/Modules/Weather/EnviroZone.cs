@@ -111,12 +111,12 @@ namespace Enviro
                if(currentDate >= nextWeatherUpdate)
                {
                  if(nextWeatherType != null)
-                  ChangeZoneWeatherInstant(nextWeatherType);
+                    ChangeZoneWeatherInstant(nextWeatherType);
                  else
-                  ChangeZoneWeatherInstant(currentWeatherType);
+                    ChangeZoneWeatherInstant(currentWeatherType);
                  
                  //Get next weather
-                 ChooseNextWeatherRandom ();
+                 //ChooseNextWeatherRandom ();
                  nextWeatherUpdate = currentDate + weatherChangeIntervall;
                }
             }
@@ -131,8 +131,8 @@ namespace Enviro
                 UpdateZoneWeather();
 
             //Forces the weather change in Enviro when this zone is currently the active one.
-            if(EnviroManager.instance.Weather.currentZone == this && EnviroManager.instance.Weather.targetWeatherType != currentWeatherType)
-               EnviroManager.instance.Weather.ChangeWeather(currentWeatherType);
+            //if(EnviroManager.instance.Weather.currentZone == this && EnviroManager.instance.Weather.targetWeatherType != currentWeatherType)
+               //EnviroManager.instance.Weather.ChangeWeather(currentWeatherType);
         }
 
         void OnTriggerEnter (Collider col)
@@ -141,10 +141,15 @@ namespace Enviro
                 return;
 
             //Change Weather to Zone Weather:
-            if(col.gameObject.GetComponent<EnviroManager>())
-               EnviroManager.instance.Weather.currentZone = this;
-               
+            if (col.gameObject.GetComponent<EnviroManager>())
+            {
+                //EnviroManager.instance.Weather.currentZone = this;
+            }
+
             //EnviroManager.instance.Weather.ChangeWeather(currentWeatherType);
+
+            EnviroManager.instance.NotifyWeatherChanged(currentWeatherType);
+            Debug.Log(currentWeatherType);
         }
 
         void OnTriggerExit (Collider col)
@@ -154,6 +159,9 @@ namespace Enviro
         
              if(col.gameObject.GetComponent<EnviroManager>())
                 EnviroManager.instance.Weather.currentZone = null;
+
+             EnviroManager.instance.NotifyWeatherChanged(EnviroManager.instance.Weather.targetWeatherType);
+             Debug.Log(EnviroManager.instance.Weather.targetWeatherType);
         }
 
         /*void OnDrawGizmos () 
