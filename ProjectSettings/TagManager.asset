@@ -19,10 +19,10 @@ TagManager:
   - Interactable
   - 
   - Player
+  - Waypoint
+  - Enemy
+  - Boat
   - 
-  - BoatTrigger
-  - Trigger
-  - NonPhysicsCollision
   - 
   - 
   - 
