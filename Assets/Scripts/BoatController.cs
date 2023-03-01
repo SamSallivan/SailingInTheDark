@@ -12,7 +12,7 @@ public class BoatController : MonoBehaviour
     public AdvancedShipController boat;
     public float maxWattHour = 1000;
     public float curWattHour = 1000;
-    
+
     public List<BoatComponent> components = new List<BoatComponent>();
     public float maxActiveComponent = 3;
 
@@ -42,7 +42,7 @@ public class BoatController : MonoBehaviour
 
         float estimatedHour = curWattHour / curWattConsumption;
         float estimatedSecond = curWattHour / curWattConsumption * 3600;
-        float estimatedPercentage = Mathf.Round(curWattHour/maxWattHour * 100);
+        float estimatedPercentage = Mathf.Round(curWattHour / maxWattHour * 100);
 
         float minutes = Mathf.Floor(estimatedSecond / 60);
         float seconds = Mathf.Floor(estimatedSecond % 60);
@@ -80,5 +80,11 @@ public class BoatController : MonoBehaviour
             component.ShutDown();
         }
         //sound effect and all
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("take damage");
+        curWattHour -= damage;
     }
 }

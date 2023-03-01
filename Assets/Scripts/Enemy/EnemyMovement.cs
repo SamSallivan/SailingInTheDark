@@ -11,23 +11,19 @@ public class EnemyMovement : MonoBehaviour
     private float movementSpeed = 3f;
     private float rotationDamp = 5f;
     public float raycastDistance = 5f;
-    public float raycastOffset = 2.5f;
     public float raycastRadius = 2.5f;
 
     private Transform target;
-
-    [SerializeField] private Rigidbody _rb;
-
-    [SerializeField] private Transform _transform;
 
     public LayerMask boatMask;
     public LayerMask obstacleMask;
 
     public Vector3 offset;
-    public Vector3 offsetLeft = Vector3.zero;
-    public Vector3 offsetRight = Vector3.zero;
-    public Vector3 left;
-    public Vector3 right;
+
+    public bool canAttack = false;
+    private float maxAttackCooldown = 5f; //seconds
+    public float curAttackCooldown = 5f; //seconds
+    private int attackDamage = 100;
 
     private void Awake()
     {
@@ -37,10 +33,52 @@ public class EnemyMovement : MonoBehaviour
         target = boatTransform;
     }
 
+    //if light: lose meter
+    //if meter is 0, run - dip under water
+    //if too far, despawn
+
+    //start loop
+    //go to nearest waypoint
+    //circle to adjacent waypoint
+    //if at waypoint, 50% choose to attack
+    //if after 3 waypoints, attack anyways
+    //charge at boat center: deal damage
+    //end loop
+
+    //pick node that's not boat
+    //go to node
+    //once at node decide which way to turn
+    //if left touch, turn left, go to left node
+    //opposite for right
+    //decide when to attack
+
+
     private void Update()
     {
         PathFinding();
-        Move();
+    }
+
+    private void FixedUpdate()
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale * 2, transform.rotation, boatMask, QueryTriggerInteraction.Collide);
+
+        if (hitColliders.Length > 0)
+        {
+            // Debug.Log("HAS HIT");
+            if (curAttackCooldown <= 0)
+            {
+                BoatController.instance.TakeDamage(attackDamage);
+                curAttackCooldown = maxAttackCooldown;
+            }
+            else
+            {
+                curAttackCooldown -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            curAttackCooldown = maxAttackCooldown;
+        }
     }
 
     private void Turn()
@@ -77,8 +115,6 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
-
-
         if (offset != Vector3.zero)
         {
             transform.Rotate(offset * Time.deltaTime);
@@ -87,6 +123,8 @@ public class EnemyMovement : MonoBehaviour
         {
             Turn();
         }
+
+        Move();
     }
 
     private void OnDrawGizmos()
