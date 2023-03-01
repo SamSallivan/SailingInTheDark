@@ -441,6 +441,27 @@ namespace Enviro
             }
         }
 
+        private void BlendSkyOverride(float blendTime)
+        {
+            EnviroSkyModule sky = EnviroManager.instance.Sky;
+            if (sky != null)
+            {
+                List<Gradient> gradients = new List<Gradient>();
+                sky.Settings.frontColorGradient0 = MultuplyGradientKeys(sky.Settings.frontColorGradient0, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.frontColorGradient1 = MultuplyGradientKeys(sky.Settings.frontColorGradient1, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.frontColorGradient2 = MultuplyGradientKeys(sky.Settings.frontColorGradient2, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.frontColorGradient3 = MultuplyGradientKeys(sky.Settings.frontColorGradient3, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.frontColorGradient4 = MultuplyGradientKeys(sky.Settings.frontColorGradient4, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.backColorGradient5 = MultuplyGradientKeys(sky.Settings.backColorGradient5, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.backColorGradient0 = MultuplyGradientKeys(sky.Settings.backColorGradient0, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.backColorGradient1 = MultuplyGradientKeys(sky.Settings.backColorGradient1, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.backColorGradient2 = MultuplyGradientKeys(sky.Settings.backColorGradient2, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.backColorGradient3 = MultuplyGradientKeys(sky.Settings.backColorGradient3, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.backColorGradient4 = MultuplyGradientKeys(sky.Settings.backColorGradient4, targetWeatherType.skyOverride.multiplier);
+                sky.Settings.backColorGradient5 = MultuplyGradientKeys(sky.Settings.backColorGradient5, targetWeatherType.skyOverride.multiplier);
+            }
+        }
+
 
 
         //Changes the Weather to new type.
@@ -593,6 +614,7 @@ namespace Enviro
             BlendAudioOverride(1);
             BlendEnvironmentOverride(1);
             BlendLightningOverride(1f);
+            BlendSkyOverride(1);
 
             targetWeatherType = to;
             BlendVolumetricCloudsOverride(i);
@@ -604,6 +626,7 @@ namespace Enviro
             BlendAudioOverride(i);
             BlendEnvironmentOverride(i);
             BlendLightningOverride(1f);
+            BlendSkyOverride(1);
 
             targetWeatherType = from;
         }
@@ -613,9 +636,13 @@ namespace Enviro
             Gradient to = new Gradient();
             GradientColorKey[] colorKeys = new GradientColorKey[from.colorKeys.Length];
             GradientAlphaKey[] alphaKeys = from.alphaKeys;
-            for(int i = 0; i < from.colorKeys.Length; i++)
+            for (int i = 0; i < from.colorKeys.Length; i++)
             {
-                colorKeys[i] = new GradientColorKey(from.colorKeys[i].color * mul, from.colorKeys[i].time);
+                float h, s, v, h1, s1, v1;
+                Color.RGBToHSV(from.colorKeys[i].color, out h, out s, out v);
+                Color.RGBToHSV(mul, out h1, out s1, out v1);
+                Color color = Color.HSVToRGB(h1, s, v);
+                colorKeys[i] = new GradientColorKey(color, from.colorKeys[i].time);
             }
             to.SetKeys(colorKeys, alphaKeys);
             return to;

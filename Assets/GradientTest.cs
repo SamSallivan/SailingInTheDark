@@ -21,7 +21,11 @@ public class GradientTest : MonoBehaviour
         GradientAlphaKey[] alphaKeys = from.alphaKeys;
         for (int i = 0; i < from.colorKeys.Length; i++)
         {
-            colorKeys[i] = new GradientColorKey(from.colorKeys[i].color * mul, from.colorKeys[i].time);
+            float h, s, v, h1, s1, v1;
+            Color.RGBToHSV(from.colorKeys[i].color, out h,out s,out v);
+            Color.RGBToHSV(mul, out h1, out s1, out v1);
+            Color color = Color.HSVToRGB(h1, s, v);
+            colorKeys[i] = new GradientColorKey(color, from.colorKeys[i].time);
         }
         to.SetKeys(colorKeys, alphaKeys);
         return to;

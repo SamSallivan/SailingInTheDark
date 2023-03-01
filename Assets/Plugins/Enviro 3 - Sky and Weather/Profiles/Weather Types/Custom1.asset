@@ -24,7 +24,7 @@ MonoBehaviour:
   showAmbientAudioControls: 1
   showWeatherAudioControls: 0
   showLightningControls: 0
-  showSkyControls: 0
+  showSkyControls: 1
   cloudsOverride:
     showLayer1: 0
     coverageLayer1: -1
@@ -121,4 +121,4 @@ MonoBehaviour:
     windSpeed: 0.25
     windTurbulence: 0.25
   skyOverride:
-    multiplier: {r: 0, g: 0, b: 0, a: 0}
+    multiplier: {r: 0.49618006, g: 0, b: 1, a: 0}
