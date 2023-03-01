@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     [Foldout("Interaction", true)]
     [ReadOnly]
     public Interactable targetInteractable;
+    public Interactable exclusiveInteractable;
 
     public float interactDistance = 5;
 
@@ -641,8 +642,15 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
                 targetInteractable = hitInfo.collider.GetComponent<Interactable>();
 				if (targetInteractable != null)
 				{
-					targetInteractable.Target();
-				}
+					if (exclusiveInteractable == null) 
+					{
+						targetInteractable.Target();
+					}
+					else if (exclusiveInteractable != null && exclusiveInteractable == targetInteractable)
+                    {
+                        targetInteractable.Target();
+                    }
+                }
             }
         }
         else if (targetInteractable != null)

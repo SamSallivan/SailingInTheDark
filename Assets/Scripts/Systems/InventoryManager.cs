@@ -345,6 +345,7 @@ public class InventoryManager : MonoBehaviour
 
             GameObject detailGameObject = Instantiate(selectedItem.data.dropObject, UIManager.instance.detailObjectPivot);
             detailGameObject.transform.localScale *= 1200;
+            detailGameObject.transform.localScale *= selectedItem.data.examineScale;
             detailGameObject.transform.localRotation = selectedItem.data.examineRotation;
             foreach (Transform child in UIManager.instance.detailObjectPivot.GetComponentsInChildren<Transform>())
             {

@@ -614,7 +614,7 @@ namespace Enviro
             BlendAudioOverride(1);
             BlendEnvironmentOverride(1);
             BlendLightningOverride(1f);
-            BlendSkyOverride(1);
+            //BlendSkyOverride(1);
 
             targetWeatherType = to;
             BlendVolumetricCloudsOverride(i);
@@ -626,7 +626,7 @@ namespace Enviro
             BlendAudioOverride(i);
             BlendEnvironmentOverride(i);
             BlendLightningOverride(1f);
-            BlendSkyOverride(1);
+            //BlendSkyOverride(1);
 
             targetWeatherType = from;
         }

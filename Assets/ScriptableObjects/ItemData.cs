@@ -54,8 +54,8 @@ public class ItemData : ScriptableObject
     public GameObject dropObject;
 
     public bool isExaminable;
+    public float examineScale = 1;
     public Quaternion examineRotation;
-    //public Vector3 examineRotation;
 
     [ConditionalField(nameof(isExaminable))]
     public bool isReadable;
