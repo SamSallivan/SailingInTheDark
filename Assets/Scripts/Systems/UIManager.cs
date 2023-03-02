@@ -117,6 +117,13 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
+        switch (type)
+        {
+            case SubtitleType.Radio:
+                name = "(Recording) " + name;
+                break;
+        }
+
         float subtitleFadeDuration = 0.25f;
         subtitleUI.DOFade(0, subtitleFadeDuration).OnComplete(() =>
         {

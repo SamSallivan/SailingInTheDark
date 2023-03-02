@@ -41,7 +41,6 @@ public class I_BoatAnchor : Interactable
             if (dockable)
             {
                 textPrompt = "Dock";
-                PlayerController.instance.gameObject.transform.SetParent(boat.transform, true);
             }
         }
         yield return null;
@@ -50,6 +49,21 @@ public class I_BoatAnchor : Interactable
         if (dockable && dockingZone != null && activated)
         {
             //boatHull.calculateWaterHeights = false;
+            Quaternion rotation1 = dockingZone.dockingPos.rotation;
+            Quaternion rotation2 = Quaternion.Euler(rotation1.eulerAngles.x, rotation1.eulerAngles.y + 180, rotation1.eulerAngles.z);
+            Quaternion rotation;
+
+            Debug.Log("1:" + Quaternion.Angle(rotation1, boat.transform.rotation));
+            Debug.Log("2:" + Quaternion.Angle(rotation2, boat.transform.rotation));
+
+            if (Quaternion.Angle(rotation1, boat.transform.rotation) < Quaternion.Angle(rotation2, boat.transform.rotation))
+            {
+                rotation = rotation1;
+            }
+            else
+            {
+                rotation = rotation2;
+            }
 
             if (dockingTimer <= 2.5f)
             {
@@ -57,7 +71,7 @@ public class I_BoatAnchor : Interactable
                 Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, boat.transform.position.y,
                     dockingZone.dockingPos.position.z);
                 boat.transform.position = Vector3.Lerp(boat.transform.position, targetpos, dockingTimer / 2);
-                boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, dockingZone.dockingPos.rotation,
+                boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, rotation,
                     Time.fixedDeltaTime * 1.5f);
                 boat.Anchor.AnchorPosition = boat.Anchor.AnchorPoint;
             }

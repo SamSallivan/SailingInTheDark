@@ -134,5 +134,9 @@ public class I_TapeRecorder : Interactable
             UIManager.instance.interactionPrompt.text += "Eject Tape";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
+        else
+        {
+            UIManager.instance.interactionPrompt.text = "";
+        }
     }
 }

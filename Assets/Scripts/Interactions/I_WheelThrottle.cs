@@ -26,12 +26,11 @@ public class I_WheelThrottle : Interactable
     public float wheelSpeed = 1;
     private float wheelAngle;
     public Transform wheel;
-    [ReadOnly]
-    public Vector3 playerPos;
+
+    public Transform playerPos;
 
     public override IEnumerator InteractionEvent()
     {
-        playerPos = PlayerController.instance.transform.localPosition;
         if (activated){
             PlayerController.instance.LockMovement(true);
         }
@@ -45,7 +44,8 @@ public class I_WheelThrottle : Interactable
     {
         if (activated)
         {
-            PlayerController.instance.transform.localPosition = playerPos;
+            Vector3 targetPos = new Vector3(playerPos.localPosition.x, PlayerController.instance.transform.localPosition.y, playerPos.localPosition.z);
+            PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, targetPos, Time.deltaTime * 10);
 
 
             hTemp = 0f;
