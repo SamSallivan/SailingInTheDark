@@ -32,18 +32,18 @@ public class BoatController : MonoBehaviour
         float curWattConsumption = 0;
         float curActiveComponent = 0;
 
-        foreach (BoatComponent component in components)
-        {
-            if (component.componentActivated)
-            {
-                curWattHour -= component.wattConsumption / 3600 * Time.deltaTime;
-                curWattConsumption += component.wattConsumption;
-                curActiveComponent++;
-            }
-        }
-
         if (batteryInUse)
         {
+            foreach (BoatComponent component in components)
+            {
+                if (component.componentActivated)
+                {
+                    curWattHour -= component.wattConsumption / 3600 * Time.deltaTime;
+                    curWattConsumption += component.wattConsumption;
+                    curActiveComponent++;
+                }
+            }
+
             float estimatedHour = curWattHour / curWattConsumption;
             float estimatedSecond = curWattHour / curWattConsumption * 3600;
             float estimatedPercentage = Mathf.Round(curWattHour / maxWattHour * 100);
