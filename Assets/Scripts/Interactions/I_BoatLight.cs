@@ -52,9 +52,12 @@ public class I_BoatLight : Interactable
     {
         if (highlightTarget != null)
         {
-            OutlineRenderer outline = highlightTarget.AddComponent<OutlineRenderer>();
-            outline.OutlineMode = OutlineRenderer.Mode.OutlineVisible;
-            outline.OutlineWidth = 10;
+            if (!highlightTarget.GetComponent<OutlineRenderer>())
+            {
+                OutlineRenderer outline = highlightTarget.AddComponent<OutlineRenderer>();
+                outline.OutlineMode = OutlineRenderer.Mode.OutlineVisible;
+                outline.OutlineWidth = 10;
+            }
         }
         UIManager.instance.interactionName.text = textName;
 
