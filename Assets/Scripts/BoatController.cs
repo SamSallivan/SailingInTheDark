@@ -17,11 +17,15 @@ public class BoatController : MonoBehaviour
     public List<BoatComponent> components = new List<BoatComponent>();
 
     [Foldout("Settings", true)]
+    [ReadOnly]
     public float maxWattHour = 1000;
     [ReadOnly]
     public float curWattHour = 1000;
-
+    [ReadOnly]
     public float maxActiveComponent = 3;
+
+    public bool batteryInUse = true;
+
 
     [Foldout("TMPs", true)]
     public TMP_Text hour;
@@ -39,13 +43,16 @@ public class BoatController : MonoBehaviour
         float curWattConsumption = 0;
         float curActiveComponent = 0;
 
-        foreach (BoatComponent component in components)
+        if (batteryInUse)
         {
-            if (component.componentActivated)
+            foreach (BoatComponent component in components)
             {
-                curWattHour -= component.wattConsumption / 3600 * Time.deltaTime;
-                curWattConsumption += component.wattConsumption;
-                curActiveComponent++;
+                if (component.componentActivated)
+                {
+                    curWattHour -= component.wattConsumption / 3600 * Time.deltaTime;
+                    curWattConsumption += component.wattConsumption;
+                    curActiveComponent++;
+                }
             }
         }
 
