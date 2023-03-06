@@ -24,7 +24,7 @@ MonoBehaviour:
       playBackType: 1
       myAudioSource: {fileID: 0}
       loop: 1
-      volume: 0
+      volume: 1
       volumeCurve:
         serializedVersion: 2
         m_Curve:
@@ -75,7 +75,7 @@ MonoBehaviour:
       playBackType: 1
       myAudioSource: {fileID: 0}
       loop: 1
-      volume: 0
+      volume: 1
       volumeCurve:
         serializedVersion: 2
         m_Curve:
@@ -250,9 +250,9 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       maxVolume: 1
-    ambientMasterVolume: 1
-    weatherMasterVolume: 1
-    thunderMasterVolume: 1
+    ambientMasterVolume: 0
+    weatherMasterVolume: 0
+    thunderMasterVolume: 0
   preset: {fileID: 0}
   ambientVolumeModifier: 0
   weatherVolumeModifier: 0

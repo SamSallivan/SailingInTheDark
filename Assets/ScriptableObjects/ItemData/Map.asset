@@ -20,7 +20,7 @@ MonoBehaviour:
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
   isStackable: 0
   maxStackAmount: 1
-  isEquippable: 0
+  isEquippable: 1
   equipType: 0
   equipObject: {fileID: 0}
   equipRotation: {x: 0, y: 0, z: 0}

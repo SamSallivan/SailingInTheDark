@@ -147,7 +147,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		Cursor.visible = false;
 		instance = this;
 		t = base.transform;
-		tHead = t.GetChild(0).Find("Head Pivot").transform;
+		tHead = t.Find("Head Pivot").transform;
         //equippedTransform = tHead.Find("Equip Pivot").transform;
         rb = GetComponent<Rigidbody>();
 		playerCollider = GetComponent<CapsuleCollider>();
@@ -238,7 +238,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		//jump
 		if (grounder.grounded
 			|| gTimer > 0f 
-			|| (climbState == 2 && climbTimer > 0.8f))
+			|| (climbState == 2 && climbTimer > 0.8f)
+            || GetComponentInChildren<WaterObject>().IsTouchingWater())
 		{
 			if (climbState == 2)
 			{
@@ -313,9 +314,14 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	}
 
 	public void Jump(float multiplier = 1f)
-	{
-		//if jumping on top of props, push props away
-		if ((bool)grounder.groundCollider && grounder.groundCollider.gameObject.layer == 14)
+    {
+        if (isNonPhysics)
+        {
+            return;
+        }
+
+        //if jumping on top of props, push props away
+        if ((bool)grounder.groundCollider && grounder.groundCollider.gameObject.layer == 14)
 		{
 			Rigidbody attachedRigidbody = grounder.groundCollider.attachedRigidbody;
 			if ((bool)attachedRigidbody)
@@ -417,7 +423,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				JumpOrClimb();
-			}
+            }
 
 			if (Input.GetKeyDown(KeyCode.LeftShift))
 			{
@@ -524,13 +530,6 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		}
 	}
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(0.1f, 0.1f, 0.9f, 0.8f);
-        Gizmos.DrawSphere(base.transform.position + base.transform.up * 1, radius);
-        Gizmos.DrawSphere(base.transform.position + base.transform.up * -1, radius);
-    }
-
     private void FixedUpdate()
     {
         //recalculates the previous velocity based on new ground normals
@@ -541,9 +540,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
         gVel = Vector3.ProjectOnPlane(vel, grounder.groundNormal);
 
-		//recalculates direction based on new ground normals
-		gDir = tHead.TransformDirection(inputDir);
-		gDirCross = Vector3.Cross(Vector3.up, gDir).normalized;
+        //recalculates direction based on new ground normals
+        //gDir = transform.TransformDirection(inputDir);
+        gDir = tHead.TransformDirection(inputDir);
+        gDirCross = Vector3.Cross(Vector3.up, gDir).normalized;
 		gDirCrossProject = Vector3.ProjectOnPlane(grounder.groundNormal, gDirCross);
 		gDir = Vector3.Cross(gDirCross, gDirCrossProject);
 
@@ -580,7 +580,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         }
 		else
         {
-            localVelo += tHead.TransformDirection(inputDir) * acceleration * Time.fixedDeltaTime;
+            localVelo += transform.TransformDirection(inputDir) * acceleration * Time.fixedDeltaTime;
             localVelo = Vector3.Lerp(localVelo, Vector3.zero, Time.fixedDeltaTime * deaccerlation);
             if (localVelo != Vector3.zero)
             {
@@ -684,12 +684,21 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public void LockCamera(bool state)
     {
+        GetComponent<MouseLook>().enabled = !state;
+
         foreach (MouseLook look in GetComponentsInChildren<MouseLook>())
         {
-            look.enabled = !state;
+            look.enableLook = !state;
         }
-		//tHead.GetComponent<MouseLook>().enabled = !state;
-        //tHead.GetComponent<MouseLook>().enabled = !state;
+    }
+    public void SetCameraClamp(float x1, float x2, float y1, float y2)
+    {
+        GetComponent<MouseLook>().SetClamp(x1,x2,y1,y2);
+
+        foreach (MouseLook look in GetComponentsInChildren<MouseLook>())
+        {
+            look.SetClamp(x1, x2, y1, y2);
+        }
     }
 
     public void AttachToBoat(Transform playerParent)
@@ -698,13 +707,14 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         isNonPhysics = true;
         waterObject.enabled = false;
         Destroy(PlayerController.instance.rb);
-		
+
         Vector3 temp = PlayerController.instance.transform.localPosition;
         //PlayerController.instance.transform.localPosition = new Vector3(temp.x, playerHeight.localPosition.y, temp.z);
 
         PlayerController.instance.transform.localEulerAngles = new Vector3(0, PlayerController.instance.transform.localEulerAngles.y, 0);
-        GetComponentInChildren<PlayerSway>().enabled = true;
+        //GetComponentInChildren<PlayerSway>().enabled = true;
         GetComponentInChildren<PlayerSway>().lastRotation = transform.rotation;
+        GetComponent<MouseLook>().Reset();
     }
 
     public void DetachFromBoat()
@@ -723,7 +733,18 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         isNonPhysics = false;
         waterObject.enabled = true;
 		
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-        GetComponentInChildren<PlayerSway>().enabled = false;
+        //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        PlayerController.instance.transform.localEulerAngles = new Vector3(0, PlayerController.instance.transform.localEulerAngles.y, 0);
+        GetComponent<MouseLook>().Reset();
+        //GetComponentInChildren<PlayerSway>().enabled = false;
+
+		BoatController.instance.helm.ShutDown();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0.1f, 0.1f, 0.9f, 0.8f);
+        Gizmos.DrawSphere(base.transform.position + base.transform.up * 1, radius);
+        Gizmos.DrawSphere(base.transform.position + base.transform.up * -1, radius);
     }
 }

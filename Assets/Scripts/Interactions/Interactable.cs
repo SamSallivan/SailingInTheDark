@@ -94,7 +94,7 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case InteractionType.CustomToggle:
-                    activated = !activated;
+
                     if(activated && excludeOtherInteraction)
                     {
                         PlayerController.instance.exclusiveInteractable = this;
@@ -103,9 +103,8 @@ public class Interactable : MonoBehaviour
                     {
                         PlayerController.instance.exclusiveInteractable = null;
                     }
+
                     StartCoroutine(InteractionEvent());
-                    UIManager.instance.interactionPrompt.text = "[E] ";
-                    UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
                     break;
             }
 
@@ -132,7 +131,7 @@ public class Interactable : MonoBehaviour
 
         if (textPrompt != "" && interactionType != InteractionType.None)
         {
-            UIManager.instance.interactionPrompt.text = "'E' ";
+            UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
             //enable button prompt image instead
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");

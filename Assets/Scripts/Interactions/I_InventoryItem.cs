@@ -23,9 +23,9 @@ public class I_InventoryItem : Interactable
         if(itemData != null)
         {
             InventoryItem newItem = InventoryManager.instance.AddItem(itemData, itemStatus);
-            Destroy(highlightTarget.transform.gameObject);
+            Destroy(transform.gameObject);
             
-            if (equipOnPickUp)
+            if (equipOnPickUp && itemData.isEquippable)
             {
                 InventoryManager.instance.EquipItem(newItem);
             }

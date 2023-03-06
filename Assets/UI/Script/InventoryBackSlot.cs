@@ -42,8 +42,11 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
             {
                 if (UIManager.instance.inventoryItemGrid.transform.childCount > GetIndex())
                 {
-                    InventoryManager.instance.EquipItem(UIManager.instance.inventoryItemGrid.transform.GetChild(GetIndex())
-                        .gameObject.GetComponent<InventorySlot>().inventoryItem);
+                    InventoryItem item = UIManager.instance.inventoryItemGrid.transform.GetChild(GetIndex()).GetComponent<InventorySlot>().inventoryItem;
+                    if (item.data.isEquippable)
+                    {
+                        InventoryManager.instance.EquipItem(item);
+                    }
                 }
             }
             else if (eventData.button == PointerEventData.InputButton.Right)

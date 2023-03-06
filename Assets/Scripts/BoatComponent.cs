@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BoatComponent: MonoBehaviour
 {
+    public string name;
     public float wattConsumption;
     public bool componentActivated;
 
