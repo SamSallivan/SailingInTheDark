@@ -8,6 +8,7 @@ TagManager:
   - Ship
   - Water
   - Boat
+  - Light
   layers:
   - Default
   - TransparentFX
@@ -25,6 +26,16 @@ TagManager:
   - NonPhysicsCollision
   - 
   - MapUI
+  - 
+  - 
+  - 
+  - 
+  - Enemy
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

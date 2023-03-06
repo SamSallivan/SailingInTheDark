@@ -142,6 +142,12 @@ public class EnemyMovement : MonoBehaviour
     }
 
 
+    public void Die()
+    {
+        Debug.Log("creature died");
+        Destroy(gameObject);
+    }
+
     private void OnDrawGizmos()
     {
         Color color = Color.red;
