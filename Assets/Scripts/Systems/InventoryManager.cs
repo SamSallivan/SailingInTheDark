@@ -39,9 +39,9 @@ public class InventoryManager : MonoBehaviour
     public int slotPerRow = 8;
     public int slotPerColumn = 4;
 
-    private float inputDelay;
     private bool detailRotationFix;
     public bool detailObjectDrag;
+    public float inputDelay;
 
     void Awake()
     {
@@ -52,6 +52,11 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (inputDelay < 1)
+        {
+            inputDelay+=Time.fixedDeltaTime;
+        }
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (!activated)
@@ -70,7 +75,6 @@ public class InventoryManager : MonoBehaviour
 
         if (activated)
         {
-            inputDelay++;
             SelectItem();
 
             if (inventoryItemList.Count - 1 >= selectedIndex)
@@ -80,19 +84,16 @@ public class InventoryManager : MonoBehaviour
                 UpdateDetailObject();
                 RotateDetailObject();
 
-                if (Input.GetKeyDown(KeyCode.E) && inputDelay > 5)
+                if (Input.GetKeyDown(KeyCode.E) && inputDelay >= 0.5f)
                 {
                     if (selectedItem.data.isEquippable)
                     {
                         EquipItem(selectedItem);
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.Q) )
+                if (Input.GetKeyDown(KeyCode.Q) && selectedItem != null && inputDelay >= 0.5f)
                 {
-                    if (!BoatController.instance.helm.activated)
-                    {
-                        DropItem(selectedItem);
-                    }
+                    DropItem(selectedItem);
                 }
             }
             else
@@ -113,9 +114,12 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Q) && equippedItem != null)
+            if (Input.GetKeyDown(KeyCode.Q) && equippedItem != null && inputDelay >= 0.5f)
             {
-                DropItem(equippedItem);
+                if (!BoatController.instance.helm.activated)
+                {
+                    DropItem(equippedItem);
+                }
             }
         }
 
@@ -124,6 +128,8 @@ public class InventoryManager : MonoBehaviour
     public void OpenInventory()
     {
         activated = true;
+        inputDelay = 0;
+
         //Time.timeScale = activated ? 0.0f : 1.0f;
         PlayerController.instance.LockMovement(true);
         PlayerController.instance.LockCamera(true);
@@ -163,8 +169,6 @@ public class InventoryManager : MonoBehaviour
 
         //play the fade out effect
         //UIManager.instance.inventoryAnimation.Play("Basic Fade-out");
-
-        inputDelay = 0;
     }
 
     public void SelectItem()

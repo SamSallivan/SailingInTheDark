@@ -43,6 +43,7 @@ public class I_Helm : Interactable
 
     public override IEnumerator InteractionEvent()
     {
+
         if (!activated && !inControl)
         {
             activated = true;
@@ -58,7 +59,7 @@ public class I_Helm : Interactable
             UIManager.instance.generalTips.SetActive(false);
             UIManager.instance.helmTips.SetActive(true);
             PlayerController.instance.LockMovement(true);
-            if (enterTimer < 1)
+            if (enterTimer < 0.5f)
             {
                 enterTimer += Time.deltaTime;
 
@@ -100,6 +101,7 @@ public class I_Helm : Interactable
             {
                 activated = false;
                 Target();
+                InventoryManager.instance.inputDelay = 0;
             }
 
             //Highlight();
