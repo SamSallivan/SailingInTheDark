@@ -47,7 +47,7 @@ public class ItemData : ScriptableObject
     [ConditionalField(nameof(isEquippable))]
     public EquipType equipType;
     public GameObject equipObject;
-    public Vector3 equipRotation;
+    public Quaternion equipRotation;
 
     public bool isDroppable;
     [ConditionalField(nameof(isDroppable))]

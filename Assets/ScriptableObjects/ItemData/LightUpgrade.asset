@@ -20,14 +20,15 @@ MonoBehaviour:
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
   isStackable: 0
   maxStackAmount: 1
-  isEquippable: 0
-  equipType: 0
+  isEquippable: 1
+  equipType: 1
   equipObject: {fileID: 0}
   equipRotation: {x: 0, y: 0, z: 0}
   isDroppable: 1
   dropObject: {fileID: 2361372250977967447, guid: 1ca9aa5cddfa441eb9a6e9a20d4ed711,
     type: 3}
   isExaminable: 0
+  examineScale: 1
   examineRotation: {x: 0, y: 0, z: 0, w: 0}
   isReadable: 0
   readText: 

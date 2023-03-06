@@ -101,6 +101,12 @@ public class CameraBob : MonoBehaviour
 		}
 
         GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, defaultFOV + (PlayerController.instance.GetClimbState() != 0 ? 15f : 0f), Time.deltaTime * 20f);
+
+        foreach (Camera camera in GetComponentsInChildren<Camera>())
+        {
+            camera.fieldOfView = GetComponent<Camera>().fieldOfView;
+
+        }
 		/*
         WeaponManager weapon = transform.parent.GetComponentInChildren<WeaponManager>();
 		if (weapon.isActiveAndEnabled && weapon.Holding() > 0f)

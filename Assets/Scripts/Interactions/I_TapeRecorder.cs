@@ -20,8 +20,18 @@ public class I_TapeRecorder : Interactable
     public override IEnumerator InteractionEvent()
     {
 
-        //if have received message
-        if (radioTapes.Count > 0)
+        //if player has a tape inserted
+        if(tapeInserted != null)
+        {
+            //eject it early and stop playing
+            EjectTape();
+            RecordingManager.instance.StopCurrentLine();
+            RecordingManager.instance.currentRecording = null;
+
+        }
+
+        //else if have received message
+        else if (radioTapes.Count > 0)
         {
             EjectTape();
 
@@ -38,7 +48,7 @@ public class I_TapeRecorder : Interactable
         }
 
         //if player is holding a item && the item has a recording
-        else if (InventoryManager.instance.equippedItem != null && InventoryManager.instance.equippedItem.data.recording != null)
+        else if (InventoryManager.instance.equippedItem != null && InventoryManager.instance.equippedItem.data.recording != null && InventoryManager.instance.equippedItem.data.type == ItemData.ItemType.Tape)
         {
             //cut the current recording and play the new one.
             EjectTape();
@@ -49,33 +59,6 @@ public class I_TapeRecorder : Interactable
             RecordingManager.instance.UnpauseRadio();
 
             InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItem);
-        }
-
-        //if not holding a tape
-        else
-        {
-            //eject it early and stop playing
-            EjectTape();
-            RecordingManager.instance.StopCurrentLine();
-            RecordingManager.instance.currentRecording = null;
-
-            /*//if there is a new tape in the process of being generated
-            if (RecordingManager.instance.generateTape != null){
-                //generate it early and stop playing
-                GenerateTape(RecordingManager.instance.generateTape);
-                RecordingManager.instance.StopCurrentLine();
-                RecordingManager.instance.currentDialogue = null;
-                RecordingManager.instance.generateTape = null;
-            }
-            //if there is an old tape being played in the recorder
-            else
-            {
-                //eject it early and stop playing
-                EjectTape();
-                RecordingManager.instance.StopCurrentLine();
-                RecordingManager.instance.currentDialogue = null;
-            }*/
-
         }
         Target();
         yield return null;
@@ -115,24 +98,27 @@ public class I_TapeRecorder : Interactable
 
         UIManager.instance.interactionName.text = textName;
 
-
-        if (radioTapes.Count > 0)
+        if (tapeInserted != null)
         {
-            UIManager.instance.interactionPrompt.text = "'E' ";
+            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text += "Eject Tape";
+            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+        }
+        else if (radioTapes.Count > 0)
+        {
+            UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += "Receive Radio";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
         else if (InventoryManager.instance.equippedItem != null && InventoryManager.instance.equippedItem.data.type == ItemData.ItemType.Tape)
         {
-            UIManager.instance.interactionPrompt.text = "'E' ";
+            UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += "Insert Tape";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
-        else if (tapeInserted != null)
+        else
         {
-            UIManager.instance.interactionPrompt.text = "'E' ";
-            UIManager.instance.interactionPrompt.text += "Eject Tape";
-            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+            UIManager.instance.interactionPrompt.text = "";
         }
     }
 }

@@ -13,8 +13,8 @@ public class DialogueData : ScriptableObject
     {
         for (int i = 0; i < lines.Count; i++)
         {
-            subtitles[i] = lines[i].subtitle;
-            audioClips[i] = lines[i].audioClip;
+            subtitles.Add(lines[i].subtitle);
+            audioClips.Add(lines[i].audioClip);
         }
     }
 }

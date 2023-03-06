@@ -6,7 +6,7 @@ public class T_DockingZone : Trigger
 {
     public Transform dockingPos;
     public Transform anchorPos;
-    public I_BoatAnchor anchor;
+    public I_Anchor anchor;
     public override IEnumerator TriggerEvent()
     {
         if (!anchor.activated)

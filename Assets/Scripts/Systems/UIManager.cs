@@ -13,13 +13,15 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    [Foldout("GamePlay", true)]
+    [Foldout("Gameplay", true)]
     public GameObject gameplayUI;
     public TMP_Text interactionName;
     public TMP_Text interactionPrompt;
     public TMP_Text radioSubtitleUI;
     public TMP_Text dialogueSubtitleUI;
     public Animation interactionPromptAnimation;
+    public GameObject generalTips;
+    public GameObject helmTips;
 
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;
@@ -114,6 +116,13 @@ public class UIManager : MonoBehaviour
                 break;
             default:
                 name = "";
+                break;
+        }
+
+        switch (type)
+        {
+            case SubtitleType.Radio:
+                name = "(Recording) " + name;
                 break;
         }
 

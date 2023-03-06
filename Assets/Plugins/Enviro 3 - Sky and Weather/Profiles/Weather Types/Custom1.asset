@@ -20,11 +20,11 @@ MonoBehaviour:
   showLightingControls: 0
   showAuroraControls: 0
   showEnvironmentControls: 0
-  showAudioControls: 0
+  showAudioControls: 1
   showAmbientAudioControls: 1
   showWeatherAudioControls: 0
   showLightningControls: 0
-  showSkyControls: 1
+  showSkyControls: 0
   cloudsOverride:
     showLayer1: 0
     coverageLayer1: -1
@@ -73,13 +73,13 @@ MonoBehaviour:
     directLightIntensityModifier: 1
     ambientIntensityModifier: 1
   fogOverride:
-    fogDensity: 0.785
-    fogHeightFalloff: 0.0205
+    fogDensity: 1
+    fogHeightFalloff: 0.012
     fogHeight: 5.14
-    fogDensity2: 0.081
-    fogHeightFalloff2: 0.0198
+    fogDensity2: 1
+    fogHeightFalloff2: 0.0121
     fogHeight2: 0
-    fogColorBlend: 1
+    fogColorBlend: 0.835
     scattering: 0.96
     extinction: 0.742
     anistropy: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
       summer: 0
       autumn: 0
       winter: 0
-    - showEditor: 1
+    - showEditor: 0
       name: Night
       volume: 1
       spring: 0

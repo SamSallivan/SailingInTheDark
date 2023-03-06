@@ -64,7 +64,7 @@ public class Interactable : MonoBehaviour
     [ReadOnly]
     public bool activated;
     [ConditionalField(nameof(interactionType), false, InteractionType.CustomToggle)]
-    public bool allowOtherInteraction;
+    public bool excludeOtherInteraction;
 
     public virtual IEnumerator InteractionEvent()
     {
@@ -94,10 +94,17 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case InteractionType.CustomToggle:
-                    activated = !activated;
+
+                    if(activated && excludeOtherInteraction)
+                    {
+                        PlayerController.instance.exclusiveInteractable = this;
+                    }
+                    else if(!activated && excludeOtherInteraction)
+                    {
+                        PlayerController.instance.exclusiveInteractable = null;
+                    }
+
                     StartCoroutine(InteractionEvent());
-                    UIManager.instance.interactionPrompt.text = "[E] ";
-                    UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
                     break;
             }
 
@@ -124,7 +131,7 @@ public class Interactable : MonoBehaviour
 
         if (textPrompt != "" && interactionType != InteractionType.None)
         {
-            UIManager.instance.interactionPrompt.text = "'E' ";
+            UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
             //enable button prompt image instead
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");

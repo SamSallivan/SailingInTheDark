@@ -10,17 +10,29 @@ public class I_BoatLight : Interactable
 
     public override IEnumerator InteractionEvent()
     {
-        BoatComponent boat = GetComponent<BoatComponent>();
-        boat.componentActivated = !boat.componentActivated;
-        if (boat.componentActivated &&
+        if (!BoatController.instance.engine.activated)
+        {
+
+        }
+        else
+        {
+            activated = !activated;
+            Target();
+
+            lightObject.SetActive(!lightObject.activeInHierarchy);
+            GetComponent<BoatComponent>().componentActivated = !GetComponent<BoatComponent>().componentActivated;
+        }
+
+        
+        /*if (boat.componentActivated &&
             InventoryManager.instance.equippedItem != null &&
             InventoryManager.instance.equippedItem.data.title == "Upgrade for Lights")
         {
             upgraded = true;
             InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItem);
-        }
+        }*/
 
-        lightObject.SetActive(!lightObject.activeInHierarchy);
+
         yield return null;
     }
 
@@ -29,8 +41,11 @@ public class I_BoatLight : Interactable
         activated = false;
         GetComponent<BoatComponent>().componentActivated = false;
         lightObject.SetActive(false);
-        UIManager.instance.interactionPrompt.text = "[E] ";
-        UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+        if (PlayerController.instance.targetInteractable == this)
+        {
+            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+        }
     }
 
     public override void Target()
@@ -42,24 +57,30 @@ public class I_BoatLight : Interactable
             outline.OutlineWidth = 10;
         }
         UIManager.instance.interactionName.text = textName;
-        //UI.instance.interactionPrompt.text = textPrompt;
 
-        if (!activated && InventoryManager.instance.equippedItem != null &&
-            InventoryManager.instance.equippedItem.data.title == "Upgrade for Lights")
+
+
+        if (!BoatController.instance.engine.activated)
         {
-            UIManager.instance.interactionPrompt.text = "'E' ";
-            UIManager.instance.interactionPrompt.text += "Upgrade";
-            //enable button prompt image instead
+            UIManager.instance.interactionPrompt.text = "Engine is off";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
 
         else if (textPrompt != "" && interactionType != InteractionType.None)
         {
-            UIManager.instance.interactionPrompt.text = "'E' ";
+            UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
-            //enable button prompt image instead
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
 
+
+        /*if (!activated && InventoryManager.instance.equippedItem != null &&
+            InventoryManager.instance.equippedItem.data.title == "Upgrade for Lights")
+        {
+            UIManager.instance.interactionPrompt.text = "'E' ";
+            UIManager.instance.interactionPrompt.text += "Upgrade";
+            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+        }
+        else */
     }
 }

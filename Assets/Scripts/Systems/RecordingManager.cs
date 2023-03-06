@@ -53,6 +53,7 @@ public class RecordingManager : MonoBehaviour
         for (int i = fromLine; i < tempRecording.lines.Count; i++)
         {
             currentIndex = i;
+            interuptedIndex = i;
             currentLine = tempRecording.lines[i];
 
             yield return new WaitForSeconds(tempRecording.lines[i].intervalBefore);
@@ -87,6 +88,7 @@ public class RecordingManager : MonoBehaviour
             StopCoroutine(currentCoroutine);
         }
         interuptedIndex = currentIndex;
+        Debug.Log(interuptedIndex);
         currentIndex = 0;
         currentLine = new Line();
         UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Radio);
@@ -116,7 +118,8 @@ public class RecordingManager : MonoBehaviour
     public void ExitRadioBound()
     {
         radioInBound = false;
-        if (!radioPaused && currentRecording != null) {
+        if (!radioPaused && currentRecording != null)
+        {
             StopCurrentLine();
         }
     }

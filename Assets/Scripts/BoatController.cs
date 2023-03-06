@@ -7,14 +7,23 @@ using TMPro;
 
 public class BoatController : MonoBehaviour
 {
+    [Foldout("References", true)]
     public static BoatController instance;
     public AdvancedShipController boat;
+    public I_Helm helm;
+    public I_Anchor anchor;
+    public I_Engine engine;
+    [ReadOnly]
+    public List<BoatComponent> components = new List<BoatComponent>();
+
+    [Foldout("Settings", true)]
     public float maxWattHour = 1000;
+    [ReadOnly]
     public float curWattHour = 1000;
 
-    public List<BoatComponent> components = new List<BoatComponent>();
     public float maxActiveComponent = 3;
 
+    [Foldout("TMPs", true)]
     public TMP_Text hour;
     public TMP_Text second;
     public TMP_Text percentage;
@@ -54,7 +63,7 @@ public class BoatController : MonoBehaviour
         if (seconds < 10)
             sec = "0" + Mathf.RoundToInt(seconds).ToString();
 
-        hour.text = "Estimated Life(s):";
+        hour.text = "Estimated Life:";
         second.text = min + ":" + sec;
         percentage.text = estimatedPercentage + "%";
         componentCount.text = curActiveComponent + "/" + maxActiveComponent;

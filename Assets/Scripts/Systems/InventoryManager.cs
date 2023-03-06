@@ -33,6 +33,8 @@ public class InventoryManager : MonoBehaviour
     public int2 selectedPosition;
     public InventoryItem selectedItem;
     public InventoryItem equippedItem;
+    public InventoryItem equippedItemLeft;
+    public InventoryItem equippedItemRight;
 
     public int slotPerRow = 8;
     public int slotPerColumn = 4;
@@ -80,11 +82,17 @@ public class InventoryManager : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.E) && inputDelay > 5)
                 {
-                    EquipItem(selectedItem);
+                    if (selectedItem.data.isEquippable)
+                    {
+                        EquipItem(selectedItem);
+                    }
                 }
                 if (Input.GetKeyDown(KeyCode.Q) )
                 {
-                    DropItem(selectedItem);
+                    if (!BoatController.instance.helm.activated)
+                    {
+                        DropItem(selectedItem);
+                    }
                 }
             }
             else
@@ -123,7 +131,7 @@ public class InventoryManager : MonoBehaviour
         UIManager.instance.inventoryUI.SetActive(true);
         UIManager.instance.gameplayUI.SetActive(false);
 
-        PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(false);
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
 
         if (equippedItem != null && equippedItem.data != null)
         {
@@ -141,13 +149,17 @@ public class InventoryManager : MonoBehaviour
     {
         activated = false;
         //Time.timeScale = activated ? 0.0f : 1.0f;
-        PlayerController.instance.LockMovement(false);
+        if (!BoatController.instance.helm.activated)
+        {
+            PlayerController.instance.LockMovement(false);
+        }
+
         PlayerController.instance.LockCamera(false);
 
         UIManager.instance.inventoryUI.SetActive(false);
         UIManager.instance.gameplayUI.SetActive(true);
 
-        PlayerController.instance.tHead.GetComponent<LockMouse>().LockCursor(true);
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
 
         //play the fade out effect
         //UIManager.instance.inventoryAnimation.Play("Basic Fade-out");
@@ -289,9 +301,29 @@ public class InventoryManager : MonoBehaviour
         //perhaps a separate functions for this?
     }
 
-    public void EquipItem(InventoryItem inventoryItem)
+    public void EquipItem(InventoryItem item)
     {
-        if (equippedItem == inventoryItem)
+        /*switch (item.data.equipType)
+        {
+            case ItemData.EquipType.Left:
+                if (equippedItemLeft != null)
+                {
+                    UnequipItem();
+                }
+                equippedItemLeft = item;
+                break;
+
+            case ItemData.EquipType.Right:
+                if (equippedItemRight != null)
+                {
+                    UnequipItem();
+                }
+                equippedItemRight = item;
+                break;
+        }*/
+
+
+        if (equippedItem == item)
         {
             UnequipItem();
         }
@@ -301,14 +333,14 @@ public class InventoryManager : MonoBehaviour
             {
                 Destroy(PlayerController.instance.equippedTransform.GetChild(0).gameObject);
             }
-            equippedItem = inventoryItem;
-            GameObject newObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.equippedTransform);
-            newObject.name = inventoryItem.data.dropObject.name + " Equipped";
+            equippedItem = item;
+            GameObject newObject = Instantiate(item.data.dropObject, PlayerController.instance.equippedTransform);
+            newObject.name = item.data.dropObject.name + " Equipped";
             newObject.transform.localPosition = new Vector3(0, 0, 0);
            // newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
 
             //Destroy(newObject.transform.GetChild(0).gameObject);
-            Destroy(newObject.transform.GetComponentInChildren<Interactable>());
+            newObject.transform.GetComponentInChildren<Interactable>().enabled = false;
             foreach (Collider collider in newObject.GetComponents<Collider>())
             {
                 Destroy(collider);

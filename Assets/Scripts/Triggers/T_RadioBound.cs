@@ -12,6 +12,7 @@ public class T_RadioBound : Trigger
 
     public void OnTriggerExit(Collider other)
     {
-        RecordingManager.instance.ExitRadioBound();
+        if(other.gameObject.tag == "Player")
+            RecordingManager.instance.ExitRadioBound();
     }
 }

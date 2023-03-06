@@ -24,17 +24,7 @@ TagManager:
   - Trigger
   - NonPhysicsCollision
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - Enemy
-  - Waypoint
-  - Boat
-  - 
-  - 
-  - 
+  - MapUI
   - 
   - 
   - 
