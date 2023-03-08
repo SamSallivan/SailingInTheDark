@@ -317,7 +317,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     {
         if (isNonPhysics)
         {
-            return;
+            //return;
         }
 
         //if jumping on top of props, push props away

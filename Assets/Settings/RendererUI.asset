@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7499076205958870924
+--- !u!114 &-6902214474231363405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8173f089832511149b44a215bb4a2f39, type: 3}
-  m_Name: SCPE DitheringRenderer
+  m_Script: {fileID: 11500000, guid: c3f44c99f39cf5a4e9cd4cd047b1e2b2, type: 3}
+  m_Name: AzureFogScatteringFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    injectionPoint: 550
-    alwaysEnable: 0
-    cameraTypes: 7
---- !u!114 &-6944581970782544743
+  m_Active: 0
+  blitMaterial: {fileID: 2100000, guid: cf6ab374e3080fa49b6f1077567c7ceb, type: 2}
+  renderPassEvent: 350
+--- !u!114 &-2704410504090354372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27,164 +25,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0f847b2f420ea54ba779e55bdc277ad, type: 3}
-  m_Name: SCPE PixelizeRenderer
+  m_Name: PixelizeRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
     injectionPoint: 550
     alwaysEnable: 0
-    cameraTypes: 7
---- !u!114 &-5759338789419494917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97a529de71a3723409dc5bcc5e30cf8c, type: 3}
-  m_Name: SCPE ScanlinesRenderer
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    injectionPoint: 550
-    alwaysEnable: 0
-    cameraTypes: 7
---- !u!114 &-5013103587476381019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3277e3c6431244fb960cbd72870858e2, type: 3}
-  m_Name: FogRenderFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
---- !u!114 &-4935971224743297245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a17da147615463497e4bd9e04f0dce1, type: 3}
-  m_Name: DitheringRenderFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
---- !u!114 &-4817750857416976231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856792627b7ad87479de639d23b34329, type: 3}
-  m_Name: SCPE PosterizeRenderer
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    injectionPoint: 550
-    alwaysEnable: 0
-    cameraTypes: 7
---- !u!114 &-4416553523581167642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a17da147615463497e4bd9e04f0dce1, type: 3}
-  m_Name: DitheringRenderFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
---- !u!114 &-4206951611690375567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6534dd185a4f18b50629b58de296b6, type: 3}
-  m_Name: PixelationRenderFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
---- !u!114 &-2408944071955255739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6534dd185a4f18b50629b58de296b6, type: 3}
-  m_Name: PixelationRenderFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
---- !u!114 &-2313931482028977375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400dc2baa0a22054cb259512e4ce8907, type: 3}
-  m_Name: SCPE KuwaharaRenderer
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    injectionPoint: 550
-    alwaysEnable: 0
-    cameraTypes: 7
---- !u!114 &-1878332245247344467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f62c9c65cf3354c93be831c8bc075510, type: 3}
-  m_Name: SSAO
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  m_Settings:
-    AOMethod: 1
-    Downsample: 0
-    AfterOpaque: 0
-    Source: 1
-    NormalSamples: 1
-    Intensity: 0.5
-    DirectLightingStrength: 0.25
-    Radius: 0.25
-    Samples: 0
-    BlurQuality: 0
-    Falloff: 100
-    SampleCount: -1
-  m_BlueNoise256Textures:
-  - {fileID: 2800000, guid: 36f118343fc974119bee3d09e2111500, type: 3}
-  - {fileID: 2800000, guid: 4b7b083e6b6734e8bb2838b0b50a0bc8, type: 3}
-  - {fileID: 2800000, guid: c06cc21c692f94f5fb5206247191eeee, type: 3}
-  - {fileID: 2800000, guid: cb76dd40fa7654f9587f6a344f125c9a, type: 3}
-  - {fileID: 2800000, guid: e32226222ff144b24bf3a5a451de54bc, type: 3}
-  - {fileID: 2800000, guid: 3302065f671a8450b82c9ddf07426f3a, type: 3}
-  - {fileID: 2800000, guid: 56a77a3e8d64f47b6afe9e3c95cb57d5, type: 3}
-  m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
+    cameraTypes: 5
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,19 +48,15 @@ MonoBehaviour:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7,
       type: 3}
   m_RendererFeatures:
-  - {fileID: -1878332245247344467}
-  - {fileID: 2852561647265246548}
-  - {fileID: -4416553523581167642}
-  - {fileID: 8227708705142561686}
-  - {fileID: -6944581970782544743}
-  - {fileID: -5759338789419494917}
-  - {fileID: -4817750857416976231}
-  - {fileID: -7499076205958870924}
-  - {fileID: 4943440636911098935}
-  - {fileID: -2313931482028977375}
-  - {fileID: 9028300576353077063}
-  - {fileID: 5555338991339516735}
-  m_RendererFeatureMap: adc0de57c6d2eee554ed2565b4559627e6d7715ff83fb5c2965b699d79b12e72999cecd57de39f9ffbd185a3e2b712b099d853e71ee923bd74c83c28eceded97371c515b11a19a4421d311ab9343e3df47c7fa4a8af74a7d3f33ab116187184d
+  - {fileID: 9186454843505885804}
+  - {fileID: 9134544913553207386}
+  - {fileID: -2704410504090354372}
+  - {fileID: 2778186126716071367}
+  - {fileID: 8921119208457087222}
+  - {fileID: 138853701947654139}
+  - {fileID: 1126074398315881943}
+  - {fileID: -6902214474231363405}
+  m_RendererFeatureMap: 6cc2551c02d87c7f5ab030b5336cc47e3cfddba0f90078dac76dd41290198e26f6a8ff6aa72ece7bfb7f56ccb44eed01d7a547f6b29ea00fb348e153816836a0
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -250,10 +93,10 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
-  m_CopyDepthMode: 0
+  m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
---- !u!114 &2852561647265246548
+--- !u!114 &138853701947654139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,25 +105,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32e72b6a3f58a24c9033e2b9275eea0, type: 3}
-  m_Name: ScreenSpaceShadows
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  m_Shader: {fileID: 4800000, guid: 0f854b35a0cf61a429bd5dcfea30eddd, type: 3}
---- !u!114 &4330104819874477219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5beaef983462df4a944c521f9064a91, type: 3}
-  m_Name: EnviroURPRenderFeature
+  m_Script: {fileID: 11500000, guid: 8173f089832511149b44a215bb4a2f39, type: 3}
+  m_Name: DitheringRenderer
   m_EditorClassIdentifier: 
   m_Active: 1
---- !u!114 &4943440636911098935
+  settings:
+    injectionPoint: 550
+    alwaysEnable: 0
+    cameraTypes: 5
+--- !u!114 &1126074398315881943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,10 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8d6ac66772e4185bd13920192d54b3, type: 3}
   m_Name: VHSPro
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     renderPassEvent: 550
---- !u!114 &5555338991339516735
+--- !u!114 &2778186126716071367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,13 +137,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f44c99f39cf5a4e9cd4cd047b1e2b2, type: 3}
-  m_Name: AzureFogScatteringFeature
+  m_Script: {fileID: 11500000, guid: 856792627b7ad87479de639d23b34329, type: 3}
+  m_Name: PosterizeRenderer
   m_EditorClassIdentifier: 
-  m_Active: 0
-  blitMaterial: {fileID: 2100000, guid: cf6ab374e3080fa49b6f1077567c7ceb, type: 2}
-  renderPassEvent: 450
---- !u!114 &8227708705142561686
+  m_Active: 1
+  settings:
+    injectionPoint: 550
+    alwaysEnable: 0
+    cameraTypes: 5
+--- !u!114 &8921119208457087222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -319,11 +154,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3277e3c6431244fb960cbd72870858e2, type: 3}
-  m_Name: FogRenderFeature
+  m_Script: {fileID: 11500000, guid: 97a529de71a3723409dc5bcc5e30cf8c, type: 3}
+  m_Name: ScanlinesRenderer
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    injectionPoint: 550
+    alwaysEnable: 0
+    cameraTypes: 5
+--- !u!114 &9134544913553207386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62c9c65cf3354c93be831c8bc075510, type: 3}
+  m_Name: ScreenSpaceAmbientOcclusion
   m_EditorClassIdentifier: 
   m_Active: 0
---- !u!114 &9028300576353077063
+  m_Settings:
+    AOMethod: 0
+    Downsample: 0
+    AfterOpaque: 0
+    Source: 1
+    NormalSamples: 1
+    Intensity: 3
+    DirectLightingStrength: 0.25
+    Radius: 0.035
+    Samples: 1
+    BlurQuality: 0
+    Falloff: 100
+    SampleCount: -1
+  m_BlueNoise256Textures:
+  - {fileID: 2800000, guid: 36f118343fc974119bee3d09e2111500, type: 3}
+  - {fileID: 2800000, guid: 4b7b083e6b6734e8bb2838b0b50a0bc8, type: 3}
+  - {fileID: 2800000, guid: c06cc21c692f94f5fb5206247191eeee, type: 3}
+  - {fileID: 2800000, guid: cb76dd40fa7654f9587f6a344f125c9a, type: 3}
+  - {fileID: 2800000, guid: e32226222ff144b24bf3a5a451de54bc, type: 3}
+  - {fileID: 2800000, guid: 3302065f671a8450b82c9ddf07426f3a, type: 3}
+  - {fileID: 2800000, guid: 56a77a3e8d64f47b6afe9e3c95cb57d5, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
+--- !u!114 &9186454843505885804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
