@@ -15,14 +15,16 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Vector3 offset;
     private float movementSpeed = 3f;
     private float rotationDamp = 5f;
-    public float raycastDistance = 5f;
-    public float raycastRadius = 2.5f;
+    private float raycastDistance = 4f;
+    private float raycastRadius = 2.5f;
 
     //attack variables
     private float maxAttackCooldown = 5f; //seconds
-    public float curAttackCooldown; //seconds
+    private float curAttackCooldown; //seconds
     private int attackDamage = 100;
     private int attackRange = 2;
+
+    private float despawnDistance = 80f;
 
     private void Awake()
     {
@@ -56,6 +58,12 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        float distance = Vector3.Distance(gameObject.transform.position, boatTransform.transform.position);
+        if (distance > despawnDistance)
+        {
+            Die();
+        }
+
         PathFinding();
     }
 
@@ -145,6 +153,7 @@ public class EnemyMovement : MonoBehaviour
     public void Die()
     {
         Debug.Log("creature died");
+        EnemySpawner.instance.creatureCount--;
         Destroy(gameObject);
     }
 
