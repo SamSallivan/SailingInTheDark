@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     [Foldout("Settings", true)]
     public bool enableMovement = true;
 
+    public bool enableJump = true;
+
     public float dynamicSpeed = 1f;
 
     public Vector3 jumpForce = new Vector3(0f, 15f, 0f);
@@ -319,6 +321,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         {
             //return;
         }
+        if (!enableJump)
+        {
+            return;
+        }
 
         //if jumping on top of props, push props away
         if ((bool)grounder.groundCollider && grounder.groundCollider.gameObject.layer == 14)
@@ -450,7 +456,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         //if (slide.slideState == 0 && climbState == 0)
         {
 
-            bob.Angle(inputDir.x * -4f - damageTimer * 3f);
+            bob.Angle(inputDir.x * -1f - damageTimer * 3f);
 		}
 
         //applies camera bob when grounded, walking, and not sliding
@@ -585,7 +591,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
             if (localVelo != Vector3.zero)
             {
                 Vector3 direction = tHead.transform.TransformDirection(localVelo);
-                 if (Physics.SphereCast(base.transform.position + base.transform.up * 1f, radius, localVelo, out RaycastHit hitInfo, distance, nonPhysicsCollisions))
+                 if (Physics.SphereCast(base.transform.position + base.transform.up * 0.5f, radius, localVelo, out RaycastHit hitInfo, distance, nonPhysicsCollisions))
                 {
                     //Vector3 vector2 = base.transform.InverseTransformDirection(hitInfo.normal);
                     Vector3 vector = hitInfo.normal;
@@ -595,7 +601,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 					 Debug.Log("hit");
                  }
 
-                 if (Physics.SphereCast(base.transform.position + base.transform.up * (-1f), radius, localVelo, out RaycastHit hitInfo2, distance, nonPhysicsCollisions))
+                 if (Physics.SphereCast(base.transform.position + base.transform.up * (-0.5f), radius, localVelo, out RaycastHit hitInfo2, distance, nonPhysicsCollisions))
                  {
                      //Vector3 vector2 = base.transform.InverseTransformDirection(hitInfo2.normal);
                      Vector3 vector2 = hitInfo2.normal;
@@ -744,7 +750,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0.1f, 0.1f, 0.9f, 0.8f);
-        Gizmos.DrawSphere(base.transform.position + base.transform.up * 1, radius);
-        Gizmos.DrawSphere(base.transform.position + base.transform.up * -1, radius);
+        Gizmos.DrawSphere(base.transform.position + base.transform.up * 0.5f, radius);
+        Gizmos.DrawSphere(base.transform.position + base.transform.up * -0.5f, radius);
     }
 }

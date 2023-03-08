@@ -7,6 +7,10 @@ public class T_DockingZone : Trigger
     public Transform dockingPos;
     public Transform anchorPos;
     public I_Anchor anchor;
+
+    public void Start() {
+        anchor = BoatController.instance.anchor;
+    }
     public override IEnumerator TriggerEvent()
     {
         if (!anchor.activated)

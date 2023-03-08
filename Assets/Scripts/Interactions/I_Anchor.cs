@@ -24,6 +24,7 @@ public class I_Anchor : Interactable
 
     public override IEnumerator InteractionEvent()
     {
+        boat = BoatController.instance.boat;
         activated = !activated;
         Target();
 

@@ -64,8 +64,9 @@ public class I_Helm : Interactable
                 enterTimer += Time.deltaTime;
 
                 Vector3 targetPos = new Vector3(playerPos.localPosition.x, PlayerController.instance.transform.localPosition.y, playerPos.localPosition.z);
-                PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, targetPos, Time.deltaTime * 5);
-                PlayerController.instance.headPosition.Slide(0.25f);
+                PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, playerPos.localPosition, Time.deltaTime * 5);
+                //PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, targetPos, Time.deltaTime * 5);
+                //PlayerController.instance.headPosition.Slide(0.25f);
 
                 PlayerController.instance.LockCamera(true);
                 PlayerController.instance.transform.localRotation = Quaternion.Lerp(PlayerController.instance.transform.localRotation, Quaternion.identity, Time.deltaTime * 5);
@@ -88,7 +89,7 @@ public class I_Helm : Interactable
             inControl = false;
             UIManager.instance.generalTips.SetActive(true);
             UIManager.instance.helmTips.SetActive(false);
-            PlayerController.instance.headPosition.Slide(0.75f);
+            //PlayerController.instance.headPosition.Slide(0.75f);
             PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
             PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
             PlayerController.instance.LockMovement(false);
