@@ -87,6 +87,12 @@ public class BoatController : MonoBehaviour
         {
             component.ShutDown();
         }
+
+        if (curWattHour <= 0 && !GameOverManager.instance.gameOver)
+        {
+            batteryInUse = false;
+            StartCoroutine(GameOverManager.instance.TriggerDeath());
+        }
         //sound effect and all
     }
 

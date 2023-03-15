@@ -6,7 +6,13 @@ using UnityEngine;
 public class I_BoatLight : Interactable
 {
     public GameObject lightObject;
+    BoatComponent boatpart;
     public bool upgraded;
+
+    private void Awake()
+    {
+        boatpart = gameObject.GetComponent<BoatComponent>();
+    }
 
     public override IEnumerator InteractionEvent()
     {
@@ -61,8 +67,6 @@ public class I_BoatLight : Interactable
         }
         UIManager.instance.interactionName.text = textName;
 
-
-
         if (!BoatController.instance.engine.activated)
         {
             UIManager.instance.interactionPrompt.text = "Engine is off";
@@ -73,6 +77,7 @@ public class I_BoatLight : Interactable
         {
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+            UIManager.instance.interactionPrompt.text += $"\nPower: {boatpart.wattConsumption/1000}";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
 

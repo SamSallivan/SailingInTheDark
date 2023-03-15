@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoatComponent))]
 public class I_Helm : Interactable
 {
+    BoatComponent boatpart;
 
     [Foldout("Controls", true)]
     [Header("Boat Movements")]
@@ -40,6 +41,12 @@ public class I_Helm : Interactable
     [ReadOnly] public float enterTimer;
     public Transform playerPos;
     public TMP_Text GearText;
+
+    private void Awake()
+    {
+        boatpart = gameObject.GetComponent<BoatComponent>();
+    }
+
 
     public override IEnumerator InteractionEvent()
     {
@@ -236,6 +243,7 @@ public class I_Helm : Interactable
             UIManager.instance.interactionName.text = textName;
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+            UIManager.instance.interactionPrompt.text += $"\nPower: {boatpart.wattConsumption / 1000}";
         }
 
     }
