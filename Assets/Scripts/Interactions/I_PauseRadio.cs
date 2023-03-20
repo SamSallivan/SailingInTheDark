@@ -17,6 +17,7 @@ public class I_PauseRadio : Interactable
             RecordingManager.instance.PauseRadio();
             activated = true;
         }
+        Target();
         yield return null;
     }
 }

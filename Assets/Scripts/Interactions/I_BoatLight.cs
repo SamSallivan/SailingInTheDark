@@ -10,18 +10,17 @@ public class I_BoatLight : Interactable
 
     public override IEnumerator InteractionEvent()
     {
-        if (!BoatController.instance.engine.activated)
+        /*if (!BoatController.instance.engine.activated)
         {
 
         }
-        else
-        {
-            activated = !activated;
-            Target();
+        else*/
 
-            lightObject.SetActive(!lightObject.activeInHierarchy);
-            GetComponent<BoatComponent>().componentActivated = !GetComponent<BoatComponent>().componentActivated;
-        }
+        activated = !activated;
+        Target();
+
+        lightObject.SetActive(!lightObject.activeInHierarchy);
+        GetComponent<BoatComponent>().componentActivated = !GetComponent<BoatComponent>().componentActivated;
 
         
         /*if (boat.componentActivated &&
@@ -63,13 +62,15 @@ public class I_BoatLight : Interactable
 
 
 
-        if (!BoatController.instance.engine.activated)
+        /*if (!BoatController.instance.engine.activated)
         {
             UIManager.instance.interactionPrompt.text = "Engine is off";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
 
-        else if (textPrompt != "" && interactionType != InteractionType.None)
+        else */
+        
+        if (textPrompt != "" && interactionType != InteractionType.None)
         {
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;

@@ -24,22 +24,30 @@ public class T_DockingZone : Trigger
 
     public void OnTriggerStay(Collider other)
     {
-        if (!anchor.activated)
+        if (other.CompareTag(targetTag))
         {
-            anchor.textPrompt = "Dock";
+            if (!anchor.activated)
+            {
+                anchor.textPrompt = "Dock";
+            }
+
+            anchor.dockable = true;
+            anchor.dockingZone = this;
         }
-        anchor.dockable = true;
-        anchor.dockingZone = this;
     }
 
-    public void OnTriggerExit(Collider other)
+    public override void OnTriggerExit(Collider other)
     {
-        if (!anchor.activated)
+        if (other.CompareTag(targetTag))
         {
-            anchor.textPrompt = "Drop";
+            if (!anchor.activated)
+            {
+                anchor.textPrompt = "Drop";
+            }
+
+            anchor.dockable = false;
+            anchor.dockingZone = null;
         }
-        anchor.dockable = false;
-        anchor.dockingZone = null;
 
     }
 }

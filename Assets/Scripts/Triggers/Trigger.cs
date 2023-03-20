@@ -4,27 +4,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Interactable;
 
-public abstract class Trigger : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Trigger : MonoBehaviour
 {
     public string targetTag = "Player";
 
+    [ReadOnly]
+    public bool triggered;
+
     public bool triggerOnce;
 
-    private bool triggered;
+    [ConditionalField(nameof(triggerOnce))]
+    [ReadOnly]
+    public bool triggeredOnce;
 
-    public abstract IEnumerator TriggerEvent();
+
+    public virtual void Awake()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+    }
+    public virtual void Start()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    public virtual IEnumerator TriggerEvent()
+    {
+        yield break;
+    }
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(targetTag) && !triggered)
+        if (other.CompareTag(targetTag) && !triggeredOnce)
         {
 
             if (triggerOnce)
             {
-                triggered = true;
+                triggeredOnce = true;
             }
 
+            triggered = true;
             StartCoroutine(TriggerEvent());
+        }
+    }
+    public virtual void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(targetTag) && !triggeredOnce)
+        {
+            triggered = false;
         }
     }
 }

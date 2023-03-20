@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Grounder : MonoBehaviour
 {	
@@ -108,17 +109,15 @@ public class Grounder : MonoBehaviour
 	//checks whether player is close enough to ground, if not grounded.
 	public bool CheckWithRaycast(float dot = 0f)
 	{
-		Physics.Raycast(pc.transform.position, Vector3.down, out hit, 1.2f, groundMask);
+		Physics.Raycast(pc.transform.position, Vector3.down, out hit, 1f, groundMask);
 		return hit.normal.y > dot;
     }
+
     public bool CheckBoat()
     {
-        Physics.Raycast(pc.transform.position, -pc.transform.up, out hitBoat, 1.2f, boatMask);
-        return hitBoat.normal.y > minGroundNormal;
+        return Physics.Raycast(pc.transform.position, -pc.transform.up, out hitBoat, 0.8f, boatMask);
+        //return hitBoat.normal.y > minGroundNormal;
     }
-
-	
-
 
     void Update()
     {
@@ -152,13 +151,18 @@ public class Grounder : MonoBehaviour
 
 	private void UpdateState()
 	{
-        if (pc.isNonPhysics && !CheckWithRaycast(minGroundNormal))
+
+        if (!pc.isNonPhysics && !pc.rb.isKinematic && CheckBoat())
         {
-			Unground();
+            pc.AttachToBoat(BoatController.instance.transform);
+        }
+        if (pc.isNonPhysics && !Physics.Raycast(pc.transform.position, -pc.transform.up, out hitBoat, 0.8f, boatMask))
+        {
+			Debug.Log("Detach");
+            pc.DetachFromBoat();
         }
 
-
-		if (groundContactCount > 0)
+        if (groundContactCount > 0)
 		{
 			if (groundContactCount > 1)
 			{
@@ -172,17 +176,13 @@ public class Grounder : MonoBehaviour
 			{
 				Ground();
 			}
-
-            if (!pc.isNonPhysics && CheckBoat())
-            {
-                pc.AttachToBoat(BoatController.instance.transform);
-            }
-		}
+        }
 		else
-		{	
-			//if player was ungrounded not long ago, and the normal of the ground below it still meets the minimal ground normal, ground the player.
-			//for smoother control on bumpy surfaces.
-			if (pc.isNonPhysics || stepSinceUngrounded < 5 && CheckWithRaycast(minGroundNormal))
+		{
+            //if player was ungrounded not long ago, and the normal of the ground below it still meets the minimal ground normal, ground the player.
+            //for smoother control on bumpy surfaces.
+            //if (pc.isNonPhysics || stepSinceUngrounded < 5 && CheckWithRaycast(minGroundNormal)) 
+            if (pc.isNonPhysics || (stepSinceUngrounded < 5 && CheckWithRaycast(minGroundNormal)))
 			{
 				if (!grounded)
 				{
@@ -255,19 +255,27 @@ public class Grounder : MonoBehaviour
 		{
 			return;
 		}
-        
-		//for each contact point, add to the temporary ground value.
-		//adds to ground contact count.
-		for (int i = 0; i < c.contactCount; i++)
+
+        bool onBoat = false;
+
+        //for each contact point, add to the temporary ground value.
+        //adds to ground contact count.
+        for (int i = 0; i < c.contactCount; i++)
 		{
 			contactPoint = c.GetContact(i);
-			if (contactPoint.normal.y > minGroundNormal)
+			if ((groundMask.value & 1 << c.gameObject.layer) > 0  && contactPoint.normal.y > minGroundNormal)
 			{
 				groundCollider = c.collider;
 				tempGroundNormal += contactPoint.normal;
 				groundContactCount++;
-			}
-		}
+
+                /*if ((boatMask.value & 1 << c.gameObject.layer) > 0)
+                {
+					onBoat = true;
+                }*/
+            }
+        }
+		
 	}
 
 }

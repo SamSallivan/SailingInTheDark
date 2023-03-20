@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MyBox;
 using NWH.DWP2.WaterObjects;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -482,7 +483,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     
 	private void Update()
 	{
-		InputUpdate();
+		//Debug.Log(playerCollider.material.dynamicFriction);
+
+        InputUpdate();
         BobUpdate();
         headPosition.PositionUpdate();
 
@@ -586,32 +589,35 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         }
 		else
         {
-            localVelo += transform.TransformDirection(inputDir) * acceleration * Time.fixedDeltaTime;
+            Vector3 normalized = transform.TransformDirection(inputDir).normalized;
+            normalized -= Vector3.Dot(normalized, base.transform.up) * base.transform.up;
+
+            localVelo += BoatController.instance.transform.InverseTransformDirection(normalized) * acceleration * Time.fixedDeltaTime;
             localVelo = Vector3.Lerp(localVelo, Vector3.zero, Time.fixedDeltaTime * deaccerlation);
             if (localVelo != Vector3.zero)
             {
-                Vector3 direction = tHead.transform.TransformDirection(localVelo);
-                 if (Physics.SphereCast(base.transform.position + base.transform.up * 0.5f, radius, localVelo, out RaycastHit hitInfo, distance, nonPhysicsCollisions))
+                Vector3 direction = BoatController.instance.transform.TransformDirection(localVelo);
+                if (Physics.SphereCast(base.transform.position + base.transform.up * 0.5f, radius, direction, out RaycastHit hitInfo, distance, nonPhysicsCollisions))
                 {
-                    //Vector3 vector2 = base.transform.InverseTransformDirection(hitInfo.normal);
-                    Vector3 vector = hitInfo.normal;
-                     vector.y = 0f;
-                     localVelo += vector.normalized * (1f / Mathf.Max(0.1f, hitInfo.distance)) * collisionCoefficient *
-                                  Time.fixedDeltaTime;
-					 Debug.Log("hit");
-                 }
-
-                 if (Physics.SphereCast(base.transform.position + base.transform.up * (-0.5f), radius, localVelo, out RaycastHit hitInfo2, distance, nonPhysicsCollisions))
-                 {
-                     //Vector3 vector2 = base.transform.InverseTransformDirection(hitInfo2.normal);
-                     Vector3 vector2 = hitInfo2.normal;
-                     vector2.y = 0f;
-                     localVelo += vector2.normalized * (1f / Mathf.Max(0.1f, hitInfo2.distance)) * collisionCoefficient *
-                                  Time.fixedDeltaTime;
-                     Debug.Log("hit");
+                    Vector3 vector = BoatController.instance.transform.InverseTransformDirection(hitInfo.normal);
+                    vector.y = 0f;
+                    localVelo += vector.normalized * (1f / Mathf.Max(0.1f, hitInfo.distance)) * collisionCoefficient *
+                                 Time.fixedDeltaTime;
+                    Debug.Log("hit");
                 }
 
-                transform.position += localVelo * Time.fixedDeltaTime;
+                if (Physics.SphereCast(base.transform.position + base.transform.up * (-0.5f), radius, direction, out RaycastHit hitInfo2, distance, nonPhysicsCollisions))
+                {
+                    Vector3 vector = BoatController.instance.transform.InverseTransformDirection(hitInfo2.normal);
+                    vector.y = 0f;
+                    localVelo += vector.normalized * (1f / Mathf.Max(0.1f, hitInfo2.distance)) * collisionCoefficient *
+                                 Time.fixedDeltaTime;
+                    Debug.Log("hit");
+                }
+
+                localVelo = new Vector3(localVelo.x, 0, localVelo.z);
+                transform.localPosition += localVelo * Time.fixedDeltaTime;
+
             }
         }
 		/*
@@ -637,8 +643,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 	{
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, interactDistance, interactableLayer))
         {
-			//Debug.Log(hitInfo.collider.name);
-            if (targetInteractable == null || targetInteractable.name != hitInfo.collider.name)
+
+            if (targetInteractable == null || targetInteractable.name != hitInfo.collider.name || targetInteractable.triggerZone)
             {
 				if (targetInteractable != null && targetInteractable.name != hitInfo.collider.name)
                 {
@@ -648,14 +654,19 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
                 targetInteractable = hitInfo.collider.GetComponent<Interactable>();
 				if (targetInteractable != null)
 				{
-					if (exclusiveInteractable == null) 
-					{
-						targetInteractable.Target();
-					}
-					else if (exclusiveInteractable != null && exclusiveInteractable == targetInteractable)
+                    if (exclusiveInteractable != null && exclusiveInteractable != targetInteractable)
                     {
-                        targetInteractable.Target();
+                        targetInteractable.UnTarget();
+                        targetInteractable = null;
+                        return;
                     }
+                    if (targetInteractable.triggerZone != null && !targetInteractable.triggerZone.triggered)
+                    {
+                        targetInteractable.UnTarget();
+                        targetInteractable = null;
+                        return;
+                    }
+                    targetInteractable.Target();
                 }
             }
         }

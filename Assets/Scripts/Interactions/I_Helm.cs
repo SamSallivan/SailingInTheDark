@@ -56,6 +56,7 @@ public class I_Helm : Interactable
     {
         if (activated && !inControl)
         {
+            Highlight();
             UIManager.instance.generalTips.SetActive(false);
             UIManager.instance.helmTips.SetActive(true);
             PlayerController.instance.LockMovement(true);
@@ -79,8 +80,8 @@ public class I_Helm : Interactable
 
                 PlayerController.instance.GetComponent<MouseLook>().Reset();
                 PlayerController.instance.tHead.GetComponent<MouseLook>().Reset();
-                PlayerController.instance.GetComponent<MouseLook>().SetClamp(-60, 60, -60, 60);
-                PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-60, 60, -60, 60);
+                PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+                PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
                 PlayerController.instance.LockCamera(false);
             }
         }
@@ -98,14 +99,13 @@ public class I_Helm : Interactable
 
         if (inControl)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            Highlight();
+
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
             {
                 activated = false;
-                Target();
                 InventoryManager.instance.inputDelay = 0;
             }
-
-            //Highlight();
 
             hTemp = 0f;
             hTemp += (Input.GetKey(KeyCode.A) ? (-wheelSpeed) : 0);
@@ -127,7 +127,7 @@ public class I_Helm : Interactable
 
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
             {
-                handleAngle = vTemp / 100 * 180;
+                handleAngle = vTemp / 100 * 90;
             }
             else
             {
@@ -141,17 +141,19 @@ public class I_Helm : Interactable
             wheelAngle = Mathf.Lerp(wheelAngle, -hTemp * 90, Time.deltaTime * 5);
         }
 
-        if (BoatController.instance.engine.activated)
+        /*if (BoatController.instance.engine.activated)
         {
             BoatController.instance.boat.input.Throttle = speed / 100;
         }
         else
         {
             BoatController.instance.boat.input.Throttle = 0;
-        }
+        }*/
+
+        BoatController.instance.boat.input.Throttle = speed / 100;
 
         wheel.localEulerAngles = new Vector3(0, 0, wheelAngle);
-        handleAngle = Mathf.Lerp(handleAngle, speed / 100 * 180, Time.deltaTime * 10);
+        handleAngle = Mathf.Lerp(handleAngle, speed / 100 * 90, Time.deltaTime * 10);
         handle.localEulerAngles = new Vector3(handleAngle, 0, 0);
 
         if (BoatController.instance.boat.input.Throttle != 0)

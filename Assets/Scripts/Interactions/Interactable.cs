@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using static InventoryManager;
 using System;
 using TMPro;
+using Unity.VisualScripting;
 
 public enum InteractionType
 {
@@ -65,6 +66,8 @@ public class Interactable : MonoBehaviour
     public bool activated;
     [ConditionalField(nameof(interactionType), false, InteractionType.CustomToggle)]
     public bool excludeOtherInteraction;
+    
+    public Trigger triggerZone;
 
     public virtual IEnumerator InteractionEvent()
     {

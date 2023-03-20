@@ -100,7 +100,7 @@ Material:
     - _FactorParallel: 0.2
     - _FeatherAtUVExtents: 1
     - _FeatherWaveStart: 0.1
-    - _FeatherWidth: 0.265
+    - _FeatherWidth: 0.171
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

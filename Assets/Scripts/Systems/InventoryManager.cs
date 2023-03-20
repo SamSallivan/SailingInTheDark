@@ -340,8 +340,9 @@ public class InventoryManager : MonoBehaviour
             equippedItem = item;
             GameObject newObject = Instantiate(item.data.dropObject, PlayerController.instance.equippedTransform);
             newObject.name = item.data.dropObject.name + " Equipped";
-            newObject.transform.localPosition = new Vector3(0, 0, 0);
-           // newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            //newObject.transform.localPosition = new Vector3(0, 0, 0);
+            newObject.transform.localPosition = item.data.equipPosition;
+            // newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
 
             //Destroy(newObject.transform.GetChild(0).gameObject);
             newObject.transform.GetComponentInChildren<Interactable>().enabled = false;

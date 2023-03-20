@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7032881214472265311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770acbaed70db4ad696458511aa3f084, type: 3}
+  m_Name: FlatKitFog
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  settings: {fileID: 11400000, guid: 27461652cd09d439892b599fddb40841, type: 2}
+  _effectMaterial: {fileID: 0}
 --- !u!114 &-6902214474231363405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,7 +71,9 @@ MonoBehaviour:
   - {fileID: 138853701947654139}
   - {fileID: 1126074398315881943}
   - {fileID: -6902214474231363405}
-  m_RendererFeatureMap: 6cc2551c02d87c7f5ab030b5336cc47e3cfddba0f90078dac76dd41290198e26f6a8ff6aa72ece7bfb7f56ccb44eed01d7a547f6b29ea00fb348e153816836a0
+  - {fileID: -7032881214472265311}
+  - {fileID: 6369048259533720249}
+  m_RendererFeatureMap: 6cc2551c02d87c7f5ab030b5336cc47e3cfddba0f90078dac76dd41290198e26f6a8ff6aa72ece7bfb7f56ccb44eed01d7a547f6b29ea00fb348e153816836a0a1e1dc17cc2f669eb9cad3baa5676358
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -145,6 +162,21 @@ MonoBehaviour:
     injectionPoint: 550
     alwaysEnable: 0
     cameraTypes: 5
+--- !u!114 &6369048259533720249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cca7768aaaea4b0081f14e7f9d4b5ad, type: 3}
+  m_Name: FlatKitOutline
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  settings: {fileID: 11400000, guid: ff3dfd77429d64938a26bd54c27dacd8, type: 2}
+  _effectMaterial: {fileID: 0}
 --- !u!114 &8921119208457087222
 MonoBehaviour:
   m_ObjectHideFlags: 0
