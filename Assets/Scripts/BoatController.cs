@@ -86,6 +86,14 @@ public class BoatController : MonoBehaviour
         foreach (BoatComponent component in components)
         {
             component.ShutDown();
+            Debug.Log(component.name + " shut off");
+        }
+
+        if (curWattHour <= 0 && !GameOverManager.instance.gameOver)
+        {
+            helm.activated = false;
+            batteryInUse = false;
+            StartCoroutine(GameOverManager.instance.TriggerDeath());
         }
         //sound effect and all
     }
