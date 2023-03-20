@@ -47,10 +47,8 @@ public class I_Helm : Interactable
         boatpart = gameObject.GetComponent<BoatComponent>();
     }
 
-
     public override IEnumerator InteractionEvent()
     {
-
         if (!activated && !inControl)
         {
             activated = true;

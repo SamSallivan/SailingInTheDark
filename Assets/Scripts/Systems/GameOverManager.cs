@@ -7,11 +7,15 @@ public class GameOverManager : MonoBehaviour
 {
     public static GameOverManager instance;
     public BoatController boatController;
+    public Rigidbody boatRB;
     public PlayerController playerController;
     public RectTransform image;
 
     public Vector3 boatStart;
     public Vector3 playerStart;
+    public Vector3 boatRot;
+    public Vector3 playerRot;
+
     public bool gameOver;
 
     private void Awake()
@@ -27,6 +31,10 @@ public class GameOverManager : MonoBehaviour
         image.anchoredPosition = new Vector3(0, 2000, 0);
         boatStart = boatController.transform.position;
         playerStart = playerController.transform.position;
+
+        boatRB.interpolation = RigidbodyInterpolation.None;
+        boatRot = boatController.transform.eulerAngles;
+        playerRot = playerController.transform.eulerAngles;
     }
 
     void Update()
@@ -50,7 +58,7 @@ public class GameOverManager : MonoBehaviour
 
         boatController.batteryInUse = false;
         playerController.enableMovement = false;
-        boatController.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+        boatRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
     }
 
     public void ResetScene()
@@ -64,11 +72,14 @@ public class GameOverManager : MonoBehaviour
         gameOver = false;
 
         playerController.transform.SetParent(null);
+        playerController.transform.eulerAngles = playerRot;
         playerController.transform.position = playerStart;
         playerController.enableMovement = true;
 
+        playerController.transform.SetParent(null);
         boatController.transform.position = boatStart;
-        boatController.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        boatController.transform.eulerAngles = boatRot;
+        boatRB.constraints = RigidbodyConstraints.None;
 
         boatController.curWattHour = boatController.maxWattHour;
         boatController.batteryInUse = true;
