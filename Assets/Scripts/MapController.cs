@@ -7,16 +7,27 @@ public class MapController : MonoBehaviour
     public Transform targetTransform;
     void Update()
     {
-        if (transform.IsChildOf(PlayerController.instance.transform))
+        if (transform.IsChildOf(PlayerController.instance.transform) && !UIManager.instance.inventoryUI.activeInHierarchy)
         {
-            if (Input.GetKey(KeyCode.Mouse1))
+            KeyCode key;
+
+            if (transform.IsChildOf(PlayerController.instance.equippedTransformLeft))
             {
-                transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(2).position, Time.fixedDeltaTime * 5);
-                transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(2).rotation, Time.fixedDeltaTime * 5);
+                key = KeyCode.Mouse0;
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, PlayerController.instance.equippedTransform.position, Time.fixedDeltaTime * 5);
+                key = KeyCode.Mouse1;
+            }
+
+            if (Input.GetKey(key))
+            {
+                transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(3).position, Time.fixedDeltaTime * 5);
+                transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(3).rotation, Time.fixedDeltaTime * 5);
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, PlayerController.instance.equippedTransformLeft.position, Time.fixedDeltaTime * 5);
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, GetComponent<I_InventoryItem>().itemData.dropObject.transform.localRotation, Time.fixedDeltaTime * 5);
 
             }

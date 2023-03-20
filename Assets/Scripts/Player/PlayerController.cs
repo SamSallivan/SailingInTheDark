@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public Transform equippedTransform;
 
+    public Transform equippedTransformLeft;
+
+    public Transform equippedTransformRight;
+
     public Rigidbody rb;
 
     public CapsuleCollider playerCollider;

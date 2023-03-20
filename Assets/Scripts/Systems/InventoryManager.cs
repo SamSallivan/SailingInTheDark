@@ -247,9 +247,13 @@ public class InventoryManager : MonoBehaviour
             {
                 inventoryItemList.Remove(inventoryItem);
                 Destroy(inventoryItem.slot.gameObject);
-                if (equippedItem == inventoryItem)
+                if (equippedItemLeft == inventoryItem)
                 {
-                    UnequipItem();
+                    UnequipItem(inventoryItem.data.equipType);
+                }
+                else if (equippedItemRight == inventoryItem)
+                {
+                    UnequipItem(inventoryItem.data.equipType);
                 }
             }
         }
@@ -257,9 +261,13 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryItemList.Remove(inventoryItem);
             Destroy(inventoryItem.slot.gameObject);
-            if (equippedItem == inventoryItem)
+            if (equippedItemLeft == inventoryItem)
             {
-                UnequipItem();
+                UnequipItem(inventoryItem.data.equipType);
+            }
+            else if (equippedItemRight == inventoryItem)
+            {
+                UnequipItem(inventoryItem.data.equipType);
             }
         }
 
@@ -283,9 +291,14 @@ public class InventoryManager : MonoBehaviour
                 inventoryItemList.Remove(inventoryItem);
                 Destroy(inventoryItem.slot.gameObject);
                 GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
-                if (equippedItem == inventoryItem)
+
+                if (equippedItemLeft == inventoryItem)
                 {
-                    UnequipItem();
+                    UnequipItem(inventoryItem.data.equipType);
+                }
+                else if (equippedItemRight == inventoryItem)
+                {
+                    UnequipItem(inventoryItem.data.equipType);
                 }
             }
         }
@@ -295,9 +308,14 @@ public class InventoryManager : MonoBehaviour
             Destroy(inventoryItem.slot.gameObject);
             GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
             droppdeObject.GetComponentInChildren<I_InventoryItem>().itemStatus = inventoryItem.status;
-            if (equippedItem == inventoryItem)
+
+            if (equippedItemLeft == inventoryItem)
             {
-                UnequipItem();
+                UnequipItem(inventoryItem.data.equipType);
+            }
+            else if (equippedItemRight == inventoryItem)
+            {
+                UnequipItem(inventoryItem.data.equipType);
             }
         }
 
@@ -307,45 +325,48 @@ public class InventoryManager : MonoBehaviour
 
     public void EquipItem(InventoryItem item)
     {
-        /*switch (item.data.equipType)
+
+
+        if (equippedItemLeft == item || equippedItemRight == item)
         {
-            case ItemData.EquipType.Left:
-                if (equippedItemLeft != null)
-                {
-                    UnequipItem();
-                }
-                equippedItemLeft = item;
-                break;
-
-            case ItemData.EquipType.Right:
-                if (equippedItemRight != null)
-                {
-                    UnequipItem();
-                }
-                equippedItemRight = item;
-                break;
-        }*/
-
-
-        if (equippedItem == item)
-        {
-            UnequipItem();
+            UnequipItem(item.data.equipType);
         }
         else
         {
-            if (PlayerController.instance.equippedTransform.childCount > 0)
+            UnequipItem(item.data.equipType);
+            Transform equipPivot;
+
+            switch (item.data.equipType)
             {
-                Destroy(PlayerController.instance.equippedTransform.GetChild(0).gameObject);
+                case ItemData.EquipType.Left:
+                    equippedItemLeft = item;
+                    equipPivot = PlayerController.instance.equippedTransformLeft;
+                    break;
+
+                case ItemData.EquipType.Right:
+                    equippedItemRight = item;
+                    equipPivot = PlayerController.instance.equippedTransformRight;
+                    break;
+
+                case ItemData.EquipType.Both:
+                    equippedItemLeft = item;
+                    equippedItemRight = item;
+                    equipPivot = PlayerController.instance.equippedTransformRight;
+                    break;
+
+                default:
+                    equipPivot = PlayerController.instance.equippedTransformRight;
+                    break;
             }
-            equippedItem = item;
-            GameObject newObject = Instantiate(item.data.dropObject, PlayerController.instance.equippedTransform);
+            
+            GameObject newObject = Instantiate(item.data.dropObject, equipPivot);
             newObject.name = item.data.dropObject.name + " Equipped";
             //newObject.transform.localPosition = new Vector3(0, 0, 0);
             newObject.transform.localPosition = item.data.equipPosition;
             // newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
 
             //Destroy(newObject.transform.GetChild(0).gameObject);
-            newObject.transform.GetComponentInChildren<Interactable>().enabled = false;
+            //newObject.transform.GetComponentInChildren<Interactable>().enabled = false;
             foreach (Collider collider in newObject.GetComponents<Collider>())
             {
                 Destroy(collider);
@@ -367,7 +388,41 @@ public class InventoryManager : MonoBehaviour
             Destroy(PlayerController.instance.equippedTransform.GetChild(0).gameObject);
         }
     }
-    
+
+    public void UnequipItem(ItemData.EquipType type)
+    {
+        switch (type)
+        {
+            case ItemData.EquipType.Left:
+                equippedItemLeft = null;
+
+                if (PlayerController.instance.equippedTransformLeft.childCount > 0)
+                {
+                    Destroy(PlayerController.instance.equippedTransformLeft.GetChild(0).gameObject);
+                }
+                break;
+
+            case ItemData.EquipType.Right:
+                equippedItemRight = null;
+
+                if (PlayerController.instance.equippedTransformRight.childCount > 0)
+                {
+                    Destroy(PlayerController.instance.equippedTransformRight.GetChild(0).gameObject);
+                }
+                break;
+
+            case ItemData.EquipType.Both:
+                equippedItemLeft = null;
+                equippedItemRight = null;
+
+                if (PlayerController.instance.equippedTransformRight.childCount > 0)
+                {
+                    Destroy(PlayerController.instance.equippedTransformRight.GetChild(0).gameObject);
+                }
+                break;
+        }
+    }
+
     private void UpdateDetailObject()
     {
         if (UIManager.instance.detailName.text != selectedItem.data.name)

@@ -48,12 +48,12 @@ public class CompassController : MonoBehaviour
                     target.transform.eulerAngles = new Vector3(0, 0, 0);
                 }
 
-                if (transform.IsChildOf(PlayerController.instance.transform))
+                if (transform.IsChildOf(PlayerController.instance.transform) && !UIManager.instance.inventoryUI.activeInHierarchy)
                 {
                     if (Input.GetKey(KeyCode.Mouse1))
                     {
-                        transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(2).position, Time.fixedDeltaTime * 5);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(2).rotation, Time.fixedDeltaTime * 5);
+                        transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(3).position, Time.fixedDeltaTime * 5);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(3).rotation, Time.fixedDeltaTime * 5);
                     }
                     else
                     {

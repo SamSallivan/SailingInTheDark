@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2361372250977967447}
-  m_LocalRotation: {x: 0.45816803, y: -0.14430259, z: -0.13034114, w: -0.867335}
+  m_LocalRotation: {x: 0.45835128, y: 0.14309032, z: 0.12970215, w: -0.8675348}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.07870417, y: 0.04, z: 0.08}
   m_ConstrainProportionsScale: 0
@@ -37,7 +37,7 @@ Transform:
   - {fileID: 4932332743852191948}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -56.345, y: 373.66, z: 9.752}
+  m_LocalEulerAnglesHint: {x: -56.345, y: 346.5, z: -9.752}
 --- !u!33 &2361372250977967442
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
   equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
 --- !u!1 &7293731004024113402
 GameObject:
   m_ObjectHideFlags: 0

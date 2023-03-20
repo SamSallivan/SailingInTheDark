@@ -9,9 +9,20 @@ public class FlashLightController : MonoBehaviour
     void Update()
     {
 
-        if (transform.IsChildOf(PlayerController.instance.transform))
+        if (transform.IsChildOf(PlayerController.instance.transform) && !UIManager.instance.inventoryUI.activeInHierarchy)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            KeyCode key;
+
+            if (transform.IsChildOf(PlayerController.instance.equippedTransformLeft))
+            {
+                key = KeyCode.Mouse0;
+            }
+            else
+            {
+                key = KeyCode.Mouse1;
+            }
+
+            if (Input.GetKeyDown(key))
             {
                 light.SetActive(!light.activeInHierarchy);
                 /*transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(2).position, Time.fixedDeltaTime * 5);
