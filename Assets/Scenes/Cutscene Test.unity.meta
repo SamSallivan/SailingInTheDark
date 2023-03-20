@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/allyson_enemy2.unity.meta
+guid: bfac85259ea59be4ab7d3966bde723c6
+========
 guid: dc25132605a8442a0bca5c543aad27ea
+>>>>>>>> main:Assets/Scenes/Cutscene Test.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

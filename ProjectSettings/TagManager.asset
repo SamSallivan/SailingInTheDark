@@ -8,6 +8,7 @@ TagManager:
   - Ship
   - Water
   - Boat
+  - Light
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Enemy
   - 
   - 
   - 

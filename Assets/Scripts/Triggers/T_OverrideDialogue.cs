@@ -7,7 +7,7 @@ public class T_OverrideDialogue : Trigger
     public DialogueData dialogueData;
     public override IEnumerator TriggerEvent()
     {
-        DialogueManager.instance.OverrideRecording(dialogueData);
+        // DialogueManager.instance.OverrideRecording(dialogueData);
         yield return null;
     }
 }
