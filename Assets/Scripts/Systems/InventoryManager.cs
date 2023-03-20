@@ -47,7 +47,7 @@ public class InventoryManager : MonoBehaviour
     {
         instance = this;
         equippedItem = null;
-}
+    }
 
     // Update is called once per frame
     void Update()
