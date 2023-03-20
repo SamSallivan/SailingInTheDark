@@ -12,8 +12,8 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask obstacleMask;
 
     //stats for AI
-    [SerializeField] private Vector3 offset;
-    private float movementSpeed = 3f;
+    private Vector3 offset;
+    [SerializeField] private float movementSpeed = 6f;
     private float rotationDamp = 5f;
     private float raycastDistance = 4f;
     private float raycastRadius = 2.5f;
