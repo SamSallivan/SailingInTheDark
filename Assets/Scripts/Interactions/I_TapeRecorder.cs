@@ -48,17 +48,17 @@ public class I_TapeRecorder : Interactable
         }
 
         //if player is holding a item && the item has a recording
-        else if (InventoryManager.instance.equippedItem != null && InventoryManager.instance.equippedItem.data.recording != null && InventoryManager.instance.equippedItem.data.type == ItemData.ItemType.Tape)
+        else if (InventoryManager.instance.equippedItemRight != null && InventoryManager.instance.equippedItemRight.data.recording != null && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Tape)
         {
             //cut the current recording and play the new one.
             EjectTape();
 
-            tapeInserted = InventoryManager.instance.equippedItem.data.dropObject;
+            tapeInserted = InventoryManager.instance.equippedItemRight.data.dropObject;
             recordingPlayed = tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData.recording;
             RecordingManager.instance.ReplaceRecording(recordingPlayed);
             RecordingManager.instance.UnpauseRadio();
 
-            InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItem);
+            InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItemRight);
         }
         Target();
         yield return null;
@@ -110,7 +110,7 @@ public class I_TapeRecorder : Interactable
             UIManager.instance.interactionPrompt.text += "Receive Radio";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
-        else if (InventoryManager.instance.equippedItem != null && InventoryManager.instance.equippedItem.data.type == ItemData.ItemType.Tape)
+        else if (InventoryManager.instance.equippedItemRight != null && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Tape)
         {
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += "Insert Tape";

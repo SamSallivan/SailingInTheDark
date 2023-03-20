@@ -23,5 +23,9 @@ MonoBehaviour:
     subtitle: Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2
     audioClip: {fileID: 8300000, guid: b95f0cfb8fb20493b8a6d25fc8ee6510, type: 3}
     intervalAfter: 0
-  subtitles: []
-  audioClips: []
+  subtitles:
+  - Line1
+  - Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2Line2
+  audioClips:
+  - {fileID: 8300000, guid: e9741905086ad418d909e107744e48ac, type: 3}
+  - {fileID: 8300000, guid: b95f0cfb8fb20493b8a6d25fc8ee6510, type: 3}

@@ -87,9 +87,9 @@ public class I_Anchor : Interactable
                 rotation = rotation2;
             }
 
-            if (dockingTimer <= 2.5f)
+            if (dockingTimer <= 5f)
             {
-                //dockingTimer += Time.fixedDeltaTime;
+                dockingTimer += Time.fixedDeltaTime;
                 Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, boat.transform.position.y,
                     dockingZone.dockingPos.position.z);
                 boat.transform.position = Vector3.Lerp(boat.transform.position, targetpos, dockingTimer / 2);

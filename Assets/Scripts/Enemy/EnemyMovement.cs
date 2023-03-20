@@ -25,9 +25,9 @@ public class EnemyMovement : MonoBehaviour
     public float curAttackCooldown = 5f; //seconds
     private int attackDamage = 100;
 
-    private void Awake()
+    private void Start()
     {
-        boat = GameObject.Find("Boat");
+        boat = BoatController.instance.gameObject;
         boatTransform = boat.transform;
 
         target = boatTransform;
@@ -83,7 +83,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Turn()
     {
-        Vector3 pos = target.position - transform.position;
+        Vector3 pos = BoatController.instance.gameObject.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(pos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationDamp * Time.deltaTime);
     }

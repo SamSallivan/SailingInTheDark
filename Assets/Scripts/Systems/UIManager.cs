@@ -183,7 +183,7 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
-        subtitleUI.DOFade(0, 0.5f).OnComplete(() =>
+        subtitleUI.DOFade(0, 0.01f).OnComplete(() =>
         {
             subtitleUI.text = "";
             subtitleUI.gameObject.SetActive(false);

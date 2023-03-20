@@ -24,11 +24,12 @@ MonoBehaviour:
   equipType: 0
   equipObject: {fileID: 0}
   equipRotation: {x: 0, y: 0, z: 0, w: 0}
+  equipPosition: {x: 0, y: 0, z: 0}
   isDroppable: 1
   dropObject: {fileID: 2361372250977967447, guid: 10d10445f8bfe9448a29e5a58c507bac,
     type: 3}
   isExaminable: 0
   examineScale: 0.75
-  examineRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
+  examineRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
   isReadable: 0
   readText: 

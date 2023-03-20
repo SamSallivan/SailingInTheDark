@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   title: Flash Light
-  sprite: {fileID: 21300000, guid: cb99b05fbd6c9ba48ad5781b26383506, type: 3}
+  sprite: {fileID: 21300000, guid: ba6aa7beadc479349abe17cafcf4c4ea, type: 3}
   description: this is a Flash Light.
   recordingName: 'DAY 0: Test'
   recording: {fileID: 0}

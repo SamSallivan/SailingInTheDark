@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MapController : MonoBehaviour
 {
@@ -24,11 +25,15 @@ public class MapController : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(3).position, Time.fixedDeltaTime * 5);
                 transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(3).rotation, Time.fixedDeltaTime * 5);
+                gameObject.layer = 5;
+                transform.GetChild(0).gameObject.layer = 5;
             }
             else
             {
                 transform.position = Vector3.Lerp(transform.position, PlayerController.instance.equippedTransformLeft.position, Time.fixedDeltaTime * 5);
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, GetComponent<I_InventoryItem>().itemData.dropObject.transform.localRotation, Time.fixedDeltaTime * 5);
+                gameObject.layer = 0;
+                transform.GetChild(0).gameObject.layer = 0;
 
             }
         }

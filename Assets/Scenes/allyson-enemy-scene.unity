@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 2042292858}
   m_Sun: {fileID: 1886882327}
-  m_IndirectSpecularColor: {r: 0.13508064, g: 0.19228305, b: 0.24924432, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1100,9 +1100,11 @@ MonoBehaviour:
   itemStatus:
     amount: 0
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
 --- !u!1 &72734259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,10 +1623,13 @@ MonoBehaviour:
   itemStatus:
     amount: 0
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
-  light: {fileID: 99246133}
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
+  lightObject: {fileID: 0}
+  upgraded: 0
 --- !u!65 &105510705
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1708,6 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc954dabaf58834eb5b83dedf48950a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   wattConsumption: 1000
   componentActivated: 0
   componentInteractable: {fileID: 105510704}
@@ -2760,6 +2766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e311b7eb89ca1e449911508724ccad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLook: 1
   axes: 1
   invertY: 0
   sensitivityX: 2.5
@@ -2769,6 +2776,7 @@ MonoBehaviour:
   minimumY: -85
   maximumY: 85
   rotAverageX: 0
+  rotAverageY: 0
   framesOfSmoothing: 5
 --- !u!114 &206175335
 MonoBehaviour:
@@ -2782,6 +2790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e311b7eb89ca1e449911508724ccad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLook: 1
   axes: 2
   invertY: 0
   sensitivityX: 2.5
@@ -2791,6 +2800,7 @@ MonoBehaviour:
   minimumY: -85
   maximumY: 85
   rotAverageX: 0
+  rotAverageY: 0
   framesOfSmoothing: 5
 --- !u!114 &206175336
 MonoBehaviour:
@@ -6254,6 +6264,7 @@ GameObject:
   - component: {fileID: 557045259}
   - component: {fileID: 557045258}
   - component: {fileID: 557045261}
+  - component: {fileID: 557045262}
   m_Layer: 0
   m_Name: RadioBound
   m_TagString: Untagged
@@ -6360,7 +6371,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
+  triggered: 0
   triggerOnce: 0
+  triggeredOnce: 0
+--- !u!54 &557045262
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557045255}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &563848173
 GameObject:
   m_ObjectHideFlags: 0
@@ -6979,6 +7019,7 @@ GameObject:
   - component: {fileID: 634123033}
   - component: {fileID: 634123032}
   - component: {fileID: 634123031}
+  - component: {fileID: 634123036}
   m_Layer: 0
   m_Name: DialogueOverrideTrigger
   m_TagString: Untagged
@@ -7028,7 +7069,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
+  triggered: 0
   triggerOnce: 0
+  triggeredOnce: 0
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
   autoStartPlaying: 0
 --- !u!65 &634123033
@@ -7102,6 +7145,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634123029}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &634123036
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634123029}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &637606759
 GameObject:
   m_ObjectHideFlags: 0
@@ -7729,14 +7799,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e57008964edd344ad29a052c5e55a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableMovement: 1
   t: {fileID: 0}
   tHead: {fileID: 0}
   equippedTransform: {fileID: 1985068727}
+  equippedTransformLeft: {fileID: 0}
+  equippedTransformRight: {fileID: 0}
   rb: {fileID: 0}
+  playerCollider: {fileID: 0}
   headPosition: {fileID: 0}
-  speed: 2
   vel: {x: 0, y: 0, z: 0}
+  waterObject: {fileID: 0}
+  isNonPhysics: 0
+  acceleration: 0
+  deaccerlation: 0
+  distance: 0
+  radius: 0
+  collisionCoefficient: 0
+  nonPhysicsCollisions:
+    serializedVersion: 2
+    m_Bits: 0
+  enableMovement: 1
+  enableJump: 1
+  dynamicSpeed: 1
   jumpForce: {x: 0, y: 15, z: 0}
   gTimer: 0
   gravity: -40
@@ -7767,6 +7851,8 @@ MonoBehaviour:
   poofVFX: {fileID: 0}
   slamVFX: {fileID: 0}
   extraUpForce: 0
+  targetInteractable: {fileID: 0}
+  exclusiveInteractable: {fileID: 0}
   interactDistance: 5
   interactableLayer:
     serializedVersion: 2
@@ -7815,6 +7901,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 2147483647
+  boatMask:
+    serializedVersion: 2
+    m_Bits: 0
   grounded: 0
   groundContactCount: 0
   stepSinceUngrounded: 0
@@ -7961,6 +8050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e311b7eb89ca1e449911508724ccad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLook: 1
   axes: 1
   invertY: 0
   sensitivityX: 2.5
@@ -7970,6 +8060,7 @@ MonoBehaviour:
   minimumY: -85
   maximumY: 85
   rotAverageX: 0
+  rotAverageY: 0
   framesOfSmoothing: 5
 --- !u!1 &695433369
 GameObject:
@@ -8175,6 +8266,7 @@ GameObject:
   - component: {fileID: 717602046}
   - component: {fileID: 717602045}
   - component: {fileID: 717602044}
+  - component: {fileID: 717602048}
   m_Layer: 0
   m_Name: DockingTigger
   m_TagString: Untagged
@@ -8212,7 +8304,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Boat
+  triggered: 0
   triggerOnce: 0
+  triggeredOnce: 0
   dockingPos: {fileID: 688522951}
   anchorPos: {fileID: 90568642}
   anchor: {fileID: 1403423213}
@@ -8287,6 +8381,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717602042}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &717602048
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717602042}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &735617761
 GameObject:
   m_ObjectHideFlags: 0
@@ -8937,6 +9058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e311b7eb89ca1e449911508724ccad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLook: 1
   axes: 2
   invertY: 0
   sensitivityX: 2.5
@@ -8946,6 +9068,7 @@ MonoBehaviour:
   minimumY: -85
   maximumY: 85
   rotAverageX: 0
+  rotAverageY: 0
   framesOfSmoothing: 5
 --- !u!1 &748578051
 GameObject:
@@ -9767,8 +9890,22 @@ MonoBehaviour:
       amount: 0
       durability: 0
     slot: {fileID: 0}
+  equippedItemLeft:
+    data: {fileID: 0}
+    status:
+      amount: 0
+      durability: 0
+    slot: {fileID: 0}
+  equippedItemRight:
+    data: {fileID: 0}
+    status:
+      amount: 0
+      durability: 0
+    slot: {fileID: 0}
   slotPerRow: 4
   slotPerColumn: 5
+  detailObjectDrag: 0
+  inputDelay: 0
 --- !u!1 &858589155
 GameObject:
   m_ObjectHideFlags: 0
@@ -9829,9 +9966,11 @@ MonoBehaviour:
   itemStatus:
     amount: 1
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
 --- !u!65 &858589158
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10244,16 +10383,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f521edaf4bb94701abdecf8f529c0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recorder: {fileID: 0}
   currentIndex: 0
   interuptedIndex: 0
+  currentRecording: {fileID: 0}
+  recordingWaitList: []
   currentLine:
     intervalBefore: 0
     speaker: 0
     subtitle: 
     audioClip: {fileID: 0}
     intervalAfter: 0
-  currentRecording: {fileID: 0}
-  recordingWaitList: []
   radioPaused: 1
   radioInBound: 0
   autoUnpause: 1
@@ -10504,10 +10644,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boat: {fileID: 926783476}
+  helm: {fileID: 0}
+  anchor: {fileID: 0}
+  engine: {fileID: 0}
+  components: []
   maxWattHour: 1000
   curWattHour: 1000
-  components: []
   maxActiveComponent: 3
+  batteryInUse: 1
   hour: {fileID: 190618243}
   second: {fileID: 961678473}
   percentage: {fileID: 668422846}
@@ -11595,9 +11739,11 @@ MonoBehaviour:
   itemStatus:
     amount: 1
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
 --- !u!65 &1000719919
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12367,6 +12513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RadioPlayer: {fileID: 2127880468}
+  DialoguePlayer: {fileID: 0}
 --- !u!4 &1062925066
 Transform:
   m_ObjectHideFlags: 0
@@ -12443,10 +12590,13 @@ MonoBehaviour:
   itemStatus:
     amount: 0
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
-  light: {fileID: 1607734706}
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
+  lightObject: {fileID: 0}
+  upgraded: 0
 --- !u!65 &1100319067
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12530,6 +12680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc954dabaf58834eb5b83dedf48950a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   wattConsumption: 1000
   componentActivated: 0
   componentInteractable: {fileID: 1100319066}
@@ -13457,6 +13608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e311b7eb89ca1e449911508724ccad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableLook: 1
   axes: 2
   invertY: 0
   sensitivityX: 2.5
@@ -13466,6 +13618,7 @@ MonoBehaviour:
   minimumY: -85
   maximumY: 85
   rotAverageX: 0
+  rotAverageY: 0
   framesOfSmoothing: 5
 --- !u!1 &1180447001
 GameObject:
@@ -13583,10 +13736,13 @@ MonoBehaviour:
   itemStatus:
     amount: 0
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
-  light: {fileID: 309604481}
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
+  lightObject: {fileID: 0}
+  upgraded: 0
 --- !u!65 &1210900141
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13670,6 +13826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc954dabaf58834eb5b83dedf48950a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   wattConsumption: 1000
   componentActivated: 0
   componentInteractable: {fileID: 1210900140}
@@ -14203,6 +14360,7 @@ GameObject:
   - component: {fileID: 1270989614}
   - component: {fileID: 1270989613}
   - component: {fileID: 1270989616}
+  - component: {fileID: 1270989617}
   m_Layer: 0
   m_Name: DialogueWaitlistTrigger
   m_TagString: Untagged
@@ -14310,8 +14468,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
+  triggered: 0
   triggerOnce: 0
+  triggeredOnce: 0
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
+--- !u!54 &1270989617
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270989611}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1272107475
 GameObject:
   m_ObjectHideFlags: 0
@@ -16249,15 +16436,16 @@ MonoBehaviour:
   itemStatus:
     amount: 0
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
   boat: {fileID: 926783476}
   boatHull: {fileID: 1449549091}
   dockable: 0
   dockingZone: {fileID: 0}
   dockingTimer: 0
-  playerPos: {x: 0, y: 0, z: 0}
   wattConsumption: 10
   componentActivated: 0
 --- !u!1 &1410824427
@@ -16356,6 +16544,7 @@ GameObject:
   - component: {fileID: 1428291403}
   - component: {fileID: 1428291402}
   - component: {fileID: 1428291401}
+  - component: {fileID: 1428291405}
   m_Layer: 0
   m_Name: DialogueWaitlistTrigger
   m_TagString: Untagged
@@ -16392,7 +16581,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
+  triggered: 0
   triggerOnce: 0
+  triggeredOnce: 0
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
 --- !u!65 &1428291402
 BoxCollider:
@@ -16465,6 +16656,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428291399}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1428291405
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428291399}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1433647331
 GameObject:
   m_ObjectHideFlags: 0
@@ -17940,6 +18158,7 @@ GameObject:
   - component: {fileID: 1462414879}
   - component: {fileID: 1462414882}
   - component: {fileID: 1462414883}
+  - component: {fileID: 1462414884}
   m_Layer: 0
   m_Name: DialogueOverrideTrigger
   m_TagString: Untagged
@@ -18052,7 +18271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
+  triggered: 0
   triggerOnce: 0
+  triggeredOnce: 0
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
   autoStartPlaying: 0
 --- !u!222 &1462414883
@@ -18063,6 +18284,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1462414876}
   m_CullTransparentMesh: 1
+--- !u!54 &1462414884
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462414876}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1504507766
 GameObject:
   m_ObjectHideFlags: 0
@@ -21007,8 +21255,11 @@ MonoBehaviour:
   gameplayUI: {fileID: 1357066485}
   interactionName: {fileID: 933766183}
   interactionPrompt: {fileID: 1882657107}
-  subtitleUI: {fileID: 1914250451}
+  radioSubtitleUI: {fileID: 0}
+  dialogueSubtitleUI: {fileID: 0}
   interactionPromptAnimation: {fileID: 9199711548456100447}
+  generalTips: {fileID: 0}
+  helmTips: {fileID: 0}
   inventoryUI: {fileID: 1566651433}
   inventoryItemGrid: {fileID: 327961862}
   inventoryBackGrid: {fileID: 1754347308}
@@ -21016,6 +21267,8 @@ MonoBehaviour:
   detailName: {fileID: 1002935027}
   detailDescription: {fileID: 905112654}
   detailObjectPivot: {fileID: 637606760}
+  detailObjectInBound: 0
+  detailObjectDrag: 0
   examineUI: {fileID: 2745626499617673212}
   examineText: {fileID: 2745626500168839418}
   examineImage: {fileID: 116700647}
@@ -22679,9 +22932,12 @@ MonoBehaviour:
   itemStatus:
     amount: 0
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
+  speed: 0
   currentGear: 0
   currentMaxGear: 2
   totalGearNumber: 4
@@ -22689,7 +22945,10 @@ MonoBehaviour:
   handle: {fileID: 1010295176}
   wheelSpeed: 1
   wheel: {fileID: 1801579247}
-  playerPos: {x: 0, y: 0, z: 0}
+  inControl: 0
+  enterTimer: 0
+  playerPos: {fileID: 0}
+  GearText: {fileID: 0}
 --- !u!114 &1862513995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22702,6 +22961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc954dabaf58834eb5b83dedf48950a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   wattConsumption: 2000
   componentActivated: 0
   componentInteractable: {fileID: 1862513994}
@@ -24444,6 +24704,7 @@ GameObject:
   - component: {fileID: 1996692915}
   - component: {fileID: 1996692914}
   - component: {fileID: 1996692913}
+  - component: {fileID: 1996692917}
   m_Layer: 12
   m_Name: BoatTrigger
   m_TagString: Untagged
@@ -24479,9 +24740,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
+  triggered: 0
   triggerOnce: 0
+  triggeredOnce: 0
   playerParent: {fileID: 926783474}
-  mat: {fileID: 13400000, guid: 8ebcfa53058344c488ced8fb66e4e654, type: 2}
+  playerHeight: {fileID: 0}
 --- !u!65 &1996692914
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24553,6 +24816,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996692911}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1996692917
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996692911}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!43 &2003050487
 Mesh:
   m_ObjectHideFlags: 0
@@ -26078,11 +26368,16 @@ MonoBehaviour:
   itemStatus:
     amount: 0
     durability: 0
-  openInventory: 0
+  openInventoryOnPickUp: 0
+  equipOnPickUp: 0
   activated: 0
-  allowOtherInteraction: 0
-  tapeGameObject: {fileID: 0}
-  targeTransform: {fileID: 1704888321}
+  excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
+  tapeInserted: {fileID: 0}
+  recordingPlayed: {fileID: 0}
+  tapeEjectTransform: {fileID: 0}
+  radioIndicator: {fileID: 0}
+  radioTapes: []
 --- !u!82 &2127880468
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28101,9 +28396,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 694845926}
-  lighthouseObject: {fileID: 929103541}
+  lighthouseObject1: {fileID: 0}
+  lighthouseObject2: {fileID: 0}
   playerIcon: {fileID: 6906883006659697931}
-  lighthouseIcon: {fileID: 6906883008127939121}
+  lighthouseIcon1: {fileID: 0}
+  lighthouseIcon2: {fileID: 0}
+  scale: 0
 --- !u!65 &6906883006589504875
 BoxCollider:
   m_ObjectHideFlags: 0
