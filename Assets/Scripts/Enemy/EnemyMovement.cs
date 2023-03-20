@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private GameObject boat;
+    public GameObject boat;
     private Transform boatTransform;
     private Transform target; //usually set to boat, can set it to other things if AI gets more complex
     public LayerMask boatMask;
@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         curAttackCooldown = maxAttackCooldown;
-        boat = GameObject.Find("Boat");
+        //boat = BoatController.instance.gameObject;
         boatTransform = boat.transform;
 
         target = boatTransform;
