@@ -101,6 +101,6 @@ public class BoatController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Debug.Log("take damage");
-        curWattHour -= damage;
+        curWattHour = (curWattHour - damage < 0) ? 0 : curWattHour - damage;
     }
 }
