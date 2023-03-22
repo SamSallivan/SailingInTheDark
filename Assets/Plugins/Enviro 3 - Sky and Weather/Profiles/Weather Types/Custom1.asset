@@ -20,7 +20,7 @@ MonoBehaviour:
   showLightingControls: 1
   showAuroraControls: 0
   showEnvironmentControls: 0
-  showAudioControls: 0
+  showAudioControls: 1
   showAmbientAudioControls: 0
   showWeatherAudioControls: 0
   showLightningControls: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
     flatCloudsAbsorbtion: 0.88
   lightingOverride:
     directLightIntensityModifier: 1
-    ambientIntensityModifier: 1.5
+    ambientIntensityModifier: 1
   fogOverride:
     fogDensity: 1
     fogHeightFalloff: 0.011
@@ -96,14 +96,14 @@ MonoBehaviour:
     ambientOverride:
     - showEditor: 0
       name: Day
-      volume: 1
+      volume: 0
       spring: 0
       summer: 0
       autumn: 0
       winter: 0
     - showEditor: 0
       name: Night
-      volume: 1
+      volume: 0
       spring: 0
       summer: 0
       autumn: 0

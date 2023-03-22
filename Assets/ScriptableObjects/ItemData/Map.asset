@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   title: Compass
   sprite: {fileID: 21300000, guid: 7e10a549b1fd5a6498c65b12d563dce0, type: 3}
-  description: this is a piece of paper.
+  description: This is a map.
   recordingName: 'DAY 0: Test'
   recording: {fileID: 11400000, guid: a9702d530e9007b4d9a246bb988e5cbc, type: 2}
   isStackable: 0

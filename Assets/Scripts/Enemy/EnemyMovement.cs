@@ -1,36 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 // using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public GameObject boat;
     private Transform boatTransform;
     private Transform target; //usually set to boat, can set it to other things if AI gets more complex
     public LayerMask boatMask;
     public LayerMask obstacleMask;
 
     //stats for AI
-    private Vector3 offset;
+    [ReadOnly()]
+    public Vector3 offset;
     [SerializeField] private float movementSpeed = 6f;
-    private float rotationDamp = 5f;
-    private float raycastDistance = 4f;
-    private float raycastRadius = 2.5f;
+    public float rotationSpeed = 5f;
+    public float avoidanceSpeed = 5f;
+    public float raycastDistance = 4f;
+    public float raycastRadius = 1f;
 
     //attack variables
-    private float maxAttackCooldown = 5f; //seconds
-    private float curAttackCooldown; //seconds
+    public float maxAttackCooldown = 5f; //seconds
+    public float curAttackCooldown; //seconds
     private int attackDamage = 100;
     private int attackRange = 2;
 
     private float despawnDistance = 80f;
 
-    private void Awake()
+    private void Start()
     {
         curAttackCooldown = maxAttackCooldown;
-        //boat = BoatController.instance.gameObject;
-        boatTransform = boat.transform;
+        boatTransform = BoatController.instance.transform;
 
         target = boatTransform;
     }
@@ -102,7 +103,7 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3 pos = target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(pos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationDamp * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
 
     //move forward based on forward direction
@@ -128,18 +129,18 @@ public class EnemyMovement : MonoBehaviour
             float angle = Vector3.Angle(hit.normal, -transform.forward);
             if (-hit.normal.x > transform.forward.x)
             {
-                offset = new Vector3(0f, -(90 - angle), 0f);
+                offset = new Vector3(0f, 90 - angle, 0f);
             }
             else
             {
-                offset = new Vector3(0f, 90 - angle, 0f);
+                offset = new Vector3(0f, -(90 - angle), 0f);
             }
         }
 
         //if turning is required, rotate the enemy to face the turn direction, otherwise turn towards target
         if (offset != Vector3.zero)
         {
-            transform.Rotate(offset * Time.deltaTime);
+            transform.Rotate(offset * Time.deltaTime * avoidanceSpeed);
         }
         else
         {

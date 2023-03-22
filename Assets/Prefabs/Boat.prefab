@@ -1131,6 +1131,7 @@ MonoBehaviour:
   equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
   boat: {fileID: 1247481033295870735}
   boatHull: {fileID: 1247481031674098136}
   dockable: 0
@@ -2297,6 +2298,7 @@ MonoBehaviour:
   equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
   lightObject: {fileID: 1247481032679791738}
   upgraded: 0
 --- !u!114 &1247481031770141259
@@ -2910,6 +2912,7 @@ MonoBehaviour:
   equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
   lightObject: {fileID: 1247481031545239881}
   upgraded: 0
 --- !u!114 &1247481031910172069
@@ -4194,10 +4197,13 @@ MonoBehaviour:
   equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
   speed: 0
   currentGear: 0
   currentMaxGear: 2
   totalGearNumber: 4
+  thrusterDuration: 30
+  thrusterWattConsumption: 0
   handleSpeed: 2
   handle: {fileID: 1247481033178828147}
   wheelSpeed: 1
@@ -6858,6 +6864,7 @@ MonoBehaviour:
   equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
   lightObject: {fileID: 1247481033057946830}
   upgraded: 0
 --- !u!114 &1247481033014074319
@@ -7701,10 +7708,10 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247481033295870730}
   serializedVersion: 4
-  m_Mass: 5000
+  m_Mass: 0.0000001
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: -0.000028625134, y: -2.457859, z: -0.60418415}
+  m_CenterOfMass: {x: 0, y: -2, z: -0.5}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -7844,13 +7851,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMass: 5000
-  totalMass: 5000
+  totalMass: 0
   dimensions: {x: 5.03833, y: 9.034785, z: 12.962145}
   useDefaultCenterOfMass: 0
-  centerOfMass: {x: -0.000028625134, y: -2.457859, z: -0.60418415}
+  centerOfMass: {x: 0, y: -2, z: -0.5}
   centerOfMassOffset: {x: 0, y: -2, z: -0.5}
   useDefaultInertia: 1
-  inertiaTensor: {x: 61844.113, y: 46945.65, z: 25584.28}
+  inertiaTensor: {x: 1, y: 1, z: 1}
   inertiaScale: {x: 1, y: 1, z: 1}
   updateInterval: 1
 --- !u!114 &1247481033295870732
@@ -7869,15 +7876,18 @@ MonoBehaviour:
   helm: {fileID: 1247481032355944881}
   anchor: {fileID: 1247481031611131158}
   engine: {fileID: 1247481033456157987}
+  lightLeft: {fileID: 0}
+  lightRight: {fileID: 0}
   components: []
+  refWattHour: 1000
   maxWattHour: 1000
   curWattHour: 1000
   maxActiveComponent: 3
-  batteryInUse: 1
-  hour: {fileID: 1247481032828139128}
-  second: {fileID: 1247481033130811506}
-  percentage: {fileID: 1247481033558457925}
-  componentCount: {fileID: 1247481032427012750}
+  ignoreConsumption: 0
+  percentageText: {fileID: 0}
+  usageText: {fileID: 0}
+  timerText: {fileID: 0}
+  componentCountText: {fileID: 0}
 --- !u!1 &1247481033303807022
 GameObject:
   m_ObjectHideFlags: 0
@@ -8212,6 +8222,7 @@ MonoBehaviour:
   equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
+  triggerZone: {fileID: 0}
 --- !u!1 &1247481033489681265
 GameObject:
   m_ObjectHideFlags: 0

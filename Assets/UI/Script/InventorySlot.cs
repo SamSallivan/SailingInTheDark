@@ -11,6 +11,9 @@ public class InventorySlot : MonoBehaviour, IPointerExitHandler
     public TMP_Text name;
     public TMP_Text amount;
     public Image image;
+    public Image leftHandIcon;
+    public Image rightHandIcon;
+
     public InventoryItem inventoryItem;
 
     public TMP_Text durability;

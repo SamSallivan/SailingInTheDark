@@ -31,16 +31,16 @@ public class CutsceneManager : MonoBehaviour
     {
         playingCutscene = true;
         cutsceneCamera.gameObject.SetActive(true);
-        playerMovement.enableMovement = false;
-        boatMovement.batteryInUse = false;
+        PlayerController.instance.enableMovement = false;
+        BoatController.instance.ignoreConsumption = true;
         boatRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
 
         yield return new WaitForSeconds((float)cutsceneCamera.playableAsset.duration);
 
         playingCutscene = false;
         cutsceneCamera.gameObject.SetActive(false);
-        playerMovement.enableMovement = true;
-        boatMovement.batteryInUse = true;
+        PlayerController.instance.enableMovement = true;
+        BoatController.instance.ignoreConsumption = false;
         boatRB.constraints = RigidbodyConstraints.None;
         allCameras.transform.localEulerAngles = new Vector3(0, 0, 0);
     }

@@ -98,11 +98,11 @@ public class Interactable : MonoBehaviour
 
                 case InteractionType.CustomToggle:
 
-                    if(activated && excludeOtherInteraction)
+                    if(!activated && excludeOtherInteraction)
                     {
                         PlayerController.instance.exclusiveInteractable = this;
                     }
-                    else if(!activated && excludeOtherInteraction)
+                    else if(activated && excludeOtherInteraction)
                     {
                         PlayerController.instance.exclusiveInteractable = null;
                     }

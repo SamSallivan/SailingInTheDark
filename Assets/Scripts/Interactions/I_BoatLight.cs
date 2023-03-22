@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(BoatComponent))]
@@ -74,6 +75,8 @@ public class I_BoatLight : Interactable
         {
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+            float temp = Mathf.Round(GetComponent<BoatComponent>().wattConsumption / 1000 * 100 / 3600 * 100) * 0.01f;
+            UIManager.instance.interactionPrompt.text += $"\nPower: {temp}%/sec";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
 
@@ -86,5 +89,13 @@ public class I_BoatLight : Interactable
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
         else */
+    }
+
+    public void LightSwitch()
+    {
+        activated = !activated;
+
+        lightObject.SetActive(!lightObject.activeInHierarchy);
+        GetComponent<BoatComponent>().componentActivated = !GetComponent<BoatComponent>().componentActivated;
     }
 }

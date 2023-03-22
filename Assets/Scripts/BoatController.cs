@@ -13,52 +13,66 @@ public class BoatController : MonoBehaviour
     public I_Helm helm;
     public I_Anchor anchor;
     public I_Engine engine;
+    public I_BoatLight lightLeft;
+    public I_BoatLight lightRight;
     [ReadOnly]
     public List<BoatComponent> components = new List<BoatComponent>();
 
     [Foldout("Settings", true)]
+    public float refWattHour = 100;
+    public float maxWattHour = 100;
     [ReadOnly]
-    public float maxWattHour = 1000;
+    public float curWattHour = 100;
     [ReadOnly]
-    public float curWattHour = 1000;
-    [ReadOnly]
-    public float maxActiveComponent = 3;
+    public float maxActiveComponent = 5;
 
-    public bool batteryInUse = true;
+    public bool ignoreConsumption = false;
 
 
     [Foldout("TMPs", true)]
-    public TMP_Text hour;
-    public TMP_Text second;
-    public TMP_Text percentage;
-    public TMP_Text componentCount;
+    public TMP_Text percentageText;
+    public TMP_Text usageText;
+    public TMP_Text timerText;
+    public TMP_Text componentCountText;
 
-    void Awake()
+    public void Awake()
     {
         instance = this;
+
+        curWattHour = maxWattHour;
+        BoatComponent[] temp = FindObjectsOfType<BoatComponent>(true);
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
+        if (anchor.dockable && anchor.activated)
+        {
+            curWattHour = Mathf.Lerp(curWattHour, maxWattHour, Time.fixedDeltaTime / 5);
+            //is charging the boat
+        }
+
         float curWattConsumption = 0;
         float curActiveComponent = 0;
-
-        if (batteryInUse)
+        
+        foreach (BoatComponent component in components)
         {
-            foreach (BoatComponent component in components)
+            if (component.componentActivated)
             {
-                if (component.componentActivated)
+                curActiveComponent++;
+                curWattConsumption += component.wattConsumption;
+
+                if (!ignoreConsumption && !(anchor.dockable && anchor.activated))
                 {
                     curWattHour -= component.wattConsumption / 3600 * Time.deltaTime;
-                    curWattConsumption += component.wattConsumption;
-                    curActiveComponent++;
                 }
+
             }
         }
 
+
+        float percentage = Mathf.Round(curWattHour / refWattHour * 100);
         float estimatedHour = curWattHour / curWattConsumption;
         float estimatedSecond = curWattHour / curWattConsumption * 3600;
-        float estimatedPercentage = Mathf.Round(curWattHour / maxWattHour * 100);
 
         float minutes = Mathf.Floor(estimatedSecond / 60);
         float seconds = Mathf.Floor(estimatedSecond % 60);
@@ -70,15 +84,20 @@ public class BoatController : MonoBehaviour
         if (seconds < 10)
             sec = "0" + Mathf.RoundToInt(seconds).ToString();
 
-        hour.text = "Estimated Life:";
-        second.text = min + ":" + sec;
-        percentage.text = estimatedPercentage + "%";
-        componentCount.text = curActiveComponent + "/" + maxActiveComponent;
+        percentageText.text = percentage + "%";
+        usageText.text = Mathf.Round(curWattConsumption / refWattHour / 3600 * 100 * 100) * 0.01f + "% / sec";
+        timerText.text = min + ":" + sec;
+        componentCountText.text = curActiveComponent + "/" + maxActiveComponent;
 
-        if (curActiveComponent == 0)
-            second.text = "N/A";
+        if (curActiveComponent == 0 || ignoreConsumption || (anchor.dockable && anchor.activated))
+        {
+            timerText.text = "N/A";
+        }
+
         if (curWattHour <= 0 || curActiveComponent > maxActiveComponent)
+        {
             ShutDown();
+        }
     }
 
     public void ShutDown()
@@ -87,19 +106,27 @@ public class BoatController : MonoBehaviour
         {
             component.ShutDown();
         }
-
-        if (curWattHour <= 0 && !GameOverManager.instance.gameOver)
-        {
-            helm.activated = false;
-            batteryInUse = false;
-            StartCoroutine(GameOverManager.instance.TriggerDeath());
-        }
-        //sound effect and all
     }
 
     public void TakeDamage(int damage)
     {
         Debug.Log("take damage");
         curWattHour = (curWattHour - damage < 0) ? 0 : curWattHour - damage;
+
+        if (curWattHour <= 0 && !UIManager.instance.gameOverUI.activeInHierarchy)
+        {
+            Die();
+        }
+        //sound effect and all
+    }
+
+    public void Die()
+    {
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
+        PlayerController.instance.LockMovement(true);
+        PlayerController.instance.LockCamera(true);
+        UIManager.instance.gameOverUI.SetActive(true);
+        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+        BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
     }
 }

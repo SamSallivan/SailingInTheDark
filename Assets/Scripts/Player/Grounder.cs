@@ -21,7 +21,7 @@ public class Grounder : MonoBehaviour
 
 	public int stepSinceUngrounded;
 
-	public float delay = 3f;
+    public float delay = 3f;
 
 	public float highestPoint;
 
