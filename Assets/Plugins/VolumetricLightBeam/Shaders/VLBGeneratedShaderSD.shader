@@ -105,6 +105,7 @@ Shader "Hidden/VLB_SD_URP_GPUInstancing"
 
 
                 #define VLB_SRP_API 1
+                #define VLB_DITHERING 1
                 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
                 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
                 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/UnityInstancing.hlsl"

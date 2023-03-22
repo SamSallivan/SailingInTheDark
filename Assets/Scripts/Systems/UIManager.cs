@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     public Animation interactionPromptAnimation;
     public GameObject generalTips;
     public GameObject helmTips;
+    public TMP_Text anchorText;
+    public TMP_Text thrusterText;
 
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;
@@ -33,16 +35,14 @@ public class UIManager : MonoBehaviour
     public TMP_Text detailDescription;
     public Transform detailObjectPivot;
     public bool detailObjectInBound;
-    public bool detailObjectDrag;
 
     [Foldout("Examine", true)]
     public GameObject examineUI;
     public TMP_Text examineText;
     public Image examineImage;
-    public Transform examinePivot;
 
-    [Foldout("Recording", true)]
-    public GameObject recordingUI;
+    [Foldout("Game Over", true)]
+    public GameObject gameOverUI;
 
     void Awake()
     {

@@ -20,10 +20,11 @@ MonoBehaviour:
   showLightingControls: 0
   showAuroraControls: 0
   showEnvironmentControls: 0
-  showAudioControls: 0
+  showAudioControls: 1
   showAmbientAudioControls: 0
   showWeatherAudioControls: 0
   showLightningControls: 0
+  showSkyControls: 0
   cloudsOverride:
     showLayer1: 1
     coverageLayer1: 0.22
@@ -94,9 +95,9 @@ MonoBehaviour:
   audioOverride:
     ambientOverride: []
     weatherOverride:
-    - showEditor: 0
+    - showEditor: 1
       name: Heavy Rain
-      volume: 1
+      volume: 0.5
       spring: 0
       summer: 0
       autumn: 0
@@ -112,3 +113,5 @@ MonoBehaviour:
     windDirectionY: -1
     windSpeed: 0.25
     windTurbulence: 0.25
+  skyOverride:
+    multiplier: {r: 0, g: 0, b: 0, a: 0}

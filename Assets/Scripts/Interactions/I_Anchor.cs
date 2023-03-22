@@ -70,6 +70,7 @@ public class I_Anchor : Interactable
 
         if (dockable && dockingZone != null && activated)
         {
+
             //boatHull.calculateWaterHeights = false;
             Quaternion rotation1 = dockingZone.dockingPos.rotation;
             Quaternion rotation2 = Quaternion.Euler(rotation1.eulerAngles.x, rotation1.eulerAngles.y + 180, rotation1.eulerAngles.z);
@@ -102,6 +103,39 @@ public class I_Anchor : Interactable
         else
         {
             dockingTimer = 0;
+        }
+    }
+
+    public void AnchorSwitch()
+    {
+
+        boat = BoatController.instance.boat;
+        activated = !activated;
+
+        if (activated)
+        {
+            boat.Anchor.Drop();
+            BoatController.instance.helm.ShutDown();
+            textPromptActivated = "Weigh";
+            UIManager.instance.anchorText.text = "[X] Weigh Anchor";
+
+            if (dockable)
+            {
+                textPromptActivated = "Undock";
+                UIManager.instance.anchorText.text = "[X] Undock";
+            }
+        }
+        else if (!activated)
+        {
+            boat.Anchor.Weigh();
+            textPrompt = "Drop";
+            UIManager.instance.anchorText.text = "[X] Drop Anchor";
+
+            if (dockable)
+            {
+                textPrompt = "Dock";
+                UIManager.instance.anchorText.text = "[X] Dock";
+            }
         }
     }
 

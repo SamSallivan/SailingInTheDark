@@ -197,9 +197,9 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < UIManager.instance.inventoryBackGrid.transform.childCount; i++)
         {
-            UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetComponent<Image>().color = Color.grey;
+            UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetComponent<Image>().color = new Color(0.085f, 0.085f, 0.085f, 0.5f);
         }
-        UIManager.instance.inventoryBackGrid.transform.GetChild(selectedIndex).GetComponent<Image>().color = Color.white;
+        UIManager.instance.inventoryBackGrid.transform.GetChild(selectedIndex).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
     public InventoryItem AddItem(ItemData itemData, ItemStatus itemStatus)

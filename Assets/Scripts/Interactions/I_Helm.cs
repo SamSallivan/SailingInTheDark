@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(BoatComponent))]
 public class I_Helm : Interactable
 {
-    BoatComponent boatpart;
 
     [Foldout("Controls", true)]
     [Header("Boat Movements")]
@@ -21,6 +20,10 @@ public class I_Helm : Interactable
     private float vTemp;
     [ReadOnly]
     private float hTemp;
+
+    private float thrusterTimer;
+    public float thrusterDuration = 30;
+    public float thrusterWattConsumption;
 
     [Header("Handle")]
     public float handleSpeed = 1;
@@ -41,10 +44,11 @@ public class I_Helm : Interactable
     [ReadOnly] public float enterTimer;
     public Transform playerPos;
     public TMP_Text GearText;
+    private float detachTimer;
 
     private void Awake()
     {
-        boatpart = gameObject.GetComponent<BoatComponent>();
+
     }
 
     public override IEnumerator InteractionEvent()
@@ -55,6 +59,45 @@ public class I_Helm : Interactable
             Target();
         }
         yield return null;
+    }
+
+    public void Update()
+    {
+        if (inControl)
+        {
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (thrusterTimer <= 0 && BoatController.instance.curWattHour >= thrusterWattConsumption)
+                {
+                    thrusterTimer = thrusterDuration;
+                    BoatController.instance.curWattHour -= thrusterWattConsumption;
+                    BoatController.instance.boat.engines[1].isOn = true;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                BoatController.instance.anchor.AnchorSwitch();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                BoatController.instance.lightLeft.LightSwitch();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                BoatController.instance.lightRight.LightSwitch();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                activated = false;
+                InventoryManager.instance.inputDelay = 0;
+            }
+
+        }
     }
 
     void FixedUpdate()
@@ -106,12 +149,6 @@ public class I_Helm : Interactable
         {
             Highlight();
 
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
-            {
-                activated = false;
-                InventoryManager.instance.inputDelay = 0;
-            }
-
             hTemp = 0f;
             hTemp += (Input.GetKey(KeyCode.A) ? (-wheelSpeed) : 0);
             hTemp += (Input.GetKey(KeyCode.D) ? wheelSpeed : 0);
@@ -161,6 +198,17 @@ public class I_Helm : Interactable
         handleAngle = Mathf.Lerp(handleAngle, speed / 100 * 90, Time.deltaTime * 10);
         handle.localEulerAngles = new Vector3(handleAngle, 0, 0);
 
+        if (thrusterTimer > 0)
+        {
+            thrusterTimer -= Time.fixedDeltaTime;
+            UIManager.instance.thrusterText.text = "[Space] Accelerate - " + Mathf.Round(thrusterTimer) + "s Left";
+        }
+        else
+        {
+            BoatController.instance.boat.engines[1].isOn = false;
+            UIManager.instance.thrusterText.text = "[Space] Accelerate - Cost 5%";
+        }
+
         if (BoatController.instance.boat.input.Throttle != 0)
         {
             GetComponent<BoatComponent>().componentActivated = true;
@@ -168,9 +216,23 @@ public class I_Helm : Interactable
         else
         {
             GetComponent<BoatComponent>().componentActivated = false;
+            BoatController.instance.boat.engines[1].isOn = false;
         }
 
-        GearText.text = "Gear: " + currentGear;
+        GearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
+
+        if (!PlayerController.instance.isNonPhysics && GetComponent<BoatComponent>().componentActivated)
+        {
+            detachTimer += Time.fixedDeltaTime;
+            if (detachTimer >= 1f)
+            {
+                ShutDown();
+            }
+        }
+        else
+        {
+            detachTimer = 0;
+        }
     }
 
     public override void ShutDown()
@@ -243,7 +305,8 @@ public class I_Helm : Interactable
             UIManager.instance.interactionName.text = textName;
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
-            UIManager.instance.interactionPrompt.text += $"\nPower: {boatpart.wattConsumption / 1000}";
+            float temp = Mathf.Round(GetComponent<BoatComponent>().wattConsumption/1000 *100 / 3600 * 100) * 0.01f;
+            UIManager.instance.interactionPrompt.text += $"\nPower: {temp}%/sec";
         }
 
     }

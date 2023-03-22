@@ -1677,14 +1677,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8b5f2b1cdc78347961ca24e82bb459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boat: {fileID: 0}
   boatMask:
     serializedVersion: 2
     m_Bits: 2048
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2049
+  offset: {x: 0, y: 0, z: 0}
   movementSpeed: 6
+  rotationSpeed: 5
+  avoidanceSpeed: 5
+  raycastDistance: 4
+  raycastRadius: 1
+  maxAttackCooldown: 5
+  curAttackCooldown: 0
 --- !u!65 &6034785310361092872
 BoxCollider:
   m_ObjectHideFlags: 0

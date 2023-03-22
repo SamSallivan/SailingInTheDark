@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   title: Compass
   sprite: {fileID: 21300000, guid: cb99b05fbd6c9ba48ad5781b26383506, type: 3}
-  description: this is a compass.
+  description: This is a compass.
   recordingName: 'DAY 0: Test'
   recording: {fileID: 0}
   isStackable: 1
@@ -23,7 +23,8 @@ MonoBehaviour:
   isEquippable: 1
   equipType: 1
   equipObject: {fileID: 0}
-  equipRotation: {x: -19, y: 0, z: 30}
+  equipRotation: {x: -19, y: 0, z: 30, w: 0}
+  equipPosition: {x: 0, y: 0, z: 0}
   isDroppable: 1
   dropObject: {fileID: 7596440031121015847, guid: 055b21b38b849f5429531a17d7d6e781,
     type: 3}

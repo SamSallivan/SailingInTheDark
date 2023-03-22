@@ -16,6 +16,7 @@ public class T_DockingZone : Trigger
         if (!anchor.activated)
         {
             anchor.textPrompt = "Dock";
+            UIManager.instance.anchorText.text = "[X] Dock";
         }
         anchor.dockable = true;
         anchor.dockingZone = this;
@@ -29,6 +30,7 @@ public class T_DockingZone : Trigger
             if (!anchor.activated)
             {
                 anchor.textPrompt = "Dock";
+                UIManager.instance.anchorText.text = "[X] Dock";
             }
 
             anchor.dockable = true;
@@ -43,6 +45,7 @@ public class T_DockingZone : Trigger
             if (!anchor.activated)
             {
                 anchor.textPrompt = "Drop";
+                UIManager.instance.anchorText.text = "[X] Drop";
             }
 
             anchor.dockable = false;

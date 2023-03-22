@@ -607,7 +607,6 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
                     vector.y = 0f;
                     localVelo += vector.normalized * (1f / Mathf.Max(0.1f, hitInfo.distance)) * collisionCoefficient *
                                  Time.fixedDeltaTime;
-                    Debug.Log("hit");
                 }
 
                 if (Physics.SphereCast(base.transform.position + base.transform.up * (-0.5f), radius, direction, out RaycastHit hitInfo2, distance, nonPhysicsCollisions))
@@ -616,7 +615,6 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
                     vector.y = 0f;
                     localVelo += vector.normalized * (1f / Mathf.Max(0.1f, hitInfo2.distance)) * collisionCoefficient *
                                  Time.fixedDeltaTime;
-                    Debug.Log("hit");
                 }
 
                 localVelo = new Vector3(localVelo.x, 0, localVelo.z);
@@ -759,7 +757,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         GetComponent<MouseLook>().Reset();
         //GetComponentInChildren<PlayerSway>().enabled = false;
 
-		BoatController.instance.helm.ShutDown();
+		//BoatController.instance.helm.ShutDown();
     }
 
     private void OnDrawGizmosSelected()
