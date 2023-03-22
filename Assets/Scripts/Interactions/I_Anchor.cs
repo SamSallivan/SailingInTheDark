@@ -32,20 +32,24 @@ public class I_Anchor : Interactable
             boat.Anchor.Drop();
             BoatController.instance.helm.ShutDown();
             textPromptActivated = "Weigh";
+            UIManager.instance.anchorText.text = "[X] Weigh Anchor";
 
             if (dockable)
             {
                 textPromptActivated = "Undock";
+                UIManager.instance.anchorText.text = "[X] Undock Boat";
             }
         }
         else if (!activated)
         {
             boat.Anchor.Weigh();
             textPrompt = "Drop";
+            UIManager.instance.anchorText.text = "[X] Drop Anchor";
 
             if (dockable)
             {
                 textPrompt = "Dock";
+                UIManager.instance.anchorText.text = "[X] Dock Boat";
             }
         }
         yield return null;
@@ -122,7 +126,7 @@ public class I_Anchor : Interactable
             if (dockable)
             {
                 textPromptActivated = "Undock";
-                UIManager.instance.anchorText.text = "[X] Undock";
+                UIManager.instance.anchorText.text = "[X] Undock Boat";
             }
         }
         else if (!activated)
@@ -134,7 +138,7 @@ public class I_Anchor : Interactable
             if (dockable)
             {
                 textPrompt = "Dock";
-                UIManager.instance.anchorText.text = "[X] Dock";
+                UIManager.instance.anchorText.text = "[X] Dock Boat";
             }
         }
     }

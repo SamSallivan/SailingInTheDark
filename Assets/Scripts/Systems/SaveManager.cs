@@ -10,6 +10,8 @@ public class SaveManager : MonoBehaviour
     private Transform playerTransform;
     private Vector3 playerPos;
     private Quaternion playerRot;
+    public List<InventoryItem> initialInventory;
+    private List<InventoryItem> playerInventory;
 
     private Transform boatTransform;
     private Vector3 boatPos;
@@ -27,6 +29,10 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
+        foreach (InventoryItem item in initialInventory)
+        {
+            InventoryManager.instance.AddItem(item.data, item.status);
+        }
         Save();
     }
     public void Save()
@@ -68,6 +74,12 @@ public class SaveManager : MonoBehaviour
         BoatController.instance.ignoreConsumption = false;
         
         UIManager.instance.gameOverUI.SetActive(false);
+
+        InventoryManager.instance.inventoryItemList.Clear();
+        foreach (InventoryItem item in playerInventory)
+        {
+            InventoryManager.instance.AddItem(item.data, item.status);
+        }
     }
     
 }

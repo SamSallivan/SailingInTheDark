@@ -85,7 +85,7 @@ public class BoatController : MonoBehaviour
             sec = "0" + Mathf.RoundToInt(seconds).ToString();
 
         percentageText.text = percentage + "%";
-        usageText.text = Mathf.Round(curWattConsumption / refWattHour / 3600 * 100 * 100) * 0.01f + "%/sec";
+        usageText.text = Mathf.Round(curWattConsumption / refWattHour / 3600 * 100 * 100) * 0.01f + "% / sec";
         timerText.text = min + ":" + sec;
         componentCountText.text = curActiveComponent + "/" + maxActiveComponent;
 

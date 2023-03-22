@@ -32,9 +32,9 @@ public class InventoryManager : MonoBehaviour
     public int selectedIndex;
     public int2 selectedPosition;
     public InventoryItem selectedItem;
-    public InventoryItem equippedItem;
-    public InventoryItem equippedItemLeft;
-    public InventoryItem equippedItemRight;
+    public InventoryItem equippedItem = null;
+    public InventoryItem equippedItemLeft = null;
+    public InventoryItem equippedItemRight = null;
 
     public int slotPerRow = 8;
     public int slotPerColumn = 4;
@@ -340,17 +340,21 @@ public class InventoryManager : MonoBehaviour
             {
                 case ItemData.EquipType.Left:
                     equippedItemLeft = item;
+                    equippedItemLeft.slot.leftHandIcon.enabled = true;
                     equipPivot = PlayerController.instance.equippedTransformLeft;
                     break;
 
                 case ItemData.EquipType.Right:
                     equippedItemRight = item;
+                    equippedItemRight.slot.rightHandIcon.enabled = true;
                     equipPivot = PlayerController.instance.equippedTransformRight;
                     break;
 
                 case ItemData.EquipType.Both:
                     equippedItemLeft = item;
                     equippedItemRight = item;
+                    equippedItemLeft.slot.leftHandIcon.enabled = true;
+                    equippedItemRight.slot.rightHandIcon.enabled = true;
                     equipPivot = PlayerController.instance.equippedTransformRight;
                     break;
 
@@ -394,6 +398,8 @@ public class InventoryManager : MonoBehaviour
         switch (type)
         {
             case ItemData.EquipType.Left:
+                if(equippedItemLeft != null && equippedItemLeft.slot != null)
+                    equippedItemLeft.slot.leftHandIcon.enabled = false;
                 equippedItemLeft = null;
 
                 if (PlayerController.instance.equippedTransformLeft.childCount > 0)
@@ -403,6 +409,8 @@ public class InventoryManager : MonoBehaviour
                 break;
 
             case ItemData.EquipType.Right:
+                if (equippedItemRight != null && equippedItemRight.slot != null)
+                    equippedItemRight.slot.rightHandIcon.enabled = false;
                 equippedItemRight = null;
 
                 if (PlayerController.instance.equippedTransformRight.childCount > 0)
@@ -412,6 +420,10 @@ public class InventoryManager : MonoBehaviour
                 break;
 
             case ItemData.EquipType.Both:
+                if (equippedItemLeft != null && equippedItemLeft.slot != null)
+                    equippedItemLeft.slot.leftHandIcon.enabled = false;
+                if (equippedItemRight != null && equippedItemRight.slot != null)
+                    equippedItemRight.slot.rightHandIcon.enabled = false;
                 equippedItemLeft = null;
                 equippedItemRight = null;
 

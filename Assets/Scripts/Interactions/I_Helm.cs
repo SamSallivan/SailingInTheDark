@@ -216,7 +216,7 @@ public class I_Helm : Interactable
         else
         {
             GetComponent<BoatComponent>().componentActivated = false;
-            BoatController.instance.boat.engines[1].isOn = false;
+            //BoatController.instance.boat.engines[1].isOn = false;
         }
 
         GearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
