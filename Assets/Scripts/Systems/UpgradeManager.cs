@@ -9,24 +9,30 @@ public class UpgradeManager : MonoBehaviour
     public static UpgradeManager instance;
 
     public GameObject upgradeUI;
+
     public int material;
     public TMP_Text materialText;
 
     public Slider[] sliderForCosts = new Slider[5];
     public TMP_Text[] textForCosts = new TMP_Text[5];
     public int[] maxCosts = new int[5];
-    public int[] listOfCosts = new int[5];
+
+    [HideInInspector] public int fuelTankLevel = 0;
+    [HideInInspector] TMP_Text fuelTankLabel;
+    public bool[] upgradeUnlocked = new bool[5];
+
+    public BoatController boatController;
+    public I_Helm helm;
 
     private void Awake()
     {
         instance = this;
+        fuelTankLabel = GameObject.Find("Fuel Tank Label").GetComponent<TMP_Text>();
     }
 
     private void Start()
     {
-        material = 100;
-        for (int i = 0; i < 5; i++)
-            listOfCosts[i] = maxCosts[i];
+        material = 1000;
         upgradeUI.SetActive(false);
         UpdateTexts();
     }
@@ -34,10 +40,38 @@ public class UpgradeManager : MonoBehaviour
     void UpdateTexts()
     {
         materialText.text = $"{material} Material";
+        fuelTankLabel.text = $"Fuel Tank LV{fuelTankLevel + 1}";
+
         for (int i = 0; i<5; i++)
         {
-            sliderForCosts[i].value = ((maxCosts[i] - (float)listOfCosts[i]) / maxCosts[i]);
-            textForCosts[i].text = $"{listOfCosts[i]} Material";
+            if (upgradeUnlocked[i])
+            {
+                sliderForCosts[i].value = 1;
+                switch (i)
+                {
+                    case 0:
+                        textForCosts[i].text = $"Maxed Out!";
+                        break;
+                    case 1:
+                        textForCosts[i].text = $"Unlocked!";
+                        break;
+                    case 2:
+                        textForCosts[i].text = $"Unlocked!";
+                        break;
+                    case 3:
+                        textForCosts[i].text = $"Unlocked!";
+                        break;
+                    case 4:
+                        textForCosts[i].text = $"Unlocked!";
+                        helm.currentMaxGear = 2;
+                        break;
+                }
+            }
+            else
+            {
+                textForCosts[i].text = $"{maxCosts[i]} Material";
+                sliderForCosts[i].value = (float)material / maxCosts[i];
+            }
         }
     }
 
@@ -45,6 +79,7 @@ public class UpgradeManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
+            UpdateTexts();
             upgradeUI.SetActive(!upgradeUI.activeSelf);
             UIManager.instance.GetComponent<LockMouse>().LockCursor(!upgradeUI.activeSelf);
         }
@@ -64,11 +99,25 @@ public class UpgradeManager : MonoBehaviour
 
     public void SpendForUpgrade(int position)
     {
-        if (material > 0 && listOfCosts[position] > 0)
+        if (!upgradeUnlocked[position] && material > maxCosts[position])
         {
-            listOfCosts[position]--;
+            LoseMaterial(maxCosts[position]);
+            upgradeUnlocked[position] = true;
+
+            if (position == 0)
+            {
+                fuelTankLevel++;
+                boatController.maxWattHour = 1000 + (200 * fuelTankLevel);
+                boatController.curWattHour += 500;
+
+                if (fuelTankLevel < 4)
+                {
+                    upgradeUnlocked[0] = false;
+                    maxCosts[0] += 20;
+                }
+            }
+
             UpdateTexts();
-            LoseMaterial(1);
         }
         else
             Debug.Log("can't upgrade");

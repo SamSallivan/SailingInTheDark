@@ -17,11 +17,8 @@ public class BoatController : MonoBehaviour
     public List<BoatComponent> components = new List<BoatComponent>();
 
     [Foldout("Settings", true)]
-    [ReadOnly]
     public float maxWattHour = 1000;
-    [ReadOnly]
     public float curWattHour = 1000;
-    [ReadOnly]
     public float maxActiveComponent = 3;
 
     public bool batteryInUse = true;
