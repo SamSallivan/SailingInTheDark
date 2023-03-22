@@ -13,7 +13,12 @@ public class LockMouse : MonoBehaviour
     void Update()
     {
     	// lock when mouse is clicked
-        if( Input.GetMouseButtonDown(0) && Time.timeScale > 0.0f && !UIManager.instance.inventoryUI.activeInHierarchy && !UIManager.instance.examineUI.activeInHierarchy && !UIManager.instance.gameOverUI.activeInHierarchy)
+        if( Input.GetMouseButtonDown(0) 
+        && Time.timeScale > 0.0f 
+        && !UIManager.instance.inventoryUI.activeInHierarchy 
+        && !UIManager.instance.examineUI.activeInHierarchy 
+        && !UIManager.instance.gameOverUI.activeInHierarchy 
+        && !UpgradeManager.instance.upgradeUI.activeSelf)
     	{
     		LockCursor(true);
     	}

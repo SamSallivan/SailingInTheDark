@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ee888b371e2b458aee4fa444b52b8, type: 3}
+  m_Name: Scrap
+  m_EditorClassIdentifier: 
+  type: 0
+  title: Scrap
+  sprite: {fileID: 21300000, guid: 5913cad140d516946854880b8d8a4a0e, type: 3}
+  description: 'Scrap,
+
+    Can be used to upgrade boat.'
+  recordingName: 'DAY 0: Test'
+  recording: {fileID: 0}
+  isStackable: 1
+  maxStackAmount: 1000
+  isEquippable: 0
+  equipType: 0
+  equipObject: {fileID: 0}
+  equipRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
+  equipPosition: {x: 0, y: 0, z: -0.35}
+  isDroppable: 0
+  dropObject: {fileID: 7596440031121015847, guid: 264c9fa963f91d447ac41786e4f06573,
+    type: 3}
+  isExaminable: 0
+  examineScale: 0.75
+  examineRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
+  isReadable: 0
+  readText: 

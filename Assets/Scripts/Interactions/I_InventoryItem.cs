@@ -51,5 +51,4 @@ public class I_InventoryItem : Interactable
     }
 
 
-
 }

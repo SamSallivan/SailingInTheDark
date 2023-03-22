@@ -10,7 +10,8 @@ public class UpgradeManager : MonoBehaviour
 
     public GameObject upgradeUI;
 
-    public int material;
+    public ItemData materialItem;
+    public int materialCount;
     public TMP_Text materialText;
 
     public Slider[] sliderForCosts = new Slider[5];
@@ -27,19 +28,30 @@ public class UpgradeManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        fuelTankLabel = GameObject.Find("Fuel Tank Label").GetComponent<TMP_Text>();
+        fuelTankLabel = UpgradeManager.instance.textForCosts[0].transform.parent.GetChild(0).GetComponent<TMP_Text>();
     }
 
     private void Start()
     {
-        material = 1000;
+        materialCount = 1000;
         upgradeUI.SetActive(false);
         UpdateTexts();
     }
 
     void UpdateTexts()
     {
-        materialText.text = $"{material} Material";
+        int tempMaterialCount = 0;
+        foreach(InventoryItem item in InventoryManager.instance.inventoryItemList)
+        {
+            if (item.data == materialItem)
+            {
+                tempMaterialCount += item.status.amount;
+            }
+        }
+        materialCount = tempMaterialCount;
+
+
+        materialText.text = $"{materialCount} Material";
         fuelTankLabel.text = $"Fuel Tank LV{fuelTankLevel + 1}";
 
         for (int i = 0; i<5; i++)
@@ -70,7 +82,7 @@ public class UpgradeManager : MonoBehaviour
             else
             {
                 textForCosts[i].text = $"{maxCosts[i]} Material";
-                sliderForCosts[i].value = (float)material / maxCosts[i];
+                sliderForCosts[i].value = (float)materialCount / maxCosts[i];
             }
         }
     }
@@ -82,24 +94,25 @@ public class UpgradeManager : MonoBehaviour
             UpdateTexts();
             upgradeUI.SetActive(!upgradeUI.activeSelf);
             UIManager.instance.GetComponent<LockMouse>().LockCursor(!upgradeUI.activeSelf);
+
         }
     }
 
     public void AddMaterial(int x)
     {
-        material += x;
+        materialCount += x;
         UpdateTexts();
     }
 
     public void LoseMaterial(int x)
     {
-        material -= x;
+        materialCount -= x;
         UpdateTexts();
     }
 
     public void SpendForUpgrade(int position)
     {
-        if (!upgradeUnlocked[position] && material > maxCosts[position])
+        if (!upgradeUnlocked[position] && materialCount > maxCosts[position])
         {
             LoseMaterial(maxCosts[position]);
             upgradeUnlocked[position] = true;

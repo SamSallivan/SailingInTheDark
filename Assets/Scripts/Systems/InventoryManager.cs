@@ -211,13 +211,30 @@ public class InventoryManager : MonoBehaviour
         
         foreach(InventoryItem item in inventoryItemList)
         {
-            if (item.data == itemData)
+            if (item.data == itemData && item.data.isStackable)
             {
-                if (itemData.isStackable && item.status.amount < itemData.maxStackAmount)
+                int temp = itemStatus.amount;
+                while(item.status.amount < item.data.maxStackAmount && temp > 0)
                 {
                     item.status.amount++;
+                    temp--;
                     item.slot.amount.text = "" + item.status.amount;
+                }
+
+                if (temp <= 0){
                     return item;
+                }
+                else if (temp > 0){
+                    
+                    InventorySlot newSlot1 = Instantiate(slotPrefab, UIManager.instance.inventoryItemGrid.transform);
+                    InventoryItem newItem1 = new InventoryItem(itemData, new ItemStatus(temp, 1), newSlot1);
+                    inventoryItemList.Add(newItem1);
+                    newSlot1.inventoryItem = newItem1;
+                    newSlot1.image.sprite = itemData.sprite;
+                    newSlot1.name.text = itemData.name;
+                    newSlot1.amount.text = $"{itemStatus.amount}";
+
+                    return newItem1;
                 }
             }
         }
