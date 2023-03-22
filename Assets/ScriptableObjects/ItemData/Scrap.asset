@@ -28,7 +28,7 @@ MonoBehaviour:
   equipRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
   equipPosition: {x: 0, y: 0, z: -0.35}
   isDroppable: 1
-  dropObject: {fileID: 7596440031121015847, guid: 264c9fa963f91d447ac41786e4f06573,
+  dropObject: {fileID: 791951248145149388, guid: e671f7d081b7dc946b5c00729ef06547,
     type: 3}
   isExaminable: 0
   examineScale: 0.75
