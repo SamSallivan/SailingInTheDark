@@ -252,6 +252,7 @@ public class I_Helm : Interactable
 
         if (activated)
         {
+            activated = false;
             PlayerController.instance.exclusiveInteractable = null;
         }
 

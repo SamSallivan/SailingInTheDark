@@ -65,10 +65,10 @@ public class SaveManager : MonoBehaviour
         PlayerController.instance.LockMovement(false);
         PlayerController.instance.LockCamera(false);
 
+
         BoatController.instance.transform.position = boatPos;
         BoatController.instance.transform.rotation = boatRot;
-        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
+
 
         BoatController.instance.curWattHour = boatWattHour;
         BoatController.instance.ignoreConsumption = false;
@@ -80,6 +80,11 @@ public class SaveManager : MonoBehaviour
         {
             InventoryManager.instance.AddItem(item.data, item.status);
         }
+
+        
+        BoatController.instance.GetComponent<Rigidbody>().isKinematic = false;
+        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
     }
     
 }

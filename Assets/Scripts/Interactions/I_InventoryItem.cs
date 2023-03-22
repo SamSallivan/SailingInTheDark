@@ -50,5 +50,27 @@ public class I_InventoryItem : Interactable
         yield return null;
     }
 
+    public override void Target()
+    {
+        if (highlightTarget != null)
+        {
+            if (!highlightTarget.GetComponent<OutlineRenderer>())
+            {
+                OutlineRenderer outline = highlightTarget.AddComponent<OutlineRenderer>();
+                outline.OutlineMode = OutlineRenderer.Mode.OutlineVisible;
+                outline.OutlineWidth = 10;
+            }
+        }
+        UIManager.instance.interactionName.text = textName;
+        UIManager.instance.interactionName.text += !itemData.isStackable ? "" : " x " + itemStatus.amount;
+        //UI.instance.interactionPrompt.text = textPrompt;
 
+        if (textPrompt != "" && interactionType != InteractionType.None)
+        {
+            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
+            //enable button prompt image instead
+            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
+        }
+    }
 }

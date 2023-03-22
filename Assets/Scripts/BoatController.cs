@@ -126,7 +126,9 @@ public class BoatController : MonoBehaviour
         PlayerController.instance.LockMovement(true);
         PlayerController.instance.LockCamera(true);
         UIManager.instance.gameOverUI.SetActive(true);
-        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+        BoatController.instance.GetComponent<Rigidbody>().isKinematic = true;
         BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
+        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+        ShutDown();
     }
 }

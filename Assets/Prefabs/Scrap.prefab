@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423cd0cb80b62614db80d064f8a87f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: Tape
+  textName: Scarp
   textPrompt: Pickup
   textPromptActivated: 
   highlightTarget: {fileID: 787135118462861994}
@@ -177,9 +177,9 @@ MonoBehaviour:
   onceOnly: 0
   interactedOnce: 0
   examineText: 
-  itemData: {fileID: 11400000, guid: ee6e9312d9f41344bb970056b4a1075e, type: 2}
+  itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
   itemStatus:
-    amount: 1
+    amount: 50
     durability: 0
   openInventoryOnPickUp: 0
   equipOnPickUp: 0
