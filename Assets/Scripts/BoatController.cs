@@ -5,6 +5,7 @@ using Crest;
 using UnityEngine;
 using MyBox;
 using TMPro;
+using Cinemachine;
 
 public class BoatController : MonoBehaviour
 {
@@ -125,14 +126,14 @@ public class BoatController : MonoBehaviour
 
     public void Die()
     {
+        helm.activated = false;
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
         UIManager.instance.gameOverUI.SetActive(true);
         UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
         PlayerController.instance.LockMovement(true);
         PlayerController.instance.LockCamera(true);
-        BoatController.instance.GetComponent<Rigidbody>().isKinematic = true;
-        BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
-        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         ShutDown();
-        helm.activated = false;
+        //Time.timeScale = 0;
     }
 }

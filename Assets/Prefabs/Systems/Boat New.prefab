@@ -2236,7 +2236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 502538423826325367}
   m_LocalRotation: {x: -0.0000000052291385, y: 0.99983925, z: 0.017929964, w: 0.000000005231412}
-  m_LocalPosition: {x: -1, y: -1.26, z: 2.54}
+  m_LocalPosition: {x: -1.25, y: -1.26, z: 2.54}
   m_LocalScale: {x: 1.742595, y: 1.2310468, z: 10.936375}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5390,7 +5390,7 @@ Transform:
   m_GameObject: {fileID: 502538424600559398}
   m_LocalRotation: {x: 0.016065747, y: -0.000000070882365, z: -0.000000007518109,
     w: 0.99987096}
-  m_LocalPosition: {x: 1, y: -1.26, z: 2.54}
+  m_LocalPosition: {x: 1.25, y: -1.26, z: 2.54}
   m_LocalScale: {x: 1.7425953, y: 1.2310468, z: 11.014407}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8241,7 +8241,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.25
+  m_Intensity: 5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -15837,8 +15837,8 @@ MonoBehaviour:
   rudders:
   - name: Main
     rudderTransform: {fileID: 8717898453726162534}
-    maxAngle: 30
-    rotationSpeed: 100
+    maxAngle: 15
+    rotationSpeed: 50
     localRotationAxis: {x: 0, y: 1, z: 0}
   thrusters:
   - thrusterPosition: 0

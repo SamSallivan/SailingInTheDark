@@ -12,7 +12,7 @@ public class SaveManager : MonoBehaviour
     private Quaternion playerRot;
     public List<InventoryItem> initialInventory;
     public List<Objective> initialObjective;
-    private List<InventoryItem> playerInventory;
+    private List<InventoryItem> playerInventory = new List<InventoryItem>();
 
     private Transform boatTransform;
     private Vector3 boatPos;
@@ -63,24 +63,6 @@ public class SaveManager : MonoBehaviour
 
     public void LoadCheckPoint()
     {
-        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
-
-        PlayerController.instance.transform.SetParent(null);
-        PlayerController.instance.transform.position = playerPos;
-        PlayerController.instance.transform.rotation = playerRot;
-        PlayerController.instance.LockMovement(false);
-        PlayerController.instance.LockCamera(false);
-
-
-        BoatController.instance.transform.position = boatPos;
-        BoatController.instance.transform.rotation = boatRot;
-
-
-        BoatController.instance.curWattHour = boatWattHour;
-        BoatController.instance.ignoreConsumption = false;
-        
-        UIManager.instance.gameOverUI.SetActive(false);
-
         InventoryManager.instance.inventoryItemList.Clear();
         foreach (InventoryItem item in playerInventory)
         {
@@ -93,10 +75,39 @@ public class SaveManager : MonoBehaviour
             ObjectiveManager.instance.AssignObejctive(objective);
         }
 
+        StartCoroutine(Reset());
+        
+    }
 
-        BoatController.instance.GetComponent<Rigidbody>().isKinematic = false;
+    public IEnumerator Reset() {
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
+
+        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+        BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
+        BoatController.instance.GetComponent<Rigidbody>().isKinematic = true;
+
+        BoatController.instance.transform.position = boatPos;
+        BoatController.instance.transform.rotation = boatRot;
+
+        BoatController.instance.curWattHour = boatWattHour;
+        BoatController.instance.ignoreConsumption = false;
+
+        yield return new WaitForSeconds(1);
+
         BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
+        BoatController.instance.GetComponent<Rigidbody>().isKinematic = false;
+
+        PlayerController.instance.transform.position = playerPos;
+        PlayerController.instance.transform.rotation = playerRot;
+        PlayerController.instance.transform.SetParent(null);
+        PlayerController.instance.LockMovement(false);
+        PlayerController.instance.LockCamera(false);
+
+        UIManager.instance.gameOverUI.SetActive(false);
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
+        Time.timeScale = 1;
+
     }
     
 }
