@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Grounder : MonoBehaviour
 {	
@@ -64,13 +63,13 @@ public class Grounder : MonoBehaviour
 		grounded = true;
 		stepSinceUngrounded = 0;
 		pc.gTimer = 0f;
+        pc.headPosition.Bounce((0f - jumpHeight) / 12f);
 
-		//if not climbing
-		if (!pc.isNonPhysics && pc.GetClimbState() == 0)
+        //if not climbing
+        if (!pc.isNonPhysics && pc.GetClimbState() == 0)
 		{
 			//recalculates velocity based on ground normal. 
 			pc.rb.velocity = Vector3.ProjectOnPlane(pc.vel, groundNormal);
-			pc.headPosition.Bounce((0f - jumpHeight) / 12f);
 		}
 
 		if(OnGround != null)
@@ -158,7 +157,6 @@ public class Grounder : MonoBehaviour
         }
         if (pc.isNonPhysics && !Physics.Raycast(pc.transform.position, -pc.transform.up, out hitBoat, 0.8f, boatMask))
         {
-			Debug.Log("Detach");
             pc.DetachFromBoat();
         }
 

@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     //public MouseLook mouseLook;
 
-    private CameraBob bob;
+    public CameraBob bob;
 
     public HeadPosition headPosition;
     [Foldout("Inputs", true)]
@@ -641,7 +641,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		//applies gravity in the direction of ground normal
 		//so player does not slide off within the tolerable angle
     }
-    private void HandleInteractableCheck()
+    public void HandleInteractableCheck()
 	{
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, interactDistance, interactableLayer))
         {

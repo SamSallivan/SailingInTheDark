@@ -61,7 +61,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (!activated)
             {
-                if (!UIManager.instance.examineUI.activeInHierarchy)
+                if (!UIManager.instance.examineUI.activeInHierarchy && !BoatController.instance.helm.activated)
                 {
                     OpenInventory();
                 }
@@ -84,14 +84,14 @@ public class InventoryManager : MonoBehaviour
                 UpdateDetailObject();
                 RotateDetailObject();
 
-                if (Input.GetKeyDown(KeyCode.E) && inputDelay >= 0.5f)
+                if (Input.GetKeyDown(KeyCode.E) && inputDelay >= 0.1f)
                 {
                     if (selectedItem.data.isEquippable)
                     {
                         EquipItem(selectedItem);
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.Q) && selectedItem != null && inputDelay >= 0.5f)
+                if (Input.GetKeyDown(KeyCode.Q) && selectedItem != null && inputDelay >= 0.1f)
                 {
                     DropItem(selectedItem);
                 }
@@ -114,7 +114,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Q) && equippedItem != null && inputDelay >= 0.5f)
+            if (Input.GetKeyDown(KeyCode.Q) && equippedItem != null && inputDelay >= 0.1f)
             {
                 if (!BoatController.instance.helm.activated)
                 {
@@ -199,7 +199,7 @@ public class InventoryManager : MonoBehaviour
         {
             UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetComponent<Image>().color = new Color(0.085f, 0.085f, 0.085f, 0.5f);
         }
-        UIManager.instance.inventoryBackGrid.transform.GetChild(selectedIndex).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        UIManager.instance.inventoryBackGrid.transform.GetChild(selectedIndex).GetComponent<Image>().color = new Color(0.85f, 0.85f, 0.85f, 0.5f);
     }
 
     public InventoryItem AddItem(ItemData itemData, ItemStatus itemStatus)

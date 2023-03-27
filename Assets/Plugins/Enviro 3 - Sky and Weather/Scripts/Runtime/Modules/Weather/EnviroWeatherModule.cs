@@ -129,6 +129,7 @@ namespace Enviro
                         BlendAudioOverride(1f);
                         BlendEnvironmentOverride(1f);
                         BlendLightningOverride(1f);
+                        //BlendSkyOverride(1);
                     }
 
                     if (instantTransition)
@@ -147,6 +148,7 @@ namespace Enviro
                         BlendAudioOverride(Settings.audioTransitionSpeed * Time.deltaTime);
                         BlendEnvironmentOverride(Settings.environmentTransitionSpeed * Time.deltaTime);
                         BlendLightningOverride(1f);
+                        //BlendSkyOverride(Settings.environmentTransitionSpeed * Time.deltaTime);
                     }
                 }
             }
@@ -614,6 +616,7 @@ namespace Enviro
             BlendAudioOverride(1);
             BlendEnvironmentOverride(1);
             BlendLightningOverride(1f);
+            //this!!!
             //BlendSkyOverride(1);
 
             targetWeatherType = to;
@@ -625,7 +628,8 @@ namespace Enviro
             BlendFogOverride(i);
             BlendAudioOverride(i);
             BlendEnvironmentOverride(i);
-            BlendLightningOverride(1f);
+            BlendLightningOverride(i);
+            //this!!!
             //BlendSkyOverride(1);
 
             targetWeatherType = from;

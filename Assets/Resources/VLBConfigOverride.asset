@@ -16,10 +16,10 @@ MonoBehaviour:
   geometryLayerID: 1
   geometryTag: Untagged
   geometryRenderQueue: 3000
-  geometryRenderQueueHD: 3100
+  geometryRenderQueueHD: 3000
   m_RenderPipeline: 1
   m_RenderingMode: 2
-  ditheringFactor: 0.25
+  ditheringFactor: 0.1
   useLightColorTemperature: 1
   sharedMeshSides: 24
   sharedMeshSegments: 5
@@ -52,7 +52,7 @@ MonoBehaviour:
   - name: High
     stepCount: 20
     _UniqueID: 3
-  m_DefaultRaymarchingQualityUniqueID: 2
+  m_DefaultRaymarchingQualityUniqueID: 1
   pluginVersion: 20001
   _DummyMaterial: {fileID: 2100000, guid: fce4d2ea61e931044bebd27033237a1d, type: 2}
   _DummyMaterialHD: {fileID: 2100000, guid: 35887d2f4e0d4624ababddd63b12486d, type: 2}

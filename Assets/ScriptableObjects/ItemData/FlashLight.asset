@@ -30,6 +30,6 @@ MonoBehaviour:
     type: 3}
   isExaminable: 0
   examineScale: 0.75
-  examineRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
+  examineRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
   isReadable: 0
   readText: 

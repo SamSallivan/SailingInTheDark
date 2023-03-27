@@ -479,7 +479,26 @@ namespace NWH.DWP2.ShipController
             runningSource.pitch = pitch + RpmPercent * pitchRange;
 
             // Volume
-            runningSource.volume = volume + RpmPercent * volumeRange;
+            //runningSource.volume = volume + RpmPercent * volumeRange;
+
+            float throttleInput = 0;
+            switch (throttleBinding)
+            {
+                case ThrottleBinding.Throttle:
+                    throttleInput = _sc.input.Throttle;
+                    break;
+                case ThrottleBinding.Throttle2:
+                    throttleInput = _sc.input.Throttle2;
+                    break;
+                case ThrottleBinding.Throttle3:
+                    throttleInput = _sc.input.Throttle3;
+                    break;
+                case ThrottleBinding.Throttle4:
+                    throttleInput = _sc.input.Throttle4;
+                    break;
+            }
+            //runningSource.volume = Mathf.Lerp(volume, throttleInput, Time.deltaTime);
+            //Debug.Log(runningSource.volume);
 
             if (_engineState == State.On)
             {

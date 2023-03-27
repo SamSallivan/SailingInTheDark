@@ -1,15 +1,17 @@
 using MyBox;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(BoatComponent))]
 public class I_Helm : Interactable
 {
 
     [Foldout("Controls", true)]
-    [Header("Boat Movements")]
+    [Header("Movements")]
     [ReadOnly]
     public float speed;
     [ReadOnly]
@@ -21,6 +23,7 @@ public class I_Helm : Interactable
     [ReadOnly]
     private float hTemp;
 
+    [Header("Thruster")]
     private float thrusterTimer;
     public float thrusterDuration = 30;
     public float thrusterWattConsumption;
@@ -29,6 +32,7 @@ public class I_Helm : Interactable
     public float handleSpeed = 1;
     [ReadOnly]
     private float handleAngle;
+    public int maxHandleAngle = 60;
     public Transform handle;
 
     [Header("Wheel")]
@@ -40,11 +44,13 @@ public class I_Helm : Interactable
     [Header("Enter & Exit")]
     [ReadOnly]
     public bool inControl;
-
-    [ReadOnly] public float enterTimer;
+    public bool topView;
+    private float enterTimer;
     public Transform playerPos;
     public TMP_Text GearText;
     private float detachTimer;
+    public float headHeightOffset1;
+    public float headHeightOffset2;
 
     private void Awake()
     {
@@ -66,13 +72,14 @@ public class I_Helm : Interactable
         if (inControl)
         {
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && BoatController.instance.boat.input.Throttle != 0)
             {
                 if (thrusterTimer <= 0 && BoatController.instance.curWattHour >= thrusterWattConsumption)
                 {
                     thrusterTimer = thrusterDuration;
                     BoatController.instance.curWattHour -= thrusterWattConsumption;
                     BoatController.instance.boat.engines[1].isOn = true;
+                    BoatController.instance.boat.input.Throttle2 = Mathf.Sign(BoatController.instance.boat.input.Throttle) * 1;
                 }
             }
 
@@ -91,10 +98,45 @@ public class I_Helm : Interactable
                 BoatController.instance.lightRight.LightSwitch();
             }
 
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (!topView)
+                {
+                    //enter top view!!
+                    topView = true;
+                    //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset2);
+                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(false);
+                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(true);
+
+                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
+                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
+
+                    //PlayerController.instance.transform.localRotation = Quaternion.identity;
+                    //PlayerController.instance.GetComponent<MouseLook>().Reset();
+                }
+                else
+                {
+                    //exit top view!!
+                    topView = false;
+                    //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
+                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
+                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
+
+                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+
+                    PlayerController.instance.transform.localRotation = Quaternion.identity;
+                    PlayerController.instance.GetComponent<MouseLook>().Reset();
+                }
+
+            }
+
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
             {
                 activated = false;
                 InventoryManager.instance.inputDelay = 0;
+                PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
+                PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
             }
 
         }
@@ -115,7 +157,7 @@ public class I_Helm : Interactable
                 Vector3 targetPos = new Vector3(playerPos.localPosition.x, PlayerController.instance.transform.localPosition.y, playerPos.localPosition.z);
                 PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, playerPos.localPosition, Time.deltaTime * 5);
                 //PlayerController.instance.transform.localPosition = Vector3.Lerp(PlayerController.instance.transform.localPosition, targetPos, Time.deltaTime * 5);
-                //PlayerController.instance.headPosition.Slide(0.25f);
+                PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
 
                 PlayerController.instance.LockCamera(true);
                 PlayerController.instance.transform.localRotation = Quaternion.Lerp(PlayerController.instance.transform.localRotation, Quaternion.identity, Time.deltaTime * 5);
@@ -136,13 +178,16 @@ public class I_Helm : Interactable
         else if (!activated && inControl)
         {
             inControl = false;
+            //exit top view!!
+            topView = false;
             UIManager.instance.generalTips.SetActive(true);
             UIManager.instance.helmTips.SetActive(false);
-            //PlayerController.instance.headPosition.Slide(0.75f);
+            PlayerController.instance.headPosition.Slide(0.75f);
             PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
             PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
             PlayerController.instance.LockMovement(false);
-
+            UnTarget();
+            PlayerController.instance.HandleInteractableCheck();
         }
 
         if (inControl)
@@ -161,7 +206,7 @@ public class I_Helm : Interactable
 
             vTemp += (Input.GetKey(KeyCode.S) ? (-handleSpeed) : 0);
             vTemp += (Input.GetKey(KeyCode.W) ? handleSpeed : 0);
-            vTemp = Mathf.Clamp(vTemp, -currentMaxGear * speedPerGear, currentMaxGear * speedPerGear);
+            vTemp = Mathf.Clamp(vTemp, -1 * speedPerGear, currentMaxGear * speedPerGear);
 
             //round to product of speed per gear
             currentGear = Mathf.Round(vTemp / speedPerGear);
@@ -169,7 +214,7 @@ public class I_Helm : Interactable
 
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
             {
-                handleAngle = vTemp / 100 * 90;
+                handleAngle = vTemp / 100 * maxHandleAngle;
             }
             else
             {
@@ -192,34 +237,60 @@ public class I_Helm : Interactable
             BoatController.instance.boat.input.Throttle = 0;
         }*/
 
-        BoatController.instance.boat.input.Throttle = speed / 100;
+        if (BoatController.instance.anchor.activated)
+        {
+            BoatController.instance.boat.input.Throttle = speed / 100 / 5;
+        }
+        else
+        {
+            BoatController.instance.boat.input.Throttle = speed / 100;
+        }
 
         wheel.localEulerAngles = new Vector3(0, 0, wheelAngle);
-        handleAngle = Mathf.Lerp(handleAngle, speed / 100 * 90, Time.deltaTime * 10);
+        handleAngle = Mathf.Lerp(handleAngle, speed / 100 * maxHandleAngle, Time.deltaTime * 10);
         handle.localEulerAngles = new Vector3(handleAngle, 0, 0);
 
         if (thrusterTimer > 0)
         {
             thrusterTimer -= Time.fixedDeltaTime;
+            BoatController.instance.boat.input.Throttle2 = Mathf.Sign(BoatController.instance.boat.input.Throttle) * 1;
             UIManager.instance.thrusterText.text = "[Space] Accelerate - " + Mathf.Round(thrusterTimer) + "s Left";
+
+            if (BoatController.instance.boat.input.Throttle == 0)
+            {
+                thrusterTimer = 0;
+                BoatController.instance.boat.input.Throttle2 = 0;
+
+            }
         }
         else
         {
             BoatController.instance.boat.engines[1].isOn = false;
+            BoatController.instance.boat.input.Throttle2 = 0;
             UIManager.instance.thrusterText.text = "[Space] Accelerate - Cost 5%";
         }
 
         if (BoatController.instance.boat.input.Throttle != 0)
         {
+            //BoatController.instance.boat.engines[0].isOn = true;
             GetComponent<BoatComponent>().componentActivated = true;
+            if (BoatController.instance.anchor.activated)
+            {
+                //BoatController.instance.anchor.AnchorSwitch();
+            }
+            BoatController.instance.waterSphere._weight = 10;
         }
         else
         {
+            //BoatController.instance.boat.engines[0].isOn = false;
             GetComponent<BoatComponent>().componentActivated = false;
             //BoatController.instance.boat.engines[1].isOn = false;
+            BoatController.instance.waterSphere._weight = 0;
         }
 
         GearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
+        BoatController.instance.boat.engines[0].runningSource.volume = Mathf.Lerp(BoatController.instance.boat.engines[0].runningSource.volume, Mathf.Abs(BoatController.instance.boat.input.Throttle), Time.deltaTime);
+        BoatController.instance.boat.engines[1].runningSource.volume = Mathf.Lerp(BoatController.instance.boat.engines[1].runningSource.volume, Mathf.Abs(BoatController.instance.boat.input.Throttle2), Time.deltaTime);
 
         if (!PlayerController.instance.isNonPhysics && GetComponent<BoatComponent>().componentActivated)
         {
@@ -252,7 +323,7 @@ public class I_Helm : Interactable
 
         if (activated)
         {
-            activated = false;
+            //activated = false;
             PlayerController.instance.exclusiveInteractable = null;
         }
 
@@ -306,8 +377,8 @@ public class I_Helm : Interactable
             UIManager.instance.interactionName.text = textName;
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
-            float temp = Mathf.Round(GetComponent<BoatComponent>().wattConsumption/1000 *100 / 3600 * 100) * 0.01f;
-            UIManager.instance.interactionPrompt.text += $"\nPower: {temp}%/sec";
+            //float temp = Mathf.Round(GetComponent<BoatComponent>().wattConsumption/1000 *100 / 3600 * 100) * 0.01f;
+            //UIManager.instance.interactionPrompt.text += $"\nPower: {temp}%/sec";
         }
 
     }

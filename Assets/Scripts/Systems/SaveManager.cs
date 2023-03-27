@@ -11,6 +11,7 @@ public class SaveManager : MonoBehaviour
     private Vector3 playerPos;
     private Quaternion playerRot;
     public List<InventoryItem> initialInventory;
+    public List<Objective> initialObjective;
     private List<InventoryItem> playerInventory;
 
     private Transform boatTransform;
@@ -32,6 +33,11 @@ public class SaveManager : MonoBehaviour
         foreach (InventoryItem item in initialInventory)
         {
             InventoryManager.instance.AddItem(item.data, item.status);
+        }
+
+        foreach (Objective objective in initialObjective)
+        {
+            ObjectiveManager.instance.AssignObejctive(objective);
         }
         Save();
     }
@@ -81,7 +87,13 @@ public class SaveManager : MonoBehaviour
             InventoryManager.instance.AddItem(item.data, item.status);
         }
 
-        
+        ObjectiveManager.instance.ObjectiveList.Clear();
+        foreach (Objective objective in initialObjective)
+        {
+            ObjectiveManager.instance.AssignObejctive(objective);
+        }
+
+
         BoatController.instance.GetComponent<Rigidbody>().isKinematic = false;
         BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;

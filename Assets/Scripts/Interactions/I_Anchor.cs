@@ -8,7 +8,6 @@ using MyBox;
 public class I_Anchor : Interactable
 {
     [Foldout("Docking", true)]
-    public AdvancedShipController boat;
     public WaterObject boatHull;
     [ReadOnly]
     public bool dockable;
@@ -22,38 +21,16 @@ public class I_Anchor : Interactable
 
     public bool componentActivated = false;
 
+
+
     public override IEnumerator InteractionEvent()
     {
-        boat = BoatController.instance.boat;
-        activated = !activated;
+        AnchorSwitch();
         Target();
 
-        if (activated){
-            boat.Anchor.Drop();
-            BoatController.instance.helm.ShutDown();
-            textPromptActivated = "Weigh";
-            UIManager.instance.anchorText.text = "[X] Weigh Anchor";
-
-            if (dockable)
-            {
-                textPromptActivated = "Undock";
-                UIManager.instance.anchorText.text = "[X] Undock Boat";
-            }
-        }
-        else if (!activated)
-        {
-            boat.Anchor.Weigh();
-            textPrompt = "Drop";
-            UIManager.instance.anchorText.text = "[X] Drop Anchor";
-
-            if (dockable)
-            {
-                textPrompt = "Dock";
-                UIManager.instance.anchorText.text = "[X] Dock Boat";
-            }
-        }
         yield return null;
     }
+
     void FixedUpdate(){
 
         if (!activated)
@@ -83,7 +60,7 @@ public class I_Anchor : Interactable
             //Debug.Log("1:" + Quaternion.Angle(rotation1, boat.transform.rotation));
             //Debug.Log("2:" + Quaternion.Angle(rotation2, boat.transform.rotation));
 
-            if (Quaternion.Angle(rotation1, boat.transform.rotation) < Quaternion.Angle(rotation2, boat.transform.rotation))
+            if (Quaternion.Angle(rotation1, BoatController.instance.transform.rotation) < Quaternion.Angle(rotation2, BoatController.instance.transform.rotation))
             {
                 rotation = rotation1;
             }
@@ -92,16 +69,16 @@ public class I_Anchor : Interactable
                 rotation = rotation2;
             }
 
-            if (dockingTimer <= 5f)
+            if (dockingTimer <= 10f)
             {
                 dockingTimer += Time.fixedDeltaTime;
-                Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, boat.transform.position.y,
+                Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, BoatController.instance.transform.position.y,
                     dockingZone.dockingPos.position.z);
-                boat.transform.position = Vector3.Lerp(boat.transform.position, targetpos, dockingTimer / 2);
-                boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, rotation,Time.fixedDeltaTime * 1.5f);
+                BoatController.instance.transform.position = Vector3.Lerp(BoatController.instance.transform.position, targetpos, Time.fixedDeltaTime / 1);
+                BoatController.instance.transform.rotation = Quaternion.Lerp(BoatController.instance.transform.rotation, rotation,Time.fixedDeltaTime / 1);
                 //boat.transform.position = Vector3.MoveTowards(boat.transform.position, targetpos, dockingTimer / 2);
                 //boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, rotation,Time.fixedDeltaTime * 1.5f);
-                boat.Anchor.AnchorPosition = boat.Anchor.AnchorPoint;
+                BoatController.instance.boat.Anchor.AnchorPosition = BoatController.instance.boat.Anchor.AnchorPoint;
             }
         }
         else
@@ -112,13 +89,11 @@ public class I_Anchor : Interactable
 
     public void AnchorSwitch()
     {
-
-        boat = BoatController.instance.boat;
         activated = !activated;
 
         if (activated)
         {
-            boat.Anchor.Drop();
+            BoatController.instance.boat.Anchor.Drop();
             BoatController.instance.helm.ShutDown();
             textPromptActivated = "Weigh";
             UIManager.instance.anchorText.text = "[X] Weigh Anchor";
@@ -131,7 +106,7 @@ public class I_Anchor : Interactable
         }
         else if (!activated)
         {
-            boat.Anchor.Weigh();
+            BoatController.instance.boat.Anchor.Weigh();
             textPrompt = "Drop";
             UIManager.instance.anchorText.text = "[X] Drop Anchor";
 

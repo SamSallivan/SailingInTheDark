@@ -20,7 +20,6 @@ Material:
   - _FLOW_ON
   - _FOAM3DLIGHTING_ON
   - _FOAM_ON
-  - _PLANARREFLECTIONS_ON
   - _SHADOWS_ON
   - _SUBSURFACESCATTERING_ON
   - _SUBSURFACESHALLOWCOLOUR_ON
@@ -146,7 +145,7 @@ Material:
     - _OverrideReflectionCubemap: 0
     - _PlanarReflectionIntensity: 1
     - _PlanarReflectionNormalsStrength: 31.12
-    - _PlanarReflections: 1
+    - _PlanarReflections: 0
     - _ProceduralSky: 0
     - _Projection: 0
     - _ReflectionBlur: 1.05

@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 
 public class CameraBob : MonoBehaviour
@@ -100,11 +101,19 @@ public class CameraBob : MonoBehaviour
 			transform.localRotation = Quaternion.SlerpUnclamped(startRot, rot, swayCurve.Evaluate(rotTimer));
 		}
 
-        GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, defaultFOV + (PlayerController.instance.GetClimbState() != 0 ? 15f : 0f), Time.deltaTime * 20f);
+        //float fov = Mathf.Lerp(GetComponent<Camera>().fieldOfView, defaultFOV + (PlayerController.instance.GetClimbState() != 0 ? 15f : 0f), Time.deltaTime * 20f);
+
+        foreach (CinemachineVirtualCamera camera in GetComponentsInChildren<CinemachineVirtualCamera>())
+        {
+            float fov = Mathf.Lerp(camera.m_Lens.FieldOfView, defaultFOV + (PlayerController.instance.GetClimbState() != 0 ? 15f : 0f), Time.deltaTime * 20f);
+            camera.m_Lens.FieldOfView = fov;
+
+        }
 
         foreach (Camera camera in GetComponentsInChildren<Camera>())
         {
-            camera.fieldOfView = GetComponent<Camera>().fieldOfView;
+            float fov = Mathf.Lerp(camera.fieldOfView, defaultFOV + (PlayerController.instance.GetClimbState() != 0 ? 15f : 0f), Time.deltaTime * 20f);
+            camera.fieldOfView = fov;
 
         }
 		/*

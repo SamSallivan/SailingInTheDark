@@ -8,143 +8,96 @@ using DG.Tweening;
 public class ObjectiveManager : MonoBehaviour
 {
     public static ObjectiveManager instance;
-    public Objective[] ObjectiveArray = new Objective[20];
+    public List<Objective> ObjectiveList;
     public GameObject ObjectivePrefab;
-    public Transform ObjectiveTransform;
 
-    private int ObjectiveCount = 0;
-    private int ObjectiveSpaceOnScreen = 0;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     private void Start()
     {
-        instance = this;
-        /*AddObejctive("Press 'F' for fun!");
-        AddComplexObjective("Spell Gun!", new string[] { "Press 'G' ", "Press 'U' ", "Press 'N' " });
-        AddObejctive("Press 'P' for pun!");
-        AddObejctive("Press 'Z' for zun!");*/
-        AddObejctive("Read Paper");
+
     }
 
-    public void AddObejctive(string ObjectiveText)
+    public void AssignObejctive(string ObjectiveText)
     {
-        int objectiveIndex = ObjectiveCount;
-        Objective tempObejctive = Instantiate(ObjectivePrefab, ObjectiveTransform).GetComponent<Objective>();
-        tempObejctive.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, ObjectiveSpaceOnScreen * -25);
-        tempObejctive.GetComponent<TMP_Text>().text = ObjectiveText;
-        tempObejctive.MyIndex = objectiveIndex;
-        tempObejctive.MyText = ObjectiveText;
-        for (int i = 0; i < ObjectiveArray.Length; i++)
-        {
-            if (ObjectiveArray[i] == null)
-            {
-                ObjectiveArray[i] = tempObejctive;
-                tempObejctive.myPosition = i;
-                break;
-            }
-        }
-        ObjectiveCount++;
-        ObjectiveSpaceOnScreen++;
+        Objective newObjective = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
+        newObjective.GetComponent<TMP_Text>().text = ObjectiveText;
+        ObjectiveList.Add(newObjective);
+    }
+
+    public void AssignObejctive(Objective objective)
+    {
+        Objective newObjective = Instantiate(objective.gameObject, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
+        ObjectiveList.Add(newObjective);
+        StartCoroutine(newObjective.OnAssigned());
+    }
+    public void AssignObejctive(GameObject objective)
+    {
+        Objective newObjective = Instantiate(objective, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
+        ObjectiveList.Add(newObjective.GetComponent<Objective>());
+        StartCoroutine(newObjective.OnAssigned());
     }
 
     public void AddComplexObjective(string MainObjective, string[] SubObjective)
     {
-        int objectiveIndex = ObjectiveCount;
-        Objective tempObejctive = Instantiate(ObjectivePrefab, ObjectiveTransform).GetComponent<Objective>();
-        tempObejctive.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, ObjectiveSpaceOnScreen * -25);
+        Objective tempObejctive = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         tempObejctive.GetComponent<TMP_Text>().text = MainObjective;
-        tempObejctive.MyIndex = objectiveIndex;
-        tempObejctive.MyText = MainObjective;
-        for (int i = 0; i < ObjectiveArray.Length; i++)
+        for (int i = 0; i < ObjectiveList.Count; i++)
         {
-            if (ObjectiveArray[i] == null)
+            if (ObjectiveList[i] == null)
             {
-                ObjectiveArray[i] = tempObejctive;
-                tempObejctive.myPosition = i;
+                ObjectiveList[i] = tempObejctive;
                 break;
             }
         }
-        ObjectiveCount++;
-        ObjectiveSpaceOnScreen++;
         for (int i = 0; i < SubObjective.Length; i++)
         {
-            tempObejctive.MySubObjective.Add(AddSubObejctive(SubObjective[i], tempObejctive));
+            //tempObejctive.subObjectives.Add(AddSubObejctive(SubObjective[i], tempObejctive));
         }
 
     }
 
     public Objective AddSubObejctive(string ObjectiveText, Objective MainObjective)
     {
-        int objectiveIndex = ObjectiveCount;
-        Objective tempObejctive = Instantiate(ObjectivePrefab, ObjectiveTransform).GetComponent<Objective>();
-        tempObejctive.GetComponent<RectTransform>().anchoredPosition += new Vector2(20, ObjectiveSpaceOnScreen * -25);
+        Objective tempObejctive = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         tempObejctive.GetComponent<TMP_Text>().fontSize -= 4;
         tempObejctive.GetComponent<TMP_Text>().text = "-" + ObjectiveText;
-        tempObejctive.MyMainObjective = MainObjective;
-        tempObejctive.MyIndex = objectiveIndex;
-        tempObejctive.MyText = ObjectiveText;
-        for (int i = 0; i < ObjectiveArray.Length; i++)
+        //tempObejctive.mainObjective = MainObjective;
+        for (int i = 0; i < ObjectiveList.Count; i++)
         {
-            if (ObjectiveArray[i] == null)
+            if (ObjectiveList[i] == null)
             {
-                ObjectiveArray[i] = tempObejctive;
-                tempObejctive.myPosition = i;
+                ObjectiveList[i] = tempObejctive;
                 break;
             }
         }
-        ObjectiveCount++;
-        ObjectiveSpaceOnScreen++;
         return tempObejctive;
     }
 
     public void CompleteObjetive(string ObjetiveName)
     {
-        for (int i = 0; i < ObjectiveArray.Length; i++)
+        foreach (Objective objective in ObjectiveList)
         {
-            if (ObjectiveArray[i] != null)
+            if(ObjetiveName == objective.gameObject.name || ObjetiveName == objective.gameObject.GetComponent<TMP_Text>().text)
             {
-                if(ObjetiveName == ObjectiveArray[i].MyText)
+                /*if (objective.subObjectives.Count <= 0)
                 {
-                    if (ObjectiveArray[i].MySubObjective.Count < 1)
-                    {
-                        ObjectiveArray[i].FinishMe();
-                        break;
-                    }
-                }
+                }*/
+                objective.Finish();
+                break;
             }
         }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            CompleteObjetive("Press 'F' for fun!");
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CompleteObjetive("Press 'P' for pun!");
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            CompleteObjetive("Press 'G' ");
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            CompleteObjetive("Press 'U' ");
-        }
-
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            CompleteObjetive("Press 'N' ");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            CompleteObjetive("Press 'Z' for zun!");
-        }
     }
 
 }

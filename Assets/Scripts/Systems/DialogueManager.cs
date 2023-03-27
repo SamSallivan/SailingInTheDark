@@ -16,12 +16,15 @@ public class DialogueManager : MonoBehaviour
     public bool autoUnpause;
     public Coroutine currentCoroutine;
 
-    private void Start()
+    private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
-    public void OverrideRecording(DialogueData tempDialogue, bool autoUnpause = false)
+    public void OverrideDialogue(DialogueData tempDialogue, bool autoUnpause = false)
     {
         //Push the current one back in waitlist
         if (currentDialogue != null)

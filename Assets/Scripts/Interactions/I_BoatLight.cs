@@ -75,8 +75,8 @@ public class I_BoatLight : Interactable
         {
             UIManager.instance.interactionPrompt.text = "[E] ";
             UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
-            float temp = Mathf.Round(GetComponent<BoatComponent>().wattConsumption / 1000 * 100 / 3600 * 100) * 0.01f;
-            UIManager.instance.interactionPrompt.text += $"\nPower: {temp}%/sec";
+            //float temp = Mathf.Round(GetComponent<BoatComponent>().wattConsumption / 1000 * 100 / 3600 * 100) * 0.01f;
+            //UIManager.instance.interactionPrompt.text += $"\nPower: {temp}%/sec";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
 

@@ -33,8 +33,22 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
         if (InventoryManager.instance.selectedIndex != GetIndex())
         {
-            InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
-            InventoryManager.instance.selectedIndex = GetIndex();
+
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
+                InventoryManager.instance.selectedIndex = GetIndex();
+
+                if (UIManager.instance.inventoryItemGrid.transform.childCount > GetIndex())
+                {
+                    InventoryItem item = UIManager.instance.inventoryItemGrid.transform.GetChild(GetIndex()).GetComponent<InventorySlot>().inventoryItem;
+                    if (item.data.isEquippable)
+                    {
+                        InventoryManager.instance.EquipItem(item);
+                    }
+                }
+            }
+
         }
         else
         {

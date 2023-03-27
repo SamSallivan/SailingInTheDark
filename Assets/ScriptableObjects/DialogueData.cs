@@ -11,6 +11,8 @@ public class DialogueData : ScriptableObject
 
     public void Awake()
     {
+        subtitles.Clear();
+        audioClips.Clear();
         for (int i = 0; i < lines.Count; i++)
         {
             subtitles.Add(lines[i].subtitle);
@@ -24,7 +26,9 @@ public struct Line
     public enum CharacterName
     {
         Mira,
-        Arnii
+        Arnii,
+        Mark,
+        GrandFather
     }
 
     public float intervalBefore;

@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using MyBox;
+using System;
 
 public class RecordingManager : MonoBehaviour
 {
     public static RecordingManager instance;
 
-    public I_TapeRecorder recorder;
+    public I_TapePlayer tapePlayer;
 
     [ReadOnly]
     public int currentIndex;
@@ -21,6 +23,7 @@ public class RecordingManager : MonoBehaviour
     public Line currentLine;
     [ReadOnly]
     public Coroutine currentCoroutine;
+    //private Task currentTask;
 
     [ReadOnly]
     public bool radioPaused = true;
@@ -29,25 +32,27 @@ public class RecordingManager : MonoBehaviour
     [ReadOnly]
     public bool autoUnpause;
 
+    public static event Action OnRecordingStart;
+    public static event Action OnRecordingEnd;
+
     private void Start()
     {
         instance = this;
     }
 
-    public void ReplaceRecording(DialogueData tempRecording, bool autoUnpause = false)
+    public void PlayRecording(DialogueData tempRecording, bool autoUnpause = false)
     {
-        //Stop current recording and eject tape
-        if (currentRecording != null)
-        {
-            StopCurrentLine();
-        }
-        
         currentCoroutine = StartCoroutine(PlayRecording(tempRecording, 0));
-        
+
+        if (autoUnpause)
+        {
+            this.autoUnpause = true;
+        }
     }
 
     IEnumerator PlayRecording(DialogueData tempRecording, int fromLine)
     {
+        OnRecordingStart.Invoke();
         yield return new WaitWhile(() => radioPaused);
         currentRecording = tempRecording;
         for (int i = fromLine; i < tempRecording.lines.Count; i++)
@@ -70,7 +75,10 @@ public class RecordingManager : MonoBehaviour
             yield return new WaitForSeconds(tempRecording.lines[i].intervalAfter);
 
         }
-        recorder.EjectTape();
+
+        //tapePlayer.EjectTape();
+
+        OnRecordingEnd.Invoke();
 
         currentIndex = 0;
         currentLine = new Line();
@@ -83,6 +91,7 @@ public class RecordingManager : MonoBehaviour
 
     public void StopCurrentLine()
     {
+        OnRecordingEnd.Invoke();
         if (currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
@@ -118,21 +127,34 @@ public class RecordingManager : MonoBehaviour
     public void ExitRadioBound()
     {
         radioInBound = false;
-        if (!radioPaused && currentRecording != null)
+
+        /*UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Radio);
+        AudioManager.instance.RadioPlayer.Pause();*/
+
+        /*if (!radioPaused && currentRecording != null)
         {
             StopCurrentLine();
-        }
+        }*/
     }
 
     public void EnterRadioBound()
     {
         radioInBound = true;
 
-        if (!radioPaused)
+        /*if (!radioPaused)
         {
-            if (recorder.tapeInserted != null)
+            if (currentRecording != null)
             {
-                DialogueData recording = recorder.tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData.recording;
+                UIManager.instance.FadeInSubtitle(currentRecording.lines[currentIndex].speaker, currentRecording.lines[currentIndex].subtitle, UIManager.SubtitleType.Radio);
+            }
+            AudioManager.instance.RadioPlayer.UnPause();
+        }*/
+
+        /*if (!radioPaused)
+        {
+            if (tapePlayer.tapeInserted != null)
+            {
+                DialogueData recording = tapePlayer.tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData.recording;
                 currentCoroutine = StartCoroutine(PlayRecording(recording, interuptedIndex));
             }
         }
@@ -140,6 +162,6 @@ public class RecordingManager : MonoBehaviour
         {
             UnpauseRadio();
             autoUnpause = false;
-        }
+        }*/
     }
 }

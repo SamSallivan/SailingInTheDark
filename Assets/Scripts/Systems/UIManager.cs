@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject helmTips;
     public TMP_Text anchorText;
     public TMP_Text thrusterText;
+    public GameObject objectiveUI;
 
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;
@@ -44,9 +45,12 @@ public class UIManager : MonoBehaviour
     [Foldout("Game Over", true)]
     public GameObject gameOverUI;
 
-    void Awake()
+    private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
     // Update is called once per frame
@@ -108,6 +112,12 @@ public class UIManager : MonoBehaviour
         string name = speaker.ToString();
         switch (speaker)
         {
+            case CharacterName.Mark:
+                name = "<style=\"Blue\">" + name + "</style>";
+                break;
+            case CharacterName.GrandFather:
+                name = "<style=\"Yellow\">" + name + "</style>";
+                break;
             case CharacterName.Mira:
                 name = "<style=\"Blue\">" + name + "</style>";
                 break;

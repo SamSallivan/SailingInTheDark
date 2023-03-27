@@ -1,6 +1,7 @@
 using NWH.DWP2.ShipController;
 using System.Collections;
 using System.Collections.Generic;
+using Crest;
 using UnityEngine;
 using MyBox;
 using TMPro;
@@ -17,6 +18,7 @@ public class BoatController : MonoBehaviour
     public I_BoatLight lightRight;
     [ReadOnly]
     public List<BoatComponent> components = new List<BoatComponent>();
+    public SphereWaterInteraction waterSphere;
 
     [Foldout("Settings", true)]
     public float refWattHour = 100;
@@ -94,9 +96,10 @@ public class BoatController : MonoBehaviour
             timerText.text = "N/A";
         }
 
-        if (curWattHour <= 0 || curActiveComponent > maxActiveComponent)
+        if (curWattHour <= 0) //|| curActiveComponent > maxActiveComponent)
         {
-            ShutDown();
+            //ShutDown();
+            Die();
         }
     }
 
@@ -122,13 +125,14 @@ public class BoatController : MonoBehaviour
 
     public void Die()
     {
+        UIManager.instance.gameOverUI.SetActive(true);
         UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
         PlayerController.instance.LockMovement(true);
         PlayerController.instance.LockCamera(true);
-        UIManager.instance.gameOverUI.SetActive(true);
         BoatController.instance.GetComponent<Rigidbody>().isKinematic = true;
         BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
         BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         ShutDown();
+        helm.activated = false;
     }
 }

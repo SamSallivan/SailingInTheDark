@@ -16,33 +16,33 @@ MonoBehaviour:
   showEffectControls: 0
   showCloudControls: 0
   showFlatCloudControls: 0
-  showFogControls: 0
-  showLightingControls: 1
+  showFogControls: 1
+  showLightingControls: 0
   showAuroraControls: 0
   showEnvironmentControls: 0
-  showAudioControls: 1
-  showAmbientAudioControls: 0
+  showAudioControls: 0
+  showAmbientAudioControls: 1
   showWeatherAudioControls: 0
   showLightningControls: 0
-  showSkyControls: 0
+  showSkyControls: 1
   cloudsOverride:
-    showLayer1: 0
-    coverageLayer1: -1
-    dilateCoverageLayer1: 0.9
-    dilateTypeLayer1: 1
-    typeModifierLayer1: 1
-    anvilBiasLayer1: 0.398
-    scatteringIntensityLayer1: 1.05
-    multiScatteringALayer1: 0.575
-    multiScatteringBLayer1: 0.227
-    multiScatteringCLayer1: 0
-    powderIntensityLayer1: 0.848
+    showLayer1: 1
+    coverageLayer1: 0.03
+    dilateCoverageLayer1: 0.125
+    dilateTypeLayer1: 0.5
+    typeModifierLayer1: 0.975
+    anvilBiasLayer1: 0.2
+    scatteringIntensityLayer1: 1.5
+    multiScatteringALayer1: 0.89
+    multiScatteringBLayer1: 0.05
+    multiScatteringCLayer1: 0.5
+    powderIntensityLayer1: 0.6
     silverLiningSpreadLayer1: 0.8
-    ligthAbsorbtionLayer1: 1.01
-    densityLayer1: 0.55
-    baseErosionIntensityLayer1: 0.184
-    detailErosionIntensityLayer1: 0.3
-    curlIntensityLayer1: 0.1
+    ligthAbsorbtionLayer1: 0.25
+    densityLayer1: 0.75
+    baseErosionIntensityLayer1: 0.75
+    detailErosionIntensityLayer1: 0.25
+    curlIntensityLayer1: 0.15
     showLayer2: 0
     coverageLayer2: -1
     dilateCoverageLayer2: 1
@@ -74,15 +74,15 @@ MonoBehaviour:
     ambientIntensityModifier: 1
   fogOverride:
     fogDensity: 1
-    fogHeightFalloff: 0.011
-    fogHeight: 5.14
+    fogHeightFalloff: 0.0148
+    fogHeight: -15
     fogDensity2: 1
-    fogHeightFalloff2: 0.0121
-    fogHeight2: 0
-    fogColorBlend: 0.841
-    scattering: 1.42
-    extinction: 0.755
-    anistropy: 1
+    fogHeightFalloff2: 0.02
+    fogHeight2: -50
+    fogColorBlend: 1
+    scattering: 1
+    extinction: 0.8
+    anistropy: 0.85
   auroraOverride:
     auroraIntensity: 0
   effectsOverride:
@@ -94,14 +94,14 @@ MonoBehaviour:
     custom2Emission: 0
   audioOverride:
     ambientOverride:
-    - showEditor: 0
+    - showEditor: 1
       name: Day
       volume: 0
       spring: 0
       summer: 0
       autumn: 0
       winter: 0
-    - showEditor: 0
+    - showEditor: 1
       name: Night
       volume: 0
       spring: 0
@@ -121,4 +121,4 @@ MonoBehaviour:
     windSpeed: 0.25
     windTurbulence: 0.25
   skyOverride:
-    multiplier: {r: 0, g: 1, b: 0.15510082, a: 0}
+    multiplier: {r: 0.70732594, g: 0, b: 1, a: 1}
