@@ -1,42 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static EnemySpawner instance;
+    // public static EnemySpawner instance;
     public GameObject enemyPrefab;
-    private float radius = 50f;
-    private int maxCreatureNum = 3;
-    [HideInInspector] public float creatureCount = 0;
-    private float cooldown = 10f; //in seconds 
+    public Collider _collider;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+    [ReadOnly]
+    public float creatureCount = 0;
+
+    public string boatTag = "Boat";
+    public int maxCreatureNum = 3;
+    public float spawnInterval = 10f; //in seconds 
+    [ReadOnly]
+    public float spawnTimer;
 
     private void Start()
     {
-        InvokeRepeating("SpawnEnemy", cooldown, cooldown);
+        spawnTimer = spawnInterval;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == boatTag)
+        {
+            if (spawnTimer <= 0f)
+            {
+                SpawnEnemy();
+                spawnTimer = spawnInterval;
+            }
+            else
+            {
+                spawnTimer -= Time.deltaTime;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == boatTag)
+        {
+            spawnTimer = spawnInterval;
+        }
     }
 
     private void SpawnEnemy()
     {
-        Debug.Log("spawn creature");
         if (creatureCount < maxCreatureNum)
         {
-            Vector3 spawnPos = GetSpawnPosition(gameObject.transform.position);
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            Vector3 spawnPos = RandomSpawnPointInBounds(_collider.bounds);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            enemy.GetComponent<EnemyMovement>().spawner = this;
             creatureCount++;
+
+            // Debug.Log("spawned: " + spawnPos);
         }
     }
 
-    private Vector3 GetSpawnPosition(Vector3 centerPoint)
+    public Vector3 RandomSpawnPointInBounds(Bounds bounds)
     {
-        Vector3 centerOfRadius = centerPoint;
-        Vector3 target = centerOfRadius + (Vector3)(radius * UnityEngine.Random.insideUnitCircle);
-        return target;
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            0.3f,
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
     }
 
+    public void CreatureDied()
+    {
+        creatureCount--;
+    }
 }
