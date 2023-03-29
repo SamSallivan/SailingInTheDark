@@ -12,6 +12,7 @@ public enum State
 
 public class EnemyMovement : MonoBehaviour
 {
+    public EnemySpawner spawner;
     private Transform boatTransform;
     public LayerMask boatMask;
     public LayerMask obstacleMask;
@@ -21,8 +22,10 @@ public class EnemyMovement : MonoBehaviour
     public State curState = State.Move;
     [ReadOnly]
     public float movementSpeed;
-    private float defaultSpeed = 6f;
-    private float burstSpeed = 12f;
+    [Tooltip("Normal traveling speed.")]
+    public float defaultSpeed = 6f;
+    [Tooltip("Speed when charging.")]
+    public float burstSpeed = 12f;
     private float rotationSpeed = 5f;
     private float avoidanceSpeed = 5f;
     private float raycastDistance = 3f;
@@ -32,18 +35,18 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 offset;
 
     //attack stats
-    private float maxAttackCooldown = 8f; //seconds
-    public float curAttackCooldown; //seconds
-    private int attackDamage = 10;
-    private float attackRange = 1f;
+    public float maxAttackCooldown = 8f; //seconds
+    private float curAttackCooldown; //seconds
+    public int attackDamage = 10;
+    public float attackRange = 1f;
 
     //aggro
+    [Tooltip("Time enemy stays aggro for if exposed to light.")]
     public float maxAggroMeter = 5f; //seconds
     public float curAggroMeter;
     public bool loseAggro = false;
     public bool isPatrolling = false;
     public bool isDead = false;
-
 
     //despawn
     private float despawnDistance = 120f;
@@ -147,7 +150,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Attack()
     {
-        Debug.Log("attacked");
+        // Debug.Log("attacked");
         movementSpeed = burstSpeed;
         BoatController.instance.TakeDamage(attackDamage);
         curAttackCooldown = maxAttackCooldown;
@@ -263,6 +266,7 @@ public class EnemyMovement : MonoBehaviour
             yield return null;
         }
 
+        spawner.CreatureDied();
         Destroy(gameObject);
     }
 
