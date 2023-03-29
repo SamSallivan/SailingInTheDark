@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
+    public TMP_Text deathText;
+    public bool alive = true;
 
     private Transform playerTransform;
     private Vector3 playerPos;
@@ -25,7 +28,7 @@ public class SaveManager : MonoBehaviour
         {
             instance = this;
         }
-
+        deathText = GameObject.Find("Death Text").GetComponent<TMP_Text>();
     }
 
     private void Start()
@@ -60,10 +63,32 @@ public class SaveManager : MonoBehaviour
             BoatController.instance.TakeDamage(100);
     }
 
+    public void Die(string dead)
+    {
+        if (alive)
+        {
+            alive = false;
+            UIManager.instance.gameOverUI.SetActive(true);
+            UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
+
+            PlayerController.instance.LockMovement(true);
+            PlayerController.instance.LockCamera(true);
+
+            BoatController.instance.GetComponent<Rigidbody>().isKinematic = true;
+            BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
+            BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            BoatController.instance.ShutDown();
+            BoatController.instance.helm.activated = false;
+
+            deathText.text = dead;
+            MistCollision.instance.StopCoroutine(MistCollision.instance.DecreaseSlider());
+        }
+    }
 
     public void LoadCheckPoint()
     {
         UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
+        UIManager.instance.gameOverUI.SetActive(false);
 
         PlayerController.instance.transform.SetParent(null);
         PlayerController.instance.transform.position = playerPos;
@@ -71,32 +96,28 @@ public class SaveManager : MonoBehaviour
         PlayerController.instance.LockMovement(false);
         PlayerController.instance.LockCamera(false);
 
-
         BoatController.instance.transform.position = boatPos;
         BoatController.instance.transform.rotation = boatRot;
 
-
-        BoatController.instance.curWattHour = boatWattHour;
+        BoatController.instance.curWattHour = this.boatWattHour;
         BoatController.instance.ignoreConsumption = false;
-        
-        UIManager.instance.gameOverUI.SetActive(false);
+
+        Rigidbody rb = BoatController.instance.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        alive = true;
 
         InventoryManager.instance.inventoryItemList.Clear();
         foreach (InventoryItem item in playerInventory)
         {
             InventoryManager.instance.AddItem(item.data, item.status);
         }
-
         ObjectiveManager.instance.ObjectiveList.Clear();
         foreach (Objective objective in initialObjective)
         {
             ObjectiveManager.instance.AssignObejctive(objective);
         }
-
-
-        BoatController.instance.GetComponent<Rigidbody>().isKinematic = false;
-        BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
     }
-    
+
 }
