@@ -36,7 +36,6 @@ public class EnemyTail : MonoBehaviour
 
         for (int i = 1; i < segmentPositions.Length; i++)
         {
-            // segmentPositions[i] = Vector3.SmoothDamp(segmentPositions[i], segmentPositions[i - 1] - targetDir.forward * targetDist, ref segmentVelocity[i], smoothSpeed + i / trailSpeed);
             Vector3 targetPos = segmentPositions[i - 1] + (segmentPositions[i] - segmentPositions[i - 1]).normalized * targetDist;
             segmentPositions[i] = Vector3.SmoothDamp(segmentPositions[i], targetPos, ref segmentVelocity[i], smoothSpeed);
             if (i - 1 < bodySegments.Length)

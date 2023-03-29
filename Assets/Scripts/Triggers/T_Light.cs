@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class T_Light : Trigger
 {
-    public EnemyMovement creature;
+    // public EnemyMovement creature;
 
-    private void Awake()
-    {
-        targetTag = "Light";
-    }
+    // private void Awake()
+    // {
+    //     targetTag = "Light";
+    // }
 
-    public override IEnumerator TriggerEvent()
-    {
-        creature.Die();
-        yield return null;
-    }
+    // public override IEnumerator TriggerEvent()
+    // {
+    //     creature.LoseAggro();
+    //     yield return null;
+    // }
 }

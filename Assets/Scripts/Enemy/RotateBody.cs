@@ -15,6 +15,7 @@ public class RotateBody : MonoBehaviour
         // Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         // transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
         Vector3 pos = target.position - transform.position;
+
         Quaternion rotation = Quaternion.LookRotation(pos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.deltaTime);
     }

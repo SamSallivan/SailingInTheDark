@@ -56,7 +56,7 @@ public class BoatController : MonoBehaviour
 
         float curWattConsumption = 0;
         float curActiveComponent = 0;
-        
+
         foreach (BoatComponent component in components)
         {
             if (component.componentActivated)
@@ -114,7 +114,7 @@ public class BoatController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("take damage");
+        // Debug.Log("take damage");
         curWattHour = (curWattHour - damage < 0) ? 0 : curWattHour - damage;
 
         if (curWattHour <= 0 && !UIManager.instance.gameOverUI.activeInHierarchy)
