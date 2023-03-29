@@ -108,8 +108,8 @@ public class I_Helm : Interactable
                     PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(false);
                     PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(true);
 
-                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
-                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
+                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
+                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
 
                     //PlayerController.instance.transform.localRotation = Quaternion.identity;
                     //PlayerController.instance.GetComponent<MouseLook>().Reset();
