@@ -15,16 +15,28 @@ public class UIManager : MonoBehaviour
 
     [Foldout("Gameplay", true)]
     public GameObject gameplayUI;
+
+    [Header("Interaction")]
     public TMP_Text interactionName;
     public TMP_Text interactionPrompt;
+    public Animation interactionPromptAnimation;
+
+    [Header("Subtitle")]
     public TMP_Text radioSubtitleUI;
     public TMP_Text dialogueSubtitleUI;
-    public Animation interactionPromptAnimation;
+
+    [Header("Tips")]
     public GameObject generalTips;
     public GameObject helmTips;
     public TMP_Text anchorText;
     public TMP_Text thrusterText;
+
+    [Header("Objective")]
     public GameObject objectiveUI;
+    
+    [Header("Mist")]
+    public GameObject mistUI;
+    public Slider mistSlider;
 
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;
@@ -44,6 +56,7 @@ public class UIManager : MonoBehaviour
 
     [Foldout("Game Over", true)]
     public GameObject gameOverUI;
+    public TMP_Text deathText;
 
     private void Awake()
     {

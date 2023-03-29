@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using Cinemachine;
 
 public class SaveManager : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class SaveManager : MonoBehaviour
     private Vector3 boatPos;
     private Quaternion boatRot;
     private float boatWattHour;
+    //public TMP_Text deathText;
+    public bool alive = true;
 
     private void Awake()
     {
@@ -26,6 +30,7 @@ public class SaveManager : MonoBehaviour
             instance = this;
         }
 
+        //deathText = GameObject.Find("Death Text").GetComponent<TMP_Text>();
     }
 
     private void Start()
@@ -97,6 +102,18 @@ public class SaveManager : MonoBehaviour
         BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
         BoatController.instance.GetComponent<Rigidbody>().isKinematic = false;
+        
+                    //exit top view!!
+                    BoatController.instance.helm.topView = false;
+                    //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
+                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
+                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
+
+                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+
+                    PlayerController.instance.transform.localRotation = Quaternion.identity;
+                    PlayerController.instance.GetComponent<MouseLook>().Reset();
 
         PlayerController.instance.transform.position = playerPos;
         PlayerController.instance.transform.rotation = playerRot;
@@ -107,7 +124,30 @@ public class SaveManager : MonoBehaviour
         UIManager.instance.gameOverUI.SetActive(false);
         UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
         Time.timeScale = 1;
+        alive = true;
 
+    }
+
+    public void Die(string deadText)
+    {
+        if (alive)
+        {
+            alive = false;
+            UIManager.instance.gameOverUI.SetActive(true);
+            UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
+
+            PlayerController.instance.LockMovement(true);
+            PlayerController.instance.LockCamera(true);
+
+            BoatController.instance.GetComponent<Rigidbody>().isKinematic = true;
+            BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
+            BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            BoatController.instance.ShutDown();
+            BoatController.instance.helm.activated = false;
+
+            UIManager.instance.deathText.text = deadText;
+            //MistCollision.instance.StopCoroutine(MistCollision.instance.DecreaseSlider());
+        }
     }
     
 }
