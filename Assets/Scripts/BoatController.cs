@@ -97,10 +97,10 @@ public class BoatController : MonoBehaviour
             timerText.text = "N/A";
         }
 
-        if (curWattHour <= 0) //|| curActiveComponent > maxActiveComponent)
+        if (SaveManager.instance.alive && curWattHour <= 0) //|| curActiveComponent > maxActiveComponent)
         {
             //ShutDown();
-            Die();
+            SaveManager.instance.Die("Your boat ran out of energy.");
         }
     }
 
@@ -119,11 +119,12 @@ public class BoatController : MonoBehaviour
 
         if (curWattHour <= 0 && !UIManager.instance.gameOverUI.activeInHierarchy)
         {
-            Die();
+            SaveManager.instance.Die("Your boat ran out of energy.");
         }
         //sound effect and all
     }
 
+<<<<<<< HEAD
     public void Die()
     {
         helm.activated = false;
@@ -136,4 +137,6 @@ public class BoatController : MonoBehaviour
         ShutDown();
         //Time.timeScale = 0;
     }
+=======
+>>>>>>> origin/Thomas-Mist
 }
