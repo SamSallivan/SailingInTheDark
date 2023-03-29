@@ -2,106 +2,168 @@ using System.Collections;
 using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
-// using UnityEngine.AI;
+
+public enum State
+{
+    Move,
+    Patrol,
+    Death
+}
 
 public class EnemyMovement : MonoBehaviour
 {
     private Transform boatTransform;
-    private Transform target; //usually set to boat, can set it to other things if AI gets more complex
     public LayerMask boatMask;
     public LayerMask obstacleMask;
 
     //stats for AI
-    [ReadOnly()]
-    public Vector3 offset;
-    [SerializeField] private float movementSpeed = 6f;
-    public float rotationSpeed = 5f;
-    public float avoidanceSpeed = 5f;
-    public float raycastDistance = 4f;
-    public float raycastRadius = 1f;
+    [ReadOnly]
+    public State curState = State.Move;
+    [ReadOnly]
+    public float movementSpeed;
+    private float defaultSpeed = 6f;
+    private float burstSpeed = 12f;
+    private float rotationSpeed = 5f;
+    private float avoidanceSpeed = 5f;
+    private float raycastDistance = 3f;
+    private float raycastRadius = 2f;
+    private Vector3 target; //usually set to boat
+    private Vector3 patrolTarget;
+    private Vector3 offset;
 
-    //attack variables
-    public float maxAttackCooldown = 5f; //seconds
+    //attack stats
+    private float maxAttackCooldown = 8f; //seconds
     public float curAttackCooldown; //seconds
-    private int attackDamage = 100;
-    private int attackRange = 2;
+    private int attackDamage = 10;
+    private float attackRange = 1f;
 
-    private float despawnDistance = 80f;
+    //aggro
+    public float maxAggroMeter = 5f; //seconds
+    public float curAggroMeter;
+    public bool loseAggro = false;
+    public bool isPatrolling = false;
+    public bool isDead = false;
+
+
+    //despawn
+    private float despawnDistance = 120f;
+    private float deathTimer = 5f;
 
     private void Start()
     {
-        curAttackCooldown = maxAttackCooldown;
         boatTransform = BoatController.instance.transform;
+        target = boatTransform.position;
 
-        target = boatTransform;
+        movementSpeed = defaultSpeed;
+        curAttackCooldown = maxAttackCooldown;
+        curAggroMeter = maxAggroMeter;
     }
-
-    //STATE MACHINE LOGIC
-    //if light: lose meter
-    //if meter is 0, run - dip under water
-    //if too far, despawn
-
-    //start loop
-    //go to nearest waypoint
-    //circle to adjacent waypoint
-    //if at waypoint, 50% choose to attack
-    //if after 3 waypoints, attack anyways
-    //charge at boat center: deal damage
-    //end loop
-
-    //pick node that's not boat
-    //go to node
-    //once at node decide which way to turn
-    //if left touch, turn left, go to left node
-    //opposite for right
-    //decide when to attack
-
 
     private void Update()
     {
-        float distance = Vector3.Distance(gameObject.transform.position, boatTransform.transform.position);
-        if (distance > despawnDistance)
+        if (!isDead)
         {
-            Die();
+            CheckDespawn();
+            UpdateState();
+            switch (curState)
+            {
+                case State.Move:
+                    target = boatTransform.position;
+                    break;
+                case State.Patrol:
+                    curAttackCooldown -= Time.deltaTime;
+                    break;
+            }
+            PathFinding();
         }
-
-        PathFinding();
     }
 
-    private void FixedUpdate()
+
+    private void UpdateState()
     {
-        Attack();
+        if (movementSpeed != defaultSpeed)
+        {
+            movementSpeed -= 3f * Time.deltaTime;
+            if (movementSpeed < defaultSpeed)
+            {
+                movementSpeed = defaultSpeed;
+            }
+        }
+
+        if (curState == State.Patrol) //if reach patrol point, pick new spot
+        {
+            if (Vector3.Distance(target, transform.position) <= 5f)
+            {
+                // Debug.Log("reset");
+                SetPatrolTarget();
+            }
+        }
+
+        if (curState != State.Patrol && CheckAttack()) //if not patrolling and attacked
+        {
+            // Debug.Log("patrol");
+            curState = State.Patrol;
+            SetPatrolTarget();
+        }
+        else if (curAttackCooldown <= 0)
+        {
+            // Debug.Log("move");
+            curState = State.Move;
+            target = boatTransform.position;
+        }
+    }
+
+    private void SetPatrolTarget()
+    {
+        Vector3 direction = Random.insideUnitCircle.normalized;
+        Vector3 patrolPoint = boatTransform.position + direction * 20f;
+        target = new Vector3(patrolPoint.x, 0.3f, patrolPoint.z);
+    }
+
+    private void CheckDespawn()
+    {
+        float distance = Vector3.Distance(gameObject.transform.position, boatTransform.transform.position);
+        if (distance > despawnDistance || loseAggro)
+        {
+            LoseAggro();
+        }
+        else
+        {
+            GainAggro();
+        }
+    }
+
+    private bool CheckAttack() //return true if hit
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale * attackRange, transform.rotation, boatMask, QueryTriggerInteraction.Collide);
+        if (hitColliders.Length > 0)
+        {
+            Attack();
+            return true;
+        }
+
+        return false;
     }
 
     private void Attack()
     {
-        //check if boat is in attack range
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale * attackRange, transform.rotation, boatMask, QueryTriggerInteraction.Collide);
-        if (hitColliders.Length > 0)
-        {
-            //attack if boat is detected and enemy attack is off cooldown, then reset cooldown
-            if (curAttackCooldown <= 0)
-            {
-                BoatController.instance.TakeDamage(attackDamage);
-                curAttackCooldown = maxAttackCooldown;
-            }
-            else
-            {
-                //cooldown timer
-                curAttackCooldown -= Time.deltaTime;
-            }
-        }
-        else
-        {
-            //if boat is not in range, reset cooldown timer
-            curAttackCooldown = maxAttackCooldown;
-        }
+        Debug.Log("attacked");
+        movementSpeed = burstSpeed;
+        BoatController.instance.TakeDamage(attackDamage);
+        curAttackCooldown = maxAttackCooldown;
     }
 
     //turn towards boat position
-    private void Turn()
+    private void TurnToBoat()
     {
-        Vector3 pos = target.position - transform.position;
+        Vector3 pos = target - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(pos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+    }
+
+    private void TurnToPatrolPoint()
+    {
+        Vector3 pos = patrolTarget - transform.position;
         Quaternion rotation = Quaternion.LookRotation(pos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
@@ -129,33 +191,94 @@ public class EnemyMovement : MonoBehaviour
             float angle = Vector3.Angle(hit.normal, -transform.forward);
             if (-hit.normal.x > transform.forward.x)
             {
-                offset = new Vector3(0f, 90 - angle, 0f);
+                offset = new Vector3(0f, -(90 - angle), 0f);
             }
             else
             {
-                offset = new Vector3(0f, -(90 - angle), 0f);
+                offset = new Vector3(0f, 90 - angle, 0f);
             }
         }
 
         //if turning is required, rotate the enemy to face the turn direction, otherwise turn towards target
         if (offset != Vector3.zero)
         {
+            // Debug.Log("called: " + offset.y);
+            // var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, offset.y * 2, transform.eulerAngles.z);
+            // transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime);
+
             transform.Rotate(offset * Time.deltaTime * avoidanceSpeed);
+        }
+        else if (isPatrolling)
+        {
+            TurnToPatrolPoint();
         }
         else
         {
-            Turn();
+            TurnToBoat();
         }
 
         Move();
     }
 
-
-    public void Die()
+    public void LoseAggro()
     {
-        Debug.Log("creature died");
-        EnemySpawner.instance.creatureCount--;
+        curAggroMeter -= Time.deltaTime;
+        if (curAggroMeter <= 0)
+        {
+            isDead = true;
+            StartCoroutine(Die());
+        }
+    }
+
+    private void GainAggro()
+    {
+        if (curAggroMeter < maxAggroMeter)
+        {
+            curAggroMeter += Time.deltaTime / 2;
+        }
+    }
+
+    private void IsDead()
+    {
+        isDead = true;
+    }
+
+    private IEnumerator Die()
+    {
+        float diveAngleStart = -10f;
+        float diveAngleEnd = 60f;
+        float diveAngle = diveAngleStart;
+        float _currentLerpTime = 0f;
+        while (deathTimer >= 0)
+        {
+            _currentLerpTime += Time.deltaTime;
+            diveAngle = EaseInExpo(_currentLerpTime, diveAngleStart, diveAngleEnd, 5f);
+            // Vector3 diveRotationAngle = new Vector3(diveA
+            transform.localRotation = Quaternion.Euler(diveAngle, transform.localRotation.y, transform.localRotation.z);
+
+            Vector3 pos = transform.position + (transform.forward * movementSpeed * Time.deltaTime);
+            transform.position = pos;
+
+            deathTimer -= Time.deltaTime;
+            yield return null;
+        }
+
         Destroy(gameObject);
+    }
+
+    private float EaseInExpo(float time, float start, float end, float duration)
+    {
+        return end * (-Mathf.Pow(2, -10 * time / duration) + 1) + start;
+    }
+
+    public void EnterLight()
+    {
+        loseAggro = true;
+    }
+
+    public void ExitLight()
+    {
+        loseAggro = false;
     }
 
     private void OnDrawGizmos()
@@ -167,3 +290,4 @@ public class EnemyMovement : MonoBehaviour
         Gizmos.DrawSphere(transform.position + transform.forward * raycastDistance, raycastRadius);
     }
 }
+

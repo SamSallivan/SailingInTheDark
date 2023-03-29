@@ -200,7 +200,7 @@ public class I_Helm : Interactable
             hTemp = Mathf.Clamp(hTemp, -1, 1);
             wheelAngle = Mathf.Lerp(wheelAngle, -hTemp * 90, Time.deltaTime * 5);
             BoatController.instance.boat.input.Steering = hTemp;
-            
+
 
             int speedPerGear = 100 / totalGearNumber;
 
@@ -285,7 +285,7 @@ public class I_Helm : Interactable
             //BoatController.instance.boat.engines[0].isOn = false;
             GetComponent<BoatComponent>().componentActivated = false;
             //BoatController.instance.boat.engines[1].isOn = false;
-            BoatController.instance.waterSphere._weight = 0;
+            // BoatController.instance.waterSphere._weight = 0;
         }
 
         GearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
@@ -313,7 +313,7 @@ public class I_Helm : Interactable
         speed = 0;
 
         GetComponent<BoatComponent>().componentActivated = false;
-        BoatController.instance.boat.input.Throttle = 0; 
+        BoatController.instance.boat.input.Throttle = 0;
 
         if (PlayerController.instance.targetInteractable == this)
         {

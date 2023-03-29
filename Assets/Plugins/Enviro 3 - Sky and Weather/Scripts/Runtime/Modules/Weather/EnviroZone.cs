@@ -39,7 +39,7 @@ namespace Enviro
         {
             zoneCollider = gameObject.AddComponent<BoxCollider>();
             zoneCollider.isTrigger = true;
-            UpdateZoneScale ();
+            UpdateZoneScale();
         }
 
         private void OnEnable()
@@ -47,7 +47,7 @@ namespace Enviro
             m_tempCollider = GetComponent<Collider>();
         }
 
-        public void UpdateZoneScale ()
+        public void UpdateZoneScale()
         {
             //zoneCollider.size = zoneScale;
         }
@@ -67,30 +67,30 @@ namespace Enviro
         }
 
         // Changes the weather of the zone instantly.
-        public void ChangeZoneWeatherInstant (EnviroWeatherType type)
+        public void ChangeZoneWeatherInstant(EnviroWeatherType type)
         {
-            if(EnviroManager.instance != null && currentWeatherType != type)
+            if (EnviroManager.instance != null && currentWeatherType != type)
             {
-                EnviroManager.instance.NotifyZoneWeatherChanged(type,this);
+                EnviroManager.instance.NotifyZoneWeatherChanged(type, this);
             }
-            
+
             currentWeatherType = type;
         }
 
         // Changes the weather of the zone to the type for next weather update.
-        public void ChangeZoneWeather (EnviroWeatherType type)
+        public void ChangeZoneWeather(EnviroWeatherType type)
         {
             nextWeatherType = type;
         }
 
-        private void ChooseNextWeatherRandom ()
+        private void ChooseNextWeatherRandom()
         {
-            float rand = UnityEngine.Random.Range(0f,100f);
+            float rand = UnityEngine.Random.Range(0f, 100f);
             bool nextWeatherFound = false;
 
             for (int i = 0; i < weatherTypeList.Count; i++)
             {
-                if(rand <= weatherTypeList[i].probability)
+                if (rand <= weatherTypeList[i].probability)
                 {
                     ChangeZoneWeather(weatherTypeList[i].weatherType);
                     nextWeatherFound = true;
@@ -98,27 +98,27 @@ namespace Enviro
                 }
             }
 
-            if(!nextWeatherFound)
-               ChangeZoneWeather(currentWeatherType);
+            if (!nextWeatherFound)
+                ChangeZoneWeather(currentWeatherType);
         }
 
         private void UpdateZoneWeather()
         {
-            if(EnviroManager.instance.Time != null)
+            if (EnviroManager.instance.Time != null)
             {
-               double currentDate = EnviroManager.instance.Time.GetDateInHours();
+                double currentDate = EnviroManager.instance.Time.GetDateInHours();
 
-               if(currentDate >= nextWeatherUpdate)
-               {
-                 if(nextWeatherType != null)
-                    ChangeZoneWeatherInstant(nextWeatherType);
-                 else
-                    ChangeZoneWeatherInstant(currentWeatherType);
-                 
-                 //Get next weather
-                 //ChooseNextWeatherRandom ();
-                 nextWeatherUpdate = currentDate + weatherChangeIntervall;
-               }
+                if (currentDate >= nextWeatherUpdate)
+                {
+                    if (nextWeatherType != null)
+                        ChangeZoneWeatherInstant(nextWeatherType);
+                    else
+                        ChangeZoneWeatherInstant(currentWeatherType);
+
+                    //Get next weather
+                    //ChooseNextWeatherRandom ();
+                    nextWeatherUpdate = currentDate + weatherChangeIntervall;
+                }
             }
         }
 
@@ -127,15 +127,15 @@ namespace Enviro
             if (EnviroManager.instance == null || EnviroManager.instance.Weather == null)
                 return;
 
-            if(autoWeatherChanges)
+            if (autoWeatherChanges)
                 UpdateZoneWeather();
 
             //Forces the weather change in Enviro when this zone is currently the active one.
             //if(EnviroManager.instance.Weather.currentZone == this && EnviroManager.instance.Weather.targetWeatherType != currentWeatherType)
-               //EnviroManager.instance.Weather.ChangeWeather(currentWeatherType);
+            //EnviroManager.instance.Weather.ChangeWeather(currentWeatherType);
         }
 
-        void OnTriggerEnter (Collider col)
+        void OnTriggerEnter(Collider col)
         {
             if (EnviroManager.instance == null || EnviroManager.instance.Weather == null)
                 return;
@@ -149,19 +149,19 @@ namespace Enviro
             //EnviroManager.instance.Weather.ChangeWeather(currentWeatherType);
 
             EnviroManager.instance.NotifyWeatherChanged(currentWeatherType);
-            Debug.Log(currentWeatherType);
+            // Debug.Log(currentWeatherType);
         }
 
-        void OnTriggerExit (Collider col)
+        void OnTriggerExit(Collider col)
         {
-             if (EnviroManager.instance == null || EnviroManager.instance.Weather == null)
-                 return;
-        
-             if(col.gameObject.GetComponent<EnviroManager>())
+            if (EnviroManager.instance == null || EnviroManager.instance.Weather == null)
+                return;
+
+            if (col.gameObject.GetComponent<EnviroManager>())
                 EnviroManager.instance.Weather.currentZone = null;
 
-             EnviroManager.instance.NotifyWeatherChanged(EnviroManager.instance.Weather.targetWeatherType);
-             Debug.Log(EnviroManager.instance.Weather.targetWeatherType);
+            EnviroManager.instance.NotifyWeatherChanged(EnviroManager.instance.Weather.targetWeatherType);
+            Debug.Log(EnviroManager.instance.Weather.targetWeatherType);
         }
 
         /*void OnDrawGizmos () 
