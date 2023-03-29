@@ -49,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
     public bool isDead = false;
 
     //despawn
-    private float despawnDistance = 120f;
+    public float despawnDistance = 70f;
     private float deathTimer = 5f;
 
     private void Start()
@@ -125,8 +125,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void CheckDespawn()
     {
-        float distance = Vector3.Distance(gameObject.transform.position, boatTransform.transform.position);
-        if (distance > despawnDistance || loseAggro)
+        float boatDistance = Vector3.Distance(gameObject.transform.position, boatTransform.transform.position);
+
+        Vector3 closestSpawnPoint = spawner._collider.ClosestPoint(gameObject.transform.position);
+        float spawnerDistance = Vector3.Distance(gameObject.transform.position, closestSpawnPoint);
+        if (boatDistance > despawnDistance || loseAggro || spawnerDistance > despawnDistance)
         {
             LoseAggro();
         }

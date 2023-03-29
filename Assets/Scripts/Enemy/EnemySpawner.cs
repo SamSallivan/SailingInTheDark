@@ -15,7 +15,8 @@ public class EnemySpawner : MonoBehaviour
     public string boatTag = "Boat";
     public int maxCreatureNum = 3;
     public float spawnInterval = 10f; //in seconds 
-    private float spawnTimer;
+    [ReadOnly]
+    public float spawnTimer;
 
     private void Start()
     {
@@ -51,11 +52,11 @@ public class EnemySpawner : MonoBehaviour
         if (creatureCount < maxCreatureNum)
         {
             Vector3 spawnPos = RandomSpawnPointInBounds(_collider.bounds);
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            enemyPrefab.GetComponent<EnemyMovement>().spawner = this;
+            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            enemy.GetComponent<EnemyMovement>().spawner = this;
             creatureCount++;
 
-            Debug.Log("spawned: " + spawnPos);
+            // Debug.Log("spawned: " + spawnPos);
         }
     }
 
