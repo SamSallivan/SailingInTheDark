@@ -152,7 +152,7 @@ MonoBehaviour:
   triggeredOnce: 0
   inMist: 0
   mistTimer: 0
-  deathTime: 8
+  deathTime: 60
   replenishCoeffcient: 2
 --- !u!1 &9035122272905966420
 GameObject:
