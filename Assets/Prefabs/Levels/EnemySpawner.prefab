@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8452017078649078368
 Transform:
   m_ObjectHideFlags: 0
@@ -173,5 +173,9 @@ MonoBehaviour:
   creatureCount: 0
   boatTag: Boat
   maxCreatureNum: 3
-  spawnInterval: 10
+  minSpawnInterval: 5
+  maxSpawnInterval: 30
+  curSpawnInterval: 0
+  chanceForGroupSpawn: 0.5
+  maxCreaturesInGroup: 3
   spawnTimer: 0
