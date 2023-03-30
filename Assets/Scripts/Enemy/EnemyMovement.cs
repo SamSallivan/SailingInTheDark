@@ -6,8 +6,7 @@ using UnityEngine;
 public enum State
 {
     Move,
-    Patrol,
-    Death
+    Patrol
 }
 
 public class EnemyMovement : MonoBehaviour
@@ -42,7 +41,7 @@ public class EnemyMovement : MonoBehaviour
 
     //aggro
     [Tooltip("Time enemy stays aggro for if exposed to light.")]
-    public float maxAggroMeter = 5f; //seconds
+    public float maxAggroMeter = 4f; //seconds
     public float curAggroMeter;
     public bool loseAggro = false;
     public bool isPatrolling = false;
@@ -51,6 +50,12 @@ public class EnemyMovement : MonoBehaviour
     //despawn
     public float despawnDistance = 70f;
     private float deathTimer = 5f;
+
+    //misc
+    [Tooltip("Y level the creature stays clamped at.")]
+    public float surfaceLevel = 0.1f;
+
+    private Color color = Color.blue;
 
     private void Start()
     {
@@ -81,7 +86,6 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-
     private void UpdateState()
     {
         if (movementSpeed != defaultSpeed)
@@ -97,30 +101,102 @@ public class EnemyMovement : MonoBehaviour
         {
             if (Vector3.Distance(target, transform.position) <= 5f)
             {
-                // Debug.Log("reset");
-                SetPatrolTarget();
+                color = Color.yellow;
+                SetNewPatrolTarget();
             }
         }
 
-        if (curState != State.Patrol && CheckAttack()) //if not patrolling and attacked
+        if (curState == State.Move) //if not patrolling
         {
-            // Debug.Log("patrol");
-            curState = State.Patrol;
-            SetPatrolTarget();
+            if (CheckAttack())
+            {
+                curState = State.Patrol;
+                SetPatrolTarget();
+            }
         }
         else if (curAttackCooldown <= 0)
         {
-            // Debug.Log("move");
+            color = Color.blue;
             curState = State.Move;
             target = boatTransform.position;
         }
     }
 
+    private void SetNewPatrolTarget()
+    {
+        Vector3 intersection1, intersection2;
+        int foundPoints = FindCircleCircleIntersections(transform.position, 15f, boatTransform.position, 20f, out intersection1, out intersection2);
+
+        target = Random.value <= 0.5f ? intersection1 : intersection2;
+    }
+
     private void SetPatrolTarget()
     {
-        Vector3 direction = Random.insideUnitCircle.normalized;
+        Vector2 unitCir = Random.insideUnitCircle.normalized;
+        Vector3 direction = new Vector3(unitCir.x, 0, unitCir.y);
         Vector3 patrolPoint = boatTransform.position + direction * 20f;
-        target = new Vector3(patrolPoint.x, 0.3f, patrolPoint.z);
+        target = new Vector3(patrolPoint.x, surfaceLevel, patrolPoint.z);
+    }
+
+    // Find the points where the two circles intersect.
+    private int FindCircleCircleIntersections(Vector3 c0, float r0, Vector3 c1, float r1, out Vector3 intersection1, out Vector3 intersection2)
+    {
+        // Find the distance between the centers.
+        float dx = c0.x - c1.x;
+        float dz = c0.z - c1.z;
+        float dist = Mathf.Sqrt(dx * dx + dz * dz);
+
+        if (Mathf.Abs(dist - (r0 + r1)) < 0.00001)
+        {
+            intersection1 = Vector2.Lerp(c0, c1, r0 / (r0 + r1));
+            intersection2 = intersection1;
+            return 1;
+        }
+
+        // See how many solutions there are.
+        if (dist > r0 + r1)
+        {
+            // No solutions, the circles are too far apart.
+            intersection1 = new Vector3(float.NaN, float.NaN, float.NaN);
+            intersection2 = new Vector3(float.NaN, float.NaN, float.NaN);
+            return 0;
+        }
+        else if (dist < Mathf.Abs(r0 - r1))
+        {
+            Debug.Log("contains - target: " + target + ", pos: " + transform.position);
+            // No solutions, one circle contains the other.
+            intersection1 = new Vector3(float.NaN, float.NaN, float.NaN);
+            intersection2 = new Vector3(float.NaN, float.NaN, float.NaN);
+            return 0;
+        }
+        else if ((dist == 0) && (r0 == r1))
+        {
+            // No solutions, the circles coincide.
+            intersection1 = new Vector3(float.NaN, float.NaN, float.NaN);
+            intersection2 = new Vector3(float.NaN, float.NaN, float.NaN);
+            return 0;
+        }
+        else
+        {
+            // Find a and h.
+            float a = (r0 * r0 -
+                        r1 * r1 + dist * dist) / (2 * dist);
+            float h = Mathf.Sqrt(r0 * r0 - a * a);
+
+            // Find P2.
+            float cx2 = c0.x + a * (c1.x - c0.x) / dist;
+            float cz2 = c0.z + a * (c1.z - c0.z) / dist;
+
+            // Get the points P3.
+            intersection1 = new Vector3(
+                (float)(cx2 + h * (c1.z - c0.z) / dist), 0,
+                (float)(cz2 - h * (c1.x - c0.x) / dist));
+            intersection2 = new Vector3(
+                (float)(cx2 - h * (c1.z - c0.z) / dist), 0,
+                (float)(cz2 + h * (c1.x - c0.x) / dist));
+
+            return 2;
+        }
     }
 
     private void CheckDespawn()
@@ -141,11 +217,14 @@ public class EnemyMovement : MonoBehaviour
 
     private bool CheckAttack() //return true if hit
     {
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale * attackRange, transform.rotation, boatMask, QueryTriggerInteraction.Collide);
-        if (hitColliders.Length > 0)
+        if (!loseAggro)
         {
-            Attack();
-            return true;
+            Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale * attackRange, transform.rotation, boatMask, QueryTriggerInteraction.Collide);
+            if (hitColliders.Length > 0)
+            {
+                Attack();
+                return true;
+            }
         }
 
         return false;
@@ -153,7 +232,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void Attack()
     {
+        color = Color.red;
         // Debug.Log("attacked");
+        TurnToBoat();
         movementSpeed = burstSpeed;
         BoatController.instance.TakeDamage(attackDamage);
         curAttackCooldown = maxAttackCooldown;
@@ -178,7 +259,7 @@ public class EnemyMovement : MonoBehaviour
     private void Move()
     {
         Vector3 pos = transform.position + (transform.forward * movementSpeed * Time.deltaTime);
-        pos.y = 0.3f; //clamp to sea level
+        pos.y = surfaceLevel; //clamp to sea level
         transform.position = pos;
     }
 
@@ -208,10 +289,8 @@ public class EnemyMovement : MonoBehaviour
         //if turning is required, rotate the enemy to face the turn direction, otherwise turn towards target
         if (offset != Vector3.zero)
         {
-            // Debug.Log("called: " + offset.y);
             // var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, offset.y * 2, transform.eulerAngles.z);
             // transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime);
-
             transform.Rotate(offset * Time.deltaTime * avoidanceSpeed);
         }
         else if (isPatrolling)
@@ -290,7 +369,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Color color = Color.red;
+        // Color color = Color.red;
         color.a = 0.2f;
         Gizmos.color = color;
 

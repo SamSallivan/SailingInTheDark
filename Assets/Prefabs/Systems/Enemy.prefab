@@ -1665,6 +1665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8b5f2b1cdc78347961ca24e82bb459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
   boatMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -1673,12 +1674,18 @@ MonoBehaviour:
     m_Bits: 2049
   curState: 0
   movementSpeed: 6
-  curAttackCooldown: 0
-  maxAggroMeter: 5
+  defaultSpeed: 6
+  burstSpeed: 12
+  maxAttackCooldown: 8
+  attackDamage: 10
+  attackRange: 1
+  maxAggroMeter: 4
   curAggroMeter: 0
   loseAggro: 0
   isPatrolling: 0
   isDead: 0
+  despawnDistance: 70
+  surfaceLevel: 0.1
 --- !u!65 &6034785310361092872
 BoxCollider:
   m_ObjectHideFlags: 0
