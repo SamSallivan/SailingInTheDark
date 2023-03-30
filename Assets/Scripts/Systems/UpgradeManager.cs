@@ -23,7 +23,7 @@ public class UpgradeManager : MonoBehaviour
     public bool[] upgradeUnlocked = new bool[5];
 
     public BoatController boatController;
-    public I_Helm helm;
+
 
     private void Awake()
     {
@@ -58,7 +58,7 @@ public class UpgradeManager : MonoBehaviour
         {
             if (upgradeUnlocked[i])
             {
-                sliderForCosts[i].value = 1;
+                //sliderForCosts[i].value = 1;
                 switch (i)
                 {
                     case 0:
@@ -75,14 +75,13 @@ public class UpgradeManager : MonoBehaviour
                         break;
                     case 4:
                         textForCosts[i].text = $"Unlocked!";
-                        helm.currentMaxGear = 2;
                         break;
                 }
             }
             else
             {
                 textForCosts[i].text = $"{maxCosts[i]} Material";
-                sliderForCosts[i].value = (float)materialCount / maxCosts[i];
+                //sliderForCosts[i].value = (float)materialCount / maxCosts[i];
             }
         }
     }
@@ -95,6 +94,17 @@ public class UpgradeManager : MonoBehaviour
             upgradeUI.SetActive(!upgradeUI.activeSelf);
             UIManager.instance.GetComponent<LockMouse>().LockCursor(!upgradeUI.activeSelf);
 
+            if (upgradeUI.activeInHierarchy)
+            {
+                PlayerController.instance.LockMovement(true);
+                PlayerController.instance.LockCamera(true);
+            }
+            else
+            {
+                PlayerController.instance.LockMovement(false);
+                PlayerController.instance.LockCamera(false);
+            }
+
         }
     }
 
@@ -104,30 +114,49 @@ public class UpgradeManager : MonoBehaviour
         UpdateTexts();
     }
 
-    public void LoseMaterial(int x)
+    public void LoseMaterial(int materialCost)
     {
-        materialCount -= x;
-        UpdateTexts();
+        //materialCount -= x;
+        foreach (InventoryItem item in InventoryManager.instance.inventoryItemList)
+        {
+            if (item.data == materialItem)
+            {
+                item.status.amount -= materialCost;
+                item.slot.amount.text = "" + item.status.amount;
+                UpdateTexts();
+                break;
+            }
+        }
     }
 
-    public void SpendForUpgrade(int position)
+    public void SpendForUpgrade(int type)
     {
-        if (!upgradeUnlocked[position] && materialCount > maxCosts[position])
+        if (!upgradeUnlocked[type] && materialCount > maxCosts[type])
         {
-            LoseMaterial(maxCosts[position]);
-            upgradeUnlocked[position] = true;
+            LoseMaterial(maxCosts[type]);
+            upgradeUnlocked[type] = true;
 
-            if (position == 0)
+            if (type == 0)
             {
                 fuelTankLevel++;
-                boatController.maxWattHour = 1000 + (200 * fuelTankLevel);
-                boatController.curWattHour += 500;
+                boatController.maxWattHour = 100 + (25 * fuelTankLevel);
+                //boatController.curWattHour += 0;
 
                 if (fuelTankLevel < 4)
                 {
                     upgradeUnlocked[0] = false;
                     maxCosts[0] += 20;
                 }
+            }
+
+            if (type == 3)
+            {
+                boatController.boatArmor += 1;
+            }
+
+            if (type == 4)
+            {
+                boatController.helm.currentMaxGear += 1;
             }
 
             UpdateTexts();

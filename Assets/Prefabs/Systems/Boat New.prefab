@@ -3955,7 +3955,7 @@ MonoBehaviour:
   triggerZone: {fileID: 502538423410889965}
   speed: 0
   currentGear: 0
-  currentMaxGear: 2
+  currentMaxGear: 1
   totalGearNumber: 3
   thrusterDuration: 30
   thrusterWattConsumption: 5
@@ -25756,7 +25756,7 @@ Rigidbody:
   m_Mass: 3907.051
   m_Drag: 0.025
   m_AngularDrag: 0.1
-  m_CenterOfMass: {x: -0.0076393215, y: -5.4153056, z: -1.1391797}
+  m_CenterOfMass: {x: 0.00090919435, y: -5.369934, z: -1.0815763}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -26034,10 +26034,10 @@ MonoBehaviour:
   totalMass: 3907.051
   dimensions: {x: 2.4, y: 1.23, z: 8.18}
   useDefaultCenterOfMass: 0
-  centerOfMass: {x: -0.0076393215, y: -5.4153056, z: -1.1391797}
+  centerOfMass: {x: 0.00090919435, y: -5.369934, z: -1.0815763}
   centerOfMassOffset: {x: 0, y: -5, z: 0.5}
   useDefaultInertia: 1
-  inertiaTensor: {x: 150434.45, y: 47279.477, z: 107913.33}
+  inertiaTensor: {x: 150303.25, y: 47253.84, z: 108220.74}
   inertiaScale: {x: 1, y: 1, z: 1}
   updateInterval: 1
 --- !u!114 &8752807075510417689
@@ -26061,7 +26061,7 @@ MonoBehaviour:
   components: []
   waterSphere: {fileID: 502538424596785388}
   refWattHour: 100
-  maxWattHour: 150
+  maxWattHour: 100
   curWattHour: 1000
   maxActiveComponent: 3
   ignoreConsumption: 0

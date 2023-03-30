@@ -31,6 +31,8 @@ public class BoatController : MonoBehaviour
 
     public bool ignoreConsumption = false;
 
+    public float boatArmor = 0;
+
 
     [Foldout("TMPs", true)]
     public TMP_Text percentageText;
@@ -115,7 +117,7 @@ public class BoatController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         // Debug.Log("take damage");
-        curWattHour = (curWattHour - damage < 0) ? 0 : curWattHour - damage;
+        curWattHour = (curWattHour - damage/(1+boatArmor) < 0) ? 0 : curWattHour - damage / (1 + boatArmor);
 
         if (curWattHour <= 0 && !UIManager.instance.gameOverUI.activeInHierarchy)
         {

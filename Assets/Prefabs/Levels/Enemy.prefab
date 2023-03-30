@@ -2027,12 +2027,12 @@ MonoBehaviour:
     m_Bits: 2049
   curState: 0
   movementSpeed: 6
-  defaultSpeed: 6
-  burstSpeed: 12
+  defaultSpeed: 10
+  burstSpeed: 15
   maxAttackCooldown: 8
   attackDamage: 10
   attackRange: 1
-  maxAggroMeter: 6
+  maxAggroMeter: 5
   curAggroMeter: 0
   loseAggro: 0
   isPatrolling: 0

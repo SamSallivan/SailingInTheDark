@@ -74,8 +74,8 @@ public class I_Anchor : Interactable
                 dockingTimer += Time.fixedDeltaTime;
                 Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, BoatController.instance.transform.position.y,
                     dockingZone.dockingPos.position.z);
-                BoatController.instance.transform.position = Vector3.Lerp(BoatController.instance.transform.position, targetpos, Time.fixedDeltaTime / 1);
-                BoatController.instance.transform.rotation = Quaternion.Lerp(BoatController.instance.transform.rotation, rotation,Time.fixedDeltaTime / 1);
+                BoatController.instance.transform.position = Vector3.Lerp(BoatController.instance.transform.position, targetpos, Time.fixedDeltaTime * 1.5f);
+                BoatController.instance.transform.rotation = Quaternion.Lerp(BoatController.instance.transform.rotation, rotation,Time.fixedDeltaTime * 1);
                 //boat.transform.position = Vector3.MoveTowards(boat.transform.position, targetpos, dockingTimer / 2);
                 //boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, rotation,Time.fixedDeltaTime * 1.5f);
                 BoatController.instance.boat.Anchor.AnchorPosition = BoatController.instance.boat.Anchor.AnchorPoint;

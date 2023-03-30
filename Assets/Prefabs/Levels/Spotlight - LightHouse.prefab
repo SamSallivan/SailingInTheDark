@@ -372,7 +372,7 @@ Transform:
   - {fileID: 4781903497920990343}
   - {fileID: 964487665304643954}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &2559189734396248763
 Light:
@@ -523,7 +523,7 @@ MonoBehaviour:
   _SortingLayerID: 0
   _SortingOrder: 0
   _FadeOutBegin: 100
-  _FadeOutEnd: 300
+  _FadeOutEnd: 750
 --- !u!114 &3292762986898201848
 MonoBehaviour:
   m_ObjectHideFlags: 0
