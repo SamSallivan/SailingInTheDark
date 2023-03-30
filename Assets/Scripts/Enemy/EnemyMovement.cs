@@ -12,6 +12,7 @@ public enum State
 public class EnemyMovement : MonoBehaviour
 {
     public EnemySpawner spawner;
+    public EnemyAudio enemyAudioManager;
     private Transform boatTransform;
     public LayerMask boatMask;
     public LayerMask obstacleMask;
@@ -69,6 +70,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        if (loseAggro)
+        {
+            color = Color.green;
+        }
+
         if (!isDead)
         {
             CheckDespawn();
@@ -163,7 +169,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else if (dist < Mathf.Abs(r0 - r1))
         {
-            Debug.Log("contains - target: " + target + ", pos: " + transform.position);
+            // Debug.Log("contains - target: " + target + ", pos: " + transform.position);
             // No solutions, one circle contains the other.
             intersection1 = new Vector3(float.NaN, float.NaN, float.NaN);
             intersection2 = new Vector3(float.NaN, float.NaN, float.NaN);
@@ -234,10 +240,14 @@ public class EnemyMovement : MonoBehaviour
     {
         color = Color.red;
         // Debug.Log("attacked");
+
         TurnToBoat();
         movementSpeed = burstSpeed;
         BoatController.instance.TakeDamage(attackDamage);
         curAttackCooldown = maxAttackCooldown;
+
+        StartCoroutine(enemyAudioManager.PlayAttackSound());
+        // enemyAudioManager.PlayAttackSound();
     }
 
     //turn towards boat position
@@ -308,9 +318,12 @@ public class EnemyMovement : MonoBehaviour
     public void LoseAggro()
     {
         curAggroMeter -= Time.deltaTime;
+        curAttackCooldown = maxAttackCooldown;
         if (curAggroMeter <= 0)
         {
             isDead = true;
+            StartCoroutine(enemyAudioManager.PlayDeathSound());
+            // enemyAudioManager.PlayDeathSound();
             StartCoroutine(Die());
         }
     }
@@ -321,11 +334,6 @@ public class EnemyMovement : MonoBehaviour
         {
             curAggroMeter += Time.deltaTime / 2;
         }
-    }
-
-    private void IsDead()
-    {
-        isDead = true;
     }
 
     private IEnumerator Die()
@@ -347,7 +355,12 @@ public class EnemyMovement : MonoBehaviour
             deathTimer -= Time.deltaTime;
             yield return null;
         }
+        // DestroySelf();
+    }
 
+    public void DestroySelf()
+    {
+        // Debug.Log("destroyed self");
         spawner.CreatureDied();
         Destroy(gameObject);
     }
@@ -359,6 +372,10 @@ public class EnemyMovement : MonoBehaviour
 
     public void EnterLight()
     {
+        if (loseAggro != true)
+        {
+            enemyAudioManager.PlayHurtSound();
+        }
         loseAggro = true;
     }
 
