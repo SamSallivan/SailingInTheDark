@@ -61,7 +61,7 @@ public class InventoryManager : MonoBehaviour
         {
             if (!activated)
             {
-                if (!UIManager.instance.examineUI.activeInHierarchy && !BoatController.instance.helm.activated)
+                if (!UIManager.instance.examineUI.activeInHierarchy && !BoatController.instance.helm.activated && !UIManager.instance.upgradeUI.activeInHierarchy)
                 {
                     OpenInventory();
                 }

@@ -148,7 +148,9 @@ public class I_Helm : Interactable
             UIManager.instance.generalTips.SetActive(false);
             UIManager.instance.helmTips.SetActive(true);
             PlayerController.instance.LockMovement(true);
-            InventoryManager.instance.UnequipItem(ItemData.EquipType.Both);
+            /*InventoryManager.instance.UnequipItem(ItemData.EquipType.Left);
+            InventoryManager.instance.UnequipItem(ItemData.EquipType.Right);
+            InventoryManager.instance.UnequipItem(ItemData.EquipType.Both);*/
             if (enterTimer < 0.5f)
             {
                 enterTimer += Time.deltaTime;

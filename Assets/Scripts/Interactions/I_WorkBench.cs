@@ -59,6 +59,9 @@ public class I_WorkBench : Interactable
         }
         materialCount = tempMaterialCount;
 
+        //delete afterwards
+        UpgradeManager.instance.materialCount = tempMaterialCount;
+
         UIManager.instance.materialCount.text = $"Material: {materialCount} ";
         //fuelTankLabel.text = $"Fuel Tank LV{fuelTankLevel + 1}";
 

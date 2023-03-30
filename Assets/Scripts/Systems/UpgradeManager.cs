@@ -142,6 +142,12 @@ public class UpgradeManager : MonoBehaviour
                 }
             }
 
+            if (type == 2)
+            {
+                boatController.lightLeft.lightObject.GetComponent<Light>().intensity = 100;
+                boatController.lightRight.lightObject.GetComponent<Light>().intensity = 100;
+            }
+
             if (type == 3)
             {
                 boatController.boatArmor += 1;
