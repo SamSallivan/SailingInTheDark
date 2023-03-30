@@ -25753,10 +25753,10 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8714064871946065682}
   serializedVersion: 4
-  m_Mass: 3907.051
+  m_Mass: 0.0000001
   m_Drag: 0.025
   m_AngularDrag: 0.1
-  m_CenterOfMass: {x: 0.00090919435, y: -5.369934, z: -1.0815763}
+  m_CenterOfMass: {x: 0, y: -5, z: 0.5}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -26031,13 +26031,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMass: 3907.051
-  totalMass: 3907.051
+  totalMass: 0
   dimensions: {x: 2.4, y: 1.23, z: 8.18}
   useDefaultCenterOfMass: 0
-  centerOfMass: {x: 0.00090919435, y: -5.369934, z: -1.0815763}
+  centerOfMass: {x: 0, y: -5, z: 0.5}
   centerOfMassOffset: {x: 0, y: -5, z: 0.5}
   useDefaultInertia: 1
-  inertiaTensor: {x: 150303.25, y: 47253.84, z: 108220.74}
+  inertiaTensor: {x: 1, y: 1, z: 1}
   inertiaScale: {x: 1, y: 1, z: 1}
   updateInterval: 1
 --- !u!114 &8752807075510417689
@@ -26065,6 +26065,7 @@ MonoBehaviour:
   curWattHour: 1000
   maxActiveComponent: 3
   ignoreConsumption: 0
+  boatArmor: 0
   percentageText: {fileID: 0}
   usageText: {fileID: 0}
   timerText: {fileID: 0}
