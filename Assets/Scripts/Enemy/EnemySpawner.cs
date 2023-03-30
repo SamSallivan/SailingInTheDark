@@ -5,7 +5,6 @@ using MyBox;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // public static EnemySpawner instance;
     public GameObject enemyPrefab;
     public Collider _collider;
 
@@ -14,13 +13,21 @@ public class EnemySpawner : MonoBehaviour
 
     public string boatTag = "Boat";
     public int maxCreatureNum = 3;
-    public float spawnInterval = 10f; //in seconds 
+    public float minSpawnInterval = 5f; //in seconds 
+    public float maxSpawnInterval = 30f; //in seconds 
+    public float curSpawnInterval; //for incrementing
+
+    [Range(0f, 1f)]
+    public float chanceForGroupSpawn = 0.5f;
+    public int maxCreaturesInGroup = 3;
+
     [ReadOnly]
     public float spawnTimer;
 
     private void Start()
     {
-        spawnTimer = spawnInterval;
+        curSpawnInterval = minSpawnInterval;
+        spawnTimer = curSpawnInterval;
     }
 
     private void OnTriggerStay(Collider other)
@@ -29,8 +36,8 @@ public class EnemySpawner : MonoBehaviour
         {
             if (spawnTimer <= 0f)
             {
-                SpawnEnemy();
-                spawnTimer = spawnInterval;
+                CheckSpawnConditions();
+                spawnTimer = curSpawnInterval;
             }
             else
             {
@@ -39,11 +46,28 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private void CheckSpawnConditions()
+    {
+        //random chance to spawn extra enemy/enemies
+        if (Random.value <= chanceForGroupSpawn)
+        {
+            int numInGroup = Random.Range(2, maxCreaturesInGroup);
+            for (int i = 0; i < numInGroup; i++)
+            {
+                SpawnEnemy();
+            }
+        }
+        else
+        {
+            SpawnEnemy();
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == boatTag)
         {
-            spawnTimer = spawnInterval;
+            spawnTimer = minSpawnInterval;
         }
     }
 
@@ -55,8 +79,8 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.GetComponent<EnemyMovement>().spawner = this;
             creatureCount++;
-
-            // Debug.Log("spawned: " + spawnPos);
+            //add time to the spawn interval
+            curSpawnInterval = curSpawnInterval >= maxSpawnInterval ? maxSpawnInterval : curSpawnInterval + 5f;
         }
     }
 
