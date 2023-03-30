@@ -35,7 +35,8 @@ public class UIManager : MonoBehaviour
     public TMP_Text gearText;
     public TMP_Text anchorText;
     public TMP_Text thrusterText;
-    
+    public GameObject anchorImage;
+
     [Header("Mist")]
     public GameObject mistUI;
     public Slider mistSlider;

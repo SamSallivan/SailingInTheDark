@@ -103,6 +103,8 @@ public class I_Anchor : Interactable
                 textPromptActivated = "Undock";
                 UIManager.instance.anchorText.text = "[X] Undock Boat";
             }
+
+            UIManager.instance.anchorImage.SetActive(true);
         }
         else if (!activated)
         {
@@ -115,6 +117,8 @@ public class I_Anchor : Interactable
                 textPrompt = "Dock";
                 UIManager.instance.anchorText.text = "[X] Dock Boat";
             }
+
+            UIManager.instance.anchorImage.SetActive(false);
         }
     }
 

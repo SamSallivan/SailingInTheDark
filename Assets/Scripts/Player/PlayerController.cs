@@ -129,19 +129,23 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     [ReadOnly]
     public Interactable targetInteractable;
     public Interactable exclusiveInteractable;
-
     public float interactDistance = 5;
+    public LayerMask interactableLayer;
+
+    [Foldout("Mist", true)]
+    [ReadOnly]
+    public bool inMist = false;
+    [ReadOnly]
+    public float mistTimer;
+    public float deathTime = 8;
+    public float replenishCoeffcient = 2;
+
 
     /*	public PostProcessVolume volume;
         public Bloom bloom;
         public ChromaticAberration ca;
         public ColorGrading cg;
         public Vignette vg;*/
-
-    public LayerMask interactableLayer;
-
-	public SpringJoint frontJoint;
-	public SpringJoint backJoint;
 
     public int GetClimbState()
     {
