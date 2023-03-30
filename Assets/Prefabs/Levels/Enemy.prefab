@@ -2213,7 +2213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _version: 0
   _radius: 1
-  _weight: 5
+  _weight: 10
   _weightUpDownMul: 0
   _innerSphereMultiplier: 2
   _innerSphereOffset: 0.085

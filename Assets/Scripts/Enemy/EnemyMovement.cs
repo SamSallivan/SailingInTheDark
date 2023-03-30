@@ -37,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
     //attack stats
     public float maxAttackCooldown = 8f; //seconds
     private float curAttackCooldown; //seconds
-    public int attackDamage = 10;
+    public int attackDamage = 5;
     public float attackRange = 1f;
 
     //aggro

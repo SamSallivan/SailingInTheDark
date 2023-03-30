@@ -24,10 +24,23 @@ public class EnemySpawner : MonoBehaviour
     [ReadOnly]
     public float spawnTimer;
 
+    private List<GameObject> enemiesList;
+
     private void Start()
     {
+        enemiesList = new List<GameObject>();
+
         curSpawnInterval = minSpawnInterval;
         spawnTimer = curSpawnInterval;
+    }
+
+    private void Update()
+    {
+        //TODO: REMOVE, ONLY FOR TESTING
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            KillAllCreatures();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -75,13 +88,24 @@ public class EnemySpawner : MonoBehaviour
     {
         if (creatureCount < maxCreatureNum)
         {
-            Vector3 spawnPos = RandomSpawnPointInBounds(_collider.bounds);
+            // Vector3 spawnPos = RandomSpawnPointInBounds(_collider.bounds);
+            Vector3 spawnPos = RandomSpawnPointAroundBoat();
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.GetComponent<EnemyMovement>().spawner = this;
             creatureCount++;
             //add time to the spawn interval
             curSpawnInterval = curSpawnInterval >= maxSpawnInterval ? maxSpawnInterval : curSpawnInterval + 5f;
+
+            enemiesList.Add(enemy);
         }
+    }
+
+    public Vector3 RandomSpawnPointAroundBoat()
+    {
+        Vector2 unitCir = Random.insideUnitCircle.normalized;
+        Vector3 direction = new Vector3(unitCir.x, 0, unitCir.y);
+        Vector3 patrolPoint = BoatController.instance.gameObject.transform.position + direction * Random.Range(20f, 40f);
+        return patrolPoint;
     }
 
     public Vector3 RandomSpawnPointInBounds(Bounds bounds)
@@ -96,5 +120,14 @@ public class EnemySpawner : MonoBehaviour
     public void CreatureDied()
     {
         creatureCount--;
+    }
+
+    public void KillAllCreatures()
+    {
+        foreach (GameObject enemy in enemiesList)
+        {
+            Destroy(enemy);
+        }
+        creatureCount = 0;
     }
 }
