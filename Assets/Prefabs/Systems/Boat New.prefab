@@ -10574,7 +10574,7 @@ MonoBehaviour:
   activated: 0
   excludeOtherInteraction: 0
   triggerZone: {fileID: 0}
-  materialItem: {fileID: 0}
+  materialItem: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
   materialCount: 0
   upgradeUnlocked: 0000000000
   upgradeCost: 0000000000000000000000000000000000000000
@@ -26068,7 +26068,7 @@ Rigidbody:
   m_Mass: 3907.051
   m_Drag: 0.025
   m_AngularDrag: 0.1
-  m_CenterOfMass: {x: 0.00090919435, y: -5.369934, z: -1.0815763}
+  m_CenterOfMass: {x: 0.0009057668, y: -5.3682, z: -1.0576125}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -26346,10 +26346,10 @@ MonoBehaviour:
   totalMass: 3907.051
   dimensions: {x: 2.4, y: 1.23, z: 8.18}
   useDefaultCenterOfMass: 0
-  centerOfMass: {x: 0.00090919435, y: -5.369934, z: -1.0815763}
+  centerOfMass: {x: 0.0009057668, y: -5.3682, z: -1.0576125}
   centerOfMassOffset: {x: 0, y: -5, z: 0.5}
   useDefaultInertia: 1
-  inertiaTensor: {x: 150303.25, y: 47253.84, z: 108220.74}
+  inertiaTensor: {x: 150290.98, y: 47276.844, z: 108158.99}
   inertiaScale: {x: 1, y: 1, z: 1}
   updateInterval: 1
 --- !u!114 &8752807075510417689

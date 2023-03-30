@@ -23,6 +23,8 @@ public class I_WorkBench : Interactable
             UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
             PlayerController.instance.LockMovement(true);
             PlayerController.instance.LockCamera(true);
+
+            UpdateTexts();
         }
         yield return null;
     }

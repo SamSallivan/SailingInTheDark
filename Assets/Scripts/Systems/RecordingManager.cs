@@ -91,7 +91,11 @@ public class RecordingManager : MonoBehaviour
 
     public void StopCurrentLine()
     {
-        OnRecordingEnd.Invoke();
+        if (OnRecordingEnd != null)
+        {
+            OnRecordingEnd.Invoke();
+        }
+
         if (currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
