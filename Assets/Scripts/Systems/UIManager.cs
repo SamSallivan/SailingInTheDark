@@ -15,6 +15,10 @@ public class UIManager : MonoBehaviour
 
     [Foldout("Gameplay", true)]
     public GameObject gameplayUI;
+    public GameObject generalTips;
+
+    [Header("Objective")]
+    public GameObject objectiveUI;
 
     [Header("Interaction")]
     public TMP_Text interactionName;
@@ -25,14 +29,12 @@ public class UIManager : MonoBehaviour
     public TMP_Text radioSubtitleUI;
     public TMP_Text dialogueSubtitleUI;
 
-    [Header("Tips")]
-    public GameObject generalTips;
+    [Header("Helm")]
     public GameObject helmTips;
+    public GameObject mapUI;
+    public TMP_Text gearText;
     public TMP_Text anchorText;
     public TMP_Text thrusterText;
-
-    [Header("Objective")]
-    public GameObject objectiveUI;
     
     [Header("Mist")]
     public GameObject mistUI;
@@ -53,6 +55,11 @@ public class UIManager : MonoBehaviour
     public GameObject examineUI;
     public TMP_Text examineText;
     public Image examineImage;
+
+    [Foldout("Upgrade", true)]
+    public GameObject upgradeUI;
+    public TMP_Text materialCount;
+    public List<UpgradeSlot> upgradeSlots;
 
     [Foldout("Game Over", true)]
     public GameObject gameOverUI;

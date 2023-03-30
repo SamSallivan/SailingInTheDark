@@ -400,16 +400,7 @@ public class InventoryManager : MonoBehaviour
             PlayerController.instance.targetInteractable.Target();
         }
     }
-
-    public void UnequipItem()
-    {
-        equippedItem = null;
-        if (PlayerController.instance.equippedTransform.childCount > 0)
-        {
-            Destroy(PlayerController.instance.equippedTransform.GetChild(0).gameObject);
-        }
-    }
-
+    
     public void UnequipItem(ItemData.EquipType type)
     {
         switch (type)

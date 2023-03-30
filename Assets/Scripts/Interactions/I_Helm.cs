@@ -47,10 +47,8 @@ public class I_Helm : Interactable
     public bool topView;
     private float enterTimer;
     public Transform playerPos;
-    public TMP_Text GearText;
     private float detachTimer;
     public float headHeightOffset1;
-    public float headHeightOffset2;
 
     private void Awake()
     {
@@ -72,7 +70,7 @@ public class I_Helm : Interactable
         if (inControl)
         {
 
-            if (Input.GetKeyDown(KeyCode.Space) && BoatController.instance.boat.input.Throttle != 0)
+            /*if (Input.GetKeyDown(KeyCode.Space) && BoatController.instance.boat.input.Throttle != 0)
             {
                 if (thrusterTimer <= 0 && BoatController.instance.curWattHour >= thrusterWattConsumption)
                 {
@@ -81,7 +79,7 @@ public class I_Helm : Interactable
                     BoatController.instance.boat.engines[1].isOn = true;
                     BoatController.instance.boat.input.Throttle2 = Mathf.Sign(BoatController.instance.boat.input.Throttle) * 1;
                 }
-            }
+            }*/
 
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -150,6 +148,7 @@ public class I_Helm : Interactable
             UIManager.instance.generalTips.SetActive(false);
             UIManager.instance.helmTips.SetActive(true);
             PlayerController.instance.LockMovement(true);
+            InventoryManager.instance.UnequipItem(ItemData.EquipType.Both);
             if (enterTimer < 0.5f)
             {
                 enterTimer += Time.deltaTime;
@@ -288,7 +287,7 @@ public class I_Helm : Interactable
             // BoatController.instance.waterSphere._weight = 0;
         }
 
-        GearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
+        UIManager.instance.gearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
         BoatController.instance.boat.engines[0].runningSource.volume = Mathf.Lerp(BoatController.instance.boat.engines[0].runningSource.volume, Mathf.Abs(BoatController.instance.boat.input.Throttle), Time.deltaTime);
         BoatController.instance.boat.engines[1].runningSource.volume = Mathf.Lerp(BoatController.instance.boat.engines[1].runningSource.volume, Mathf.Abs(BoatController.instance.boat.input.Throttle2), Time.deltaTime);
 

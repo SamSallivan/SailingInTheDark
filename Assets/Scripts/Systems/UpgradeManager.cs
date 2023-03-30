@@ -33,7 +33,6 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        materialCount = 1000;
         upgradeUI.SetActive(false);
         UpdateTexts();
     }
@@ -106,12 +105,6 @@ public class UpgradeManager : MonoBehaviour
             }
 
         }
-    }
-
-    public void AddMaterial(int x)
-    {
-        materialCount += x;
-        UpdateTexts();
     }
 
     public void LoseMaterial(int materialCost)
