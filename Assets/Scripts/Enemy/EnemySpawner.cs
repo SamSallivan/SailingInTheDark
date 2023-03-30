@@ -24,10 +24,23 @@ public class EnemySpawner : MonoBehaviour
     [ReadOnly]
     public float spawnTimer;
 
+    private List<GameObject> enemiesList;
+
     private void Start()
     {
+        enemiesList = new List<GameObject>();
+
         curSpawnInterval = minSpawnInterval;
         spawnTimer = curSpawnInterval;
+    }
+
+    private void Update()
+    {
+        //TODO: REMOVE, ONLY FOR TESTING
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            KillAllCreatures();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -82,6 +95,8 @@ public class EnemySpawner : MonoBehaviour
             creatureCount++;
             //add time to the spawn interval
             curSpawnInterval = curSpawnInterval >= maxSpawnInterval ? maxSpawnInterval : curSpawnInterval + 5f;
+
+            enemiesList.Add(enemy);
         }
     }
 
@@ -105,5 +120,14 @@ public class EnemySpawner : MonoBehaviour
     public void CreatureDied()
     {
         creatureCount--;
+    }
+
+    public void KillAllCreatures()
+    {
+        foreach (GameObject enemy in enemiesList)
+        {
+            Destroy(enemy);
+        }
+        creatureCount = 0;
     }
 }
