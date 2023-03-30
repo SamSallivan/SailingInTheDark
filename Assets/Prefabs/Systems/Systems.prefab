@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1233691827275598890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3628067173544425236}
+  - component: {fileID: 8274578421230510918}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3628067173544425236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233691827275598890}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4519212121968580331}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8274578421230510918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233691827275598890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e0a1a05ee57e6343b846bf06e014098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4519212121362643582
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,16 +138,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayUI: {fileID: 0}
+  generalTips: {fileID: 0}
+  objectiveUI: {fileID: 0}
   interactionName: {fileID: 0}
   interactionPrompt: {fileID: 0}
+  interactionPromptAnimation: {fileID: 0}
   radioSubtitleUI: {fileID: 0}
   dialogueSubtitleUI: {fileID: 0}
-  interactionPromptAnimation: {fileID: 0}
-  generalTips: {fileID: 0}
   helmTips: {fileID: 0}
+  mapUI: {fileID: 0}
+  gearText: {fileID: 0}
   anchorText: {fileID: 0}
   thrusterText: {fileID: 0}
-  objectiveUI: {fileID: 0}
+  anchorImage: {fileID: 0}
+  mistUI: {fileID: 0}
+  mistSlider: {fileID: 0}
   inventoryUI: {fileID: 0}
   inventoryItemGrid: {fileID: 0}
   inventoryBackGrid: {fileID: 0}
@@ -115,7 +164,11 @@ MonoBehaviour:
   examineUI: {fileID: 0}
   examineText: {fileID: 0}
   examineImage: {fileID: 0}
+  upgradeUI: {fileID: 0}
+  materialCount: {fileID: 0}
+  upgradeSlots: []
   gameOverUI: {fileID: 0}
+  deathText: {fileID: 0}
 --- !u!114 &4519212121523986315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +607,7 @@ Transform:
   - {fileID: 4519212122645429395}
   - {fileID: 4519212121664817777}
   - {fileID: 4519212122578093370}
+  - {fileID: 3628067173544425236}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1072,6 +1126,7 @@ MonoBehaviour:
     slot: {fileID: 0}
   initialObjective:
   - {fileID: 792329289875693377, guid: 088135c30592b6c4b9f18cb803acd7f6, type: 3}
+  alive: 1
 --- !u!1 &4519212122453631509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1452,6 @@ MonoBehaviour:
   fuelTankLevel: 0
   upgradeUnlocked: 0000000000
   boatController: {fileID: 0}
-  helm: {fileID: 0}
 --- !u!1 &4519212122645429393
 GameObject:
   m_ObjectHideFlags: 0
