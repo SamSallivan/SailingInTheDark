@@ -17,7 +17,7 @@ MonoBehaviour:
   renderPassEvent: 500
   cameraLayerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
   ignoreReflectionProbes: 0
 --- !u!114 &-7032881214472265311
 MonoBehaviour:

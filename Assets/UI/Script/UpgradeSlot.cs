@@ -4,13 +4,80 @@ using UnityEngine;
 using MyBox;
 using TMPro;
 using UnityEngine.UI;
+using static UpgradeData;
 
 public class UpgradeSlot : MonoBehaviour
 {
-    public TMP_Text nameText;
-    public TMP_Text costText;
-    public Slider progress;
+    public UpgradeOption upgradeOption;
 
-    public int currentLevel;
-    public int maxLevel;
+    public TMP_Text nameText;
+    public TMP_Text descriptionText;
+    public TMP_Text levelText;
+    public List<TMP_Text> costText = new List<TMP_Text>();
+    //public Slider progress;
+
+    public void Upgrade()
+    {
+        UpgradeManager.instance.Upgrade(upgradeOption);
+    }
+
+    public void UpdateSlot()
+    {
+        nameText.text = upgradeOption.upgradeData.name;
+        descriptionText.text = upgradeOption.upgradeData.description;
+
+        if (upgradeOption.upgradeData.type == UpgradeType.ItemTrade)
+        {
+            int stock = upgradeOption.upgradeData.maxLevel - upgradeOption.currentLevel;
+            levelText.text = "Stock " + stock;
+        }
+        else
+        {
+            levelText.text = "Level " + upgradeOption.currentLevel + " / " + upgradeOption.upgradeData.maxLevel;
+        }
+
+        costText[1].gameObject.SetActive(false);
+        costText[2].gameObject.SetActive(false);
+        if (upgradeOption.currentLevel == upgradeOption.upgradeData.maxLevel)
+        {
+
+            if (upgradeOption.upgradeData.maxLevel == 1)
+            {
+                costText[0].text = "Unlocked";
+            }
+            else
+            {
+
+                if (upgradeOption.upgradeData.type == UpgradeType.ItemTrade)
+                {
+                    costText[0].text = "Sold Out";
+                }
+                else
+                {
+                    costText[0].text = "Maxed Out";
+                }
+            }
+        }
+        else
+        {
+            int i = 0;
+            foreach (MaterialRequired requiredMaterial in upgradeOption.upgradeData.costs[upgradeOption.currentLevel-1].requiredMaterials)
+            {
+
+                int materialCount = UpgradeManager.instance.CountMaterials(requiredMaterial.itemData);
+                if (materialCount >= requiredMaterial.amount)
+                {
+                    costText[i].color = Color.green;
+                }
+                else
+                {
+                    costText[i].color = Color.red;
+                }
+
+                costText[i].gameObject.SetActive(true);
+                costText[i].text = requiredMaterial.itemData.name + " X " + requiredMaterial.amount + " / " + materialCount;
+                i++;
+            }
+        }
+    }
 }

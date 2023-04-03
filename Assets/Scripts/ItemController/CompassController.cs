@@ -52,8 +52,8 @@ public class CompassController : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.Mouse1))
                     {
-                        transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(3).position, Time.fixedDeltaTime * 5);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(3).rotation, Time.fixedDeltaTime * 5);
+                        transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(4).position, Time.fixedDeltaTime * 5);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(4).rotation, Time.fixedDeltaTime * 5);
                     }
                     else
                     {

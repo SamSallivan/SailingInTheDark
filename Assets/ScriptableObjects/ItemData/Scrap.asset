@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   title: Scrap
-  sprite: {fileID: 21300000, guid: 5913cad140d516946854880b8d8a4a0e, type: 3}
+  sprite: {fileID: 21300000, guid: 2269bcdf8ecb5eb438080200c32107be, type: 3}
   description: 'Scrap,
 
     Can be used to upgrade boat.'

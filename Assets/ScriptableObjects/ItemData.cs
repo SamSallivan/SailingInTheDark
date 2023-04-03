@@ -77,3 +77,18 @@ public struct ItemStatus
         this.durability = durability;
     }
 }
+
+[System.Serializable]
+public class InventoryItem
+{
+    public ItemData data;
+    public ItemStatus status;
+    public InventorySlot slot;
+
+    public InventoryItem(ItemData data, ItemStatus status, InventorySlot slot)
+    {
+        this.data = data;
+        this.status = status;
+        this.slot = slot;
+    }
+}

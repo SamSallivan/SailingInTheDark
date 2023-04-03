@@ -13,7 +13,7 @@ public class I_OnBoard : Interactable
 
     public override IEnumerator InteractionEvent()
     {
-        if (!boarding)
+        if (!boarding && !PlayerController.instance.isNonPhysics)
         {
             boarding = true;
             boardingTimer = 0.75f;

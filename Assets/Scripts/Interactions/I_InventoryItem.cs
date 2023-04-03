@@ -23,20 +23,24 @@ public class I_InventoryItem : Interactable
         if(itemData != null)
         {
             InventoryItem newItem = InventoryManager.instance.AddItem(itemData, itemStatus);
-            Destroy(transform.gameObject);
-            
-            if (equipOnPickUp && itemData.isEquippable)
+            if (newItem != null)
             {
-                InventoryManager.instance.EquipItem(newItem);
-            }
+                Destroy(transform.gameObject);
 
-            if (openInventoryOnPickUp)
-            {
-                InventoryManager.instance.OpenInventory();
-                InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
-            }
+                if (equipOnPickUp && itemData.isEquippable)
+                {
+                    InventoryManager.instance.EquipItem(newItem);
+                }
 
-            UnTarget();
+                if (openInventoryOnPickUp)
+                {
+                    InventoryManager.instance.OpenInventory();
+                    InventoryManager.instance.selectedPosition =
+                        InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
+                }
+
+                UnTarget();
+            }
         }
         yield return null; 
     }

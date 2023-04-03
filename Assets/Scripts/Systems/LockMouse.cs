@@ -18,7 +18,7 @@ public class LockMouse : MonoBehaviour
         && !UIManager.instance.inventoryUI.activeInHierarchy 
         && !UIManager.instance.examineUI.activeInHierarchy 
         && !UIManager.instance.gameOverUI.activeInHierarchy 
-        && !UpgradeManager.instance.upgradeUI.activeSelf)
+        && !UIManager.instance.upgradeUI.activeSelf)
     	{
     		LockCursor(true);
     	}

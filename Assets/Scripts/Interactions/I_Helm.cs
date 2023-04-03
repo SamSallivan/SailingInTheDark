@@ -44,6 +44,7 @@ public class I_Helm : Interactable
     [Header("Enter & Exit")]
     [ReadOnly]
     public bool inControl;
+    [ReadOnly]
     public bool topView;
     private float enterTimer;
     public Transform playerPos;
@@ -60,6 +61,12 @@ public class I_Helm : Interactable
         if (!activated && !inControl)
         {
             activated = true;
+            Target();
+        }
+
+        if (activated && inControl)
+        {
+            activated = false;
             Target();
         }
         yield return null;
@@ -100,31 +107,11 @@ public class I_Helm : Interactable
             {
                 if (!topView)
                 {
-                    //enter top view!!
-                    topView = true;
-                    //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset2);
-                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(false);
-                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(true);
-
-                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
-                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
-
-                    //PlayerController.instance.transform.localRotation = Quaternion.identity;
-                    //PlayerController.instance.GetComponent<MouseLook>().Reset();
+                    EnterTopView();
                 }
                 else
                 {
-                    //exit top view!!
-                    topView = false;
-                    //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
-                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
-                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
-
-                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
-                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
-
-                    PlayerController.instance.transform.localRotation = Quaternion.identity;
-                    PlayerController.instance.GetComponent<MouseLook>().Reset();
+                    ExitTopView();
                 }
 
             }
@@ -132,15 +119,45 @@ public class I_Helm : Interactable
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
             {
                 activated = false;
-                InventoryManager.instance.inputDelay = 0;
-                PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
-                PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
+                ExitTopView();
             }
 
         }
     }
 
-    void FixedUpdate()
+    public void EnterTopView()
+    {
+        //enter top view!!
+        topView = true;
+        //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset2);
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(false);
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(true);
+
+        PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
+        PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
+        //PlayerController.instance.transform.localRotation = Quaternion.identity;
+        //PlayerController.instance.GetComponent<MouseLook>().Reset();
+        PlayerController.instance.enableInteraction = false;
+    }
+
+    public void ExitTopView()
+    {
+
+        //exit top view!!
+        topView = false;
+        //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
+
+        PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+        PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+
+        PlayerController.instance.transform.localRotation = Quaternion.identity;
+        PlayerController.instance.GetComponent<MouseLook>().Reset();
+        PlayerController.instance.enableInteraction = true;
+    }
+
+    public void FixedUpdate()
     {
         if (activated && !inControl)
         {
@@ -370,8 +387,11 @@ public class I_Helm : Interactable
 
         if (activated)
         {
-            UIManager.instance.interactionName.text = "";
-            UIManager.instance.interactionPrompt.text = "";
+            //UIManager.instance.interactionName.text = "";
+            //UIManager.instance.interactionPrompt.text = "";
+            UIManager.instance.interactionName.text = textName;
+            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text += activated ? textPromptActivated : textPrompt;
         }
         else if (!activated)
         {

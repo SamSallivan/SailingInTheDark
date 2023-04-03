@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public Transform equippedTransformRight;
 
+    public Transform equippedTransformCenter;
+
     public Rigidbody rb;
 
     public CapsuleCollider playerCollider;
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     private Vector3 inputDir;
 
     [Foldout("Dynamic Movements", true)]
+
+    public float dynamicSpeed = 1f;
 
     public Vector3 vel;
 
@@ -95,8 +99,6 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public bool enableJump = true;
 
-    public float dynamicSpeed = 1f;
-
     public Vector3 jumpForce = new Vector3(0f, 15f, 0f);
 
     public float gTimer;
@@ -127,6 +129,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     [Foldout("Interaction", true)]
     [ReadOnly]
+    public bool enableInteraction = true;
     public Interactable targetInteractable;
     public Interactable exclusiveInteractable;
     public float interactDistance = 5;
@@ -497,7 +500,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         BobUpdate();
         headPosition.PositionUpdate();
 
-		if(UIManager.instance.gameplayUI.activeInHierarchy){
+		if(UIManager.instance.gameplayUI.activeInHierarchy && enableInteraction)
+        {
             HandleInteractableCheck();
 		    HandleInteraction();
         }

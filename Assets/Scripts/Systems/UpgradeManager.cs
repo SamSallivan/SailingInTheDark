@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static UpgradeData;
+using MyBox.Internal;
 
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager instance;
+    public bool activated;
+    public UpgradeSlot slotPrefab;
 
-    public GameObject upgradeUI;
+    public List<UpgradeOption> upgradeOptionList = new List<UpgradeOption>();
+    public int selectedIndex;
+    public UpgradeOption selectedOption;
 
     public ItemData materialItem;
     public int materialCount;
     public TMP_Text materialText;
 
-    public Slider[] sliderForCosts = new Slider[5];
+    //public Slider[] sliderForCosts = new Slider[5];
     public TMP_Text[] textForCosts = new TMP_Text[5];
     public int[] maxCosts = new int[5];
 
-    [HideInInspector] public int fuelTankLevel = 0;
     [HideInInspector] TMP_Text fuelTankLabel;
     public bool[] upgradeUnlocked = new bool[5];
 
@@ -28,95 +33,132 @@ public class UpgradeManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        fuelTankLabel = UpgradeManager.instance.textForCosts[0].transform.parent.GetChild(0).GetComponent<TMP_Text>();
     }
 
     private void Start()
     {
-        upgradeUI.SetActive(false);
-        UpdateTexts();
+        //PopulateSlots(new List<UpgradeOption>());
     }
 
-    void UpdateTexts()
+    public void OpenMenu(List<UpgradeOption> list)
     {
-        int tempMaterialCount = 0;
-        foreach(InventoryItem item in InventoryManager.instance.inventoryItemList)
+        upgradeOptionList = list;
+        UIManager.instance.upgradeUI.SetActive(true);
+        UIManager.instance.gameplayUI.SetActive(false);
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
+        PlayerController.instance.LockMovement(true);
+        PlayerController.instance.LockCamera(true);
+        PopulateSlots();
+    }
+
+    public void CloseMenu()
+    {
+        UIManager.instance.upgradeUI.SetActive(false);
+        UIManager.instance.gameplayUI.SetActive(true);
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
+        PlayerController.instance.LockMovement(false);
+        PlayerController.instance.LockCamera(false);
+    }
+
+    public void PopulateSlots()
+    {
+        foreach (Transform slot in UIManager.instance.UpgradeOptionList.transform)
         {
-            if (item.data == materialItem)
+            Destroy(slot.gameObject);
+        }
+        foreach (UpgradeOption option in upgradeOptionList)
+        {
+            UpgradeSlot newSlot = Instantiate(slotPrefab, UIManager.instance.UpgradeOptionList.transform);
+            newSlot.upgradeOption = option;
+            newSlot.UpdateSlot();
+        }
+    }
+
+    public int CountMaterials(ItemData itemData)
+    {
+        //Counts material
+        int tempMaterialCount = 0;
+        foreach (InventoryItem item in InventoryManager.instance.inventoryItemList)
+        {
+            if (item.data == itemData)
             {
                 tempMaterialCount += item.status.amount;
             }
         }
         materialCount = tempMaterialCount;
-
-
-        materialText.text = $"{materialCount} Material";
-        fuelTankLabel.text = $"Fuel Tank LV{fuelTankLevel + 1}";
-
-        for (int i = 0; i<5; i++)
-        {
-            if (upgradeUnlocked[i])
-            {
-                //sliderForCosts[i].value = 1;
-                switch (i)
-                {
-                    case 0:
-                        textForCosts[i].text = $"Maxed Out!";
-                        break;
-                    case 1:
-                        textForCosts[i].text = $"Unlocked!";
-                        break;
-                    case 2:
-                        textForCosts[i].text = $"Unlocked!";
-                        break;
-                    case 3:
-                        textForCosts[i].text = $"Unlocked!";
-                        break;
-                    case 4:
-                        textForCosts[i].text = $"Unlocked!";
-                        break;
-                }
-            }
-            else
-            {
-                textForCosts[i].text = $"{maxCosts[i]} Material";
-                //sliderForCosts[i].value = (float)materialCount / maxCosts[i];
-            }
-        }
+        return tempMaterialCount;
     }
 
-    private void Update()
+    public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            UpdateTexts();
-            upgradeUI.SetActive(!upgradeUI.activeSelf);
-            UIManager.instance.GetComponent<LockMouse>().LockCursor(!upgradeUI.activeSelf);
-
-            if (upgradeUI.activeInHierarchy)
-            {
-                PlayerController.instance.LockMovement(true);
-                PlayerController.instance.LockCamera(true);
-            }
-            else
-            {
-                PlayerController.instance.LockMovement(false);
-                PlayerController.instance.LockCamera(false);
-            }
-
-        }
     }
 
-    public void LoseMaterial(int materialCost)
+    public void Upgrade(UpgradeOption option)
+    {
+        foreach (MaterialRequired requiredMaterial in option.upgradeData.costs[option.currentLevel - 1].requiredMaterials)
+        {
+            int materialCount = CountMaterials(requiredMaterial.itemData);
+            if (materialCount < requiredMaterial.amount)
+            {
+                return;
+            }
+        }
+
+        if (option.currentLevel >= option.upgradeData.maxLevel)
+        {
+            return;
+        }
+
+        foreach (MaterialRequired requiredMaterial in option.upgradeData.costs[option.currentLevel - 1].requiredMaterials)
+        {
+            CostMaterial(requiredMaterial.itemData, requiredMaterial.amount);
+        }
+
+        switch(option.upgradeData.type)
+        {
+            case UpgradeType.FuelCapacity:
+                //boatController.maxWattHour = 100 + (25 * option.currentLevel);
+                BoatController.instance.maxWattHour += 25;
+                break;
+
+            case UpgradeType.ItemTrade:
+                InventoryManager.instance.AddItem(option.upgradeData.itemToTrade, new ItemStatus(option.upgradeData.itemAmount, 1));
+                break;
+
+            case UpgradeType.LightIntensity:
+                BoatController.instance.lightLeft.lightObject.GetComponent<Light>().intensity = 100;
+                BoatController.instance.lightRight.lightObject.GetComponent<Light>().intensity = 100;
+                break;
+
+            case UpgradeType.GearUnlock:
+                BoatController.instance.helm.currentMaxGear++;
+                break;
+
+            case UpgradeType.BoatArmor:
+                BoatController.instance.boatArmor += 0.5f;
+                break;
+
+        }
+        option.currentLevel++;
+        PopulateSlots();
+
+    }
+
+    public void CostMaterial(ItemData itemData, int materialCost)
     {
         //materialCount -= x;
         foreach (InventoryItem item in InventoryManager.instance.inventoryItemList)
         {
-            if (item.data == materialItem)
+            if (item.data == itemData)
             {
                 item.status.amount -= materialCost;
                 item.slot.amount.text = "" + item.status.amount;
-                UpdateTexts();
+
+                if (item.status.amount <= 0)
+                {
+                    InventoryManager.instance.inventoryItemList.Remove(item);
+                    Destroy(item.slot.gameObject);
+                }
                 break;
             }
         }
@@ -126,20 +168,16 @@ public class UpgradeManager : MonoBehaviour
     {
         if (!upgradeUnlocked[type] && materialCount > maxCosts[type])
         {
-            LoseMaterial(maxCosts[type]);
+            //CostMaterial(maxCosts[type]);
             upgradeUnlocked[type] = true;
 
             if (type == 0)
             {
-                fuelTankLevel++;
-                boatController.maxWattHour = 100 + (25 * fuelTankLevel);
+                boatController.maxWattHour = 100 + (25);// * fuelTankLevel);
                 //boatController.curWattHour += 0;
-
-                if (fuelTankLevel < 4)
-                {
-                    upgradeUnlocked[0] = false;
-                    maxCosts[0] += 20;
-                }
+                
+                upgradeUnlocked[0] = false;
+                maxCosts[0] += 20;
             }
 
             if (type == 2)
@@ -158,7 +196,7 @@ public class UpgradeManager : MonoBehaviour
                 boatController.helm.currentMaxGear += 1;
             }
 
-            UpdateTexts();
+            PopulateSlots();
         }
         else
             Debug.Log("can't upgrade");

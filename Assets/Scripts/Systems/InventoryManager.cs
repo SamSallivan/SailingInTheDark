@@ -3,23 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEditor.Rendering;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
-
-[System.Serializable]
-public class InventoryItem
-{
-    public ItemData data;
-    public ItemStatus status;
-    public InventorySlot slot;
-
-    public InventoryItem(ItemData data, ItemStatus status, InventorySlot slot)
-    {
-        this.data = data;
-        this.status = status;
-        this.slot = slot;
-    }
-}
 
 public class InventoryManager : MonoBehaviour
 {
@@ -35,6 +21,7 @@ public class InventoryManager : MonoBehaviour
     public InventoryItem equippedItem = null;
     public InventoryItem equippedItemLeft = null;
     public InventoryItem equippedItemRight = null;
+    public InventoryItem equippedItemCenter = null;
 
     public int slotPerRow = 8;
     public int slotPerColumn = 4;
@@ -46,7 +33,6 @@ public class InventoryManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        equippedItem = null;
     }
 
     // Update is called once per frame
@@ -91,10 +77,10 @@ public class InventoryManager : MonoBehaviour
                         EquipItem(selectedItem);
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.Q) && selectedItem != null && inputDelay >= 0.1f)
+                /*if (Input.GetKeyDown(KeyCode.Q) && selectedItem != null && inputDelay >= 0.1f)
                 {
                     DropItem(selectedItem);
-                }
+                }*/
             }
             else
             {
@@ -107,19 +93,9 @@ public class InventoryManager : MonoBehaviour
                 UIManager.instance.detailDescription.text = "";
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
             {
                 CloseInventory();
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Q) && equippedItem != null && inputDelay >= 0.1f)
-            {
-                if (!BoatController.instance.helm.activated)
-                {
-                    DropItem(equippedItem);
-                }
             }
         }
 
@@ -139,14 +115,12 @@ public class InventoryManager : MonoBehaviour
 
         UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
 
-        if (equippedItem != null && equippedItem.data != null)
+        selectedPosition = 0;
+
+        /*if (equippedItem != null && equippedItem.data != null)
         {
             selectedPosition = GetGridPosition(equippedItem.slot.GetIndex());
-        }
-        else
-        {
-            selectedPosition = 0;
-        }
+        }*/
 
         //play the fade in effect
         //UIManager.instance.inventoryAnimation.Play("Basic Fade-in");
@@ -205,15 +179,16 @@ public class InventoryManager : MonoBehaviour
     public InventoryItem AddItem(ItemData itemData, ItemStatus itemStatus)
     {
         //if exists in inventory and stackable
-            //if max amount not reached
-                //inventoryitemlist[i].itemstatus.amount++
-            //else
-        
-        foreach(InventoryItem item in inventoryItemList)
+        //if max amount not reached
+        //inventoryitemlist[i].itemstatus.amount++
+        //else
+
+        int temp = itemStatus.amount;
+
+        foreach (InventoryItem item in inventoryItemList)
         {
             if (item.data == itemData && item.data.isStackable)
             {
-                int temp = itemStatus.amount;
                 while(item.status.amount < item.data.maxStackAmount && temp > 0)
                 {
                     item.status.amount++;
@@ -224,22 +199,29 @@ public class InventoryManager : MonoBehaviour
                 if (temp <= 0){
                     return item;
                 }
-                else if (temp > 0){
-                    
-                    InventorySlot newSlot1 = Instantiate(slotPrefab, UIManager.instance.inventoryItemGrid.transform);
-                    InventoryItem newItem1 = new InventoryItem(itemData, new ItemStatus(temp, 1), newSlot1);
-                    inventoryItemList.Add(newItem1);
-                    newSlot1.inventoryItem = newItem1;
-                    newSlot1.image.sprite = itemData.sprite;
-                    newSlot1.name.text = itemData.name;
-                    newSlot1.amount.text = $"{itemStatus.amount}";
-
-                    return newItem1;
-                }
             }
         }
 
-        InventorySlot newSlot = Instantiate(slotPrefab, UIManager.instance.inventoryItemGrid.transform);
+        if (temp > 0)
+        {
+            InventorySlot newSlot1 = Instantiate(slotPrefab, UIManager.instance.inventoryItemGrid.transform);
+            InventoryItem newItem1 = new InventoryItem(itemData, new ItemStatus(temp, 1), newSlot1);
+            inventoryItemList.Add(newItem1);
+            newSlot1.inventoryItem = newItem1;
+            newSlot1.image.sprite = itemData.sprite;
+            newSlot1.name.text = itemData.name;
+            newSlot1.amount.text = $"{temp}";
+
+            if (inventoryItemList.Count > slotPerRow * slotPerColumn)
+            {
+                DropItem(newItem1);
+                return null;
+            }
+            return newItem1;
+        }
+        return null;
+
+        /*InventorySlot newSlot = Instantiate(slotPrefab, UIManager.instance.inventoryItemGrid.transform);
         InventoryItem newItem = new InventoryItem(itemData, itemStatus, newSlot);
         inventoryItemList.Add(newItem);
         newSlot.inventoryItem = newItem;
@@ -247,7 +229,13 @@ public class InventoryManager : MonoBehaviour
         newSlot.name.text = itemData.name;
         newSlot.amount.text = $"{itemStatus.amount}";
 
-        return newItem;
+        if (inventoryItemList.Count > slotPerRow * slotPerColumn)
+        {
+            DropItem(newItem);
+            return null;
+        }
+        return newItem;*/
+
     }
 
     public void RemoveItem(InventoryItem inventoryItem)
@@ -334,6 +322,10 @@ public class InventoryManager : MonoBehaviour
             {
                 UnequipItem(inventoryItem.data.equipType);
             }
+            else if (equippedItemCenter == inventoryItem)
+            {
+                UnequipItem(inventoryItem.data.equipType);
+            }
         }
 
         //loop through items and organize inventory.
@@ -344,7 +336,7 @@ public class InventoryManager : MonoBehaviour
     {
 
 
-        if (equippedItemLeft == item || equippedItemRight == item)
+        if (equippedItemLeft == item || equippedItemRight == item || equippedItemCenter == item)
         {
             UnequipItem(item.data.equipType);
         }
@@ -368,11 +360,10 @@ public class InventoryManager : MonoBehaviour
                     break;
 
                 case ItemData.EquipType.Both:
-                    equippedItemLeft = item;
-                    equippedItemRight = item;
-                    equippedItemLeft.slot.leftHandIcon.enabled = true;
-                    equippedItemRight.slot.rightHandIcon.enabled = true;
-                    equipPivot = PlayerController.instance.equippedTransformRight;
+                    equippedItemCenter = item;
+                    equippedItemCenter.slot.leftHandIcon.enabled = true;
+                    equippedItemCenter.slot.rightHandIcon.enabled = true;
+                    equipPivot = PlayerController.instance.equippedTransformCenter;
                     break;
 
                 default:
@@ -384,7 +375,7 @@ public class InventoryManager : MonoBehaviour
             newObject.name = item.data.dropObject.name + " Equipped";
             //newObject.transform.localPosition = new Vector3(0, 0, 0);
             newObject.transform.localPosition = item.data.equipPosition;
-            // newObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            //newObject.transform.localRotation = item.data.equipRotation;
 
             //Destroy(newObject.transform.GetChild(0).gameObject);
             //newObject.transform.GetComponentInChildren<Interactable>().enabled = false;
@@ -392,7 +383,8 @@ public class InventoryManager : MonoBehaviour
             {
                 Destroy(collider);
             }
-            Destroy(newObject.GetComponent<Rigidbody>());
+            //Destroy(newObject.GetComponent<Rigidbody>());
+            newObject.GetComponent<Rigidbody>().isKinematic = true;
         }
 
         if (PlayerController.instance.targetInteractable != null)
@@ -406,39 +398,87 @@ public class InventoryManager : MonoBehaviour
         switch (type)
         {
             case ItemData.EquipType.Left:
-                if(equippedItemLeft != null && equippedItemLeft.slot != null)
+
+                if (equippedItemLeft != null && equippedItemLeft.slot != null)
+                {
                     equippedItemLeft.slot.leftHandIcon.enabled = false;
+                    if (PlayerController.instance.equippedTransformLeft.childCount > 0)
+                    {
+                        Destroy(PlayerController.instance.equippedTransformLeft.GetChild(0).gameObject);
+                    }
+                }
                 equippedItemLeft = null;
 
-                if (PlayerController.instance.equippedTransformLeft.childCount > 0)
+                if (equippedItemCenter != null && equippedItemCenter.slot != null)
                 {
-                    Destroy(PlayerController.instance.equippedTransformLeft.GetChild(0).gameObject);
+                    equippedItemCenter.slot.leftHandIcon.enabled = false;
+                    equippedItemCenter.slot.rightHandIcon.enabled = false;
+                    Debug.Log("1");
+                    if (PlayerController.instance.equippedTransformCenter.childCount > 0)
+                    {
+                        Debug.Log("2");
+                        Destroy(PlayerController.instance.equippedTransformCenter.GetChild(0).gameObject);
+                    }
                 }
+                equippedItemCenter = null;
                 break;
 
             case ItemData.EquipType.Right:
+
                 if (equippedItemRight != null && equippedItemRight.slot != null)
+                {
                     equippedItemRight.slot.rightHandIcon.enabled = false;
+                    if (PlayerController.instance.equippedTransformRight.childCount > 0)
+                    {
+                        Destroy(PlayerController.instance.equippedTransformRight.GetChild(0).gameObject);
+                    }
+                }
                 equippedItemRight = null;
 
-                if (PlayerController.instance.equippedTransformRight.childCount > 0)
+                if (equippedItemCenter != null && equippedItemCenter.slot != null)
                 {
-                    Destroy(PlayerController.instance.equippedTransformRight.GetChild(0).gameObject);
+                    equippedItemCenter.slot.leftHandIcon.enabled = false;
+                    equippedItemCenter.slot.rightHandIcon.enabled = false;
+                    if (PlayerController.instance.equippedTransformCenter.childCount > 0)
+                    {
+                        Destroy(PlayerController.instance.equippedTransformCenter.GetChild(0).gameObject);
+                    }
                 }
+                equippedItemCenter = null;
                 break;
 
             case ItemData.EquipType.Both:
+
                 if (equippedItemLeft != null && equippedItemLeft.slot != null)
+                {
                     equippedItemLeft.slot.leftHandIcon.enabled = false;
-                if (equippedItemRight != null && equippedItemRight.slot != null)
-                    equippedItemRight.slot.rightHandIcon.enabled = false;
+                    if (PlayerController.instance.equippedTransformLeft.childCount > 0)
+                    {
+                        Destroy(PlayerController.instance.equippedTransformLeft.GetChild(0).gameObject);
+                    }
+                }
                 equippedItemLeft = null;
+
+                if (equippedItemRight != null && equippedItemRight.slot != null)
+                {
+                    equippedItemRight.slot.rightHandIcon.enabled = false;
+                    if (PlayerController.instance.equippedTransformRight.childCount > 0)
+                    {
+                        Destroy(PlayerController.instance.equippedTransformRight.GetChild(0).gameObject);
+                    }
+                }
                 equippedItemRight = null;
 
-                if (PlayerController.instance.equippedTransformRight.childCount > 0)
+                if (equippedItemCenter != null && equippedItemCenter.slot != null)
                 {
-                    Destroy(PlayerController.instance.equippedTransformRight.GetChild(0).gameObject);
+                    equippedItemCenter.slot.leftHandIcon.enabled = false;
+                    equippedItemCenter.slot.rightHandIcon.enabled = false;
+                    if (PlayerController.instance.equippedTransformCenter.childCount > 0)
+                    {
+                        Destroy(PlayerController.instance.equippedTransformCenter.GetChild(0).gameObject);
+                    }
                 }
+                equippedItemCenter = null;
                 break;
         }
     }

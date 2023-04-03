@@ -17,29 +17,33 @@ public class UIManager : MonoBehaviour
     public GameObject gameplayUI;
     public GameObject generalTips;
 
-    [Header("Objective")]
-    public GameObject objectiveUI;
+        [Header("Objective")]
+        public GameObject objectiveUI;
 
-    [Header("Interaction")]
-    public TMP_Text interactionName;
-    public TMP_Text interactionPrompt;
-    public Animation interactionPromptAnimation;
+        [Header("Interaction")]
+        public TMP_Text interactionName;
+        public TMP_Text interactionPrompt;
+        public Animation interactionPromptAnimation;
 
-    [Header("Subtitle")]
-    public TMP_Text radioSubtitleUI;
-    public TMP_Text dialogueSubtitleUI;
+        [Header("Subtitle")]
+        public TMP_Text radioSubtitleUI;
+        public TMP_Text dialogueSubtitleUI;
 
-    [Header("Helm")]
-    public GameObject helmTips;
-    public GameObject mapUI;
-    public TMP_Text gearText;
-    public TMP_Text anchorText;
-    public TMP_Text thrusterText;
-    public GameObject anchorImage;
+        [Header("Helm")]
+        public GameObject helmTips;
+        public GameObject mapUI;
+        public TMP_Text gearText;
+        public TMP_Text anchorText;
+        public TMP_Text thrusterText;
+        public GameObject anchorImage;
 
-    [Header("Mist")]
-    public GameObject mistUI;
-    public Slider mistSlider;
+        [Header("Mist")]
+        public GameObject mistUI;
+        public Slider mistSlider;
+
+        [Header("Fishing")]
+        public GameObject fishingUI;
+        public Slider reelSlider;
 
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;
@@ -52,15 +56,15 @@ public class UIManager : MonoBehaviour
     public Transform detailObjectPivot;
     public bool detailObjectInBound;
 
+    [Foldout("Upgrade", true)]
+    public GameObject upgradeUI;
+    public TMP_Text upgradeTitle;
+    public GameObject UpgradeOptionList;
+
     [Foldout("Examine", true)]
     public GameObject examineUI;
     public TMP_Text examineText;
     public Image examineImage;
-
-    [Foldout("Upgrade", true)]
-    public GameObject upgradeUI;
-    public TMP_Text materialCount;
-    public List<UpgradeSlot> upgradeSlots;
 
     [Foldout("Game Over", true)]
     public GameObject gameOverUI;
