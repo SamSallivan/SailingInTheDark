@@ -15,7 +15,10 @@ public class FishingRodController : MonoBehaviour
     public float reelCharger;
 
     public List<ItemData> fishList = new List<ItemData>();
-    public float averageWaitSeconds = 5;
+    //public float averageWaitSeconds = 5;
+    public Vector2 WaitInterval = new Vector2(2.5f, 5);
+    public float waitTimeFrame = 0;
+    public float waitTimer = 0;
     public float reactTimeFrame = 1;
     public float reactTimer = 0;
     public bool reacted = false;
@@ -62,13 +65,14 @@ public class FishingRodController : MonoBehaviour
             {
                 if (fishHooked == null)
                 {
+                    waitTimer += Time.fixedDeltaTime;
                     UIManager.instance.fishingUI.SetActive(false);
 
                     if (Input.GetKeyDown(key))
                     {
                         Reel();
                     }
-                    else if (Random.Range(0, averageWaitSeconds / Time.fixedDeltaTime) < 1)
+                    else if (waitTimer >= waitTimeFrame) //if (Random.Range(0, averageWaitSeconds / Time.fixedDeltaTime) < 1)
                     {
                         fishHooked = fishList[Random.Range(0, fishList.Count)];
                     }
@@ -96,6 +100,8 @@ public class FishingRodController : MonoBehaviour
                             fishHooked = null;
                             reactTimer = 0;
                             reacted = false;
+                            waitTimer = 0;
+                            waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
                         }
                     }
                     else if (reacted)
@@ -123,6 +129,8 @@ public class FishingRodController : MonoBehaviour
                                 reactTimer = 0;
                                 reacted = false;
                                 reelTimer = 0;
+                                waitTimer = 0;
+                                waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
 
                             }
                         }
@@ -132,11 +140,10 @@ public class FishingRodController : MonoBehaviour
                             InventoryItem newItem = InventoryManager.instance.AddItem(fishHooked, new ItemStatus(1, 1));
                             if (newItem != null)
                             {
-                                InventoryManager.instance.EquipItem(newItem);
-                                //InventoryManager.instance.OpenInventory();
-                                //InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
+                                //InventoryManager.instance.EquipItem(newItem);
+                                InventoryManager.instance.OpenInventory();
+                                InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
                             }
-
                             fishHooked = null;
                         }
                     }
@@ -166,6 +173,9 @@ public class FishingRodController : MonoBehaviour
 
         castCharger = 0;
         castCharging = false;
+        waitTimer = 0;
+
+        waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
     }
     public void Reel()
     {
@@ -173,7 +183,14 @@ public class FishingRodController : MonoBehaviour
         floatObject = null;
         LineRenderer line = GetComponent<LineRenderer>();
         line.positionCount = 0;
+        waitTimer = 0;
         reelCharger = 0;
+        reactTimer = 0;
+        reacted = false;
         UIManager.instance.fishingUI.SetActive(false);
+    }
+
+    public void OnDisable() {
+        Reel();
     }
 }

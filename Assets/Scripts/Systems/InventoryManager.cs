@@ -214,7 +214,8 @@ public class InventoryManager : MonoBehaviour
 
             if (inventoryItemList.Count > slotPerRow * slotPerColumn)
             {
-                DropItem(newItem1);
+                
+                DropItem(newItem1, itemStatus.amount);
                 return null;
             }
             return newItem1;
@@ -272,15 +273,16 @@ public class InventoryManager : MonoBehaviour
         //perhaps a separate functions for this?
     }
 
-    public void DropItem(InventoryItem inventoryItem)
+    public void DropItem(InventoryItem inventoryItem, int amount = 1)
     {
         if (inventoryItem.data.isStackable)
         {
-            if (inventoryItem.status.amount > 1)
+            if (inventoryItem.status.amount > amount)
             {
-                inventoryItem.status.amount--;
+                inventoryItem.status.amount -= amount;
                 inventoryItem.slot.amount.text = "" + inventoryItem.status.amount;
                 GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
+                droppdeObject.GetComponent<I_InventoryItem>().itemStatus.amount = amount;
 
             }
             else
@@ -288,12 +290,8 @@ public class InventoryManager : MonoBehaviour
                 inventoryItemList.Remove(inventoryItem);
                 Destroy(inventoryItem.slot.gameObject);
                 GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
-
-                if (equippedItemLeft == inventoryItem)
-                {
-                    UnequipItem(inventoryItem.data.equipType);
-                }
-                else if (equippedItemRight == inventoryItem)
+                droppdeObject.GetComponent<I_InventoryItem>().itemStatus.amount = amount;
+                if (equippedItemLeft == inventoryItem || equippedItemRight == inventoryItem || equippedItemCenter == inventoryItem)
                 {
                     UnequipItem(inventoryItem.data.equipType);
                 }
@@ -304,17 +302,9 @@ public class InventoryManager : MonoBehaviour
             inventoryItemList.Remove(inventoryItem);
             Destroy(inventoryItem.slot.gameObject);
             GameObject droppdeObject = Instantiate(inventoryItem.data.dropObject, PlayerController.instance.tHead.transform.position + PlayerController.instance.tHead.transform.forward, PlayerController.instance.tHead.transform.rotation);
-            droppdeObject.GetComponentInChildren<I_InventoryItem>().itemStatus = inventoryItem.status;
-
-            if (equippedItemLeft == inventoryItem)
-            {
-                UnequipItem(inventoryItem.data.equipType);
-            }
-            else if (equippedItemRight == inventoryItem)
-            {
-                UnequipItem(inventoryItem.data.equipType);
-            }
-            else if (equippedItemCenter == inventoryItem)
+            droppdeObject.GetComponentInChildren<I_InventoryItem>().itemStatus.durability = inventoryItem.status.durability;
+            droppdeObject.GetComponent<I_InventoryItem>().itemStatus.amount = amount;
+            if (equippedItemLeft == inventoryItem || equippedItemRight == inventoryItem || equippedItemCenter == inventoryItem)
             {
                 UnequipItem(inventoryItem.data.equipType);
             }
@@ -322,6 +312,43 @@ public class InventoryManager : MonoBehaviour
 
         //loop through items and organize inventory.
         //perhaps a separate functions for this?
+    }
+
+    public void DropItem(ItemData itemData, int amount)
+    {
+        //materialCount -= x;
+        
+        int temp = amount;
+
+        foreach (InventoryItem item in inventoryItemList)
+        {
+            if (item.data == itemData && item.data.isStackable)
+            {
+                while(item.status.amount > 0 && temp > 0)
+                {
+                    item.status.amount --;
+                    temp--;
+                    item.slot.amount.text = "" + item.status.amount;
+
+                    //remove from inventory if <= 0
+                }
+                
+                if (temp <= 0){
+                    return;
+                }
+
+                if (item.status.amount <= 0)
+                {
+                    inventoryItemList.Remove(item);
+                    Destroy(item.slot.gameObject);
+                    if (equippedItemLeft == item || equippedItemRight == item || equippedItemCenter == item)
+                    {
+                        UnequipItem(item.data.equipType);
+                    }
+                }
+                break;
+            }
+        }
     }
 
     public void EquipItem(InventoryItem item)

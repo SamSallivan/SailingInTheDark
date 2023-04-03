@@ -287,17 +287,20 @@ MonoBehaviour:
   CastPos: {fileID: 4326547868617401106}
   CastForce: {x: 25, y: 150}
   castCharger: 0
+  castCharging: 0
   reelCharger: 0
   fishList:
   - {fileID: 11400000, guid: 5629cf7c6ebf69c44812a7b8372a7ff0, type: 2}
-  averageWaitSeconds: 5
+  WaitInterval: {x: 2.5, y: 10}
+  waitTimeFrame: 0
+  waitTimer: 0
   reactTimeFrame: 2
   reactTimer: 0
   reacted: 0
   reelTimeFrame: 5
   reelTimer: 0
-  reelIncreaseCoefficient: 5
-  reelDecreaseCoefficient: 0.15
+  reelIncreaseCoefficient: 10
+  reelDecreaseCoefficient: 0.5
 --- !u!1 &8139099030559513869
 GameObject:
   m_ObjectHideFlags: 0
