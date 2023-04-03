@@ -46,6 +46,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     public CameraBob bob;
 
     public HeadPosition headPosition;
+
+	[SerializeField] private Cinemachine.CinemachineImpulseSource shakeSource;
+
     [Foldout("Inputs", true)]
 
     private float hTemp;
@@ -172,9 +175,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		bob = tHead.GetComponentInChildren<CameraBob>();
 		headPosition = tHead.GetComponentInChildren<HeadPosition>();
         waterObject = GetComponentInChildren<WaterObject>();
-        //mouseLook = tHead.GetComponentInChildren<MouseLook>();
+		//mouseLook = tHead.GetComponentInChildren<MouseLook>();
 
-        /*
+		/*
 		volume = FindObjectOfType<PostProcessVolume>();
 		volume.profile.TryGetSettings(out bloom);
 		volume.profile.TryGetSettings(out ca);
@@ -184,6 +187,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		poofVFX = Instantiate(poofVFX, Vector3.zero, Quaternion.identity);
 		slamVFX = Instantiate(slamVFX, Vector3.zero, Quaternion.identity);
 		*/
+
+		shakeSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
     }
 
     //Executes when taken damage from a source.
