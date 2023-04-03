@@ -11,6 +11,7 @@ public class FishingRodController : MonoBehaviour
     public Transform CastPos;
     public Vector2 CastForce = new Vector2(1, 5);
     public float castCharger;
+    public bool castCharging = false;
     public float reelCharger;
 
     public List<ItemData> fishList = new List<ItemData>();
@@ -42,12 +43,17 @@ public class FishingRodController : MonoBehaviour
 
             if (floatObject == null)
             {
-                if (Input.GetKey(key))
+                if (Input.GetKeyDown(key))
+                {
+                    castCharging = true;
+                }
+
+                if (castCharging && Input.GetKey(key))
                 {
                     castCharger = Mathf.MoveTowards(castCharger, 1, Time.fixedDeltaTime);
                 }
 
-                if (Input.GetKeyUp(key))
+                if (castCharging && Input.GetKeyUp(key))
                 {
                     Cast();
                 }
@@ -159,6 +165,7 @@ public class FishingRodController : MonoBehaviour
         line.SetPosition(1, floatObject.transform.position);
 
         castCharger = 0;
+        castCharging = false;
     }
     public void Reel()
     {

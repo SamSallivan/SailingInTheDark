@@ -252,11 +252,7 @@ public class InventoryManager : MonoBehaviour
             {
                 inventoryItemList.Remove(inventoryItem);
                 Destroy(inventoryItem.slot.gameObject);
-                if (equippedItemLeft == inventoryItem)
-                {
-                    UnequipItem(inventoryItem.data.equipType);
-                }
-                else if (equippedItemRight == inventoryItem)
+                if (equippedItemLeft == inventoryItem || equippedItemRight == inventoryItem || equippedItemCenter == inventoryItem)
                 {
                     UnequipItem(inventoryItem.data.equipType);
                 }
@@ -266,11 +262,7 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryItemList.Remove(inventoryItem);
             Destroy(inventoryItem.slot.gameObject);
-            if (equippedItemLeft == inventoryItem)
-            {
-                UnequipItem(inventoryItem.data.equipType);
-            }
-            else if (equippedItemRight == inventoryItem)
+            if (equippedItemLeft == inventoryItem || equippedItemRight == inventoryItem || equippedItemCenter == inventoryItem)
             {
                 UnequipItem(inventoryItem.data.equipType);
             }

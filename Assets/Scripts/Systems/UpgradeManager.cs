@@ -147,17 +147,34 @@ public class UpgradeManager : MonoBehaviour
     public void CostMaterial(ItemData itemData, int materialCost)
     {
         //materialCount -= x;
+        
+        int temp = materialCost;
+
         foreach (InventoryItem item in InventoryManager.instance.inventoryItemList)
         {
-            if (item.data == itemData)
+            if (item.data == itemData && item.data.isStackable)
             {
-                item.status.amount -= materialCost;
-                item.slot.amount.text = "" + item.status.amount;
+                while(item.status.amount > 0 && temp > 0)
+                {
+                    item.status.amount --;
+                    temp--;
+                    item.slot.amount.text = "" + item.status.amount;
+
+                    //remove from inventory if <= 0
+                }
+                
+                if (temp <= 0){
+                    return;
+                }
 
                 if (item.status.amount <= 0)
                 {
                     InventoryManager.instance.inventoryItemList.Remove(item);
                     Destroy(item.slot.gameObject);
+                    if (InventoryManager.instance.equippedItemLeft == item || InventoryManager.instance.equippedItemRight == item || InventoryManager.instance.equippedItemCenter == item)
+                    {
+                        InventoryManager.instance.UnequipItem(item.data.equipType);
+                    }
                 }
                 break;
             }
