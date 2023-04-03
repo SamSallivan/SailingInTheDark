@@ -20,6 +20,7 @@ public class SaveManager : MonoBehaviour
     private Vector3 boatPos;
     private Quaternion boatRot;
     private float boatWattHour;
+    public I_Anchor anchor;
     //public TMP_Text deathText;
     public bool alive = true;
 
@@ -46,6 +47,7 @@ public class SaveManager : MonoBehaviour
         }
         Save();
     }
+
     public void Save()
     {
         playerTransform = PlayerController.instance.transform;
@@ -84,7 +86,8 @@ public class SaveManager : MonoBehaviour
         
     }
 
-    public IEnumerator Reset() {
+    public IEnumerator Reset()
+    {
         UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
 
         BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
@@ -97,23 +100,26 @@ public class SaveManager : MonoBehaviour
         BoatController.instance.curWattHour = boatWattHour;
         BoatController.instance.ignoreConsumption = false;
 
+        if (anchor.activated)
+            anchor.AnchorSwitch();
+
         yield return new WaitForSeconds(1);
 
         BoatController.instance.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         BoatController.instance.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
         BoatController.instance.GetComponent<Rigidbody>().isKinematic = false;
         
-                    //exit top view!!
-                    BoatController.instance.helm.topView = false;
-                    //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
-                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
-                    PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
+        //exit top view!!
+        BoatController.instance.helm.topView = false;
+        //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
+        PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
 
-                    PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
-                    PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+        PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
+        PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
 
-                    PlayerController.instance.transform.localRotation = Quaternion.identity;
-                    PlayerController.instance.GetComponent<MouseLook>().Reset();
+        PlayerController.instance.transform.localRotation = Quaternion.identity;
+        PlayerController.instance.GetComponent<MouseLook>().Reset();
 
         PlayerController.instance.transform.position = playerPos;
         PlayerController.instance.transform.rotation = playerRot;
@@ -121,11 +127,13 @@ public class SaveManager : MonoBehaviour
         PlayerController.instance.LockMovement(false);
         PlayerController.instance.LockCamera(false);
 
+        InventoryManager.instance.CloseInventory();
+        UpgradeManager.instance.CloseMenu();
+
         UIManager.instance.gameOverUI.SetActive(false);
         UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
         Time.timeScale = 1;
         alive = true;
-
     }
 
     public void Die(string deadText)
