@@ -17,7 +17,6 @@ public class BoatController : MonoBehaviour
     public I_Engine engine;
     public I_BoatLight lightLeft;
     public I_BoatLight lightRight;
-    public CinemachineImpulseSource shakeSource;
     [ReadOnly]
     public List<BoatComponent> components = new List<BoatComponent>();
     public SphereWaterInteraction waterSphere;
@@ -47,7 +46,6 @@ public class BoatController : MonoBehaviour
 
         curWattHour = maxWattHour;
         BoatComponent[] temp = FindObjectsOfType<BoatComponent>(true);
-        shakeSource = GetComponent<CinemachineImpulseSource>();
     }
 
     public void FixedUpdate()
@@ -118,7 +116,6 @@ public class BoatController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        shakeSource.GenerateImpulse();
         // Debug.Log("take damage");
         curWattHour = (curWattHour - damage/(1+boatArmor) < 0) ? 0 : curWattHour - damage / (1 + boatArmor);
 
