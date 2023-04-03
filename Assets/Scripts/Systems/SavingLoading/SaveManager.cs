@@ -10,16 +10,17 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance;
 
     private Transform playerTransform;
-    private Vector3 playerPos;
-    private Quaternion playerRot;
-    public List<InventoryItem> initialInventory;
-    public List<Objective> initialObjective;
-    private List<InventoryItem> playerInventory = new List<InventoryItem>();
+    [HideInInspector] public Vector3 playerPos;
+    [HideInInspector] public Quaternion playerRot;
+    [HideInInspector] public List<InventoryItem> initialInventory;
+    [HideInInspector] public List<Objective> initialObjective;
+    [HideInInspector] public List<InventoryItem> playerInventory = new List<InventoryItem>();
 
-    private Transform boatTransform;
-    private Vector3 boatPos;
-    private Quaternion boatRot;
-    private float boatWattHour;
+    [HideInInspector] public Transform boatTransform;
+    [HideInInspector] public Vector3 boatPos;
+    [HideInInspector] public Quaternion boatRot;
+    [HideInInspector] public float boatWattHour;
+    public bool boatDocked;
     public I_Anchor anchor;
     //public TMP_Text deathText;
     public bool alive = true;
@@ -50,6 +51,7 @@ public class SaveManager : MonoBehaviour
 
     public void Save()
     {
+        this.boatDocked = anchor.activated;
         playerTransform = PlayerController.instance.transform;
         playerPos = playerTransform.position;
         playerRot = playerTransform.rotation;
@@ -83,7 +85,6 @@ public class SaveManager : MonoBehaviour
         }
 
         StartCoroutine(Reset());
-        
     }
 
     public IEnumerator Reset()
@@ -100,7 +101,7 @@ public class SaveManager : MonoBehaviour
         BoatController.instance.curWattHour = boatWattHour;
         BoatController.instance.ignoreConsumption = false;
 
-        if (anchor.activated)
+        if (anchor.activated != this.boatDocked)
             anchor.AnchorSwitch();
 
         yield return new WaitForSeconds(1);
