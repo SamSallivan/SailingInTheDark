@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataFile : MonoBehaviour
+[System.Serializable]
+public class DataFile
 {
     public bool boatDocked;
+
+    public float currWatt;
+    public float maxWatt;
+
     public float[] playerPosition = new float[3];
     public float[] playerRotation = new float[3];
 
     public float[] boatPosition = new float[3];
     public float[] boatRotation = new float[3];
 
-    public DataFile(SaveManager SM)
+    public DataFile(SaveManager SM, float current, float max)
     {
         this.boatDocked = SM.boatDocked;
+        this.currWatt = current;
+        this.maxWatt = max;
 
         this.playerPosition[0] = SM.playerPos.x;
         this.playerPosition[1] = SM.playerPos.y;
