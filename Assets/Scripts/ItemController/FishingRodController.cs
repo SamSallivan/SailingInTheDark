@@ -11,27 +11,32 @@ public class FishingRodController : MonoBehaviour
     public Transform CastPos;
     public Vector2 CastForce = new Vector2(1, 5);
     public float castCharger;
-    public bool castCharging = false;
+    public float waitTimer = 0;
+    public float reactTimer = 0;
     public float reelCharger;
 
     public List<ItemData> fishList = new List<ItemData>();
-    //public float averageWaitSeconds = 5;
     public Vector2 WaitInterval = new Vector2(2.5f, 5);
     public float waitTimeFrame = 0;
-    public float waitTimer = 0;
     public float reactTimeFrame = 1;
-    public float reactTimer = 0;
-    public bool reacted = false;
-    public float reelTimeFrame = 5;
-    public float reelTimer = 0;
     public float reelIncreaseCoefficient = 1;
     public float reelDecreaseCoefficient = 1;
+
+    public enum FishingState
+    {
+        Idle,
+        Casting,
+        Waiting,
+        Reacting,
+        Nibbling,
+        Reeling,
+    }
+    public FishingState fishingState;
 
     void Update()
     {
 
-        if (transform.IsChildOf(PlayerController.instance.transform) &&
-            !UIManager.instance.inventoryUI.activeInHierarchy)
+        if (transform.IsChildOf(PlayerController.instance.transform) && !UIManager.instance.inventoryUI.activeInHierarchy)
         {
             KeyCode key;
 
@@ -44,110 +49,116 @@ public class FishingRodController : MonoBehaviour
                 key = KeyCode.Mouse1;
             }
 
-            if (floatObject == null)
-            {
-                if (Input.GetKeyDown(key))
-                {
-                    castCharging = true;
-                }
+            Quaternion targetRotation = Quaternion.Euler(30, 0, 0);
 
-                if (castCharging && Input.GetKey(key))
-                {
-                    castCharger = Mathf.MoveTowards(castCharger, 1, Time.fixedDeltaTime);
-                }
-
-                if (castCharging && Input.GetKeyUp(key))
-                {
-                    Cast();
-                }
-            }
-            else
+            switch (fishingState)
             {
-                if (fishHooked == null)
-                {
-                    waitTimer += Time.fixedDeltaTime;
+                case FishingState.Idle:
+
                     UIManager.instance.fishingUI.SetActive(false);
+                    transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
+                    if (Input.GetKeyDown(key))
+                    {
+                        fishingState = FishingState.Casting;
+                    }
+                    break;
+
+                case FishingState.Casting:
+
+                    if (Input.GetKey(key))
+                    {
+                        //castCharger = Mathf.MoveTowards(castCharger, 1, Time.deltaTime);
+                        castCharger = Mathf.Lerp(castCharger, 1, Time.deltaTime);
+                        //Quaternion targetRotation = Quaternion.Euler(Mathf.Lerp(30, -30, castCharger), 0, 0);
+                        Quaternion startRotation = Quaternion.Euler(30, 0, 0);
+                        targetRotation = Quaternion.Euler(-15, 0, 0);
+                        transform.localRotation = Quaternion.Lerp(startRotation, targetRotation, castCharger);
+                    }
+
+                    if (Input.GetKeyUp(key))
+                    {
+                        Cast();
+                        fishingState = FishingState.Waiting;
+                    }
+                    break;
+
+                case FishingState.Waiting:
+
+                    targetRotation = Quaternion.Euler(45, 0, 0);
+                    transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
+                    waitTimer = Mathf.MoveTowards(waitTimer, waitTimeFrame, Time.deltaTime);
+                    if (Input.GetKeyDown(key))
+                    {
+                        Reset();
+                        fishingState = FishingState.Idle;
+                    }
+                    if (waitTimer >= waitTimeFrame) //if (Random.Range(0, averageWaitSeconds / Time.fixedDeltaTime) < 1)
+                    {
+                        fishHooked = fishList[Random.Range(0, fishList.Count)];
+                        //fishingState = FishingState.Reacting;
+                        fishingState = FishingState.Reeling;
+                        reelCharger = 0.99f;
+                    }
+                    break;
+
+                /*case FishingState.Reacting:
+
+                    reactTimer  = Mathf.MoveTowards(reactTimer, reactTimeFrame, Time.fixedDeltaTime);
+                    UIManager.instance.fishingUI.SetActive(true);
+                    UIManager.instance.reelSlider.value = 1 - (reactTimer / reactTimeFrame);
 
                     if (Input.GetKeyDown(key))
                     {
-                        Reel();
-                    }
-                    else if (waitTimer >= waitTimeFrame) //if (Random.Range(0, averageWaitSeconds / Time.fixedDeltaTime) < 1)
-                    {
-                        fishHooked = fishList[Random.Range(0, fishList.Count)];
+                        reelCharger = 1 - (reactTimer / reactTimeFrame);
+                        fishingState = FishingState.Reeling; 
                     }
 
-                }
-                else
-                {
+
+                    if (reactTimer >= reactTimeFrame)
+                    {
+                        fishHooked = null;
+                        waitTimer = 0;
+                        reactTimer = 0;
+                        waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
+                    }
+                    break;*/
+
+                case FishingState.Reeling:
+
                     UIManager.instance.fishingUI.SetActive(true);
-
-                    if (!reacted)
+                    if (reelCharger <= 0)
                     {
-                        if (reactTimer < reactTimeFrame)
-                        {
-                            reactTimer += Time.fixedDeltaTime;
-                            UIManager.instance.reelSlider.value = 1 - (reactTimer / reactTimeFrame);
-
-                            if (Input.GetKeyDown(key))
-                            {
-                                reacted = true;
-                                reelCharger = 1 - (reactTimer / reactTimeFrame);
-                            }
-                        }
-                        else if (reactTimer >= reactTimeFrame)
-                        {
-                            fishHooked = null;
-                            reactTimer = 0;
-                            reacted = false;
-                            waitTimer = 0;
-                            waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
-                        }
+                        Reset();
                     }
-                    else if (reacted)
+                    else if (reelCharger < 1)
                     {
-                        if (reelCharger < 1)
+                        reelCharger = Mathf.MoveTowards(reelCharger, 0, Time.fixedDeltaTime * reelDecreaseCoefficient);
+                        targetRotation = Quaternion.Euler(60, 0, 0);
+                        transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime);
+
+                        if (Input.GetKeyDown(key))
                         {
-                            if (reelTimer < reelTimeFrame)
-                            {
-                                reelTimer += Time.fixedDeltaTime;
-
-                                reelCharger = Mathf.MoveTowards(reelCharger, 0,
-                                    Time.fixedDeltaTime * reelDecreaseCoefficient);
-
-                                if (Input.GetKeyDown(key))
-                                {
-                                    reelCharger = Mathf.MoveTowards(reelCharger, 1,
-                                        Time.fixedDeltaTime * reelIncreaseCoefficient);
-                                }
-
-                                UIManager.instance.reelSlider.value = reelCharger;
-                            }
-                            else
-                            {
-                                fishHooked = null;
-                                reactTimer = 0;
-                                reacted = false;
-                                reelTimer = 0;
-                                waitTimer = 0;
-                                waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
-
-                            }
+                            reelCharger = Mathf.MoveTowards(reelCharger, 1, Time.fixedDeltaTime * reelIncreaseCoefficient);
+                            targetRotation = Quaternion.Euler(0, 0, 0);
+                            transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10);
                         }
-                        else if (reelCharger >= 1)
-                        {
-                            Reel();
-                            InventoryItem newItem = InventoryManager.instance.AddItem(fishHooked, new ItemStatus(1, 1));
-                            if (newItem != null)
-                            {
-                                //InventoryManager.instance.EquipItem(newItem);
-                                InventoryManager.instance.OpenInventory();
-                                InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
-                            }
-                            fishHooked = null;
-                        }
+
+                        UIManager.instance.reelSlider.value = reelCharger;
                     }
-                }
+                    else if (reelCharger >= 1)
+                    {
+                        InventoryItem newItem = InventoryManager.instance.AddItem(fishHooked, new ItemStatus(1, 1));
+                        if (newItem != null)
+                        {
+                            //InventoryManager.instance.EquipItem(newItem);
+                            InventoryManager.instance.OpenInventory();
+                            InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
+                        }
+                        Reset();
+                    }
+
+                    break;
+
             }
 
             if (floatObject != null)
@@ -172,25 +183,26 @@ public class FishingRodController : MonoBehaviour
         line.SetPosition(1, floatObject.transform.position);
 
         castCharger = 0;
-        castCharging = false;
         waitTimer = 0;
 
         waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
     }
-    public void Reel()
+    public void Reset()
     {
+        UIManager.instance.fishingUI.SetActive(false);
+        GetComponent<LineRenderer>().positionCount = 0;
         Destroy(floatObject);
         floatObject = null;
-        LineRenderer line = GetComponent<LineRenderer>();
-        line.positionCount = 0;
+        fishHooked = null;
         waitTimer = 0;
-        reelCharger = 0;
         reactTimer = 0;
-        reacted = false;
-        UIManager.instance.fishingUI.SetActive(false);
+        reelCharger = 0;
+
+        fishingState = FishingState.Idle;
+        waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
     }
 
     public void OnDisable() {
-        Reel();
+        Reset();
     }
 }

@@ -29,7 +29,7 @@ MonoBehaviour:
   dropObject: {fileID: 7045192563890826893, guid: f0504649977bc7a4d94d53678c80ee25,
     type: 3}
   isExaminable: 0
-  examineScale: 0.75
+  examineScale: 0.5
   examineRotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
   isReadable: 0
   readText: 
