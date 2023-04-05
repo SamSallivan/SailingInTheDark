@@ -44,8 +44,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     //public MouseLook mouseLook;
 
     public CameraBob bob;
-
     public HeadPosition headPosition;
+
+	public PlayerAudio playerAudio;
+
     [Foldout("Inputs", true)]
 
     private float hTemp;
@@ -358,6 +360,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		gTimer = 0f;
         rb.velocity = new Vector3(0, 0, 0);
 		rb.AddForce(jumpForce * multiplier, ForceMode.Impulse);
+		playerAudio.PlayJumpSound();
 	}
 
 	private void Climb()
@@ -422,16 +425,17 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
 	private void InputUpdate()
 	{
+		vTemp = 0f;
+		vTemp += (Input.GetKey(KeyCode.W) ? 1 : 0);
+		vTemp += (Input.GetKey(KeyCode.S) ? (-1) : 0);
+		hTemp = 0f;
+		hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
+		hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
+		v = vTemp;
+		h = hTemp;
+
 		if (enableMovement)
 		{
-			vTemp = 0f;
-			vTemp += (Input.GetKey(KeyCode.W) ? 1 : 0);
-			vTemp += (Input.GetKey(KeyCode.S) ? (-1) : 0);
-			hTemp = 0f;
-			hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
-			hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
-			v = vTemp;
-			h = hTemp;
 
 			inputDir.x = h;
 			inputDir.y = 0f;
@@ -455,9 +459,20 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		else
 		{
 			inputDir = Vector3.zero;
-
         }
 
+	}
+
+	public void WalkSoundUpdate(){
+
+		if (grounder.grounded && (inputDir != Vector3.zero))
+		{
+			StartCoroutine(playerAudio.PlayWalkSound());
+		}
+		else
+		{
+			StartCoroutine(playerAudio.StopWalkSound());
+		}
 	}
 
 	private void BobUpdate()
@@ -497,6 +512,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		//Debug.Log(playerCollider.material.dynamicFriction);
 
         InputUpdate();
+		WalkSoundUpdate();
         BobUpdate();
         headPosition.PositionUpdate();
         MistUpdate();

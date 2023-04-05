@@ -9,7 +9,7 @@ public class FlashLightController : MonoBehaviour
     void Update()
     {
 
-        if (transform.IsChildOf(PlayerController.instance.transform) && !UIManager.instance.inventoryUI.activeInHierarchy)
+        if (transform.IsChildOf(PlayerController.instance.transform) && PlayerController.instance.enableMovement)
         {
             KeyCode key;
 
