@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AdditionalGear
   m_EditorClassIdentifier: 
   name: Additional Gear
-  type: 1
+  type: 5
   description: Unlock an additional gear level.
   sprite: {fileID: 0}
   maxLevel: 3
@@ -25,3 +25,4 @@ MonoBehaviour:
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
       amount: 100
   itemToTrade: {fileID: 0}
+  itemAmount: 0

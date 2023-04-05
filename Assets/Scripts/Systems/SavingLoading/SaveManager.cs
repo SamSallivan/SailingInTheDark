@@ -48,19 +48,18 @@ public class SaveManager : MonoBehaviour
 
         Debug.Log($"find your save file here: {Application.persistentDataPath}");
 
-        if (UseSave)
-        {
+        
             DataFile data = SaveLoader.LoadData();
-            if (data == null)
+            if (data != null){
+                //LoadCheckPoint();
+                SaveLoader.DeleteSaveData();
                 Save();
-            else
-                LoadCheckPoint();
-        }
-        else
-        {
-            SaveLoader.DeleteSaveData();
-            Save();
-        }
+            }
+            else{
+                SaveLoader.DeleteSaveData();
+                Save();
+            }
+        
     }
 
     public void Save()
