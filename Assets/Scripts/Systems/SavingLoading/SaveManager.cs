@@ -22,7 +22,6 @@ public class SaveManager : MonoBehaviour
     [HideInInspector] public Vector3 boatRot;
     [HideInInspector] public bool boatDocked;
     I_Anchor anchor;
-    //public TMP_Text deathText;
     public bool isGameOver = false;
 
     private void Awake()
@@ -74,7 +73,7 @@ public class SaveManager : MonoBehaviour
         boatRot = BoatController.instance.transform.eulerAngles;
 
         SaveLoader.SaveData(this, BoatController.instance.curWattHour, BoatController.instance.maxWattHour);
-        alive = true;
+        isGameOver = false;
     }
 
     void Update()
