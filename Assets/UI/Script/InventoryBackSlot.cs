@@ -31,6 +31,8 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             return;
         }
+
+        //
         if (InventoryManager.instance.selectedIndex != GetIndex())
         {
 
@@ -69,7 +71,7 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
             }
         }
 
-        if (eventData.button == PointerEventData.InputButton.Right)
+        /*if (eventData.button == PointerEventData.InputButton.Right)
         {
             InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
             InventoryManager.instance.selectedIndex = GetIndex();
@@ -79,6 +81,6 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 InventoryItem item = UIManager.instance.inventoryItemGrid.transform.GetChild(GetIndex()).GetComponent<InventorySlot>().inventoryItem;
                 InventoryManager.instance.DropItem(item);
             }
-        }
+        }*/
     }
 }

@@ -29,7 +29,7 @@ public class Boid : MonoBehaviour {
     Transform cachedTransform;
     Transform target;
 
-    void Awake () {
+    void OnEnable () {
         material = transform.GetComponentInChildren<MeshRenderer> ().material;
         cachedTransform = transform;
     }

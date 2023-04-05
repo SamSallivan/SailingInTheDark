@@ -4,12 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ShipCamera
-  - Ship
   - Water
   - Boat
   - Light
-  - Mist
+  - Fishing Float
   layers:
   - Default
   - TransparentFX

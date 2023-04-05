@@ -283,21 +283,26 @@ MonoBehaviour:
   floatPrefab: {fileID: 6451633135210081483, guid: b8cbc34f704d9b44da7dc1936a375bf1,
     type: 3}
   floatObject: {fileID: 0}
-  fishHooked: {fileID: 0}
+  fishingZone: {fileID: 0}
+  fishListDefault:
+  - chance: 1
+    fishItemData: {fileID: 11400000, guid: 5629cf7c6ebf69c44812a7b8372a7ff0, type: 2}
   CastPos: {fileID: 4326547868617401106}
   CastForce: {x: 25, y: 150}
   castCharger: 0
+  waitTimeInterval: {x: 10, y: 15}
+  waitTime: 0
   waitTimer: 0
+  nibbleCountInterval: {x: 1, y: 3}
+  nibbleTimeInterval: {x: 1, y: 2}
+  nibbleCount: 0
+  nibbleForce: 10
+  fishHooked: {fileID: 0}
+  reactTimeDefault: 1
   reactTimer: 0
+  reelIncreaseCoefficient: 5
+  reelDecreaseCoefficient: 0.25
   reelCharger: 0
-  fishList:
-  - {fileID: 11400000, guid: 5629cf7c6ebf69c44812a7b8372a7ff0, type: 2}
-  - {fileID: 11400000, guid: 8c7ca302dbcbe404f8b1d775c7c74e64, type: 2}
-  WaitInterval: {x: 2.5, y: 10}
-  waitTimeFrame: 0
-  reactTimeFrame: 2
-  reelIncreaseCoefficient: 10
-  reelDecreaseCoefficient: 0.5
   fishingState: 0
 --- !u!1 &8139099030559513869
 GameObject:

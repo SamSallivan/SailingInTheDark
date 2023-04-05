@@ -499,8 +499,10 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         InputUpdate();
         BobUpdate();
         headPosition.PositionUpdate();
+        MistUpdate();
 
-		if(UIManager.instance.gameplayUI.activeInHierarchy && enableInteraction)
+
+        if (UIManager.instance.gameplayUI.activeInHierarchy && enableInteraction)
         {
             HandleInteractableCheck();
 		    HandleInteraction();
@@ -774,4 +776,31 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         Gizmos.DrawSphere(base.transform.position + base.transform.up * 0.5f, radius);
         Gizmos.DrawSphere(base.transform.position + base.transform.up * -0.5f, radius);
     }
+    public void MistUpdate()
+    {
+        if (inMist)
+        {
+            UIManager.instance.mistUI.SetActive(true);
+            mistTimer += Time.deltaTime;
+
+            if (mistTimer > deathTime)
+            {
+                SaveManager.instance.Die("Killed by mist");
+            }
+        }
+        else
+        {
+            if (mistTimer > 0)
+            {
+                mistTimer -= Time.deltaTime * replenishCoeffcient;
+            }
+            else
+            {
+                UIManager.instance.mistUI.SetActive(false);
+            }
+        }
+
+        UIManager.instance.mistSlider.value = mistTimer / deathTime;
+    }
 }
+

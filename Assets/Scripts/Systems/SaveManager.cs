@@ -22,7 +22,7 @@ public class SaveManager : MonoBehaviour
     private float boatWattHour;
     public I_Anchor anchor;
     //public TMP_Text deathText;
-    public bool alive = true;
+    public bool isGameOver = false;
 
     private void Awake()
     {
@@ -133,14 +133,14 @@ public class SaveManager : MonoBehaviour
         UIManager.instance.gameOverUI.SetActive(false);
         UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
         Time.timeScale = 1;
-        alive = true;
+        isGameOver = false;
     }
 
     public void Die(string deadText)
     {
-        if (alive)
+        if (!isGameOver)
         {
-            alive = false;
+            isGameOver = true;
             UIManager.instance.gameOverUI.SetActive(true);
             UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
 

@@ -12,14 +12,24 @@ public class Spawner : MonoBehaviour {
     public Color colour;
     public GizmoType showSpawnRegion;
 
-    void Awake () {
+    void OnEnable () {
         for (int i = 0; i < spawnCount; i++) {
             Vector3 pos = transform.position + Random.insideUnitSphere * spawnRadius;
             Boid boid = Instantiate (prefab, transform);
+            BoidManager.instance.boids.Add(boid);
+            boid.Initialize(BoidManager.instance.settings, null);
             boid.transform.position = pos;
             boid.transform.forward = Random.insideUnitSphere;
 
             boid.SetColour (colour);
+        }
+    }
+    void OnDisable()
+    {
+        foreach (Transform child in transform)
+        {
+            BoidManager.instance.boids.Remove(child.GetComponent<Boid>());
+            Destroy(child.gameObject);
         }
     }
 

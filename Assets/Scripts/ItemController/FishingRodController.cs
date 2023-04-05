@@ -1,26 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
+using NWH.DWP2.WaterObjects;
 
 public class FishingRodController : MonoBehaviour
 {
     public GameObject floatPrefab;
     public GameObject floatObject;
-    public ItemData fishHooked;
+    
+    [ReadOnly()]
+    public T_FishingZone fishingZone;
+    public List<FishData> fishListDefault;
 
     public Transform CastPos;
     public Vector2 CastForce = new Vector2(1, 5);
+    [ReadOnly()]
     public float castCharger;
-    public float waitTimer = 0;
-    public float reactTimer = 0;
-    public float reelCharger;
 
-    public List<ItemData> fishList = new List<ItemData>();
-    public Vector2 WaitInterval = new Vector2(2.5f, 5);
-    public float waitTimeFrame = 0;
-    public float reactTimeFrame = 1;
+    public Vector2 waitTimeInterval;
+    [ReadOnly()]
+    public float waitTime;
+    [ReadOnly()]
+    public float waitTimer = 0;
+    
+    public Vector2 nibbleCountInterval;
+    public Vector2 nibbleTimeInterval;
+    [ReadOnly()]
+    public int nibbleCount = 0;
+    public float nibbleForce = 1;
+
+    [ReadOnly()]
+    public ItemData fishHooked;
+    [ReadOnly()]
+    public float reactTimeDefault = 1;
+    [ReadOnly()]
+    public float reactTimer = 0;
+
     public float reelIncreaseCoefficient = 1;
-    public float reelDecreaseCoefficient = 1;
+    [ReadOnly()]
+    public float reelDecreaseCoefficient;
+    [ReadOnly()]
+    public float reelCharger;
 
     public enum FishingState
     {
@@ -36,7 +57,7 @@ public class FishingRodController : MonoBehaviour
     void Update()
     {
 
-        if (transform.IsChildOf(PlayerController.instance.transform) && !UIManager.instance.inventoryUI.activeInHierarchy)
+        if (transform.IsChildOf(PlayerController.instance.transform) && PlayerController.instance.enableMovement)
         {
             KeyCode key;
 
@@ -68,11 +89,11 @@ public class FishingRodController : MonoBehaviour
                     if (Input.GetKey(key))
                     {
                         //castCharger = Mathf.MoveTowards(castCharger, 1, Time.deltaTime);
-                        castCharger = Mathf.Lerp(castCharger, 1, Time.deltaTime);
+                        castCharger = Mathf.Lerp(castCharger, 0.5f, Time.deltaTime);
                         //Quaternion targetRotation = Quaternion.Euler(Mathf.Lerp(30, -30, castCharger), 0, 0);
                         Quaternion startRotation = Quaternion.Euler(30, 0, 0);
                         targetRotation = Quaternion.Euler(-15, 0, 0);
-                        transform.localRotation = Quaternion.Lerp(startRotation, targetRotation, castCharger);
+                        transform.localRotation = Quaternion.Lerp(startRotation, targetRotation, castCharger * 2);
                     }
 
                     if (Input.GetKeyUp(key))
@@ -86,44 +107,70 @@ public class FishingRodController : MonoBehaviour
 
                     targetRotation = Quaternion.Euler(45, 0, 0);
                     transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
-                    waitTimer = Mathf.MoveTowards(waitTimer, waitTimeFrame, Time.deltaTime);
+                    if (floatObject.transform.GetChild(0).GetComponent<WaterObject>().IsTouchingWater())
+                    {
+                        waitTimer = Mathf.MoveTowards(waitTimer, waitTime, Time.deltaTime);
+                    }
+
                     if (Input.GetKeyDown(key))
                     {
                         Reset();
-                        fishingState = FishingState.Idle;
                     }
-                    if (waitTimer >= waitTimeFrame) //if (Random.Range(0, averageWaitSeconds / Time.fixedDeltaTime) < 1)
+
+
+                    if (waitTimer >= waitTime) //if (Random.Range(0, averageWaitSeconds / Time.fixedDeltaTime) < 1)
                     {
-                        fishHooked = fishList[Random.Range(0, fishList.Count)];
-                        //fishingState = FishingState.Reacting;
-                        fishingState = FishingState.Reeling;
-                        reelCharger = 0.99f;
+                        if (fishingZone != null)
+                        {
+                            fishHooked = RandomFish(fishingZone.fishList);
+                        }
+                        else
+                        {
+                            fishHooked = RandomFish(fishListDefault);
+                        }
+
+                        if (nibbleCount > 0)
+                        {
+                            //fishingState = FishingState.Nibbling;
+                            floatObject.GetComponent<Rigidbody>().AddForce(Vector3.down * nibbleForce, ForceMode.Impulse);
+                            waitTimer -= Random.Range(nibbleTimeInterval.x, nibbleTimeInterval.y);
+                            nibbleCount--;
+                        }
+                        else{
+                            fishingState = FishingState.Reacting;
+                        }
                     }
                     break;
 
-                /*case FishingState.Reacting:
+                case FishingState.Nibbling:
 
-                    reactTimer  = Mathf.MoveTowards(reactTimer, reactTimeFrame, Time.fixedDeltaTime);
+                    floatObject.GetComponent<Rigidbody>().AddForce(Vector3.down * nibbleForce, ForceMode.Impulse);
+                    break;
+
+                case FishingState.Reacting:
+
+                    Vector3 floatPosTarget = new Vector3(0, -1.2f, 0);
+                    floatObject.transform.GetChild(1).localPosition = Vector3.Lerp(floatObject.transform.localPosition, floatPosTarget, Time.deltaTime);
+
+                    reactTimer  = Mathf.MoveTowards(reactTimer, reactTimeDefault, Time.fixedDeltaTime);
                     UIManager.instance.fishingUI.SetActive(true);
-                    UIManager.instance.reelSlider.value = 1 - (reactTimer / reactTimeFrame);
+                    UIManager.instance.reelSlider.value = 1 - (reactTimer / reactTimeDefault);
 
                     if (Input.GetKeyDown(key))
                     {
-                        reelCharger = 1 - (reactTimer / reactTimeFrame);
+                        reelCharger = 1 - (reactTimer / reactTimeDefault);
                         fishingState = FishingState.Reeling; 
                     }
 
-
-                    if (reactTimer >= reactTimeFrame)
+                    if (reactTimer >= reactTimeDefault)
                     {
-                        fishHooked = null;
-                        waitTimer = 0;
-                        reactTimer = 0;
-                        waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
+                        Reset();
                     }
-                    break;*/
+                    break;
 
                 case FishingState.Reeling:
+                    
+                    floatObject.transform.GetChild(1).localPosition = new Vector3(0, 0, 0);
 
                     UIManager.instance.fishingUI.SetActive(true);
                     if (reelCharger <= 0)
@@ -154,6 +201,18 @@ public class FishingRodController : MonoBehaviour
                             InventoryManager.instance.OpenInventory();
                             InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
                         }
+
+                        if (fishingZone != null)
+                        {
+                            fishingZone.fishAmount--;
+                            if (fishingZone.fishAmount <= 0)
+                            {
+                                //StartCoroutine(fishingZone.Delete());
+                                Destroy(fishingZone.gameObject);
+                                fishingZone = null;
+                            }
+                        }
+
                         Reset();
                     }
 
@@ -184,25 +243,47 @@ public class FishingRodController : MonoBehaviour
 
         castCharger = 0;
         waitTimer = 0;
-
-        waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
+        waitTime = Random.Range(waitTimeInterval.x, waitTimeInterval.y);
+        nibbleCount = Random.Range((int)nibbleCountInterval.x, (int)nibbleCountInterval.y);
     }
+
+    public ItemData RandomFish(List<FishData> fishList)
+    {
+        float random = Random.Range(0f, 1f);
+        float chance = 0;
+
+        Debug.Log(random);
+
+        foreach (FishData fish in fishList)
+        {
+            if (random <= chance)
+            {
+                return fish.fishItemData;
+            }
+            chance += fish.chance;
+        }
+        return fishList[fishList.Count-1].fishItemData;
+    }
+
     public void Reset()
     {
         UIManager.instance.fishingUI.SetActive(false);
-        GetComponent<LineRenderer>().positionCount = 0;
         Destroy(floatObject);
+        GetComponent<LineRenderer>().positionCount = 0;
         floatObject = null;
         fishHooked = null;
+        fishingZone = null;
         waitTimer = 0;
         reactTimer = 0;
         reelCharger = 0;
 
         fishingState = FishingState.Idle;
-        waitTimeFrame = Random.Range(WaitInterval.x, WaitInterval.y);
+        //waitTime = Random.Range(WaitTimeInterval.x, WaitTimeInterval.y);
     }
 
     public void OnDisable() {
-        Reset();
+        //Reset();
+        UIManager.instance.fishingUI.SetActive(false);
+        Destroy(floatObject);
     }
 }

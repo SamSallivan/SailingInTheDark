@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoidManager : MonoBehaviour {
+public class BoidManager : MonoBehaviour 
+{
 
+    public static BoidManager instance;
     const int threadGroupSize = 1024;
 
     public BoidSettings settings;
     public ComputeShader compute;
-    Boid[] boids;
+    public List<Boid> boids;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     void Start () {
-        boids = FindObjectsOfType<Boid> ();
+        //boids = FindObjectsOfType<Boid> ();
         foreach (Boid b in boids) {
             b.Initialize (settings, null);
         }
@@ -19,12 +28,12 @@ public class BoidManager : MonoBehaviour {
     }
 
     void Update () {
-        if (boids != null) {
+        if (boids.Count > 0) {
 
-            int numBoids = boids.Length;
+            int numBoids = boids.Count;
             var boidData = new BoidData[numBoids];
 
-            for (int i = 0; i < boids.Length; i++) {
+            for (int i = 0; i < boids.Count; i++) {
                 boidData[i].position = boids[i].position;
                 boidData[i].direction = boids[i].forward;
             }
@@ -33,7 +42,7 @@ public class BoidManager : MonoBehaviour {
             boidBuffer.SetData (boidData);
 
             compute.SetBuffer (0, "boids", boidBuffer);
-            compute.SetInt ("numBoids", boids.Length);
+            compute.SetInt ("numBoids", boids.Count);
             compute.SetFloat ("viewRadius", settings.perceptionRadius);
             compute.SetFloat ("avoidRadius", settings.avoidanceRadius);
 
@@ -42,7 +51,7 @@ public class BoidManager : MonoBehaviour {
 
             boidBuffer.GetData (boidData);
 
-            for (int i = 0; i < boids.Length; i++) {
+            for (int i = 0; i < boids.Count; i++) {
                 boids[i].avgFlockHeading = boidData[i].flockHeading;
                 boids[i].centreOfFlockmates = boidData[i].flockCentre;
                 boids[i].avgAvoidanceHeading = boidData[i].avoidanceHeading;
