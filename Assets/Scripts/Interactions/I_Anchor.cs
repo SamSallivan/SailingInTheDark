@@ -102,6 +102,7 @@ public class I_Anchor : Interactable
             {
                 textPromptActivated = "Undock";
                 UIManager.instance.anchorText.text = "[X] Undock Boat";
+                StartCoroutine(SaveGame());
             }
 
             UIManager.instance.anchorImage.SetActive(true);
@@ -120,6 +121,12 @@ public class I_Anchor : Interactable
 
             UIManager.instance.anchorImage.SetActive(false);
         }
+    }
+
+    public IEnumerator SaveGame()
+    {
+        yield return new WaitForSeconds(1f);
+        SaveManager.instance.Save();
     }
 
 }

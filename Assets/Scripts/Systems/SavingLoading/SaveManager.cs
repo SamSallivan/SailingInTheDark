@@ -82,9 +82,6 @@ public class SaveManager : MonoBehaviour
         //testing
         if (Input.GetKeyDown(KeyCode.P))
             BoatController.instance.TakeDamage(100);
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            Save();
     }
 
     public void LoadCheckPoint()
@@ -121,37 +118,41 @@ public class SaveManager : MonoBehaviour
         BoatController.instance.transform.eulerAngles = new Vector3(data.boatRotation[0], data.boatRotation[1], data.boatRotation[2]);
 
         Rigidbody playerRB = PlayerController.instance.GetComponent<Rigidbody>();
-        playerRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-        playerRB.interpolation = RigidbodyInterpolation.None;
-        playerRB.isKinematic = true;
+        if (playerRB != null)
+        {
+            playerRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            playerRB.interpolation = RigidbodyInterpolation.None;
+            playerRB.isKinematic = true;
+        }
 
         PlayerController.instance.transform.SetParent(null);
         PlayerController.instance.transform.position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
-        PlayerController.instance.transform.eulerAngles = new Vector3(data.playerRotation[0], data.playerRotation[1], data.playerRotation[2]);
-
-        if (anchor.activated != data.boatDocked)
-            anchor.AnchorSwitch();
+        PlayerController.instance.transform.localEulerAngles = new Vector3(data.playerRotation[0], data.playerRotation[1], data.playerRotation[2]);
 
         yield return new WaitForSeconds(1);
 
         boatRB.constraints = RigidbodyConstraints.None;
         boatRB.interpolation = RigidbodyInterpolation.Interpolate;
         boatRB.isKinematic = false;
+        BoatController.instance.helm.topView = false;
 
-        playerRB.constraints = RigidbodyConstraints.None;
-        playerRB.interpolation = RigidbodyInterpolation.Interpolate;
-        playerRB.isKinematic = false;
+        if (anchor.activated != data.boatDocked)
+            anchor.AnchorSwitch();
+
+        if (playerRB)
+        {
+            playerRB.constraints = RigidbodyConstraints.FreezeRotation;
+            playerRB.interpolation = RigidbodyInterpolation.Interpolate;
+            playerRB.isKinematic = false;
+        }
 
         //exit top view!!
-        BoatController.instance.helm.topView = false;
         //PlayerController.instance.headPosition.Slide(0.75f + headHeightOffset1);
         PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
         PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
 
         PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
         PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
-
-        PlayerController.instance.transform.localRotation = Quaternion.identity;
         PlayerController.instance.GetComponent<MouseLook>().Reset();
 
         PlayerController.instance.LockMovement(false);
