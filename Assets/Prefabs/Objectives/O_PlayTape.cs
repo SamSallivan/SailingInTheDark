@@ -44,7 +44,6 @@ public class O_PlayTape : Objective
 
     public void OnRecordingEnd()
     {
-
         if (CheckRecordingName())
         {
             //Finish();

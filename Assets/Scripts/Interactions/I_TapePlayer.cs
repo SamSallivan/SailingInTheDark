@@ -21,13 +21,12 @@ public class I_TapePlayer : Interactable
     {
 
         //if player has a tape inserted
-        if(tapeInserted != null)
+        if (tapeInserted != null)
         {
             //eject it early and stop playing
             RecordingManager.instance.StopCurrentLine();
             RecordingManager.instance.currentRecording = null;
             EjectTape();
-
         }
 
         //else if have received message
@@ -77,7 +76,8 @@ public class I_TapePlayer : Interactable
 
     }
 
-    public void EjectTape(){
+    public void EjectTape()
+    {
         if (tapeInserted != null)
         {
             GameObject tape = Instantiate(tapeInserted, tapeEjectTransform.position, tapeEjectTransform.rotation, null);
@@ -85,7 +85,7 @@ public class I_TapePlayer : Interactable
         }
     }
 
-    public void  ReceiveRadio(GameObject tape, bool autoPlay = false)
+    public void ReceiveRadio(GameObject tape, bool autoPlay = false)
     {
 
         if (autoPlay)

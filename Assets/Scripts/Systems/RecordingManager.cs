@@ -110,18 +110,20 @@ public class RecordingManager : MonoBehaviour
         //currentDialogue = null;
     }
 
-    public void PauseRadio(){
+    public void PauseRadio()
+    {
         radioPaused = true;
         UIManager.instance.ClearSubtitle(UIManager.SubtitleType.Radio);
         AudioManager.instance.RadioPlayer.Pause();
     }
 
-    public void UnpauseRadio(){
+    public void UnpauseRadio()
+    {
         if (!radioPaused)
             return;
 
         radioPaused = false;
-        if(currentRecording != null)
+        if (currentRecording != null)
         {
             UIManager.instance.FadeInSubtitle(currentRecording.lines[currentIndex].speaker, currentRecording.lines[currentIndex].subtitle, UIManager.SubtitleType.Radio);
         }

@@ -27,7 +27,7 @@ public class EnemyAudio : MonoBehaviour
     public AudioClip sfx_attack_splash;
 
     // [Foldout("Fields", true)]
-    public float swimming_volume = 0.1f;
+    private float swimming_volume = 0.1f;
     private float randomAmbianceTimer = 0f;
 
     private void Start()
