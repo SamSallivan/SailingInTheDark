@@ -133,4 +133,9 @@ public class BoatAudio : MonoBehaviour
         other.clip = sfx_gear_switch;
         other.Play();
     }
+
+    public void PlayTurnSound()
+    {
+        //TODO: after this is turned into prefab.
+    }
 }
