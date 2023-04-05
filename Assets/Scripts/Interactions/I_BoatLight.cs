@@ -23,7 +23,8 @@ public class I_BoatLight : Interactable
         lightObject.SetActive(!lightObject.activeInHierarchy);
         GetComponent<BoatComponent>().componentActivated = !GetComponent<BoatComponent>().componentActivated;
 
-        
+        BoatController.instance.boatAudio.PlayLightSound();
+
         /*if (boat.componentActivated &&
             InventoryManager.instance.equippedItem != null &&
             InventoryManager.instance.equippedItem.data.title == "Upgrade for Lights")
@@ -70,7 +71,7 @@ public class I_BoatLight : Interactable
         }
 
         else */
-        
+
         if (textPrompt != "" && interactionType != InteractionType.None)
         {
             UIManager.instance.interactionPrompt.text = "[E] ";
@@ -95,6 +96,7 @@ public class I_BoatLight : Interactable
     {
         activated = !activated;
 
+        BoatController.instance.boatAudio.PlayLightSound();
         lightObject.SetActive(!lightObject.activeInHierarchy);
         GetComponent<BoatComponent>().componentActivated = !GetComponent<BoatComponent>().componentActivated;
     }
