@@ -290,16 +290,24 @@ MonoBehaviour:
   CastPos: {fileID: 4326547868617401106}
   CastForce: {x: 25, y: 150}
   castCharger: 0
-  waitTimeInterval: {x: 10, y: 15}
-  waitTime: 0
+  waitTimeInterval: {x: 2, y: 4}
+  waitTime: 3.204279
   waitTimer: 0
   nibbleCountInterval: {x: 1, y: 3}
-  nibbleTimeInterval: {x: 1, y: 2}
+  nibbleTimeInterval: {x: 2, y: 3}
   nibbleCount: 0
-  nibbleForce: 10
+  nibbleForce: 75
   fishHooked: {fileID: 0}
-  reactTimeDefault: 1
+  reactTimeDefault: 1.5
   reactTimer: 0
+  shakeDefaultPos: {x: 0, y: -1.25, z: 0}
+  shakeTargetPos: {x: 1, y: -1.6160159, z: 1}
+  shakeRandomX: {x: -1, y: 1}
+  shakeRandomY: {x: -1, y: 0}
+  shakeRandomZ: {x: -1, y: 1}
+  shakeTimer: 0.0971933
+  shakeFrequency: 0.1
+  shakeSpeed: 25
   reelIncreaseCoefficient: 5
   reelDecreaseCoefficient: 0.25
   reelCharger: 0

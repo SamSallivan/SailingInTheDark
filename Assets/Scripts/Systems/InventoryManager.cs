@@ -77,10 +77,10 @@ public class InventoryManager : MonoBehaviour
                         EquipItem(selectedItem);
                     }
                 }
-                /*if (Input.GetKeyDown(KeyCode.Q) && selectedItem != null && inputDelay >= 0.1f)
+                if (Input.GetKeyDown(KeyCode.G) && selectedItem != null && inputDelay >= 0.1f)
                 {
                     DropItem(selectedItem);
-                }*/
+                }
             }
             else
             {
@@ -124,6 +124,11 @@ public class InventoryManager : MonoBehaviour
 
         //play the fade in effect
         //UIManager.instance.inventoryAnimation.Play("Basic Fade-in");
+
+        for (int i = 0; i < UIManager.instance.inventoryBackGrid.transform.childCount; i++)
+        {
+            UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
+        }
     }
     public void CloseInventory()
     {

@@ -32,10 +32,20 @@ public class FishingRodController : MonoBehaviour
 
     [ReadOnly()]
     public ItemData fishHooked;
-    [ReadOnly()]
     public float reactTimeDefault = 1;
     [ReadOnly()]
     public float reactTimer = 0;
+
+    public Vector3 shakeDefaultPos;
+    [ReadOnly()]
+    public Vector3 shakeTargetPos;
+    public Vector2 shakeRandomX;
+    public Vector2 shakeRandomY;
+    public Vector2 shakeRandomZ;
+    [ReadOnly()]
+    public float shakeTimer = 0;
+    public float shakeFrequency = 0;
+    public float shakeSpeed = 1;
 
     public float reelIncreaseCoefficient = 1;
     [ReadOnly()]
@@ -89,11 +99,12 @@ public class FishingRodController : MonoBehaviour
                     if (Input.GetKey(key))
                     {
                         //castCharger = Mathf.MoveTowards(castCharger, 1, Time.deltaTime);
-                        castCharger = Mathf.Lerp(castCharger, 0.5f, Time.deltaTime);
+                        //castCharger = Mathf.Lerp(castCharger, 0.5f, Time.deltaTime);
+                        castCharger += Time.deltaTime;
                         //Quaternion targetRotation = Quaternion.Euler(Mathf.Lerp(30, -30, castCharger), 0, 0);
                         Quaternion startRotation = Quaternion.Euler(30, 0, 0);
                         targetRotation = Quaternion.Euler(-15, 0, 0);
-                        transform.localRotation = Quaternion.Lerp(startRotation, targetRotation, castCharger * 2);
+                        transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, castCharger);
                     }
 
                     if (Input.GetKeyUp(key))
@@ -109,7 +120,8 @@ public class FishingRodController : MonoBehaviour
                     transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
                     if (floatObject.transform.GetChild(0).GetComponent<WaterObject>().IsTouchingWater())
                     {
-                        waitTimer = Mathf.MoveTowards(waitTimer, waitTime, Time.deltaTime);
+                        //waitTimer = Mathf.MoveTowards(waitTimer, waitTime, Time.deltaTime);
+                        waitTimer += Time.deltaTime;
                     }
 
                     if (Input.GetKeyDown(key))
@@ -134,7 +146,8 @@ public class FishingRodController : MonoBehaviour
                             //fishingState = FishingState.Nibbling;
                             floatObject.GetComponent<Rigidbody>().AddForce(Vector3.down * nibbleForce, ForceMode.Impulse);
                             waitTimer -= Random.Range(nibbleTimeInterval.x, nibbleTimeInterval.y);
-                            nibbleCount--;
+                            nibbleCount--; 
+                            transform.localRotation = Quaternion.Euler(50, 0, 0);
                         }
                         else{
                             fishingState = FishingState.Reacting;
@@ -148,17 +161,29 @@ public class FishingRodController : MonoBehaviour
                     break;
 
                 case FishingState.Reacting:
+                    
+                    if (shakeTimer < shakeFrequency)
+                    {
+                        shakeTimer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        shakeTimer = 0;
+                        shakeTargetPos = shakeDefaultPos + new Vector3(Random.Range(shakeRandomX.x, shakeRandomX.y), Random.Range(shakeRandomY.x, shakeRandomY.y), Random.Range(shakeRandomZ.x, shakeRandomZ.y));
+                    }
+                    floatObject.transform.GetChild(1).localPosition = Vector3.Lerp(floatObject.transform.GetChild(1).localPosition, shakeTargetPos, Time.deltaTime * shakeSpeed);
+                    targetRotation = Quaternion.Euler(60 + Random.Range(shakeRandomX.x, shakeRandomX.y) * 2.5f, 0, Random.Range(shakeRandomZ.x, shakeRandomZ.y) * 1f);
+                    transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * shakeSpeed);
 
-                    Vector3 floatPosTarget = new Vector3(0, -1.2f, 0);
-                    floatObject.transform.GetChild(1).localPosition = Vector3.Lerp(floatObject.transform.localPosition, floatPosTarget, Time.deltaTime);
-
-                    reactTimer  = Mathf.MoveTowards(reactTimer, reactTimeDefault, Time.fixedDeltaTime);
-                    UIManager.instance.fishingUI.SetActive(true);
-                    UIManager.instance.reelSlider.value = 1 - (reactTimer / reactTimeDefault);
+                    //reactTimer  = Mathf.MoveTowards(reactTimer, reactTimeDefault, Time.fixedDeltaTime);
+                    reactTimer += Time.deltaTime;
+                    //UIManager.instance.fishingUI.SetActive(true);
+                    //UIManager.instance.reelSlider.value = 1 - (reactTimer / reactTimeDefault);
 
                     if (Input.GetKeyDown(key))
                     {
-                        reelCharger = 1 - (reactTimer / reactTimeDefault);
+                        //reelCharger = 1 - (reactTimer / reactTimeDefault);
+                        reelCharger = 0.5f;
                         fishingState = FishingState.Reeling; 
                     }
 
@@ -169,25 +194,38 @@ public class FishingRodController : MonoBehaviour
                     break;
 
                 case FishingState.Reeling:
-                    
-                    floatObject.transform.GetChild(1).localPosition = new Vector3(0, 0, 0);
+
+                    //floatObject.transform.GetChild(1).localPosition = new Vector3(0, 0, 0);
+
+                    if (shakeTimer < shakeFrequency)
+                    {
+                        shakeTimer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        shakeTimer = 0;
+                        shakeTargetPos = shakeDefaultPos + new Vector3(Random.Range(shakeRandomX.x, shakeRandomX.y), Random.Range(shakeRandomY.x, shakeRandomY.y), Random.Range(shakeRandomZ.x, shakeRandomZ.y));
+                    }
+                    floatObject.transform.GetChild(1).localPosition = Vector3.Lerp(floatObject.transform.GetChild(1).localPosition, shakeTargetPos, Time.deltaTime * shakeSpeed);
 
                     UIManager.instance.fishingUI.SetActive(true);
                     if (reelCharger <= 0)
                     {
                         Reset();
                     }
-                    else if (reelCharger < 1)
+                    else
+                    if (reelCharger < 1)
                     {
                         reelCharger = Mathf.MoveTowards(reelCharger, 0, Time.fixedDeltaTime * reelDecreaseCoefficient);
-                        targetRotation = Quaternion.Euler(60, 0, 0);
-                        transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime);
+                        targetRotation = Quaternion.Euler(50 + Random.Range(shakeRandomX.x, shakeRandomX.y) * 2.5f, 0, Random.Range(shakeRandomZ.x, shakeRandomZ.y) * 1f);
+                        transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * shakeSpeed);
 
                         if (Input.GetKeyDown(key))
                         {
                             reelCharger = Mathf.MoveTowards(reelCharger, 1, Time.fixedDeltaTime * reelIncreaseCoefficient);
-                            targetRotation = Quaternion.Euler(0, 0, 0);
-                            transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10);
+                            targetRotation = Quaternion.Euler(40, 0, 0);
+                            //transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10);
+                            transform.localRotation = targetRotation;
                         }
 
                         UIManager.instance.reelSlider.value = reelCharger;
@@ -223,8 +261,9 @@ public class FishingRodController : MonoBehaviour
             if (floatObject != null)
             {
                 LineRenderer line = GetComponent<LineRenderer>();
+                line.positionCount = 2;
                 line.SetPosition(0, CastPos.position);
-                line.SetPosition(1, floatObject.transform.position);
+                line.SetPosition(1, floatObject.transform.GetChild(1).position);
             }
         }
 
@@ -239,7 +278,7 @@ public class FishingRodController : MonoBehaviour
         LineRenderer line = GetComponent<LineRenderer>();
         line.positionCount = 2;
         line.SetPosition(0, CastPos.position);
-        line.SetPosition(1, floatObject.transform.position);
+        line.SetPosition(1, floatObject.transform.GetChild(1).position);
 
         castCharger = 0;
         waitTimer = 0;
