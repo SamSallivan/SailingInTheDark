@@ -18,6 +18,7 @@ public class BoatController : MonoBehaviour
     public I_BoatLight lightLeft;
     public I_BoatLight lightRight;
     public CinemachineImpulseSource shakeSource;
+    public BoatAudio boatAudio;
     [ReadOnly]
     public List<BoatComponent> components = new List<BoatComponent>();
     public SphereWaterInteraction waterSphere;
@@ -120,7 +121,7 @@ public class BoatController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         // Debug.Log("take damage");
-        curWattHour = (curWattHour - damage/(1+boatArmor) < 0) ? 0 : curWattHour - damage / (1 + boatArmor);
+        curWattHour = (curWattHour - damage / (1 + boatArmor) < 0) ? 0 : curWattHour - damage / (1 + boatArmor);
 
         if (curWattHour <= 0 && !UIManager.instance.gameOverUI.activeInHierarchy)
         {

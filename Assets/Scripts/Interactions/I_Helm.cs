@@ -226,6 +226,12 @@ public class I_Helm : Interactable
             vTemp += (Input.GetKey(KeyCode.W) ? handleSpeed : 0);
             vTemp = Mathf.Clamp(vTemp, -1 * speedPerGear, currentMaxGear * speedPerGear);
 
+            //check if gear changes
+            if (currentGear != Mathf.Round(vTemp / speedPerGear))
+            {
+                BoatController.instance.boatAudio.PlayGearSound();
+            }
+
             //round to product of speed per gear
             currentGear = Mathf.Round(vTemp / speedPerGear);
             speed = currentGear * speedPerGear;

@@ -30,17 +30,22 @@ public class CompassController : MonoBehaviour
     {
         switch(type){
             case CompassType.Absolute:
+
                 target.transform.eulerAngles = new Vector3(0, 0, 0);
                 break;
+
             case CompassType.Vertical:
+
                 target.transform.eulerAngles = new Vector3(target.transform.eulerAngles.x, target.transform.eulerAngles.y, target.transform.eulerAngles.y);
                 break;
+
             case CompassType.Flat:
+
                 ref Vector3 reference = ref newRotation;
                 Vector3 eulerAngles = PlayerController.instance.transform.eulerAngles;
                 reference.y = - eulerAngles.y + perspectiveAdjustment;
-                if (transform.IsChildOf(PlayerController.instance.transform) || transform.IsChildOf(UIManager.instance.inventoryUI.transform))
-                {
+            if (transform.IsChildOf(PlayerController.instance.transform) && PlayerController.instance.enableMovement)
+            {
                     target.transform.localEulerAngles = newRotation;
                 }
                 else{
@@ -64,7 +69,9 @@ public class CompassController : MonoBehaviour
                 }
 
                 break;
+
             case CompassType.test:
+            
                 target.transform.eulerAngles = new Vector3(target.transform.eulerAngles.x, 0, target.transform.eulerAngles.z);
                 break;
         }

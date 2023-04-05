@@ -31,7 +31,8 @@ public class I_Anchor : Interactable
         yield return null;
     }
 
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
 
         if (!activated)
         {
@@ -39,7 +40,7 @@ public class I_Anchor : Interactable
             {
                 highlightTarget.GetComponent<Renderer>().material.color = Color.green;
             }
-            else if(!dockable)
+            else if (!dockable)
             {
                 highlightTarget.GetComponent<Renderer>().material.color = Color.grey;
             }
@@ -75,7 +76,7 @@ public class I_Anchor : Interactable
                 Vector3 targetpos = new Vector3(dockingZone.dockingPos.position.x, BoatController.instance.transform.position.y,
                     dockingZone.dockingPos.position.z);
                 BoatController.instance.transform.position = Vector3.Lerp(BoatController.instance.transform.position, targetpos, Time.fixedDeltaTime * 1.5f);
-                BoatController.instance.transform.rotation = Quaternion.Lerp(BoatController.instance.transform.rotation, rotation,Time.fixedDeltaTime * 1);
+                BoatController.instance.transform.rotation = Quaternion.Lerp(BoatController.instance.transform.rotation, rotation, Time.fixedDeltaTime * 1);
                 //boat.transform.position = Vector3.MoveTowards(boat.transform.position, targetpos, dockingTimer / 2);
                 //boat.transform.rotation = Quaternion.Lerp(boat.transform.rotation, rotation,Time.fixedDeltaTime * 1.5f);
                 BoatController.instance.boat.Anchor.AnchorPosition = BoatController.instance.boat.Anchor.AnchorPoint;
@@ -93,6 +94,8 @@ public class I_Anchor : Interactable
 
         if (activated)
         {
+            BoatController.instance.boatAudio.PlayAnchorDownSound();
+
             BoatController.instance.boat.Anchor.Drop();
             BoatController.instance.helm.ShutDown();
             textPromptActivated = "Weigh";
@@ -102,12 +105,15 @@ public class I_Anchor : Interactable
             {
                 textPromptActivated = "Undock";
                 UIManager.instance.anchorText.text = "[X] Undock Boat";
+                StartCoroutine(SaveGame());
             }
 
             UIManager.instance.anchorImage.SetActive(true);
         }
         else if (!activated)
         {
+            BoatController.instance.boatAudio.PlayAnchorUpSound();
+
             BoatController.instance.boat.Anchor.Weigh();
             textPrompt = "Drop";
             UIManager.instance.anchorText.text = "[X] Drop Anchor";
@@ -120,6 +126,12 @@ public class I_Anchor : Interactable
 
             UIManager.instance.anchorImage.SetActive(false);
         }
+    }
+
+    public IEnumerator SaveGame()
+    {
+        yield return new WaitForSeconds(1f);
+        SaveManager.instance.Save();
     }
 
 }
