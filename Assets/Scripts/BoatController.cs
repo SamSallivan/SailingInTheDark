@@ -102,7 +102,7 @@ public class BoatController : MonoBehaviour
             //is charging the boat
         }
 
-        if (SaveManager.instance.alive && curWattHour <= 0) //|| curActiveComponent > maxActiveComponent)
+        if (!SaveManager.instance.isGameOver && curWattHour <= 0) //|| curActiveComponent > maxActiveComponent)
         {
             //ShutDown();
             SaveManager.instance.Die("Your boat ran out of energy.");

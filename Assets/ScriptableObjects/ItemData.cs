@@ -14,7 +14,7 @@ public class ItemData : ScriptableObject
     {
         Standard,
         Tape,
-        Upgrade,
+        Fish,
     }
     [Foldout("Base Info", true)]
 
@@ -23,12 +23,6 @@ public class ItemData : ScriptableObject
     public Sprite sprite;
     [TextArea(5, 5)]
     public string description;
-
-    [ConditionalField(nameof(type), false, ItemType.Tape)]
-    public string recordingName;
-
-    [ConditionalField(nameof(type), false, ItemType.Tape)]
-    public DialogueData recording;
 
     //[Header("Recording")]
     [Foldout("Settings", true)]
@@ -46,23 +40,34 @@ public class ItemData : ScriptableObject
     }
     [ConditionalField(nameof(isEquippable))]
     public EquipType equipType;
-    public GameObject equipObject;
-    public Quaternion equipRotation;
     public Vector3 equipPosition;
+    public Quaternion equipRotation;
+    //public GameObject equipObject;
 
     public bool isDroppable;
     [ConditionalField(nameof(isDroppable))]
     public GameObject dropObject;
 
-    public bool isExaminable;
+    //public bool isExaminable;
     public float examineScale = 1;
     public Quaternion examineRotation;
 
-    [ConditionalField(nameof(isExaminable))]
+    /*[ConditionalField(nameof(isExaminable))]
     public bool isReadable;
     [ConditionalField(nameof(isReadable))]
     [TextArea(10, 10)]
-    public string readText;
+    public string readText;*/
+
+    [ConditionalField(nameof(type), false, ItemType.Tape)]
+    public string recordingName;
+
+    [ConditionalField(nameof(type), false, ItemType.Tape)]
+    public DialogueData recording;
+
+    [ConditionalField(nameof(type), false, ItemType.Fish)]
+    public float reelDecreaseCoefficient;
+    [ConditionalField(nameof(type), false, ItemType.Fish)]
+    public Vector2 nimbbleInterval;
 }
 
 
