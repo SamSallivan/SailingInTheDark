@@ -52,12 +52,6 @@ public class BoatController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (anchor.dockable && anchor.activated)
-        {
-            curWattHour = Mathf.Lerp(curWattHour, maxWattHour, Time.fixedDeltaTime / 5);
-            //is charging the boat
-        }
-
         float curWattConsumption = 0;
         float curActiveComponent = 0;
 
@@ -99,6 +93,13 @@ public class BoatController : MonoBehaviour
         if (curActiveComponent == 0 || ignoreConsumption || (anchor.dockable && anchor.activated))
         {
             timerText.text = "N/A";
+        }
+
+        if (anchor.dockable && anchor.activated)
+        {
+            curWattHour = Mathf.Lerp(curWattHour, maxWattHour, Time.fixedDeltaTime / 5);
+            percentageText.text += " (Charging)";
+            //is charging the boat
         }
 
         if (SaveManager.instance.alive && curWattHour <= 0) //|| curActiveComponent > maxActiveComponent)
