@@ -119,8 +119,12 @@ public class BoatAudio : MonoBehaviour
 
     public void EndTapeSound()
     {
-        tape.clip = sfx_tape_end;
         tape.loop = false;
+    }
+
+    public void EjectTapeSound()
+    {
+        tape.clip = sfx_tape_end;
         tape.Play();
     }
 

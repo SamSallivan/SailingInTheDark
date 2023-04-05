@@ -468,7 +468,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         else
         {
             inputDir = Vector3.zero;
-
+            StartCoroutine(playerAudio.StopWalkSound());
         }
 
     }

@@ -80,6 +80,7 @@ public class I_TapePlayer : Interactable
     {
         if (tapeInserted != null)
         {
+            BoatController.instance.boatAudio.EjectTapeSound();
             GameObject tape = Instantiate(tapeInserted, tapeEjectTransform.position, tapeEjectTransform.rotation, null);
             tapeInserted = null;
         }

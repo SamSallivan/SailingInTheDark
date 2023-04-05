@@ -52,6 +52,7 @@ public class RecordingManager : MonoBehaviour
 
     IEnumerator PlayRecording(DialogueData tempRecording, int fromLine)
     {
+        StartCoroutine(BoatController.instance.boatAudio.StartTapeSound());
         OnRecordingStart.Invoke();
         yield return new WaitWhile(() => radioPaused);
         currentRecording = tempRecording;
@@ -79,6 +80,7 @@ public class RecordingManager : MonoBehaviour
         //tapePlayer.EjectTape();
 
         OnRecordingEnd.Invoke();
+        BoatController.instance.boatAudio.EndTapeSound();
 
         currentIndex = 0;
         currentLine = new Line();
