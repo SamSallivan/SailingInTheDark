@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LightIntensity
   m_EditorClassIdentifier: 
   name: Light Intensity
-  type: 1
+  type: 2
   description: Increase the Light Intensity.
   sprite: {fileID: 0}
   maxLevel: 2
@@ -22,3 +22,4 @@ MonoBehaviour:
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
       amount: 50
   itemToTrade: {fileID: 0}
+  itemAmount: 0

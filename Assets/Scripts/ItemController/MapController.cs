@@ -33,7 +33,6 @@ public class MapController : MonoBehaviour
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, GetComponent<I_InventoryItem>().itemData.dropObject.transform.localRotation, Time.fixedDeltaTime * 5);
                 gameObject.layer = 0;
                 transform.GetChild(0).gameObject.layer = 0;
-
             }
         }
     }

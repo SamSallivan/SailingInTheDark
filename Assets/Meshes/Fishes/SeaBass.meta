@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Meshes/Fishes/SeaBass.meta
 guid: 2a72bc3325d91c9448bded14a09a41f2
+========
+guid: 0f4b7e5a5307747829d0342ec977d5c3
+>>>>>>>> origin/Thomas-Saveload-LearnHow:Assets/Scripts/Systems/SavingLoading.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -31,7 +31,7 @@ public class BoatAudio : MonoBehaviour
     public AudioClip sfx_waves_2; //not in use
 
     [Foldout("References", true)]
-    public I_Helm helm;
+    //public I_Helm helm;
 
     private float randomAmbianceTimer = 0f;
 
@@ -44,7 +44,7 @@ public class BoatAudio : MonoBehaviour
 
     private void Update()
     {
-        UpdateSailingAmbiance(helm.speed);
+        UpdateSailingAmbiance(BoatController.instance.helm.speed);
 
         if (randomAmbianceTimer <= 0f)
         {
