@@ -39,7 +39,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (inputDelay < 1)
         {
-            inputDelay+=Time.fixedDeltaTime;
+            inputDelay += Time.fixedDeltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -102,6 +102,7 @@ public class InventoryManager : MonoBehaviour
 
     public void OpenInventory()
     {
+        PlayerController.instance.inventoryAudio.PlayInventoryOpen();
         activated = true;
         inputDelay = 0;
 
@@ -131,6 +132,7 @@ public class InventoryManager : MonoBehaviour
     }
     public void CloseInventory()
     {
+        PlayerController.instance.inventoryAudio.PlayInventoryClose();
         activated = false;
         //Time.timeScale = activated ? 0.0f : 1.0f;
         if (!BoatController.instance.helm.activated)
@@ -151,6 +153,8 @@ public class InventoryManager : MonoBehaviour
 
     public void SelectItem()
     {
+        //TODO: check if new item is hovered, play sound
+
         selectedPosition.x += Input.GetKeyDown(KeyCode.D) ? 1 : 0;
         selectedPosition.x -= Input.GetKeyDown(KeyCode.A) ? 1 : 0;
         if (selectedPosition.x < 0)
@@ -186,6 +190,7 @@ public class InventoryManager : MonoBehaviour
         //if max amount not reached
         //inventoryitemlist[i].itemstatus.amount++
         //else
+        PlayerController.instance.inventoryAudio.PlayItemCollect();
 
         int temp = itemStatus.amount;
 
@@ -193,14 +198,15 @@ public class InventoryManager : MonoBehaviour
         {
             if (item.data == itemData && item.data.isStackable)
             {
-                while(item.status.amount < item.data.maxStackAmount && temp > 0)
+                while (item.status.amount < item.data.maxStackAmount && temp > 0)
                 {
                     item.status.amount++;
                     temp--;
                     item.slot.amount.text = "" + item.status.amount;
                 }
 
-                if (temp <= 0){
+                if (temp <= 0)
+                {
                     return item;
                 }
             }
@@ -218,7 +224,7 @@ public class InventoryManager : MonoBehaviour
 
             if (inventoryItemList.Count > slotPerRow * slotPerColumn)
             {
-                
+
                 DropItem(newItem1, itemStatus.amount);
                 return null;
             }
@@ -251,7 +257,7 @@ public class InventoryManager : MonoBehaviour
             {
                 inventoryItem.status.amount--;
                 inventoryItem.slot.amount.text = "" + inventoryItem.status.amount;
-                
+
             }
             else
             {
@@ -279,6 +285,8 @@ public class InventoryManager : MonoBehaviour
 
     public void DropItem(InventoryItem inventoryItem, int amount = 1)
     {
+        PlayerController.instance.inventoryAudio.PlayItemDrop();
+
         if (inventoryItem.data.isStackable)
         {
             if (inventoryItem.status.amount > amount)
@@ -321,23 +329,24 @@ public class InventoryManager : MonoBehaviour
     public void DropItem(ItemData itemData, int amount)
     {
         //materialCount -= x;
-        
+
         int temp = amount;
 
         foreach (InventoryItem item in inventoryItemList)
         {
             if (item.data == itemData && item.data.isStackable)
             {
-                while(item.status.amount > 0 && temp > 0)
+                while (item.status.amount > 0 && temp > 0)
                 {
-                    item.status.amount --;
+                    item.status.amount--;
                     temp--;
                     item.slot.amount.text = "" + item.status.amount;
 
                     //remove from inventory if <= 0
                 }
-                
-                if (temp <= 0){
+
+                if (temp <= 0)
+                {
                     return;
                 }
 
@@ -393,7 +402,8 @@ public class InventoryManager : MonoBehaviour
                     equipPivot = PlayerController.instance.equippedTransformRight;
                     break;
             }
-            
+            PlayerController.instance.inventoryAudio.PlayItemEquip();
+
             GameObject newObject = Instantiate(item.data.dropObject, equipPivot);
             newObject.name = item.data.dropObject.name + " Equipped";
             //newObject.transform.localPosition = new Vector3(0, 0, 0);
@@ -415,9 +425,11 @@ public class InventoryManager : MonoBehaviour
             PlayerController.instance.targetInteractable.Target();
         }
     }
-    
+
     public void UnequipItem(ItemData.EquipType type)
     {
+        //TODO: get unequip sound
+        PlayerController.instance.inventoryAudio.PlayItemUnequip();
         switch (type)
         {
             case ItemData.EquipType.Left:
@@ -540,7 +552,7 @@ public class InventoryManager : MonoBehaviour
     {
         Vector2 lookVector = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         Vector2 rotateValue = new Vector2();
-        
+
         if (UIManager.instance.detailObjectInBound && Input.GetMouseButtonDown(0))
         {
             detailObjectDrag = true;
@@ -551,7 +563,7 @@ public class InventoryManager : MonoBehaviour
 
         }
 
-        if(detailObjectDrag)
+        if (detailObjectDrag)
         {
             rotateValue.x = -(lookVector.x * 2.5f);
             rotateValue.y = lookVector.y * 2.5f;
@@ -567,7 +579,8 @@ public class InventoryManager : MonoBehaviour
             {
                 UIManager.instance.detailObjectPivot.GetChild(0).transform.localRotation = Quaternion.Slerp(currentRotation, selectedItem.data.examineRotation, Time.deltaTime * 10f);
             }
-            else{
+            else
+            {
                 detailRotationFix = false;
                 UIManager.instance.detailObjectPivot.GetChild(0).transform.Rotate(PlayerController.instance.tHead.GetChild(0).transform.up, 0.5f, Space.World);
             }
@@ -576,7 +589,7 @@ public class InventoryManager : MonoBehaviour
 
     public int2 GetGridPosition(int index)
     {
-        return(new int2(index% slotPerRow, index / slotPerRow));
+        return (new int2(index % slotPerRow, index / slotPerRow));
     }
     public int GetGridIndex(int2 position)
     {
