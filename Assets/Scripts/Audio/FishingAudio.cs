@@ -83,11 +83,13 @@ public class FishingAudio : MonoBehaviour
         StartCoroutine(EndReeling());
         StartCoroutine(EndSplashing());
 
-        rod.clip = sfx_early_pull_bubble;
+        rod.clip = sfx_player_pull;
         rod.Play();
+        minigame.clip = sfx_early_pull_bubble;
+        minigame.Play();
         yield return new WaitForSeconds(0.05f);
-        rod.clip = sfx_early_pull_splash;
-        rod.Play();
+        minigame.clip = sfx_early_pull_splash;
+        minigame.Play();
     }
 
     public IEnumerator PlayThrowLure()
