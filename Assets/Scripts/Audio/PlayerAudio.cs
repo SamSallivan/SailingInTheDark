@@ -17,6 +17,8 @@ public class PlayerAudio : MonoBehaviour
     private bool isJump = false;
     private float startVolume;
 
+    public float footStepInterval;
+
     private void Start()
     {
         startVolume = walk.volume;
@@ -29,12 +31,17 @@ public class PlayerAudio : MonoBehaviour
         {
             walk.volume = startVolume;
             walk.clip = sfx_walk;
-            walk.loop = true;
+            walk.loop = false;
             walk.Play();
             isDelayed = true;
             yield return new WaitForSeconds(walk.clip.length);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(footStepInterval);
             isDelayed = false;
+        }
+
+        else if (isDelayed)
+        {
+            yield break;
         }
     }
 

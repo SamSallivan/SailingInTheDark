@@ -558,7 +558,7 @@ Transform:
   m_GameObject: {fileID: 7596440031121015847}
   m_LocalRotation: {x: -0.7071093, y: -0, z: -0, w: 0.70710427}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.25, z: 1.5}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2209882718379637853}
@@ -638,7 +638,7 @@ MonoBehaviour:
     amount: 1
     durability: 1
   openInventoryOnPickUp: 0
-  equipOnPickUp: 1
+  equipOnPickUp: 0
   activated: 0
   excludeOtherInteraction: 0
   triggerZone: {fileID: 0}

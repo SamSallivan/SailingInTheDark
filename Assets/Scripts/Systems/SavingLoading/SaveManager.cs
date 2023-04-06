@@ -5,73 +5,79 @@ using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
 
+[System.Serializable]
+public class SaveData
+{
+    public float currWatt;
+    public float maxWatt;
+    public bool boatDocked;
+
+    public Vector3 boatPosition;
+    public Vector3 boatRotation;
+
+    public Vector3 playerPosition;
+    public Vector3 playerRotation;
+    public List<InventoryItem> inventoryItems;
+    public List<Objective> objectives;
+
+    public SaveData()
+    {
+    }
+}
+
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
-    public bool UseSave;
 
-    private Transform playerTransform;
-    [HideInInspector] public Vector3 playerPos;
-    [HideInInspector] public Vector3 playerRot;
-    [HideInInspector] public List<InventoryItem> initialInventory;
-    [HideInInspector] public List<Objective> initialObjective;
-    [HideInInspector] public List<InventoryItem> playerInventory = new List<InventoryItem>();
-
-    [HideInInspector] public Transform boatTransform;
-    [HideInInspector] public Vector3 boatPos;
-    [HideInInspector] public Vector3 boatRot;
-    [HideInInspector] public bool boatDocked;
-    I_Anchor anchor;
+    public SaveData initialSaveData;
+    private SaveData saveData = new SaveData();
     public bool isGameOver = false;
+    public bool enableSave = false;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            anchor = GameObject.Find("AnchorSwitch").GetComponent<I_Anchor>();
         }
-        //deathText = GameObject.Find("Death Text").GetComponent<TMP_Text>();
     }
 
     private void Start()
     {
-        foreach (InventoryItem item in initialInventory)
+        if (!enableSave)
         {
-            InventoryManager.instance.AddItem(item.data, item.status);
+            StartCoroutine(Load(initialSaveData));
         }
-
-        foreach (Objective objective in initialObjective)
+        else
         {
-            ObjectiveManager.instance.AssignObejctive(objective);
+            SaveData readData = SaveLoader.Read();
+            if (readData != null)
+            {
+                StartCoroutine(Load(readData));
+                //SaveLoader.DeleteSaveData();
+                //Save();
+            }
+            else
+            {
+                StartCoroutine(Load(initialSaveData));
+            }
         }
-
-        Debug.Log($"find your save file here: {Application.persistentDataPath}");
-
-        
-            DataFile data = SaveLoader.LoadData();
-            if (data != null){
-                //LoadCheckPoint();
-                SaveLoader.DeleteSaveData();
-                Save();
-            }
-            else{
-                SaveLoader.DeleteSaveData();
-                Save();
-            }
-        
     }
 
     public void Save()
     {
-        this.boatDocked = anchor.activated;
-        playerPos = PlayerController.instance.transform.position;
-        playerRot = PlayerController.instance.transform.eulerAngles;
+        saveData.currWatt = BoatController.instance.curWattHour;
+        saveData.maxWatt = BoatController.instance.maxWattHour;
+        saveData.boatDocked = BoatController.instance.anchor.activated;
+        saveData.boatPosition = BoatController.instance.transform.position;
+        saveData.boatRotation = BoatController.instance.transform.eulerAngles;
 
-        boatPos = BoatController.instance.transform.position;
-        boatRot = BoatController.instance.transform.eulerAngles;
+        saveData.playerPosition = PlayerController.instance.transform.position;
+        saveData.playerRotation = PlayerController.instance.transform.eulerAngles;
+        saveData.inventoryItems = InventoryManager.instance.inventoryItemList;
+        saveData.objectives = ObjectiveManager.instance.ObjectiveList;
 
-        SaveLoader.SaveData(this, BoatController.instance.curWattHour, BoatController.instance.maxWattHour);
+        SaveLoader.Write(saveData);
         isGameOver = false;
     }
 
@@ -82,29 +88,24 @@ public class SaveManager : MonoBehaviour
             BoatController.instance.TakeDamage(100);
     }
 
-    public void LoadCheckPoint()
+    public IEnumerator Load(SaveData saveData)
     {
+        //SaveData saveData = SaveLoader.Read();
+
         InventoryManager.instance.inventoryItemList.Clear();
-        foreach (InventoryItem item in playerInventory)
+        foreach (InventoryItem item in saveData.inventoryItems)
         {
             InventoryManager.instance.AddItem(item.data, item.status);
         }
 
         ObjectiveManager.instance.ObjectiveList.Clear();
-        foreach (Objective objective in initialObjective)
+        foreach (Objective objective in saveData.objectives)
         {
             ObjectiveManager.instance.AssignObejctive(objective);
         }
 
-        StartCoroutine(Reset());
-    }
-
-    public IEnumerator Reset()
-    {
-        DataFile data = SaveLoader.LoadData();
-
-        BoatController.instance.curWattHour = data.currWatt;
-        BoatController.instance.maxWattHour = data.maxWatt;
+        BoatController.instance.curWattHour = saveData.currWatt;
+        BoatController.instance.maxWattHour = saveData.maxWatt;
         BoatController.instance.ignoreConsumption = false;
 
         Rigidbody boatRB = BoatController.instance.GetComponent<Rigidbody>();
@@ -112,8 +113,8 @@ public class SaveManager : MonoBehaviour
         boatRB.interpolation = RigidbodyInterpolation.None;
         boatRB.isKinematic = true;
 
-        BoatController.instance.transform.position = new Vector3(data.boatPosition[0], data.boatPosition[1], data.boatPosition[2]);
-        BoatController.instance.transform.eulerAngles = new Vector3(data.boatRotation[0], data.boatRotation[1], data.boatRotation[2]);
+        BoatController.instance.transform.position = new Vector3(saveData.boatPosition[0], saveData.boatPosition[1], saveData.boatPosition[2]);
+        BoatController.instance.transform.eulerAngles = new Vector3(saveData.boatRotation[0], saveData.boatRotation[1], saveData.boatRotation[2]);
 
         Rigidbody playerRB = PlayerController.instance.GetComponent<Rigidbody>();
         if (playerRB != null)
@@ -124,8 +125,8 @@ public class SaveManager : MonoBehaviour
         }
 
         PlayerController.instance.transform.SetParent(null);
-        PlayerController.instance.transform.position = new Vector3(data.playerPosition[0], data.playerPosition[1], data.playerPosition[2]);
-        PlayerController.instance.transform.localEulerAngles = new Vector3(data.playerRotation[0], data.playerRotation[1], data.playerRotation[2]);
+        PlayerController.instance.transform.position = new Vector3(saveData.playerPosition[0], saveData.playerPosition[1], saveData.playerPosition[2]);
+        PlayerController.instance.transform.localEulerAngles = new Vector3(saveData.playerRotation[0], saveData.playerRotation[1], saveData.playerRotation[2]);
 
         yield return new WaitForSeconds(1);
 
@@ -133,9 +134,8 @@ public class SaveManager : MonoBehaviour
         boatRB.interpolation = RigidbodyInterpolation.Interpolate;
         boatRB.isKinematic = false;
         BoatController.instance.helm.topView = false;
-
-        if (anchor.activated != data.boatDocked)
-            anchor.AnchorSwitch();
+        
+        BoatController.instance.anchor.Initialize(saveData.boatDocked);
 
         if (playerRB)
         {

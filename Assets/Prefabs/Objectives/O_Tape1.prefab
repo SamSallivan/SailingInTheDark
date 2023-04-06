@@ -227,11 +227,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finished: 0
   objectiveData: {fileID: 0}
-  newObjectives:
-  - {fileID: 687843065601695564, guid: e8017858caee52c4cb975886faf8f70e, type: 3}
-  newObjectivesString: []
+  newObjectives: []
+  newObjectivesString:
+  - Go to Deserted Island.
+  - Go to Abandoned Mine.
+  - Go to Lotus Island.
   objectiveDelay: 0
-  assignedDialogue: {fileID: 11400000, guid: 9ace3f8768e3d9345b2b40e1ee322fb5, type: 2}
+  assignedDialogue: {fileID: 0}
   finishedDialogue: {fileID: 0}
   dialogueDelay: 0
   requiredRecordingName: grandpa1

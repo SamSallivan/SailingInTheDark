@@ -794,7 +794,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     }
     public void MistUpdate()
     {
-        if (inMist)
+        if (inMist && (InventoryManager.instance.equippedItemCenter == null || InventoryManager.instance.equippedItemCenter.data == null || InventoryManager.instance.equippedItemCenter.data.title != "Gas Mask"))
         {
             UIManager.instance.mistUI.SetActive(true);
             mistTimer += Time.deltaTime;

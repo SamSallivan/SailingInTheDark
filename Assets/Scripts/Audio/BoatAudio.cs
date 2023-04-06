@@ -46,7 +46,7 @@ public class BoatAudio : MonoBehaviour
     {
         UpdateSailingAmbiance(BoatController.instance.helm.speed);
 
-        if (randomAmbianceTimer <= 0f)
+        if (randomAmbianceTimer <= 0f && PlayerController.instance.isNonPhysics)
         {
             PlayBoatAmbiance();
             randomAmbianceTimer = Random.Range(10f, 25f);

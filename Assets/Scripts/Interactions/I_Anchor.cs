@@ -128,6 +128,41 @@ public class I_Anchor : Interactable
         }
     }
 
+    public void Initialize(bool anchored)
+    {
+        activated = anchored;
+
+        if (anchored)
+        {
+            BoatController.instance.boat.Anchor.Drop();
+            BoatController.instance.helm.ShutDown();
+            textPromptActivated = "Weigh";
+            UIManager.instance.anchorText.text = "[X] Weigh Anchor";
+
+            if (dockable)
+            {
+                textPromptActivated = "Undock";
+                UIManager.instance.anchorText.text = "[X] Undock Boat";
+            }
+
+            UIManager.instance.anchorImage.SetActive(true);
+        }
+        else if (!anchored)
+        {
+            BoatController.instance.boat.Anchor.Weigh();
+            textPrompt = "Drop";
+            UIManager.instance.anchorText.text = "[X] Drop Anchor";
+
+            if (dockable)
+            {
+                textPrompt = "Dock";
+                UIManager.instance.anchorText.text = "[X] Dock Boat";
+            }
+
+            UIManager.instance.anchorImage.SetActive(false);
+        }
+    }
+
     public IEnumerator SaveGame()
     {
         yield return new WaitForSeconds(1f);

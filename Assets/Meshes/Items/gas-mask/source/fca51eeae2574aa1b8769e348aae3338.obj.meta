@@ -1,0 +1,173 @@
+fileFormatVersion: 2
+guid: c3ef8d61edc73c34a90dc3b2f6828c9e
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Front_Fan_Cylinder1Mat
+    second: {fileID: 2100000, guid: 275cde477cefef94ba6ff5a090c818a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Gas_Cylinders_Parts1_CilindroMat
+    second: {fileID: 2100000, guid: 123fad25e65f60f4594a09385d0b7648, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Gas_Cylinders_Parts1_Gas_Cylinder_CylinderMat
+    second: {fileID: 2100000, guid: d02cd42fddc5bf9479071cab024caec0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Mask_Mask_1Mat
+    second: {fileID: 2100000, guid: 12d7cefb3e8c0e74cacbff16c41a76e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_NURBS_Recorrido_Mat
+    second: {fileID: 2100000, guid: 734fbc6ef0c5fd04fb422547a249bf10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_NURBS_Recorrido__Tapa_11Mat
+    second: {fileID: 2100000, guid: 58fdf45565b6acb41b9c567ae1d3da8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_NURBS_Recorrido__Tapa_21Mat
+    second: {fileID: 2100000, guid: b68a008ac006ea04ea68dd1510dbcea9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_Simetr_a_Parts_Cilindro1Mat
+    second: {fileID: 2100000, guid: 9a43dc424df390a439c81f9284a5af82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_Simetr_a_Parts_Cylinder_1Mat
+    second: {fileID: 2100000, guid: 75be01666b1afb44ba1da32c00a9dd38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_Simetr_a_Parts_Cylinder_2Mat
+    second: {fileID: 2100000, guid: d24734459bf71f14398071cadcf73430, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_Simetr_a_Parts_Sweep_NURBS_1Mat
+    second: {fileID: 2100000, guid: 39910847c6ed7284ebcc938aefbfc101, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_Simetr_a_Parts_Sweep_NURBS_1_Tapa_1Mat
+    second: {fileID: 2100000, guid: 4503e16e31fdb0d4d9a5b79872cc54c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mascara_de_gas_Gas_Mask_Strap_Simetr_a_Parts_Sweep_NURBS_1_Tapa_2Mat
+    second: {fileID: 2100000, guid: ca69adf50e23c3044935b56676335802, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.01
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

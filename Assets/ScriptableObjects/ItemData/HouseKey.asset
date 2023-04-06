@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ee888b371e2b458aee4fa444b52b8, type: 3}
+  m_Name: HouseKey
+  m_EditorClassIdentifier: 
+  type: 0
+  title: House Key
+  sprite: {fileID: 21300000, guid: 331f3a57a35cf79449dbc551c84c0b28, type: 3}
+  description: "The key for the house. \nGrandpa often locks the door when he goes
+    out at night.\nDid he forgot to bring his key?"
+  isStackable: 1
+  maxStackAmount: 5
+  isEquippable: 1
+  equipType: 1
+  equipPosition: {x: 0, y: 0, z: 0}
+  equipRotation: {x: 0, y: 0, z: 0.38268346, w: 0.9238795}
+  isDroppable: 1
+  dropObject: {fileID: 3546498030219192687, guid: ee60d376048a3f44185869fa0bb36ec0,
+    type: 3}
+  examineScale: 1
+  examineRotation: {x: -0.000000016727626, y: 0.9238795, z: -0.38268346, w: -0.000000040384055}
+  recordingName: 'DAY 0: Test'
+  recording: {fileID: 0}
+  reelDecreaseCoefficient: 0
+  nimbbleInterval: {x: 0, y: 0}

@@ -33,7 +33,9 @@ public class UpgradeSlot : MonoBehaviour
         }
         else
         {
-            levelText.text = "Level " + upgradeOption.currentLevel + " / " + upgradeOption.upgradeData.maxLevel;
+            //levelText.text = "Level " + upgradeOption.currentLevel + " / " + upgradeOption.upgradeData.maxLevel;
+            int stock = upgradeOption.upgradeData.maxLevel - upgradeOption.currentLevel;
+            levelText.text = "Stock " + stock;
         }
 
         costText[1].gameObject.SetActive(false);

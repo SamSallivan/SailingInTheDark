@@ -124,7 +124,7 @@ MonoBehaviour:
   textPrompt: Use
   textPromptActivated: 
   highlightTarget: {fileID: 4902360359010004958}
-  interactionType: 4
+  interactionType: 3
   onceOnly: 0
   interactedOnce: 0
   examineText: 

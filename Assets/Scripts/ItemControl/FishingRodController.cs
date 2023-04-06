@@ -362,7 +362,7 @@ public class FishingRodController : MonoBehaviour
 
     public void OnDisable()
     {
-        //Reset();
+        //Load();
         UIManager.instance.fishingUI.SetActive(false);
         Destroy(floatObject);
     }

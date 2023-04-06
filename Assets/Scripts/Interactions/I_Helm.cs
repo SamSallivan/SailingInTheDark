@@ -136,7 +136,7 @@ public class I_Helm : Interactable
         PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
         PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
         //PlayerController.instance.transform.localRotation = Quaternion.identity;
-        //PlayerController.instance.GetComponent<MouseLook>().Reset();
+        //PlayerController.instance.GetComponent<MouseLook>().Load();
         PlayerController.instance.enableInteraction = false;
     }
 
