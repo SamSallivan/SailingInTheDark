@@ -63,7 +63,7 @@ MonoBehaviour:
   sfx_reeling: {fileID: 8300000, guid: 65abfd3a481a09e4fbc4bf9946b7b919, type: 3}
   sfx_splash_ambiance: {fileID: 8300000, guid: c112fa59be3bb0046b6fe8a94949776b, type: 3}
   sfx_throw: {fileID: 8300000, guid: 221d23c861d663245b58989eff65d74e, type: 3}
-  sfx_player_pull: {fileID: 8300000, guid: d6a143594f0808b4483b30f43595ba27, type: 3}
+  sfx_player_pull: {fileID: 8300000, guid: a2f7e8e02bf5c3d458e8554d34b03eda, type: 3}
   sfx_ready_rod: {fileID: 8300000, guid: b815afdf53d6bbb45a5fb699609d703d, type: 3}
   sfx_throw_reel: {fileID: 8300000, guid: 3348b63fd3c85fa4dbe822dc2d01a0c0, type: 3}
   sfx_fake_bite: {fileID: 8300000, guid: c02a8da5916fbab449f8a222fc9d3fd8, type: 3}
