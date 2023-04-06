@@ -101,6 +101,8 @@ public class I_Anchor : Interactable
             textPromptActivated = "Weigh";
             UIManager.instance.anchorText.text = "[X] Weigh Anchor";
 
+            UIManager.instance.anchorImage.SetActive(true);
+
             if (dockable)
             {
                 textPromptActivated = "Undock";
@@ -108,7 +110,6 @@ public class I_Anchor : Interactable
                 StartCoroutine(SaveGame());
             }
 
-            UIManager.instance.anchorImage.SetActive(true);
         }
         else if (!activated)
         {

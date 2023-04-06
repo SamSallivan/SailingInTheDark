@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyBox;
 using NWH.DWP2.WaterObjects;
+using UnityEngine.InputSystem;
 
 public class FishingRodController : MonoBehaviour
 {
@@ -74,6 +75,8 @@ public class FishingRodController : MonoBehaviour
         if (transform.IsChildOf(PlayerController.instance.transform) && PlayerController.instance.enableMovement)
         {
             KeyCode key;
+            KeyCode key1 = KeyCode.Mouse0; ;
+            KeyCode key2 = KeyCode.Mouse0;
 
             if (transform.IsChildOf(PlayerController.instance.equippedTransformLeft))
             {
@@ -92,7 +95,7 @@ public class FishingRodController : MonoBehaviour
 
                     UIManager.instance.fishingUI.SetActive(false);
                     transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
-                    if (Input.GetKeyDown(key))
+                    if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
                     {
                         fishingAudio.PlayReadyRod();
                         fishingState = FishingState.Casting;
@@ -101,7 +104,7 @@ public class FishingRodController : MonoBehaviour
 
                 case FishingState.Casting:
 
-                    if (Input.GetKey(key))
+                    if (Input.GetKey(key) || Input.GetKey(key2))
                     {
                         //castCharger = Mathf.MoveTowards(castCharger, 1, Time.deltaTime);
                         //castCharger = Mathf.Lerp(castCharger, 0.5f, Time.deltaTime);
@@ -112,7 +115,7 @@ public class FishingRodController : MonoBehaviour
                         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, castCharger);
                     }
 
-                    if (Input.GetKeyUp(key))
+                    if (Input.GetKeyUp(key) || Input.GetKeyUp(key2))
                     {
                         Cast();
                         fishingState = FishingState.Waiting;
@@ -134,7 +137,7 @@ public class FishingRodController : MonoBehaviour
                         waitTimer += Time.deltaTime;
                     }
 
-                    if (Input.GetKeyDown(key))
+                    if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
                     {
                         Reset();
                         StartCoroutine(fishingAudio.PlayEarlyPull());
@@ -194,7 +197,7 @@ public class FishingRodController : MonoBehaviour
                     //UIManager.instance.fishingUI.SetActive(true);
                     //UIManager.instance.reelSlider.value = 1 - (reactTimer / reactTimeDefault);
 
-                    if (Input.GetKeyDown(key))
+                    if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
                     {
                         //reelCharger = 1 - (reactTimer / reactTimeDefault);
                         reelCharger = 0.5f;
@@ -237,7 +240,7 @@ public class FishingRodController : MonoBehaviour
                         targetRotation = Quaternion.Euler(50 + Random.Range(shakeRandomX.x, shakeRandomX.y) * 2.5f, 0, Random.Range(shakeRandomZ.x, shakeRandomZ.y) * 1f);
                         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * shakeSpeed);
 
-                        if (Input.GetKeyDown(key))
+                        if (Input.GetKeyDown(key) || Input.GetKeyDown(key2))
                         {
                             reelCharger = Mathf.MoveTowards(reelCharger, 1, Time.fixedDeltaTime * reelIncreaseCoefficient);
                             targetRotation = Quaternion.Euler(40, 0, 0);

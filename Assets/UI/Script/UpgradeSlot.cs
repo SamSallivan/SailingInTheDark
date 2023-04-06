@@ -63,7 +63,13 @@ public class UpgradeSlot : MonoBehaviour
         else
         {
             int i = 0;
-            foreach (MaterialRequired requiredMaterial in upgradeOption.upgradeData.costs[upgradeOption.currentLevel-1].requiredMaterials)
+
+            int costLevel = upgradeOption.currentLevel - 1;
+            if (upgradeOption.upgradeData.costs.Length <= costLevel)
+            {
+                costLevel = upgradeOption.upgradeData.costs.Length - 1;
+            }
+            foreach (MaterialRequired requiredMaterial in upgradeOption.upgradeData.costs[costLevel].requiredMaterials)
             {
 
                 int materialCount = UpgradeManager.instance.CountMaterials(requiredMaterial.itemData);
@@ -77,7 +83,8 @@ public class UpgradeSlot : MonoBehaviour
                 }
 
                 costText[i].gameObject.SetActive(true);
-                costText[i].text = requiredMaterial.itemData.name + " X " + requiredMaterial.amount + " / " + materialCount;
+                costText[i].text = requiredMaterial.itemData.name + " X " + requiredMaterial.amount + " / " +
+                                   materialCount;
                 i++;
             }
         }

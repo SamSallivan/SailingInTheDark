@@ -95,7 +95,14 @@ public class UpgradeManager : MonoBehaviour
 
     public void Upgrade(UpgradeOption option)
     {
-        foreach (MaterialRequired requiredMaterial in option.upgradeData.costs[option.currentLevel - 1].requiredMaterials)
+        int i = 0;
+
+        int costLevel = option.currentLevel - 1;
+        if (option.upgradeData.costs.Length <= costLevel)
+        {
+            costLevel = option.upgradeData.costs.Length - 1;
+        }
+        foreach (MaterialRequired requiredMaterial in option.upgradeData.costs[costLevel].requiredMaterials)
         {
             int materialCount = CountMaterials(requiredMaterial.itemData);
             if (materialCount < requiredMaterial.amount)
@@ -109,7 +116,7 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
 
-        foreach (MaterialRequired requiredMaterial in option.upgradeData.costs[option.currentLevel - 1].requiredMaterials)
+        foreach (MaterialRequired requiredMaterial in option.upgradeData.costs[costLevel].requiredMaterials)
         {
             CostMaterial(requiredMaterial.itemData, requiredMaterial.amount);
         }
@@ -152,19 +159,17 @@ public class UpgradeManager : MonoBehaviour
 
         foreach (InventoryItem item in InventoryManager.instance.inventoryItemList)
         {
-            if (item.data == itemData && item.data.isStackable)
+            //if (item.data == itemData && item.data.isStackable)
+            //{
+            if (item.data == itemData)
             {
-                while(item.status.amount > 0 && temp > 0)
+                while (item.status.amount > 0 && temp > 0)
                 {
                     item.status.amount --;
                     temp--;
                     item.slot.amount.text = "" + item.status.amount;
 
                     //remove from inventory if <= 0
-                }
-                
-                if (temp <= 0){
-                    return;
                 }
 
                 if (item.status.amount <= 0)
@@ -175,6 +180,10 @@ public class UpgradeManager : MonoBehaviour
                     {
                         InventoryManager.instance.UnequipItem(item.data.equipType);
                     }
+                }
+
+                if (temp <= 0){
+                    return;
                 }
                 break;
             }

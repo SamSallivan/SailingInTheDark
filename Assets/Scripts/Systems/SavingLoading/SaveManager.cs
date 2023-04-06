@@ -44,7 +44,9 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        if (!enableSave)
+        StartCoroutine(Load(initialSaveData));
+
+        /*if (!enableSave)
         {
             StartCoroutine(Load(initialSaveData));
         }
@@ -61,7 +63,7 @@ public class SaveManager : MonoBehaviour
             {
                 StartCoroutine(Load(initialSaveData));
             }
-        }
+        }*/
     }
 
     public void Save()
