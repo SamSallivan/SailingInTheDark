@@ -8,7 +8,7 @@ public class FishingRodController : MonoBehaviour
 {
     public GameObject floatPrefab;
     public GameObject floatObject;
-    
+
     [ReadOnly()]
     public T_FishingZone fishingZone;
     public List<FishData> fishListDefault;
@@ -23,7 +23,7 @@ public class FishingRodController : MonoBehaviour
     public float waitTime;
     [ReadOnly()]
     public float waitTimer = 0;
-    
+
     public Vector2 nibbleCountInterval;
     public Vector2 nibbleTimeInterval;
     [ReadOnly()]
@@ -52,6 +52,10 @@ public class FishingRodController : MonoBehaviour
     public float reelDecreaseCoefficient;
     [ReadOnly()]
     public float reelCharger;
+
+    public FishingAudio fishingAudio;
+    public bool lureTouchWater = false;
+
 
     public enum FishingState
     {
@@ -90,6 +94,8 @@ public class FishingRodController : MonoBehaviour
                     transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
                     if (Input.GetKeyDown(key))
                     {
+                        //TODO: ready rod
+                        fishingAudio.PlayReadyRod();
                         fishingState = FishingState.Casting;
                     }
                     break;
@@ -115,11 +121,17 @@ public class FishingRodController : MonoBehaviour
                     break;
 
                 case FishingState.Waiting:
-
                     targetRotation = Quaternion.Euler(45, 0, 0);
                     transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
                     if (floatObject.transform.GetChild(0).GetComponent<WaterObject>().IsTouchingWater())
                     {
+                        //TODO: check if lure touches water for the first time, lure landing
+                        if (lureTouchWater == false)
+                        {
+                            lureTouchWater = true;
+                            fishingAudio.PlayLureLand();
+                        }
+
                         //waitTimer = Mathf.MoveTowards(waitTimer, waitTime, Time.deltaTime);
                         waitTimer += Time.deltaTime;
                     }
@@ -127,6 +139,8 @@ public class FishingRodController : MonoBehaviour
                     if (Input.GetKeyDown(key))
                     {
                         Reset();
+                        //TODO: early pull
+                        StartCoroutine(fishingAudio.PlayEarlyPull());
                     }
 
 
@@ -146,11 +160,16 @@ public class FishingRodController : MonoBehaviour
                             //fishingState = FishingState.Nibbling;
                             floatObject.GetComponent<Rigidbody>().AddForce(Vector3.down * nibbleForce, ForceMode.Impulse);
                             waitTimer -= Random.Range(nibbleTimeInterval.x, nibbleTimeInterval.y);
-                            nibbleCount--; 
+                            nibbleCount--;
                             transform.localRotation = Quaternion.Euler(50, 0, 0);
+                            //TODO: fake bite
+                            fishingAudio.PlayFakeBite();
                         }
-                        else{
+                        else
+                        {
                             fishingState = FishingState.Reacting;
+                            //TODO: real bite
+                            StartCoroutine(fishingAudio.PlayRealBite());
                         }
                     }
                     break;
@@ -161,7 +180,7 @@ public class FishingRodController : MonoBehaviour
                     break;
 
                 case FishingState.Reacting:
-                    
+
                     if (shakeTimer < shakeFrequency)
                     {
                         shakeTimer += Time.deltaTime;
@@ -184,12 +203,16 @@ public class FishingRodController : MonoBehaviour
                     {
                         //reelCharger = 1 - (reactTimer / reactTimeDefault);
                         reelCharger = 0.5f;
-                        fishingState = FishingState.Reeling; 
+                        fishingState = FishingState.Reeling;
+                        //TODO: start reeling
+                        fishingAudio.StartReeling();
                     }
 
                     if (reactTimer >= reactTimeDefault)
                     {
                         Reset();
+                        //TODO: failure to react to bite (add)
+                        StartCoroutine(fishingAudio.PlayEarlyPull());
                     }
                     break;
 
@@ -212,6 +235,8 @@ public class FishingRodController : MonoBehaviour
                     if (reelCharger <= 0)
                     {
                         Reset();
+                        //TODO: fail to catch in minigame
+                        StartCoroutine(fishingAudio.PlayFishingFailure());
                     }
                     else
                     if (reelCharger < 1)
@@ -226,6 +251,8 @@ public class FishingRodController : MonoBehaviour
                             targetRotation = Quaternion.Euler(40, 0, 0);
                             //transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10);
                             transform.localRotation = targetRotation;
+                            //TODO: player pulling
+                            StartCoroutine(fishingAudio.PlayPlayerPull());
                         }
 
                         UIManager.instance.reelSlider.value = reelCharger;
@@ -252,6 +279,8 @@ public class FishingRodController : MonoBehaviour
                         }
 
                         Reset();
+                        //TODO: fishing success
+                        fishingAudio.PlayFishingSuccess();
                     }
 
                     break;
@@ -271,10 +300,10 @@ public class FishingRodController : MonoBehaviour
 
     public void Cast()
     {
-        floatObject = Instantiate(floatPrefab, CastPos.position, Quaternion.identity,null);
+        floatObject = Instantiate(floatPrefab, CastPos.position, Quaternion.identity, null);
         floatObject.GetComponent<Rigidbody>().AddForce(PlayerController.instance.tHead.forward * Mathf.Lerp(CastForce.x, CastForce.y, castCharger), ForceMode.Impulse);
         floatObject.GetComponent<SpringJoint>().connectedBody = GetComponent<Rigidbody>();
-        
+
         LineRenderer line = GetComponent<LineRenderer>();
         line.positionCount = 2;
         line.SetPosition(0, CastPos.position);
@@ -284,6 +313,12 @@ public class FishingRodController : MonoBehaviour
         waitTimer = 0;
         waitTime = Random.Range(waitTimeInterval.x, waitTimeInterval.y);
         nibbleCount = Random.Range((int)nibbleCountInterval.x, (int)nibbleCountInterval.y);
+
+        //TODO: start cast reeling (add)
+        StartCoroutine(fishingAudio.PlayThrowLure());
+        //TODO: start ambiance
+        fishingAudio.StartFishingAmbiance();
+
     }
 
     public ItemData RandomFish(List<FishData> fishList)
@@ -301,11 +336,16 @@ public class FishingRodController : MonoBehaviour
             }
             chance += fish.chance;
         }
-        return fishList[fishList.Count-1].fishItemData;
+        return fishList[fishList.Count - 1].fishItemData;
     }
 
     public void Reset()
     {
+        //TODO: end ambiance
+        fishingAudio.EndFishingAmbiance();
+        //reset lure status
+        lureTouchWater = false;
+
         UIManager.instance.fishingUI.SetActive(false);
         Destroy(floatObject);
         GetComponent<LineRenderer>().positionCount = 0;
@@ -320,7 +360,8 @@ public class FishingRodController : MonoBehaviour
         //waitTime = Random.Range(WaitTimeInterval.x, WaitTimeInterval.y);
     }
 
-    public void OnDisable() {
+    public void OnDisable()
+    {
         //Reset();
         UIManager.instance.fishingUI.SetActive(false);
         Destroy(floatObject);
