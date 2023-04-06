@@ -94,7 +94,6 @@ public class FishingRodController : MonoBehaviour
                     transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
                     if (Input.GetKeyDown(key))
                     {
-                        //TODO: ready rod
                         fishingAudio.PlayReadyRod();
                         fishingState = FishingState.Casting;
                     }
@@ -125,7 +124,6 @@ public class FishingRodController : MonoBehaviour
                     transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
                     if (floatObject.transform.GetChild(0).GetComponent<WaterObject>().IsTouchingWater())
                     {
-                        //TODO: check if lure touches water for the first time, lure landing
                         if (lureTouchWater == false)
                         {
                             lureTouchWater = true;
@@ -139,7 +137,6 @@ public class FishingRodController : MonoBehaviour
                     if (Input.GetKeyDown(key))
                     {
                         Reset();
-                        //TODO: early pull
                         StartCoroutine(fishingAudio.PlayEarlyPull());
                     }
 
@@ -162,13 +159,11 @@ public class FishingRodController : MonoBehaviour
                             waitTimer -= Random.Range(nibbleTimeInterval.x, nibbleTimeInterval.y);
                             nibbleCount--;
                             transform.localRotation = Quaternion.Euler(50, 0, 0);
-                            //TODO: fake bite
                             fishingAudio.PlayFakeBite();
                         }
                         else
                         {
                             fishingState = FishingState.Reacting;
-                            //TODO: real bite
                             StartCoroutine(fishingAudio.PlayRealBite());
                         }
                     }
@@ -204,14 +199,12 @@ public class FishingRodController : MonoBehaviour
                         //reelCharger = 1 - (reactTimer / reactTimeDefault);
                         reelCharger = 0.5f;
                         fishingState = FishingState.Reeling;
-                        //TODO: start reeling
                         fishingAudio.StartReeling();
                     }
 
                     if (reactTimer >= reactTimeDefault)
                     {
                         Reset();
-                        //TODO: failure to react to bite (add)
                         StartCoroutine(fishingAudio.PlayEarlyPull());
                     }
                     break;
@@ -235,7 +228,6 @@ public class FishingRodController : MonoBehaviour
                     if (reelCharger <= 0)
                     {
                         Reset();
-                        //TODO: fail to catch in minigame
                         StartCoroutine(fishingAudio.PlayFishingFailure());
                     }
                     else
@@ -251,7 +243,6 @@ public class FishingRodController : MonoBehaviour
                             targetRotation = Quaternion.Euler(40, 0, 0);
                             //transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10);
                             transform.localRotation = targetRotation;
-                            //TODO: player pulling
                             StartCoroutine(fishingAudio.PlayPlayerPull());
                         }
 
@@ -279,7 +270,6 @@ public class FishingRodController : MonoBehaviour
                         }
 
                         Reset();
-                        //TODO: fishing success
                         fishingAudio.PlayFishingSuccess();
                     }
 
@@ -314,9 +304,7 @@ public class FishingRodController : MonoBehaviour
         waitTime = Random.Range(waitTimeInterval.x, waitTimeInterval.y);
         nibbleCount = Random.Range((int)nibbleCountInterval.x, (int)nibbleCountInterval.y);
 
-        //TODO: start cast reeling (add)
         StartCoroutine(fishingAudio.PlayThrowLure());
-        //TODO: start ambiance
         fishingAudio.StartFishingAmbiance();
 
     }
@@ -341,7 +329,6 @@ public class FishingRodController : MonoBehaviour
 
     public void Reset()
     {
-        //TODO: end ambiance
         fishingAudio.EndFishingAmbiance();
         //reset lure status
         lureTouchWater = false;

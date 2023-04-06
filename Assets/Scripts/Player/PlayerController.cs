@@ -11,7 +11,7 @@ using UnityEngine;
 //And postprocessing effect when taken damage.
 public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 {
-	public static PlayerController instance;
+    public static PlayerController instance;
 
     [Foldout("References", true)]
 
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public Transform t;
 
-	public Transform tHead;
+    public Transform tHead;
 
     public Transform equippedTransform;
 
@@ -46,7 +46,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     public CameraBob bob;
     public HeadPosition headPosition;
 
-	public PlayerAudio playerAudio;
+    public PlayerAudio playerAudio;
+
+    public InventoryAudio inventoryAudio;
 
     [Foldout("Inputs", true)]
 
@@ -105,9 +107,9 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public float gTimer;
 
-	public float gravity = -40f;
+    public float gravity = -40f;
 
-	[ReadOnly()]
+    [ReadOnly()]
     private int climbState;
 
     private float climbTimer;
@@ -118,13 +120,13 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     private Vector3 climbTargetPos;
 
-	public AnimationCurve climbCurve;
+    public AnimationCurve climbCurve;
 
-	public GameObject poofVFX; 
+    public GameObject poofVFX;
 
-	public GameObject slamVFX; 
+    public GameObject slamVFX;
 
-	public bool extraUpForce;
+    public bool extraUpForce;
 
     private float damageTimer;
 
@@ -154,25 +156,25 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public int GetClimbState()
     {
-		return  climbState;
+        return climbState;
     }
 
     private void Awake()
-	{
+    {
         Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
-		instance = this;
-		t = base.transform;
-		tHead = t.Find("Head Pivot").transform;
+        Cursor.visible = false;
+        instance = this;
+        t = base.transform;
+        tHead = t.Find("Head Pivot").transform;
         //equippedTransform = tHead.Find("Equip Pivot").transform;
         rb = GetComponent<Rigidbody>();
-		playerCollider = GetComponent<CapsuleCollider>();
-		grounder = GetComponent<Grounder>();
-		//slide = GetComponent<PlayerSlide>();
-		//dash = GetComponent<PlayerDash>();
-		//playerDecapitate = GetComponentInChildren<PlayerDecapitate>(true);
-		bob = tHead.GetComponentInChildren<CameraBob>();
-		headPosition = tHead.GetComponentInChildren<HeadPosition>();
+        playerCollider = GetComponent<CapsuleCollider>();
+        grounder = GetComponent<Grounder>();
+        //slide = GetComponent<PlayerSlide>();
+        //dash = GetComponent<PlayerDash>();
+        //playerDecapitate = GetComponentInChildren<PlayerDecapitate>(true);
+        bob = tHead.GetComponentInChildren<CameraBob>();
+        headPosition = tHead.GetComponentInChildren<HeadPosition>();
         waterObject = GetComponentInChildren<WaterObject>();
         //mouseLook = tHead.GetComponentInChildren<MouseLook>();
 
@@ -231,44 +233,44 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     //Enables the camera that simulates the decapitated head.
     //Disables Player.
     public void Die(Vector3 dir)
-	{
-/*		bloom.intensity.value = 10;
-		ca.intensity.value = 10;
-		cg.mixerGreenOutRedIn.value = -100;
-		vg.intensity.value = 0.3f;*/
+    {
+        /*		bloom.intensity.value = 10;
+                ca.intensity.value = 10;
+                cg.mixerGreenOutRedIn.value = -100;
+                vg.intensity.value = 0.3f;*/
 
-		//playerDecapitate.gameObject.SetActive(true);
-		//playerDecapitate.Decapitate(tHead, dir);
-		base.gameObject.SetActive(false);
-	}
+        //playerDecapitate.gameObject.SetActive(true);
+        //playerDecapitate.Decapitate(tHead, dir);
+        base.gameObject.SetActive(false);
+    }
 
-	private void JumpOrClimb()
-	{
-		//if is climbing, return
-		if (climbState != 0)
-		{
-			return;
-		}
+    private void JumpOrClimb()
+    {
+        //if is climbing, return
+        if (climbState != 0)
+        {
+            return;
+        }
 
-		//if grounded, or just ungrouned, or just finished climbing
-		//jump
-		if (grounder.grounded
-			|| gTimer > 0f 
-			|| (climbState == 2 && climbTimer > 0.8f)
+        //if grounded, or just ungrouned, or just finished climbing
+        //jump
+        if (grounder.grounded
+            || gTimer > 0f
+            || (climbState == 2 && climbTimer > 0.8f)
             || GetComponentInChildren<WaterObject>().IsTouchingWater())
-		{
-			if (climbState == 2)
-			{
-				rb.isKinematic = false;
-				climbState = 0;
-			}
-			Jump();
-			return;
-		}
-		
-		//if not grounded, but there is prop or enemy below
-		//super jump
-		/*
+        {
+            if (climbState == 2)
+            {
+                rb.isKinematic = false;
+                climbState = 0;
+            }
+            Jump();
+            return;
+        }
+
+        //if not grounded, but there is prop or enemy below
+        //super jump
+        /*
 		Collider[] array = new Collider[1];
 		Physics.OverlapCapsuleNonAlloc(t.position, t.position + Vector3.down * 1.25f, 1f, array, 25600);
 		if (array[0] != null)
@@ -322,14 +324,14 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		} 
 		*/
 
-		//if none, check if player can climb
-		else
-		{
-			Climb();
-		}
-	}
+        //if none, check if player can climb
+        else
+        {
+            Climb();
+        }
+    }
 
-	public void Jump(float multiplier = 1f)
+    public void Jump(float multiplier = 1f)
     {
         if (isNonPhysics)
         {
@@ -342,14 +344,14 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
         //if jumping on top of props, push props away
         if ((bool)grounder.groundCollider && grounder.groundCollider.gameObject.layer == 14)
-		{
-			Rigidbody attachedRigidbody = grounder.groundCollider.attachedRigidbody;
-			if ((bool)attachedRigidbody)
-			{
-				attachedRigidbody.AddForce(Vector3.up * (7f * attachedRigidbody.mass), ForceMode.Impulse);
-				attachedRigidbody.AddTorque(tHead.forward * 90f, ForceMode.Impulse);
-			}
-		}
+        {
+            Rigidbody attachedRigidbody = grounder.groundCollider.attachedRigidbody;
+            if ((bool)attachedRigidbody)
+            {
+                attachedRigidbody.AddForce(Vector3.up * (7f * attachedRigidbody.mass), ForceMode.Impulse);
+                attachedRigidbody.AddTorque(tHead.forward * 90f, ForceMode.Impulse);
+            }
+        }
 
         //ungrounds and jumps
         if (isNonPhysics)
@@ -357,162 +359,163 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
             DetachFromBoat();
         }
         grounder.Unground();
-		gTimer = 0f;
+        gTimer = 0f;
         rb.velocity = new Vector3(0, 0, 0);
-		rb.AddForce(jumpForce * multiplier, ForceMode.Impulse);
-		playerAudio.PlayJumpSound();
-	}
+        rb.AddForce(jumpForce * multiplier, ForceMode.Impulse);
+        playerAudio.PlayJumpSound();
+    }
 
-	private void Climb()
-	{	//if climbing, or no surface to climb up to, or surface too low, or obsticle on top of landing spot, too close to ground
-		//no climbing
-		if (climbState > 0
-			|| !Physics.Raycast(t.position + Vector3.up * 3f + tHead.forward * 2f, Vector3.down, out hit, 4f, 1)
-			|| !(hit.point.y + 1f > t.position.y)
-			|| Physics.Raycast(new Vector3(t.position.x, hit.point.y + 1f, t.position.z), tHead.forward.normalized, 2f, 1) 
-			|| Physics.Raycast(t.position, Vector3.down, 1.5f, 1)
-			|| Physics.Raycast(t.position, Vector3.up, 2.5f, 1))
-		{
-			return;
-		}
-		
-		//else sets target position and start climbing
-		climbTargetPos = hit.point + hit.normal;
-		climbState = 3;
-	}
-
-	private void ClimbingUpdate()
-	{
-		switch (climbState)
-		{
-			//sets player rb to kinematic to directly modify position
-			case 3:
-				rb.isKinematic = true;
-				rb.velocity = Vector3.zero;
-				climbTimer = 0f;
-				climbStartPos = rb.position;
-				climbStartDir = climbStartPos;
-				climbStartDir.y += 2f;
-				bob.Sway(new Vector4(10f, 0f, -5f, 2f));
-				
-				//poofVFX.transform.position = climbTargetPos;
-				//ParticleSystem particle = poofVFX.GetComponent<ParticleSystem>();
-				//particle.Play();
-
-				climbState--;
-				break;
-
-			//lerps from start position to target position based on curve value at current time
-			//finishes climbing when timer ends
-			case 2:
-				bob.Angle(Mathf.Sin(climbTimer * (float)Mathf.PI * 5f));
-				climbTimer = Mathf.MoveTowards(climbTimer, 1f, Time.deltaTime * 3f);
-				t.position = Vector3.LerpUnclamped(climbStartPos, climbTargetPos, climbCurve.Evaluate(climbTimer));
-				if (climbTimer == 1f)
-				{
-					climbState--;
-				}
-				break;
-			
-			//sets player rb back to not kinematic
-			case 1:
-				rb.isKinematic = false;
-				climbState--;
-				break;
-		}
-	}
-
-
-	private void InputUpdate()
-	{
-		vTemp = 0f;
-		vTemp += (Input.GetKey(KeyCode.W) ? 1 : 0);
-		vTemp += (Input.GetKey(KeyCode.S) ? (-1) : 0);
-		hTemp = 0f;
-		hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
-		hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
-		v = vTemp;
-		h = hTemp;
-
-		if (enableMovement)
-		{
-
-			inputDir.x = h;
-			inputDir.y = 0f;
-			inputDir.z = v;
-			inputDir = inputDir.normalized;
-
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				JumpOrClimb();
-            }
-
-			if (Input.GetKeyDown(KeyCode.LeftShift))
-			{
-				//slide.Slide();
-			}
-			if (Input.GetKeyDown(KeyCode.E))
-			{
-				//dash.Dash();
-			}
-		}
-		else
-		{
-			inputDir = Vector3.zero;
+    private void Climb()
+    {   //if climbing, or no surface to climb up to, or surface too low, or obsticle on top of landing spot, too close to ground
+        //no climbing
+        if (climbState > 0
+            || !Physics.Raycast(t.position + Vector3.up * 3f + tHead.forward * 2f, Vector3.down, out hit, 4f, 1)
+            || !(hit.point.y + 1f > t.position.y)
+            || Physics.Raycast(new Vector3(t.position.x, hit.point.y + 1f, t.position.z), tHead.forward.normalized, 2f, 1)
+            || Physics.Raycast(t.position, Vector3.down, 1.5f, 1)
+            || Physics.Raycast(t.position, Vector3.up, 2.5f, 1))
+        {
+            return;
         }
 
-	}
+        //else sets target position and start climbing
+        climbTargetPos = hit.point + hit.normal;
+        climbState = 3;
+    }
 
-	public void WalkSoundUpdate(){
+    private void ClimbingUpdate()
+    {
+        switch (climbState)
+        {
+            //sets player rb to kinematic to directly modify position
+            case 3:
+                rb.isKinematic = true;
+                rb.velocity = Vector3.zero;
+                climbTimer = 0f;
+                climbStartPos = rb.position;
+                climbStartDir = climbStartPos;
+                climbStartDir.y += 2f;
+                bob.Sway(new Vector4(10f, 0f, -5f, 2f));
 
-		if (grounder.grounded && (inputDir != Vector3.zero))
-		{
-			StartCoroutine(playerAudio.PlayWalkSound());
-		}
-		else
-		{
-			StartCoroutine(playerAudio.StopWalkSound());
-		}
-	}
+                //poofVFX.transform.position = climbTargetPos;
+                //ParticleSystem particle = poofVFX.GetComponent<ParticleSystem>();
+                //particle.Play();
 
-	private void BobUpdate()
-	{
+                climbState--;
+                break;
 
-		//tilts camera based on horizontal input
+            //lerps from start position to target position based on curve value at current time
+            //finishes climbing when timer ends
+            case 2:
+                bob.Angle(Mathf.Sin(climbTimer * (float)Mathf.PI * 5f));
+                climbTimer = Mathf.MoveTowards(climbTimer, 1f, Time.deltaTime * 3f);
+                t.position = Vector3.LerpUnclamped(climbStartPos, climbTargetPos, climbCurve.Evaluate(climbTimer));
+                if (climbTimer == 1f)
+                {
+                    climbState--;
+                }
+                break;
+
+            //sets player rb back to not kinematic
+            case 1:
+                rb.isKinematic = false;
+                climbState--;
+                break;
+        }
+    }
+
+
+    private void InputUpdate()
+    {
+        vTemp = 0f;
+        vTemp += (Input.GetKey(KeyCode.W) ? 1 : 0);
+        vTemp += (Input.GetKey(KeyCode.S) ? (-1) : 0);
+        hTemp = 0f;
+        hTemp += (Input.GetKey(KeyCode.A) ? (-1) : 0);
+        hTemp += (Input.GetKey(KeyCode.D) ? 1 : 0);
+        v = vTemp;
+        h = hTemp;
+
+        if (enableMovement)
+        {
+
+            inputDir.x = h;
+            inputDir.y = 0f;
+            inputDir.z = v;
+            inputDir = inputDir.normalized;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                JumpOrClimb();
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                //slide.Slide();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                //dash.Dash();
+            }
+        }
+        else
+        {
+            inputDir = Vector3.zero;
+        }
+
+    }
+
+    public void WalkSoundUpdate()
+    {
+
+        if (grounder.grounded && (inputDir != Vector3.zero))
+        {
+            StartCoroutine(playerAudio.PlayWalkSound());
+        }
+        else
+        {
+            StartCoroutine(playerAudio.StopWalkSound());
+        }
+    }
+
+    private void BobUpdate()
+    {
+
+        //tilts camera based on horizontal input
         if (climbState == 0)
         //if (slide.slideState == 0 && climbState == 0)
         {
 
             bob.Angle(inputDir.x * -1f - damageTimer * 3f);
-		}
+        }
 
         //applies camera bob when grounded, walking, and not sliding
         //or sets camera position back to 0
-         if (grounder.grounded && inputDir.sqrMagnitude > 0.25f)
+        if (grounder.grounded && inputDir.sqrMagnitude > 0.25f)
         //if (grounder.grounded && inputDir.sqrMagnitude > 0.25f && slide.slideState == 0)
         {
             if (gVel.sqrMagnitude > 1f)
-			{
-				bob.Bob(dynamicSpeed);
-			}
-			else
-			{
-				bob.Reset();
-			}
-		}
-		else
-		{
-			bob.Reset();
-		}
+            {
+                bob.Bob(dynamicSpeed);
+            }
+            else
+            {
+                bob.Reset();
+            }
+        }
+        else
+        {
+            bob.Reset();
+        }
 
-	}
-    
-	private void Update()
-	{
-		//Debug.Log(playerCollider.material.dynamicFriction);
+    }
+
+    private void Update()
+    {
+        //Debug.Log(playerCollider.material.dynamicFriction);
 
         InputUpdate();
-		WalkSoundUpdate();
+        WalkSoundUpdate();
         BobUpdate();
         headPosition.PositionUpdate();
         MistUpdate();
@@ -521,15 +524,15 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         if (UIManager.instance.gameplayUI.activeInHierarchy && enableInteraction)
         {
             HandleInteractableCheck();
-		    HandleInteraction();
+            HandleInteraction();
         }
 
-		if (climbState > 0)
-		{
-			ClimbingUpdate();
-		}
-		
-		/*
+        if (climbState > 0)
+        {
+            ClimbingUpdate();
+        }
+
+        /*
 		if (slide.slideState > 0)
 		{
 			slide.SlidingUpdate();
@@ -541,33 +544,33 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		}
 		*/
 
-		//counts down the timer that restricts air control 
-		if (airControlBlockTimer > 0f)
-		{
-			airControlBlockTimer -= Time.deltaTime;
-			airControl = 0f;
-		}
+        //counts down the timer that restricts air control 
+        if (airControlBlockTimer > 0f)
+        {
+            airControlBlockTimer -= Time.deltaTime;
+            airControl = 0f;
+        }
 
-		//sets air control back to 1 over time
-		else if (airControl != 1f)
-		{
-			airControl = Mathf.MoveTowards(airControl, 1f, Time.deltaTime);
-		}
+        //sets air control back to 1 over time
+        else if (airControl != 1f)
+        {
+            airControl = Mathf.MoveTowards(airControl, 1f, Time.deltaTime);
+        }
 
-		if (gTimer > 0f)
-		{
-			gTimer -= Time.deltaTime;
-		}
+        if (gTimer > 0f)
+        {
+            gTimer -= Time.deltaTime;
+        }
 
-		if (damageTimer != 0f)
-		{
-			damageTimer = Mathf.MoveTowards(damageTimer, 0f, Time.deltaTime);
-/*			bloom.intensity.value = Mathf.Lerp(0, 10, damageTimer/3);
-			ca.intensity.value = Mathf.Lerp(0, 1, damageTimer/3);
-			cg.mixerGreenOutRedIn.value = Mathf.Lerp(0, -100, damageTimer/3);
-			vg.intensity.value = Mathf.Lerp(0, 0.3f, damageTimer/3);*/
-		}
-	}
+        if (damageTimer != 0f)
+        {
+            damageTimer = Mathf.MoveTowards(damageTimer, 0f, Time.deltaTime);
+            /*			bloom.intensity.value = Mathf.Lerp(0, 10, damageTimer/3);
+                        ca.intensity.value = Mathf.Lerp(0, 1, damageTimer/3);
+                        cg.mixerGreenOutRedIn.value = Mathf.Lerp(0, -100, damageTimer/3);
+                        vg.intensity.value = Mathf.Lerp(0, 0.3f, damageTimer/3);*/
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -583,8 +586,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         //gDir = transform.TransformDirection(inputDir);
         gDir = tHead.TransformDirection(inputDir);
         gDirCross = Vector3.Cross(Vector3.up, gDir).normalized;
-		gDirCrossProject = Vector3.ProjectOnPlane(grounder.groundNormal, gDirCross);
-		gDir = Vector3.Cross(gDirCross, gDirCrossProject);
+        gDirCrossProject = Vector3.ProjectOnPlane(grounder.groundNormal, gDirCross);
+        gDir = Vector3.Cross(gDirCross, gDirCrossProject);
 
         if (!isNonPhysics)
         //if (slide.slideState == 0)
@@ -593,20 +596,20 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
             //based on new input subtracted by previous velocity
             //so that player accelerates faster when start moving.
             if (inputDir.sqrMagnitude > 0.25f)
-			{
-				if (grounder.grounded)
-				{
-					rb.AddForce(gDir * 100f - gVel * 10f * dynamicSpeed);
-				}
-				else if (airControl > 0f)
-				{
-					rb.AddForce((gDir * 100f - gVel * 10f * dynamicSpeed) * airControl);
-				}
-			}
-			//if not fast, accelerates the slowing down process
-			else if (grounder.grounded && gVel.sqrMagnitude != 0f)
-			{
-				rb.AddForce(-gVel * 10f);
+            {
+                if (grounder.grounded)
+                {
+                    rb.AddForce(gDir * 100f - gVel * 10f * dynamicSpeed);
+                }
+                else if (airControl > 0f)
+                {
+                    rb.AddForce((gDir * 100f - gVel * 10f * dynamicSpeed) * airControl);
+                }
+            }
+            //if not fast, accelerates the slowing down process
+            else if (grounder.grounded && gVel.sqrMagnitude != 0f)
+            {
+                rb.AddForce(-gVel * 10f);
             }
 
             rb.AddForce(grounder.groundNormal * gravity);
@@ -617,7 +620,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
                 extraUpForce = false;
             }
         }
-		else
+        else
         {
             Vector3 normalized = transform.TransformDirection(inputDir).normalized;
             normalized -= Vector3.Dot(normalized, base.transform.up) * base.transform.up;
@@ -648,7 +651,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
             }
         }
-		/*
+        /*
 		else if (slide.slideState == 2)
 		{
 			//if sliding, modifies the direction according to horizontal inputs
@@ -664,24 +667,24 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 		}
 		*/
 
-		//applies gravity in the direction of ground normal
-		//so player does not slide off within the tolerable angle
+        //applies gravity in the direction of ground normal
+        //so player does not slide off within the tolerable angle
     }
     public void HandleInteractableCheck()
-	{
+    {
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, interactDistance, interactableLayer))
         {
 
             if (targetInteractable == null || targetInteractable.name != hitInfo.collider.name || targetInteractable.triggerZone)
             {
-				if (targetInteractable != null && targetInteractable.name != hitInfo.collider.name)
+                if (targetInteractable != null && targetInteractable.name != hitInfo.collider.name)
                 {
                     targetInteractable.UnTarget();
                 }
 
                 targetInteractable = hitInfo.collider.GetComponent<Interactable>();
-				if (targetInteractable != null)
-				{
+                if (targetInteractable != null)
+                {
                     if (exclusiveInteractable != null && exclusiveInteractable != targetInteractable)
                     {
                         targetInteractable.UnTarget();
@@ -700,7 +703,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         }
         else if (targetInteractable != null)
         {
-			targetInteractable.UnTarget();
+            targetInteractable.UnTarget();
             targetInteractable = null;
         }
     }
@@ -713,18 +716,20 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         }
     }
 
-	public void TetherToBoat(float spring1, float spring2){
-		//frontJoint.spring = spring1;
-		//backJoint.spring = spring2;
-	}
+    public void TetherToBoat(float spring1, float spring2)
+    {
+        //frontJoint.spring = spring1;
+        //backJoint.spring = spring2;
+    }
 
-	public void UntetherFromBoat(){
-		//frontJoint.spring = 0;
-		//backJoint.spring = 0;
+    public void UntetherFromBoat()
+    {
+        //frontJoint.spring = 0;
+        //backJoint.spring = 0;
     }
     public void LockMovement(bool state)
     {
-		enableMovement = !state;
+        enableMovement = !state;
     }
 
     public void LockCamera(bool state)
@@ -738,7 +743,7 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     }
     public void SetCameraClamp(float x1, float x2, float y1, float y2)
     {
-        GetComponent<MouseLook>().SetClamp(x1,x2,y1,y2);
+        GetComponent<MouseLook>().SetClamp(x1, x2, y1, y2);
 
         foreach (MouseLook look in GetComponentsInChildren<MouseLook>())
         {
@@ -777,13 +782,13 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         gameObject.transform.SetParent(null, true);
         isNonPhysics = false;
         waterObject.enabled = true;
-		
+
         //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         PlayerController.instance.transform.localEulerAngles = new Vector3(0, PlayerController.instance.transform.localEulerAngles.y, 0);
         GetComponent<MouseLook>().Reset();
         //GetComponentInChildren<PlayerSway>().enabled = false;
 
-		//BoatController.instance.helm.ShutDown();
+        //BoatController.instance.helm.ShutDown();
     }
 
     private void OnDrawGizmosSelected()
