@@ -19,5 +19,8 @@ MonoBehaviour:
       back in the cockpit.
     audioClip: {fileID: 8300000, guid: 4eb2ea28cad49324aad4eec5a7b1dd6a, type: 3}
     intervalAfter: 0
-  subtitles: []
-  audioClips: []
+  subtitles:
+  - Another one of grandpa's recordings. I can play it with the tape player back
+    in the cockpit.
+  audioClips:
+  - {fileID: 8300000, guid: 4eb2ea28cad49324aad4eec5a7b1dd6a, type: 3}
