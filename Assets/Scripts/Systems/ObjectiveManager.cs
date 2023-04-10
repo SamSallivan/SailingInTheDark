@@ -34,6 +34,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public void AssignObejctive(Objective objective)
     {
+        //Objective newObjective = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         Objective newObjective = Instantiate(objective.gameObject, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         ObjectiveList.Add(newObjective);
         StartCoroutine(newObjective.OnAssigned());

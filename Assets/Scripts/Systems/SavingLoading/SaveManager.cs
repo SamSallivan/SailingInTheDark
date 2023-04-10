@@ -4,21 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
+using Unity.VisualScripting;
+using UnityEditor;
 
 [System.Serializable]
 public class SaveData
 {
+    public bool docked;
     public float currWatt;
-    public float maxWatt;
-    public bool boatDocked;
 
-    public Vector3 boatPosition;
-    public Vector3 boatRotation;
+    public int fuelLevel = 1;
+    public int armorLevel = 1;
+    public int lightLevel = 1;
+    public int gearLevel = 1;
 
-    public Vector3 playerPosition;
-    public Vector3 playerRotation;
+    public float[] boatPosition = new float[3];
+    public float[] boatRotation = new float[3];
+
     public List<InventoryItem> inventoryItems;
     public List<Objective> objectives;
+
+    public float[] playerPosition = new float[3];
+    public float[] playerRotation = new float[3];
 
     public SaveData()
     {
@@ -30,9 +37,9 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance;
 
     public SaveData initialSaveData;
-    private SaveData saveData = new SaveData();
+    public SaveData saveData = new SaveData();
     public bool isGameOver = false;
-    public bool enableSave = false;
+    public bool clearSaveFile = false;
 
     private void Awake()
     {
@@ -44,47 +51,63 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Load(initialSaveData));
-
-        /*if (!enableSave)
+        if (clearSaveFile)
         {
+            SaveLoader.DeleteSaveData();
             StartCoroutine(Load(initialSaveData));
         }
         else
         {
-            SaveData readData = SaveLoader.Read();
+            //SaveData readData = SaveLoader.Read();
+            SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
             if (readData != null)
             {
+                saveData = readData;
                 StartCoroutine(Load(readData));
-                //SaveLoader.DeleteSaveData();
-                //Save();
             }
             else
             {
                 StartCoroutine(Load(initialSaveData));
+                //SaveLoader.DeleteSaveData();
+                //Save();
             }
-        }*/
+        }
     }
 
     public void Save()
     {
         saveData.currWatt = BoatController.instance.curWattHour;
-        saveData.maxWatt = BoatController.instance.maxWattHour;
-        saveData.boatDocked = BoatController.instance.anchor.activated;
-        saveData.boatPosition = BoatController.instance.transform.position;
-        saveData.boatRotation = BoatController.instance.transform.eulerAngles;
+        saveData.fuelLevel = BoatController.instance.fuelLevel;
+        saveData.armorLevel = BoatController.instance.armorLevel;
+        saveData.lightLevel = BoatController.instance.lightLevel;
+        saveData.gearLevel = BoatController.instance.gearLevel;
+        saveData.docked = BoatController.instance.anchor.activated;
 
-        saveData.playerPosition = PlayerController.instance.transform.position;
-        saveData.playerRotation = PlayerController.instance.transform.eulerAngles;
+        saveData.boatPosition[0] = BoatController.instance.transform.position.x;
+        saveData.boatPosition[1] = BoatController.instance.transform.position.y;
+        saveData.boatPosition[2] = BoatController.instance.transform.position.z;
+        saveData.boatRotation[0] = BoatController.instance.transform.eulerAngles.x;
+        saveData.boatRotation[1] = BoatController.instance.transform.eulerAngles.y;
+        saveData.boatRotation[2] = BoatController.instance.transform.eulerAngles.z;
+
+        saveData.playerPosition[0] = PlayerController.instance.transform.position.x;
+        saveData.playerPosition[1] = PlayerController.instance.transform.position.y;
+        saveData.playerPosition[2] = PlayerController.instance.transform.position.z;
+        saveData.playerRotation[0] = PlayerController.instance.transform.eulerAngles.x;
+        saveData.playerRotation[1] = PlayerController.instance.transform.eulerAngles.y;
+        saveData.playerRotation[2] = PlayerController.instance.transform.eulerAngles.z;
+
         saveData.inventoryItems = InventoryManager.instance.inventoryItemList;
         saveData.objectives = ObjectiveManager.instance.ObjectiveList;
+        ES3.Save("objective0", saveData.objectives[0]);
 
-        SaveLoader.Write(saveData);
+        //SaveLoader.Write(saveData); 
+        ES3.Save("saveData", saveData);
         isGameOver = false;
     }
 
     void Update()
-    {
+    {   
         //testing
         if (Input.GetKeyDown(KeyCode.P))
             BoatController.instance.TakeDamage(100);
@@ -92,7 +115,6 @@ public class SaveManager : MonoBehaviour
 
     public IEnumerator Load(SaveData saveData)
     {
-        //SaveData saveData = SaveLoader.Read();
 
         InventoryManager.instance.inventoryItemList.Clear();
         foreach (InventoryItem item in saveData.inventoryItems)
@@ -100,14 +122,28 @@ public class SaveManager : MonoBehaviour
             InventoryManager.instance.AddItem(item.data, item.status);
         }
 
-        ObjectiveManager.instance.ObjectiveList.Clear();
+        /*ObjectiveManager.instance.ObjectiveList.Clear();
         foreach (Objective objective in saveData.objectives)
         {
             ObjectiveManager.instance.AssignObejctive(objective);
-        }
+        }*/
+        
+        ObjectiveManager.instance.AssignObejctive(ES3.Load<Objective>("objective0"));
 
         BoatController.instance.curWattHour = saveData.currWatt;
-        BoatController.instance.maxWattHour = saveData.maxWatt;
+        BoatController.instance.fuelLevel = saveData.fuelLevel;
+        BoatController.instance.maxWattHour = saveData.fuelLevel * 50 + 50;
+
+        BoatController.instance.armorLevel = saveData.armorLevel;
+        BoatController.instance.boatArmor = saveData.armorLevel * 0.5f;
+
+        BoatController.instance.lightLevel = saveData.lightLevel;
+        BoatController.instance.lightLeft.lightObject.GetComponent<Light>().intensity = saveData.lightLevel * 50;
+        BoatController.instance.lightRight.lightObject.GetComponent<Light>().intensity = saveData.lightLevel * 50;
+
+        BoatController.instance.gearLevel = saveData.gearLevel;
+        BoatController.instance.helm.currentMaxGear = saveData.gearLevel + 1;
+
         BoatController.instance.ignoreConsumption = false;
 
         Rigidbody boatRB = BoatController.instance.GetComponent<Rigidbody>();
@@ -137,7 +173,7 @@ public class SaveManager : MonoBehaviour
         boatRB.isKinematic = false;
         BoatController.instance.helm.topView = false;
         
-        BoatController.instance.anchor.Initialize(saveData.boatDocked);
+        BoatController.instance.anchor.Initialize(saveData.docked);
 
         if (playerRB)
         {

@@ -7,7 +7,7 @@ public static class SaveLoader
     public static void Write(SaveData data)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = $"{Application.persistentDataPath}/SaveFile";
+        string path = $"{Application.persistentDataPath}/SaveFile.sail";
         FileStream stream = new FileStream(path, FileMode.Create);
         formatter.Serialize(stream, data);
         stream.Close();
@@ -15,7 +15,7 @@ public static class SaveLoader
 
     public static SaveData Read()
     {
-        string path = $"{Application.persistentDataPath}/SaveFile";
+        string path = $"{Application.persistentDataPath}/SaveFile.sail";
 
         if (File.Exists(path))
         {
@@ -34,7 +34,7 @@ public static class SaveLoader
 
     public static void DeleteSaveData()
     {
-        string path = $"{Application.persistentDataPath}/SaveFile";
+        string path = $"{Application.persistentDataPath}/SaveFile.sail";
         File.Delete(path);
     }
 }

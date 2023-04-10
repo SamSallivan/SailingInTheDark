@@ -35,6 +35,12 @@ public class BoatController : MonoBehaviour
 
     public float boatArmor = 0;
 
+    [Foldout("Upgrades", true)]
+    public int fuelLevel = 1;
+    public int armorLevel = 1;
+    public int lightLevel = 1;
+    public int gearLevel = 1;
+
 
     [Foldout("TMPs", true)]
     public TMP_Text percentageText;
@@ -61,16 +67,21 @@ public class BoatController : MonoBehaviour
             if (component.componentActivated)
             {
                 curActiveComponent++;
-                curWattConsumption += component.wattConsumption;
+
+                float consumption = component.wattConsumption;
+                if (component.name == "Helm")
+                {
+                    consumption = component.wattConsumption * helm.currentGear / helm.totalGearNumber;
+                }
+                curWattConsumption += consumption;
 
                 if (!ignoreConsumption && !(anchor.dockable && anchor.activated))
                 {
-                    curWattHour -= component.wattConsumption / 3600 * Time.deltaTime;
+                    curWattHour -= consumption / 3600 * Time.deltaTime;
                 }
 
             }
         }
-
 
         float percentage = Mathf.Round(curWattHour / refWattHour * 100);
         float estimatedHour = curWattHour / curWattConsumption;
@@ -99,7 +110,14 @@ public class BoatController : MonoBehaviour
         if (anchor.dockable && anchor.activated)
         {
             curWattHour = Mathf.Lerp(curWattHour, maxWattHour, Time.fixedDeltaTime / 5);
-            percentageText.text += " (Charging)";
+            if (curWattHour < maxWattHour)
+            {
+                percentageText.text += " (Charging)";
+            }
+            else
+            {
+                percentageText.text += " (Fully Charged)";
+            }
             //is charging the boat
         }
 
@@ -125,7 +143,7 @@ public class BoatController : MonoBehaviour
 
         if (curWattHour <= 0 && !UIManager.instance.gameOverUI.activeInHierarchy)
         {
-            SaveManager.instance.Die("Your boat ran out of energy.");
+            SaveManager.instance.Die("Your boat was destroyed.");
         }
         //sound effect and all
 

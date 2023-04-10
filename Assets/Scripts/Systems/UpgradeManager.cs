@@ -125,7 +125,8 @@ public class UpgradeManager : MonoBehaviour
         {
             case UpgradeType.FuelCapacity:
                 //boatController.maxWattHour = 100 + (25 * option.currentLevel);
-                BoatController.instance.maxWattHour += 25;
+                BoatController.instance.maxWattHour += 50;
+                BoatController.instance.fuelLevel++;
                 break;
 
             case UpgradeType.ItemTrade:
@@ -135,14 +136,17 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeType.LightIntensity:
                 BoatController.instance.lightLeft.lightObject.GetComponent<Light>().intensity = 100;
                 BoatController.instance.lightRight.lightObject.GetComponent<Light>().intensity = 100;
+                BoatController.instance.lightLevel++;
                 break;
 
             case UpgradeType.GearUnlock:
                 BoatController.instance.helm.currentMaxGear++;
+                BoatController.instance.gearLevel++;
                 break;
 
             case UpgradeType.BoatArmor:
                 BoatController.instance.boatArmor += 0.5f;
+                BoatController.instance.armorLevel++;
                 break;
 
         }

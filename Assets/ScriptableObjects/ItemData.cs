@@ -90,6 +90,10 @@ public class InventoryItem
     public ItemStatus status;
     public InventorySlot slot;
 
+    public InventoryItem()
+    {
+    }
+
     public InventoryItem(ItemData data, ItemStatus status, InventorySlot slot)
     {
         this.data = data;

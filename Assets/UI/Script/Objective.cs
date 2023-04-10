@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
+[System.Serializable]
 public class Objective : MonoBehaviour
 {
     public bool finished;

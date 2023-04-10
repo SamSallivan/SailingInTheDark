@@ -33,9 +33,26 @@ public class UpgradeSlot : MonoBehaviour
         }
         else
         {
-            //levelText.text = "Level " + upgradeOption.currentLevel + " / " + upgradeOption.upgradeData.maxLevel;
+
+            switch (upgradeOption.upgradeData.type)
+            {
+                case UpgradeType.FuelCapacity:
+                    upgradeOption.currentLevel = BoatController.instance.fuelLevel;
+                    break;
+                case UpgradeType.BoatArmor:
+                    upgradeOption.currentLevel = BoatController.instance.armorLevel;
+                    break;
+                case UpgradeType.LightIntensity:
+                    upgradeOption.currentLevel = BoatController.instance.lightLevel;
+                    break;
+                case UpgradeType.GearUnlock:
+                    upgradeOption.currentLevel = BoatController.instance.gearLevel;
+                    break;
+            }
+
             int stock = upgradeOption.upgradeData.maxLevel - upgradeOption.currentLevel;
             levelText.text = "Stock " + stock;
+            levelText.text = "Level " + upgradeOption.currentLevel + " / " + upgradeOption.upgradeData.maxLevel;
         }
 
         costText[1].gameObject.SetActive(false);
@@ -45,7 +62,7 @@ public class UpgradeSlot : MonoBehaviour
 
             if (upgradeOption.upgradeData.maxLevel == 1)
             {
-                costText[0].text = "Unlocked";
+                costText[0].text = "Upgraded";
             }
             else
             {
@@ -56,7 +73,7 @@ public class UpgradeSlot : MonoBehaviour
                 }
                 else
                 {
-                    costText[0].text = "Maxed Out";
+                    costText[0].text = "Upgraded";
                 }
             }
         }

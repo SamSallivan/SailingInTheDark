@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "ObjectiveData", menuName = "ScriptableObjects/ObjectiveData")]
+[System.Serializable]
 public class ObjectiveData : ScriptableObject
 {
     public Objective objective;
