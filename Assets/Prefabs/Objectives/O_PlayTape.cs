@@ -46,25 +46,7 @@ public class O_PlayTape : Objective
     {
         if (CheckRecordingName())
         {
-            //Finish();
-
-            if (finishedDialogue != null)
-            {
-                DialogueManager.instance.OverrideDialogue(finishedDialogue);
-            }
-
-            foreach (Objective objective in newObjectives)
-            {
-                Debug.Log("Started Coroutine at timestamp : " + Time.time);
-                ObjectiveManager.instance.AssignObejctive(objective);
-            }
-
-            foreach (string objective in newObjectivesString)
-            {
-                ObjectiveManager.instance.AssignObejctive(objective);
-            }
-
-            Destroy(gameObject);
+            Finish();
         }
     }
     public bool CheckRecordingName()

@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class InventoryManager : MonoBehaviour
     private bool detailRotationFix;
     public bool detailObjectDrag;
     public float inputDelay;
+    public static event Action<ItemData> OnPickUp = delegate{};
+
 
     void Awake()
     {
@@ -190,6 +193,9 @@ public class InventoryManager : MonoBehaviour
         //if max amount not reached
         //inventoryitemlist[i].itemstatus.amount++
         //else
+        
+        OnPickUp?.Invoke(itemData);
+
         PlayerController.instance.inventoryAudio.PlayItemCollect();
 
         int temp = itemStatus.amount;
@@ -231,6 +237,7 @@ public class InventoryManager : MonoBehaviour
             return newItem1;
         }
         return null;
+        
 
         /*InventorySlot newSlot = Instantiate(slotPrefab, UIManager.instance.inventoryItemGrid.transform);
         InventoryItem newItem = new InventoryItem(itemData, itemStatus, newSlot);

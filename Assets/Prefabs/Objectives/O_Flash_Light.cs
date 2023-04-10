@@ -17,14 +17,4 @@ public class O_Flash_Light : Objective
         return false;
     }
 
-    public override IEnumerator OnAssigned()
-    {
-        if (assignedDialogue != null)
-        {
-            DialogueManager.instance.OverrideDialogue(assignedDialogue);
-        }
-
-        yield return null;
-    }
-
 }
