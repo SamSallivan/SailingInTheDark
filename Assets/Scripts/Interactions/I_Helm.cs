@@ -122,6 +122,8 @@ public class I_Helm : Interactable
                 ExitTopView();
             }
 
+            UIManager.instance.mapUI.SetActive(Input.GetKey(KeyCode.M));
+
         }
     }
 
