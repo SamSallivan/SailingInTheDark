@@ -321,11 +321,12 @@ public class FishingRodController : MonoBehaviour
 
         foreach (FishData fish in fishList)
         {
+            chance += fish.chance;
+
             if (random <= chance)
             {
                 return fish.fishItemData;
             }
-            chance += fish.chance;
         }
         return fishList[fishList.Count - 1].fishItemData;
     }
