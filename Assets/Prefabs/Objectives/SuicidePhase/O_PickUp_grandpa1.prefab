@@ -145,7 +145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Equip and play tape at the cockpit.
+  m_text: Pick up the tape.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -227,14 +227,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finished: 0
-  objectiveData: {fileID: 0}
-  newObjectives: []
-  newObjectivesString:
-  - YES
+  newObjectives:
+  - {fileID: 5064703886506926533, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+  newObjectivesString: []
   objectiveDelay: 0
   assignedDialogue: {fileID: 0}
   finishedDialogue: {fileID: 0}
   dialogueDelay: 0
+  prefabRef: {fileID: 0}
   desiredItem: {fileID: 11400000, guid: 2eea44a72504cd94e9ca8b49a2db126a, type: 2}
 --- !u!114 &-5462970258265071297
 MonoBehaviour:
@@ -258,6 +258,16 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: -6581962098139527000}
     - {fileID: 11500000, guid: 00bc9214f468f6e4d9fc030e9c67d141, type: 3}
+    - {fileID: 5064703886506926533, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: 5064703886506926532, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: 5064703886506926530, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: 5064703886506926531, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: -6862840669873048489, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: -5462970258265071297, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: 562466956147419543, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: 6272206217271929445, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: 5116941767820713291, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
+    - {fileID: 6522342803265250126, guid: e54b9f0bc00d8734ab59b8afb68cc25b, type: 3}
     - {fileID: 11400000, guid: 2eea44a72504cd94e9ca8b49a2db126a, type: 2}
     - {fileID: 11500000, guid: 943ee888b371e2b458aee4fa444b52b8, type: 3}
     - {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
@@ -274,4 +284,4 @@ MonoBehaviour:
     - {fileID: 6522342803265250126}
     - {fileID: 2800000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
     - {fileID: 21300000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
-    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340ad0d77aeeec24a84529862fb1773b0663e3953048a771a638508428207fd2f133b1407941e0f3807480b90e92581d5b3a81875839be54c43ea6d0d6b8459e65303d7c7586a411d23de178cc543d102a322aeea2062a2bf20506b8e8b0c938b91dcdc21d8175a0a565126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b
+    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340a91ade6eef9dc0d0129862fb1773b0663e3953048a771a638cafd58be52467e1d7b9a62cbfb46d87bd71ef3e78589c0541a313ecfc69f031e1b2517c13e1dc679b6efcc2826222d35e4d7190d849b7c41c4fb5cdef850a82369bb4f2ad1e9c245a986cf6a4367d107508428207fd2f133b1407941e0f3807480b90e92581d5b3a81875839be54c43ea6d0d6b8459e65303d7c7586a411d23de178cc543d102a322aeea2062a2bf20506b8e8b0c938b91dcdc21d8175a0a565126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b

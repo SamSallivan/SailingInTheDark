@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public float dynamicSpeed = 1f;
 
+    public float dynamicSpeedSprint = 1f;
+
     public Vector3 vel;
 
     private Vector3 gVel;
@@ -447,6 +449,15 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 JumpOrClimb();
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                dynamicSpeed = 1.5f;
+            }
+            else
+            {
+                dynamicSpeed = 2.5f;
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift))

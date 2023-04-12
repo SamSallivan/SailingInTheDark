@@ -59,6 +59,11 @@ public class Grounder : MonoBehaviour
 	//executes when lands from air.
 	public void Ground()
 	{
+        if (jumpHeight > 10)
+        {
+			SaveManager.instance.Die("You died to a long fall.");
+        }
+
 
 		grounded = true;
 		stepSinceUngrounded = 0;
@@ -122,15 +127,14 @@ public class Grounder : MonoBehaviour
     {
 		if (!grounded)
 		{
-		
-		//updates the highestpoint during an unground.
-		if (transform.position.y > highestPoint)
-		{
-			highestPoint = transform.position.y;
-		}
+            //updates the highestpoint during an unground.
+		    if (transform.position.y > highestPoint || PlayerController.instance.waterObject.IsTouchingWater())
+		    {
+			    highestPoint = transform.position.y;
+		    }
 
-		//calculates how high the player has fell.
-		jumpHeight = highestPoint - transform.position.y;
+		    //calculates how high the player has fell.
+		    jumpHeight = highestPoint - transform.position.y;
 
 		}
     }

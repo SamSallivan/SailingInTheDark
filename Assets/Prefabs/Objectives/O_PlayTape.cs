@@ -20,24 +20,14 @@ public class O_PlayTape : Objective
         RecordingManager.OnRecordingStart -= OnRecordingStart;
         RecordingManager.OnRecordingEnd -= OnRecordingEnd;
     }
-
-    public override IEnumerator OnAssigned()
-    {
-        if (assignedDialogue != null)
-        {
-            DialogueManager.instance.OverrideDialogue(assignedDialogue);
-        }
-
-
-        yield return null;
-    }
+    
     public void OnRecordingStart()
     {
         if (CheckRecordingName())
         {
             //Finish();
 
-            ObjectiveManager.instance.ObjectiveList.Remove(this);
+            //ObjectiveManager.instance.ObjectiveList.Remove(this);
             this.transform.GetChild(0).GetComponent<Image>().DOFade(1, 0.75f).OnComplete(() => CompleteFinished());
         }
     }

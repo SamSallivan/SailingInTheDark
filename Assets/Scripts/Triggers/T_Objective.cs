@@ -6,7 +6,7 @@ public class T_Objective : Trigger
 {
     public List<string> oldObjectives;
     public float newObjectiveDelay;
-    public List<Objective> newObjectives;
+    public List<GameObject> newObjectives;
     public List<string> newObjectivesString;
 
     public override IEnumerator TriggerEvent()
@@ -18,7 +18,7 @@ public class T_Objective : Trigger
 
         yield return new WaitForSeconds(newObjectiveDelay);
 
-        foreach (Objective objective in newObjectives)
+        foreach (GameObject objective in newObjectives)
         {
             ObjectiveManager.instance.AssignObejctive(objective);
         }

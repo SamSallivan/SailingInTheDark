@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 1
   description: Increase the max amount of fuel your boat can carry.
   sprite: {fileID: 0}
-  maxLevel: 2
+  maxLevel: 4
   costs:
   - requiredMaterials:
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}

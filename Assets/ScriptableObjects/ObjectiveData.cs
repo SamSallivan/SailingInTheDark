@@ -7,8 +7,8 @@ using UnityEngine.Events;
 [System.Serializable]
 public class ObjectiveData : ScriptableObject
 {
-    public Objective objective;
-
-    public UnityEvent onCheckFinished;
+    //public Objective objective;
+    public GameObject objectivePrefab;
+    //public UnityEvent onCheckFinished;
 
 }

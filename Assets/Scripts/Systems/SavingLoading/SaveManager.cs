@@ -22,13 +22,25 @@ public class SaveData
     public float[] boatRotation = new float[3];
 
     public List<InventoryItem> inventoryItems;
-    public List<Objective> objectives;
+    public List<SavedObjective> objectives;
 
     public float[] playerPosition = new float[3];
     public float[] playerRotation = new float[3];
 
     public SaveData()
     {
+    }
+}
+
+[System.Serializable]
+public struct SavedObjective
+{
+    public GameObject prefabRef;
+    public string text;
+    public SavedObjective(GameObject prefabRef, string text)
+    {
+        this.prefabRef = prefabRef;
+        this.text = text;
     }
 }
 
@@ -98,8 +110,17 @@ public class SaveManager : MonoBehaviour
         saveData.playerRotation[2] = PlayerController.instance.transform.eulerAngles.z;
 
         saveData.inventoryItems = InventoryManager.instance.inventoryItemList;
-        saveData.objectives = ObjectiveManager.instance.ObjectiveList;
-        ES3.Save("objective0", saveData.objectives[0]);
+        saveData.objectives.Clear();
+        foreach (Objective objective in ObjectiveManager.instance.ObjectiveList)
+        {
+            saveData.objectives.Add(new SavedObjective(objective.prefabRef, objective.gameObject.GetComponent<TMP_Text>().text));
+            /*if (objective.prefabRef != null)
+            {
+            }
+            else
+            {
+            }*/
+        }
 
         //SaveLoader.Write(saveData); 
         ES3.Save("saveData", saveData);
@@ -122,13 +143,18 @@ public class SaveManager : MonoBehaviour
             InventoryManager.instance.AddItem(item.data, item.status);
         }
 
-        /*ObjectiveManager.instance.ObjectiveList.Clear();
-        foreach (Objective objective in saveData.objectives)
+        ObjectiveManager.instance.ObjectiveList.Clear();
+        foreach (SavedObjective savedObjective in saveData.objectives)
         {
-            ObjectiveManager.instance.AssignObejctive(objective);
-        }*/
-        
-        ObjectiveManager.instance.AssignObejctive(ES3.Load<Objective>("objective0"));
+            if (savedObjective.prefabRef != null)
+            {
+                ObjectiveManager.instance.AssignObejctive(savedObjective.prefabRef);
+            }
+            else
+            {
+                ObjectiveManager.instance.AssignObejctive(savedObjective.text);
+            }
+        }
 
         BoatController.instance.curWattHour = saveData.currWatt;
         BoatController.instance.fuelLevel = saveData.fuelLevel;
@@ -222,6 +248,21 @@ public class SaveManager : MonoBehaviour
 
             UIManager.instance.deathText.text = deadText;
             //MistCollision.instance.StopCoroutine(MistCollision.instance.DecreaseSlider());
+        }
+    }
+
+    public void StartFromCheckPoint()
+    {
+        SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
+
+        if (readData != null)
+        {
+            saveData = readData;
+            StartCoroutine(Load(readData));
+        }
+        else
+        {
+            StartCoroutine(Load(initialSaveData));
         }
     }
     

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using MyBox;
 
 [System.Serializable]
 public class Objective : MonoBehaviour
@@ -11,14 +12,17 @@ public class Objective : MonoBehaviour
     public bool finished;
     //public Objective mainObjective; 
     //public List<Objective> subObjectives = new List<Objective>();
-    public ObjectiveData objectiveData;
+    //public ObjectiveData objectiveData;
 
-    public List<Objective> newObjectives;
+    public List<GameObject> newObjectives;
     public List<string> newObjectivesString;
     public float objectiveDelay;
     public DialogueData assignedDialogue;
     public DialogueData finishedDialogue;
     public float dialogueDelay;
+
+    [ReadOnly()]
+    public GameObject prefabRef;
 
     private void OnEnable()
     {
@@ -34,6 +38,7 @@ public class Objective : MonoBehaviour
 
     public virtual IEnumerator OnAssigned()
     {
+
         if (assignedDialogue != null)
         {
             DialogueManager.instance.OverrideDialogue(assignedDialogue);
@@ -66,7 +71,7 @@ public class Objective : MonoBehaviour
             DialogueManager.instance.OverrideDialogue(finishedDialogue);
         }
 
-        foreach (Objective objective in newObjectives)
+        foreach (GameObject objective in newObjectives)
         {
             ObjectiveManager.instance.AssignObejctive(objective);
         }
@@ -99,7 +104,7 @@ public class Objective : MonoBehaviour
     {
         yield return new WaitForSeconds(objectiveDelay);
 
-        foreach (Objective objective in newObjectives)
+        foreach (GameObject objective in newObjectives)
         {
             Debug.Log("Started Coroutine at timestamp : " + Time.time);
             ObjectiveManager.instance.AssignObejctive(objective);

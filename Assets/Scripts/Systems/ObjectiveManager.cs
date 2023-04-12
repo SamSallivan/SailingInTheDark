@@ -32,21 +32,25 @@ public class ObjectiveManager : MonoBehaviour
         ObjectiveList.Add(newObjective);
     }
 
-    public void AssignObejctive(Objective objective)
+    /*public void AssignObejctive(Objective objective)
     {
         //Objective newObjective = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
-        Objective newObjective = Instantiate(objective.gameObject, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
+        //Objective newObjective = Instantiate(objective.gameObject, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
+        GameObject newObjective = Instantiate(objective.gameObject, UIManager.instance.objectiveUI.transform);//.GetComponent<Objective>();
+        ObjectiveList.Add(newObjective);
+        StartCoroutine(newObjective.GetComponent<Objective>().OnAssigned());
+    }*/
+
+    public void AssignObejctive(GameObject objective)
+    {
+
+        Objective newObjective = Instantiate(objective, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
+        newObjective.prefabRef = objective;
         ObjectiveList.Add(newObjective);
         StartCoroutine(newObjective.OnAssigned());
     }
-    public void AssignObejctive(GameObject objective)
-    {
-        Objective newObjective = Instantiate(objective, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
-        ObjectiveList.Add(newObjective.GetComponent<Objective>());
-        StartCoroutine(newObjective.OnAssigned());
-    }
 
-    public void AddComplexObjective(string MainObjective, string[] SubObjective)
+    /*public void AddComplexObjective(string MainObjective, string[] SubObjective)
     {
         Objective tempObejctive = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         tempObejctive.GetComponent<TMP_Text>().text = MainObjective;
@@ -63,9 +67,9 @@ public class ObjectiveManager : MonoBehaviour
             //tempObejctive.subObjectives.Add(AddSubObejctive(SubObjective[i], tempObejctive));
         }
 
-    }
+    }*/
 
-    public Objective AddSubObejctive(string ObjectiveText, Objective MainObjective)
+    /*public Objective AddSubObejctive(string ObjectiveText, Objective MainObjective)
     {
         Objective tempObejctive = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         tempObejctive.GetComponent<TMP_Text>().fontSize -= 4;
@@ -80,7 +84,7 @@ public class ObjectiveManager : MonoBehaviour
             }
         }
         return tempObejctive;
-    }
+    }*/
 
     public void CompleteObjetive(string ObjetiveName)
     {

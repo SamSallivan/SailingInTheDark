@@ -35,7 +35,7 @@ public class PlayerAudio : MonoBehaviour
             walk.Play();
             isDelayed = true;
             yield return new WaitForSeconds(walk.clip.length);
-            yield return new WaitForSeconds(footStepInterval);
+            yield return new WaitForSeconds(PlayerController.instance.dynamicSpeed * footStepInterval);
             isDelayed = false;
         }
 
