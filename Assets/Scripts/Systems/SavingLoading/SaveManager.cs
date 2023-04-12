@@ -192,6 +192,9 @@ public class SaveManager : MonoBehaviour
         PlayerController.instance.transform.position = new Vector3(saveData.playerPosition[0], saveData.playerPosition[1], saveData.playerPosition[2]);
         PlayerController.instance.transform.localEulerAngles = new Vector3(saveData.playerRotation[0], saveData.playerRotation[1], saveData.playerRotation[2]);
 
+        PlayerController.instance.AttachToBoat(BoatController.instance.transform);
+        PlayerController.instance.DetachFromBoat();
+
         yield return new WaitForSeconds(1);
 
         boatRB.constraints = RigidbodyConstraints.None;
