@@ -780,26 +780,29 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
 
     public void DetachFromBoat()
     {
-        Rigidbody temp = transform.AddComponent<Rigidbody>();
-        temp.isKinematic = false;
-        temp.useGravity = false;
-        temp.angularDrag = 0;
-        temp.constraints = RigidbodyConstraints.FreezeRotation;
+        if (rb == null)
+        {
+            Rigidbody temp = transform.AddComponent<Rigidbody>();
+            temp.isKinematic = false;
+            temp.useGravity = false;
+            temp.angularDrag = 0;
+            temp.constraints = RigidbodyConstraints.FreezeRotation;
 
-        rb = temp;
-        grounder.rb = temp;
-        waterObject.targetRigidbody = temp;
+            rb = temp;
+            grounder.rb = temp;
+            waterObject.targetRigidbody = temp;
 
-        gameObject.transform.SetParent(null, true);
-        isNonPhysics = false;
-        waterObject.enabled = true;
+            gameObject.transform.SetParent(null, true);
+            isNonPhysics = false;
+            waterObject.enabled = true;
 
-        //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-        PlayerController.instance.transform.localEulerAngles = new Vector3(0, PlayerController.instance.transform.localEulerAngles.y, 0);
-        GetComponent<MouseLook>().Reset();
-        //GetComponentInChildren<PlayerSway>().enabled = false;
+            //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            PlayerController.instance.transform.localEulerAngles = new Vector3(0, PlayerController.instance.transform.localEulerAngles.y, 0);
+            GetComponent<MouseLook>().Reset();
+            //GetComponentInChildren<PlayerSway>().enabled = false;
 
-        //BoatController.instance.helm.ShutDown();
+            //BoatController.instance.helm.ShutDown();
+        }
     }
 
     private void OnDrawGizmosSelected()
