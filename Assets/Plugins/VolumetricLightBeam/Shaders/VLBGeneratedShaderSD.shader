@@ -99,9 +99,6 @@ Shader "Hidden/VLB_SD_URP_GPUInstancing"
                 #pragma multi_compile_local __ VLB_NOISE_3D
                 #pragma multi_compile_local __ VLB_COLOR_GRADIENT_MATRIX_HIGH
                 #pragma multi_compile_local __ VLB_DEPTH_BLEND
-                #pragma multi_compile_local __ VLB_OCCLUSION_CLIPPING_PLANE VLB_OCCLUSION_DEPTH_TEXTURE
-                #pragma multi_compile_local __ VLB_MESH_SKEWING
-                #pragma multi_compile_local __ VLB_SHADER_ACCURACY_HIGH
 
 
                 #define VLB_SRP_API 1

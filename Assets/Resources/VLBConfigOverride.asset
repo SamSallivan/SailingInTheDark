@@ -37,9 +37,9 @@ MonoBehaviour:
   featureEnabledColorGradient: 1
   featureEnabledDepthBlend: 1
   featureEnabledNoise3D: 1
-  featureEnabledDynamicOcclusion: 1
-  featureEnabledMeshSkewing: 1
-  featureEnabledShaderAccuracyHigh: 1
+  featureEnabledDynamicOcclusion: 0
+  featureEnabledMeshSkewing: 0
+  featureEnabledShaderAccuracyHigh: 0
   featureEnabledShadow: 1
   featureEnabledCookie: 1
   m_RaymarchingQualities:

@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 2209882718379637853}
   - component: {fileID: 2955714901584507896}
   - component: {fileID: 1071918572069259058}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ Transform:
   m_Children:
   - {fileID: 2209882718379637853}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!54 &7596440031121015770
 Rigidbody:
