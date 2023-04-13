@@ -8,6 +8,8 @@ TagManager:
   - Boat
   - Light
   - Fishing Float
+  - Ship
+  - ShipCamera
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - 
   - Enemy
   - EnemyWaterSphere
-  - 
+  - Light
   - 
   - 
   - 

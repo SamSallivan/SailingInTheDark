@@ -11,11 +11,19 @@ public class EnemySpawner : MonoBehaviour
     [ReadOnly]
     public float creatureCount = 0;
 
+    public float totalSpawns = 0;
     public string boatTag = "Boat";
     public int maxCreatureNum = 3;
-    public float minSpawnInterval = 5f; //in seconds 
-    public float maxSpawnInterval = 30f; //in seconds 
+    public int maxCreatureBeforeDelay = 5;
+    public float minSpawnInterval = 10f; //in seconds 
+    public float maxSpawnInterval = 60f; //in seconds 
     public float curSpawnInterval; //for incrementing
+
+    public float minDelayAfterKillAll = 180f;
+    public float maxDelayAfterKillAll = 300f;
+    public float delayAfterKillAll;
+
+    public bool canSpawn = true;
 
     [Range(0f, 1f)]
     public float chanceForGroupSpawn = 0.5f;
@@ -23,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
     [ReadOnly]
     public float spawnTimer;
+    public float waitTimer = 0;
 
     private List<GameObject> enemiesList;
 
@@ -32,6 +41,7 @@ public class EnemySpawner : MonoBehaviour
 
         curSpawnInterval = minSpawnInterval;
         spawnTimer = curSpawnInterval;
+        delayAfterKillAll = Random.Range(minDelayAfterKillAll, maxDelayAfterKillAll);
     }
 
     private void Update()
@@ -47,14 +57,27 @@ public class EnemySpawner : MonoBehaviour
     {
         if (other.tag == boatTag)
         {
-            if (spawnTimer <= 0f)
+            if (canSpawn)
             {
-                CheckSpawnConditions();
-                spawnTimer = curSpawnInterval;
+                if (spawnTimer <= 0f)
+                {
+                    CheckSpawnConditions();
+                    spawnTimer = curSpawnInterval;
+                }
+                else
+                {
+                    spawnTimer -= Time.deltaTime;
+                }
             }
             else
             {
-                spawnTimer -= Time.deltaTime;
+                waitTimer += Time.deltaTime;
+                if (waitTimer >= delayAfterKillAll)
+                {
+                    canSpawn = true;
+                    waitTimer = 0;
+                    delayAfterKillAll = Random.Range(minDelayAfterKillAll, maxDelayAfterKillAll);
+                }
             }
         }
     }
@@ -81,6 +104,7 @@ public class EnemySpawner : MonoBehaviour
         if (other.tag == boatTag)
         {
             spawnTimer = minSpawnInterval;
+            totalSpawns = creatureCount;
         }
     }
 
@@ -93,8 +117,9 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.GetComponent<EnemyMovement>().spawner = this;
             creatureCount++;
+            totalSpawns++;
             //add time to the spawn interval
-            curSpawnInterval = curSpawnInterval >= maxSpawnInterval ? maxSpawnInterval : curSpawnInterval + 5f;
+            curSpawnInterval = curSpawnInterval >= maxSpawnInterval ? maxSpawnInterval : curSpawnInterval + 20f;
 
             enemiesList.Add(enemy);
         }
@@ -120,6 +145,11 @@ public class EnemySpawner : MonoBehaviour
     public void CreatureDied()
     {
         creatureCount--;
+        if (totalSpawns >= maxCreatureBeforeDelay || creatureCount <= 0)
+        {
+            totalSpawns = 0;
+            canSpawn = false;
+        }
     }
 
     public void KillAllCreatures()

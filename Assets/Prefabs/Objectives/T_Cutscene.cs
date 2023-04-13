@@ -12,7 +12,9 @@ public class T_Cutscene : Trigger
 
     public virtual IEnumerator StartCutscene()
     {
-        PlayerController.instance.enableMovement = false;
+        PlayerController.instance.LockMovement(true);
+        PlayerController.instance.LockCamera(true);
+
         yield return null;
         EndCutscene();
     }
@@ -20,7 +22,8 @@ public class T_Cutscene : Trigger
 
     public virtual void EndCutscene()
     {
-        PlayerController.instance.enableMovement = true;
+        PlayerController.instance.LockMovement(false);
+        PlayerController.instance.LockCamera(false);
     }
 }
 
