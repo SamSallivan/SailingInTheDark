@@ -171,11 +171,18 @@ MonoBehaviour:
     type: 3}
   _collider: {fileID: 8452017079819419768}
   creatureCount: 0
+  totalSpawns: 0
   boatTag: Boat
   maxCreatureNum: 3
-  minSpawnInterval: 5
-  maxSpawnInterval: 30
+  maxCreatureBeforeDelay: 5
+  minSpawnInterval: 10
+  maxSpawnInterval: 60
   curSpawnInterval: 0
+  minDelayAfterKillAll: 180
+  maxDelayAfterKillAll: 300
+  delayAfterKillAll: 0
+  canSpawn: 1
   chanceForGroupSpawn: 0.5
   maxCreaturesInGroup: 3
   spawnTimer: 0
+  waitTimer: 0

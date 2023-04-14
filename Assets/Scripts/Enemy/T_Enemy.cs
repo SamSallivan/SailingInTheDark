@@ -16,7 +16,16 @@ public class T_Enemy : MonoBehaviour
     {
         if (other.tag == targetTag)
         {
-            enemy.EnterLight();
+            //TODO: GET LIGHT INTENSITY.
+            Light light = other.gameObject.GetComponent<Light>();
+            if (light != null)
+            {
+                enemy.EnterLight(light.intensity);
+            }
+            else
+            {
+                enemy.EnterLight();
+            }
         }
     }
 

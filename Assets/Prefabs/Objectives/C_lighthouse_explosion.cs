@@ -21,7 +21,9 @@ public class C_lighthouse_explosion : T_Cutscene
 
     public override IEnumerator StartCutscene()
     {
-        PlayerController.instance.enableMovement = false;
+        // PlayerController.instance.enableMovement = false;
+        PlayerController.instance.LockMovement(true);
+        PlayerController.instance.LockCamera(true);
 
         _light.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);

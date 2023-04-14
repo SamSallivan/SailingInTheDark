@@ -42,8 +42,9 @@ public class EnemyMovement : MonoBehaviour
 
     //aggro
     [Tooltip("Time enemy stays aggro for if exposed to light.")]
-    public float maxAggroMeter = 4f; //seconds
+    private float maxAggroMeter = 10f; //seconds
     public float curAggroMeter;
+    public float loseAggroMultiplier = 1;
     public bool loseAggro = false;
     public bool isPatrolling = false;
     public bool isDead = false;
@@ -317,7 +318,8 @@ public class EnemyMovement : MonoBehaviour
 
     public void LoseAggro()
     {
-        curAggroMeter -= Time.deltaTime;
+        Debug.Log("HIT");
+        curAggroMeter -= loseAggroMultiplier * Time.deltaTime;
         curAttackCooldown = maxAttackCooldown;
         if (curAggroMeter <= 0)
         {
@@ -370,12 +372,13 @@ public class EnemyMovement : MonoBehaviour
         return end * (-Mathf.Pow(2, -10 * time / duration) + 1) + start;
     }
 
-    public void EnterLight()
+    public void EnterLight(float intensity = 50f)
     {
         if (loseAggro != true)
         {
             enemyAudioManager.PlayHurtSound();
         }
+        loseAggroMultiplier = intensity / 50;
         loseAggro = true;
     }
 
