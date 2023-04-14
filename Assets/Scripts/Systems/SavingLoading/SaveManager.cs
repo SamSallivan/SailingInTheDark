@@ -27,6 +27,8 @@ public class SaveData
     public float[] playerPosition = new float[3];
     public float[] playerRotation = new float[3];
 
+    public bool[] mapFragments = new bool[2];
+
     public SaveData()
     {
     }
@@ -47,7 +49,7 @@ public struct SavedObjective
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
-
+    List<GameObject> Fragments = new List<GameObject>();
     public SaveData initialSaveData;
     public SaveData saveData = new SaveData();
     public bool isGameOver = false;
@@ -59,10 +61,14 @@ public class SaveManager : MonoBehaviour
         {
             instance = this;
         }
+
     }
 
     private void Start()
     {
+        Fragments.Add(GameObject.Find("Fragment 1"));
+        Fragments.Add(GameObject.Find("Fragment 2"));
+
         if (clearSaveFile)
         {
             SaveLoader.DeleteSaveData();
@@ -122,6 +128,9 @@ public class SaveManager : MonoBehaviour
             }*/
         }
 
+        for (int i = 0; i < saveData.mapFragments.Length; i++)
+            saveData.mapFragments[i] = !this.Fragments[i].activeSelf;
+
         //SaveLoader.Write(saveData); 
         ES3.Save("saveData", saveData);
         isGameOver = false;
@@ -136,23 +145,30 @@ public class SaveManager : MonoBehaviour
 
     public IEnumerator Load(SaveData saveData)
     {
-
-        InventoryManager.instance.inventoryItemList.Clear();
+        while (InventoryManager.instance.inventoryItemList.Count > 0)
+            InventoryManager.instance.RemoveItem(InventoryManager.instance.inventoryItemList[0]);
         foreach (InventoryItem item in saveData.inventoryItems)
-        {
             InventoryManager.instance.AddItem(item.data, item.status);
-        }
 
-        ObjectiveManager.instance.ObjectiveList.Clear();
+        while (ObjectiveManager.instance.ObjectiveList.Count > 0)
+        {
+            Destroy(ObjectiveManager.instance.ObjectiveList[0].gameObject);
+            ObjectiveManager.instance.ObjectiveList.RemoveAt(0);
+        }
         foreach (SavedObjective savedObjective in saveData.objectives)
         {
             if (savedObjective.prefabRef != null)
-            {
                 ObjectiveManager.instance.AssignObejctive(savedObjective.prefabRef);
-            }
             else
-            {
                 ObjectiveManager.instance.AssignObejctive(savedObjective.text);
+        }
+        for (int i = 0; i<saveData.mapFragments.Length; i++)
+        {
+            if (saveData.mapFragments[i])
+            {
+                GameObject nextFragment = GameObject.Find($"Map Fragement {i + 1}");
+                if (nextFragment != null)
+                    StartCoroutine(nextFragment.GetComponent<I_MapUpdate>().InteractionEvent());
             }
         }
 
@@ -164,8 +180,8 @@ public class SaveManager : MonoBehaviour
         BoatController.instance.boatArmor = saveData.armorLevel * 0.5f;
 
         BoatController.instance.lightLevel = saveData.lightLevel;
-        BoatController.instance.lightLeft.lightObject.GetComponent<Light>().intensity = saveData.lightLevel * 50;
-        BoatController.instance.lightRight.lightObject.GetComponent<Light>().intensity = saveData.lightLevel * 50;
+        BoatController.instance.lightLeft.lightObject.GetComponent<Light>().intensity = 25 + (saveData.lightLevel * 25);
+        BoatController.instance.lightRight.lightObject.GetComponent<Light>().intensity = 25 + (saveData.lightLevel * 25);
 
         BoatController.instance.gearLevel = saveData.gearLevel;
         BoatController.instance.helm.currentMaxGear = saveData.gearLevel + 1;
