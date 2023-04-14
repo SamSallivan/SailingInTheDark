@@ -9,26 +9,17 @@ using MyBox.Internal;
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager instance;
-    public bool activated;
     public UpgradeSlot slotPrefab;
 
     public List<UpgradeOption> upgradeOptionList = new List<UpgradeOption>();
-    public int selectedIndex;
-    public UpgradeOption selectedOption;
 
     public ItemData materialItem;
     public int materialCount;
     public TMP_Text materialText;
 
     //public Slider[] sliderForCosts = new Slider[5];
-    public TMP_Text[] textForCosts = new TMP_Text[5];
-    public int[] maxCosts = new int[5];
 
     [HideInInspector] TMP_Text fuelTankLabel;
-    public bool[] upgradeUnlocked = new bool[5];
-
-    public BoatController boatController;
-
 
     private void Awake()
     {
@@ -134,8 +125,8 @@ public class UpgradeManager : MonoBehaviour
                 break;
 
             case UpgradeType.LightIntensity:
-                BoatController.instance.lightLeft.lightObject.GetComponent<Light>().intensity = 100;
-                BoatController.instance.lightRight.lightObject.GetComponent<Light>().intensity = 100;
+                BoatController.instance.lightLeft.lightObject.GetComponent<Light>().intensity += 25;
+                BoatController.instance.lightRight.lightObject.GetComponent<Light>().intensity += 25;
                 BoatController.instance.lightLevel++;
                 break;
 
@@ -194,41 +185,4 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public void SpendForUpgrade(int type)
-    {
-        if (!upgradeUnlocked[type] && materialCount > maxCosts[type])
-        {
-            //CostMaterial(maxCosts[type]);
-            upgradeUnlocked[type] = true;
-
-            if (type == 0)
-            {
-                boatController.maxWattHour = 100 + (25);// * fuelTankLevel);
-                //boatController.curWattHour += 0;
-                
-                upgradeUnlocked[0] = false;
-                maxCosts[0] += 20;
-            }
-
-            if (type == 2)
-            {
-                boatController.lightLeft.lightObject.GetComponent<Light>().intensity = 100;
-                boatController.lightRight.lightObject.GetComponent<Light>().intensity = 100;
-            }
-
-            if (type == 3)
-            {
-                boatController.boatArmor += 1;
-            }
-
-            if (type == 4)
-            {
-                boatController.helm.currentMaxGear += 1;
-            }
-
-            PopulateSlots();
-        }
-        else
-            Debug.Log("can't upgrade");
-    }
 }
