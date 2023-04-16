@@ -20,13 +20,13 @@ MonoBehaviour:
   maxStackAmount: 5
   isEquippable: 1
   equipType: 2
-  equipPosition: {x: 0, y: -0.1, z: -0.25}
+  equipPosition: {x: 0.0225, y: -0.0225, z: -0.1}
   equipRotation: {x: 0, y: 0, z: 0, w: 1}
   isDroppable: 1
   dropObject: {fileID: 1978765163774278015, guid: 8330ee93ed5d00f45b73dd26d88a2031,
     type: 3}
-  examineScale: 1
-  examineRotation: {x: 0, y: 0, z: 0, w: 1}
+  examineScale: 1.5
+  examineRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   recordingName: 'DAY 0: Test'
   recording: {fileID: 0}
   reelDecreaseCoefficient: 0

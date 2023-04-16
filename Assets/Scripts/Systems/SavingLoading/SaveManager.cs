@@ -120,12 +120,6 @@ public class SaveManager : MonoBehaviour
         foreach (Objective objective in ObjectiveManager.instance.ObjectiveList)
         {
             saveData.objectives.Add(new SavedObjective(objective.prefabRef, objective.gameObject.GetComponent<TMP_Text>().text));
-            /*if (objective.prefabRef != null)
-            {
-            }
-            else
-            {
-            }*/
         }
 
         for (int i = 0; i < saveData.mapFragments.Length; i++)
@@ -284,6 +278,9 @@ public class SaveManager : MonoBehaviour
         {
             StartCoroutine(Load(initialSaveData));
         }
+
+        UIManager.instance.gameOverUI.SetActive(false);
+        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
     }
     
 }

@@ -15,6 +15,7 @@ public class ItemData : ScriptableObject
         Standard,
         Tape,
         Fish,
+        Key
     }
     [Foldout("Base Info", true)]
 

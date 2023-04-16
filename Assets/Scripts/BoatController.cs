@@ -71,7 +71,7 @@ public class BoatController : MonoBehaviour
                 float consumption = component.wattConsumption;
                 if (component.name == "Helm")
                 {
-                    consumption = component.wattConsumption * helm.currentGear / helm.totalGearNumber;
+                    consumption = component.wattConsumption * Mathf.Abs(helm.currentGear / helm.totalGearNumber);
                 }
                 curWattConsumption += consumption;
 

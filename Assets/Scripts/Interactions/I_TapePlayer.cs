@@ -19,7 +19,7 @@ public class I_TapePlayer : Interactable
 
     public override IEnumerator InteractionEvent()
     {
-
+                
         //if player has a tape inserted
         if (tapeInserted != null)
         {
@@ -45,8 +45,29 @@ public class I_TapePlayer : Interactable
             }
         }
 
+        else if (InventoryManager.instance.equippedItemRight != null 
+                 && InventoryManager.instance.equippedItemRight.data != null 
+                 && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Tape 
+                 && InventoryManager.instance.equippedItemRight.data.recording != null)
+        {
+
+            //cut the current recording and play the new one.
+            //EjectTape();
+
+            tapeInserted = InventoryManager.instance.equippedItemRight.data.dropObject;
+            recordingPlayed = tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData.recording;
+            RecordingManager.instance.PlayRecording(recordingPlayed);
+            RecordingManager.instance.UnpauseRadio();
+
+            InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItemRight);
+        }
+        else
+        {
+            InventoryManager.instance.RequireItemType(ItemData.ItemType.Tape, Play);
+        }
+
         //if player is holding a item && the item has a recording
-        else if (InventoryManager.instance.equippedItemRight != null)
+        /*else if (InventoryManager.instance.equippedItemRight != null)
         {
             if (InventoryManager.instance.equippedItemRight.data != null)
             {
@@ -64,16 +85,30 @@ public class I_TapePlayer : Interactable
 
                     InventoryManager.instance.RemoveItem(InventoryManager.instance.equippedItemRight);
                 }
+                else
+                {
+                    InventoryManager.instance.RequireItemType(ItemData.ItemType.Tape, Play);
+                }
             }
         }
+
+        else
+        {
+            InventoryManager.instance.RequireItemType(ItemData.ItemType.Tape, Play);
+        }*/
+
         Target();
         yield return null;
     }
 
 
-    private void Update()
+    public void Play(InventoryItem item)
     {
-
+        tapeInserted = item.data.dropObject;
+        recordingPlayed = tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData.recording;
+        RecordingManager.instance.PlayRecording(recordingPlayed);
+        RecordingManager.instance.UnpauseRadio();
+        InventoryManager.instance.RemoveItem(item);
     }
 
     public void EjectTape()
@@ -128,22 +163,19 @@ public class I_TapePlayer : Interactable
             UIManager.instance.interactionPrompt.text += "Receive Radio";
             //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
-        else if (InventoryManager.instance.equippedItemRight != null)
+        else if (InventoryManager.instance.equippedItemRight != null
+                 && InventoryManager.instance.equippedItemRight.data != null
+                 && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Tape
+                 && InventoryManager.instance.equippedItemRight.data.recording != null)
         {
-            if (InventoryManager.instance.equippedItemRight.data != null)
-            {
-                if (InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Tape &&
-                    InventoryManager.instance.equippedItemRight.data.recording != null)
-                {
-                    UIManager.instance.interactionPrompt.text = "[E] ";
-                    UIManager.instance.interactionPrompt.text += "Insert Tape";
-                    //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
-                }
-            }
+            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text += "Insert Tape";
+            //UIManager.instance.interactionPromptAnimation.Play("PromptButtonAppear");
         }
         else
         {
-            UIManager.instance.interactionPrompt.text = "";
+            UIManager.instance.interactionPrompt.text = "[E] ";
+            UIManager.instance.interactionPrompt.text += "Use";
         }
     }
 }

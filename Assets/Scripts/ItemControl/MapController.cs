@@ -8,7 +8,7 @@ public class MapController : MonoBehaviour
     public bool active;
     void Update()
     {
-        if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || active))
+        if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl || active))
         {
             KeyCode key;
 
@@ -33,8 +33,7 @@ public class MapController : MonoBehaviour
             else
             {
                 active = false;
-
-                transform.position = Vector3.Lerp(transform.position, PlayerController.instance.equippedTransformLeft.position, Time.fixedDeltaTime * 5);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, GetComponent<I_InventoryItem>().itemData.equipPosition, Time.fixedDeltaTime * 5);
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, GetComponent<I_InventoryItem>().itemData.dropObject.transform.localRotation, Time.fixedDeltaTime * 5);
                 gameObject.layer = 0;
                 transform.GetChild(0).gameObject.layer = 0;

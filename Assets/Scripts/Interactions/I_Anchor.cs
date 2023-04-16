@@ -166,6 +166,7 @@ public class I_Anchor : Interactable
 
     public IEnumerator SaveGame()
     {
+        UIManager.instance.Notify("Saving... Don't Turn Off");
         yield return new WaitForSeconds(1f);
         SaveManager.instance.Save();
     }

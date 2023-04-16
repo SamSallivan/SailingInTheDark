@@ -91,6 +91,16 @@ public class I_Helm : Interactable
             if (Input.GetKeyDown(KeyCode.X))
             {
                 BoatController.instance.anchor.AnchorSwitch();
+                if (BoatController.instance.anchor.activated)
+                {
+                    BoatController.instance.helm.ExitTopView();
+                    BoatController.instance.helm.activated = false;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                InventoryManager.instance.EquipMap();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -122,7 +132,7 @@ public class I_Helm : Interactable
                 ExitTopView();
             }
 
-            UIManager.instance.mapUI.SetActive(Input.GetKey(KeyCode.M));
+            //UIManager.instance.mapUI.SetActive(Input.GetKey(KeyCode.M));
 
         }
     }

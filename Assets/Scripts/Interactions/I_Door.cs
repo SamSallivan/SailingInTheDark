@@ -19,15 +19,16 @@ public class I_Door : Interactable
     {
         if (locked)
         {
-            if (InventoryManager.instance.equippedItemRight != null)
+            if (InventoryManager.instance.equippedItemRight != null
+                && InventoryManager.instance.equippedItemRight.data != null
+                && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Key 
+                && InventoryManager.instance.equippedItemRight.data == keyItem)
             {
-                if (InventoryManager.instance.equippedItemRight.data != null)
-                {
-                    if (InventoryManager.instance.equippedItemRight.data == keyItem)
-                    {
-                        locked = false;
-                    }
-                }
+                locked = false;
+            }
+            else
+            {
+                InventoryManager.instance.RequireItemType(ItemData.ItemType.Key, TryUnlock);
             }
         }
         else
@@ -39,6 +40,22 @@ public class I_Door : Interactable
         Target();
 
         yield return null;
+    }
+
+    public void TryUnlock(InventoryItem item)
+    {
+        if (item.data == keyItem)
+        {
+            locked = false;
+            activated = !activated;
+            DoorSwitch(activated);
+            //InventoryManager.instance.RemoveItem(item);
+        }
+        else
+        {
+            UIManager.instance.Notify("Wrong Key");
+        }
+
     }
 
     public void DoorSwitch(bool opened)
@@ -62,7 +79,10 @@ public class I_Door : Interactable
 
         if (locked)
         {
-            if (InventoryManager.instance.equippedItemRight != null && InventoryManager.instance.equippedItemRight.data != null && InventoryManager.instance.equippedItemRight.data == keyItem)
+            if (InventoryManager.instance.equippedItemRight != null
+                && InventoryManager.instance.equippedItemRight.data != null
+                && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Key
+                && InventoryManager.instance.equippedItemRight.data == keyItem)
             {
                 UIManager.instance.interactionPrompt.text = "[E] ";
                 UIManager.instance.interactionPrompt.text += "Unlock";
@@ -70,7 +90,8 @@ public class I_Door : Interactable
             }
             else
             {
-                UIManager.instance.interactionPrompt.text = "Locked";
+                UIManager.instance.interactionPrompt.text = "[E] ";
+                UIManager.instance.interactionPrompt.text += "Use";
             }
         }
         else

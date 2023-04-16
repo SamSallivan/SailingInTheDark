@@ -15,7 +15,12 @@ public class UIManager : MonoBehaviour
 
     [Foldout("Gameplay", true)]
     public GameObject gameplayUI;
-    public GameObject generalTips;
+
+        [Header("Tips")]
+        public GameObject generalTips;
+        public GameObject mapIcon;
+        public GameObject flashlightIcon;
+        public GameObject notificationUI;
 
         [Header("Objective")]
         public GameObject objectiveUI;
@@ -48,6 +53,7 @@ public class UIManager : MonoBehaviour
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;
     public GameObject inventoryItemGrid;
+    public GameObject inventoryTypeGrid;
     public GameObject inventoryBackGrid;
     public Animation inventoryAnimation;
     
@@ -88,6 +94,44 @@ public class UIManager : MonoBehaviour
                 Unexamine();
             }
         }
+    }
+
+    public void Notify(string text)
+    {
+        notificationUI.GetComponentInChildren<TMP_Text>().text = text;
+        FadeInOut(notificationUI);
+    }
+
+    public void FadeInOut(GameObject UI, float inTime = 0.5f, float duration = 1f, float outTime = 0.5f)
+    {
+        StartCoroutine(CoFadeInOutUI(UI, inTime, duration, outTime));
+    }
+
+    public IEnumerator CoFadeInOutUI(GameObject UI, float inTime, float duration, float outTime)
+    {
+        //UI.SetActive(true);
+
+        foreach (Image image in UI.transform.GetComponentsInChildren<Image>())
+        {
+            image.DOFade(1, inTime);
+        }
+        foreach (TMP_Text text in UI.transform.GetComponentsInChildren<TMP_Text>())
+        {
+            text.DOFade(1, inTime);
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        foreach (Image image in UI.transform.GetComponentsInChildren<Image>())
+        {
+            image.DOFade(0, outTime);
+        }
+        foreach (TMP_Text text in UI.transform.GetComponentsInChildren<TMP_Text>())
+        {
+            text.DOFade(0, outTime);
+        }
+
+        //UI.SetActive(false);
     }
 
     public void Examine(string text)

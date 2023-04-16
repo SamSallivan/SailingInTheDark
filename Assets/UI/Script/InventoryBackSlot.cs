@@ -1,28 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
+    public event Action<InventoryItem> OnReturnRequiredType = delegate { };
+
     public int GetIndex()
     {
         return transform.GetSiblingIndex(); ;
     }
 
+    public void ClearDelegate()
+    {
+        OnReturnRequiredType = null;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        foreach (Transform child in transform.parent)
+        Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        if (mouseInput != Vector2.zero && InventoryManager.instance.selectedIndex != GetIndex())
         {
-            child.GetChild(0).gameObject.SetActive(false);
+            foreach (Transform child in transform.parent)
+            {
+                child.GetChild(0).gameObject.SetActive(false);
+            }
+
+            transform.GetChild(0).gameObject.SetActive(true);
+
+            //InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
+            InventoryManager.instance.selectedIndex = GetIndex();
+
+            InventoryManager.instance.UpdateSelection(false);
         }
-        transform.GetChild(0).gameObject.SetActive(true);
-    }
-    
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        //transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -32,27 +46,46 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
         }
 
-        //
-        if (InventoryManager.instance.selectedIndex != GetIndex())
+        if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount == 1)
         {
 
-            if (eventData.button == PointerEventData.InputButton.Left)
-            {
-                InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
-                InventoryManager.instance.selectedIndex = GetIndex();
+            InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
+            InventoryManager.instance.selectedIndex = GetIndex();
+            InventoryManager.instance.UpdateSelection();
 
-                if (UIManager.instance.inventoryItemGrid.transform.childCount > GetIndex())
+            for (int i = 0; i < UIManager.instance.inventoryBackGrid.transform.childCount; i++)
+            {
+                UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetComponent<Image>().color = new Color(0.085f, 0.085f, 0.085f, 0.5f);
+            }
+            UIManager.instance.inventoryBackGrid.transform.GetChild(GetIndex()).GetComponent<Image>().color = new Color(0.85f, 0.85f, 0.85f, 0.5f);
+
+
+            if (InventoryManager.instance.requireItemType)
+            {
+                if (InventoryManager.instance.requireItemList.Count > GetIndex())
                 {
-                    InventoryItem item = UIManager.instance.inventoryItemGrid.transform.GetChild(GetIndex()).GetComponent<InventorySlot>().inventoryItem;
-                    if (item.data.isEquippable)
-                    {
-                        InventoryManager.instance.EquipItem(item);
-                    }
+                    OnReturnRequiredType?.Invoke(InventoryManager.instance.requireItemList[GetIndex()]);
+                    InventoryManager.instance.CloseInventory();
                 }
+                return;
             }
 
+            else
+            {
+                if (InventoryManager.instance.inventoryItemList.Count > GetIndex())
+                {
+                    InventoryItem item = InventoryManager.instance.inventoryItemList[GetIndex()];
+                    InventoryManager.instance.EquipItem(item);
+                }
+            }
         }
-        else
+
+
+        /*if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount == 2)
+        {
+        }*/
+
+        /*else
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
@@ -69,7 +102,7 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerEx
             {
 
             }
-        }
+        }*/
 
         /*if (eventData.button == PointerEventData.InputButton.Right)
         {

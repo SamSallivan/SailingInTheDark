@@ -9,7 +9,7 @@ public class FlashLightController : MonoBehaviour
     void Update()
     {
 
-        if (transform.IsChildOf(PlayerController.instance.transform) && PlayerController.instance.enableMovement)
+        if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl))
         {
             KeyCode key;
 
