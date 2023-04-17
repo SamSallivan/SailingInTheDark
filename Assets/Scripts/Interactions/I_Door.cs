@@ -21,10 +21,15 @@ public class I_Door : Interactable
         {
             if (InventoryManager.instance.equippedItemRight != null
                 && InventoryManager.instance.equippedItemRight.data != null
-                && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Key 
-                && InventoryManager.instance.equippedItemRight.data == keyItem)
+                && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Key)
             {
-                locked = false;
+                if(InventoryManager.instance.equippedItemRight.data == keyItem){
+                    locked = false;
+                }
+                else
+                {
+                    UIManager.instance.Notify("Wrong Key");
+                }
             }
             else
             {
@@ -44,6 +49,7 @@ public class I_Door : Interactable
 
     public void TryUnlock(InventoryItem item)
     {
+        print("0");
         if (item.data == keyItem)
         {
             locked = false;

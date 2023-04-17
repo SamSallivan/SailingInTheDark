@@ -48,7 +48,6 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerCl
 
         if (eventData.button == PointerEventData.InputButton.Left && eventData.clickCount == 1)
         {
-
             InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(GetIndex());
             InventoryManager.instance.selectedIndex = GetIndex();
             InventoryManager.instance.UpdateSelection();
@@ -65,6 +64,7 @@ public class InventoryBackSlot : MonoBehaviour, IPointerEnterHandler, IPointerCl
                 if (InventoryManager.instance.requireItemList.Count > GetIndex())
                 {
                     OnReturnRequiredType?.Invoke(InventoryManager.instance.requireItemList[GetIndex()]);
+                    print(InventoryManager.instance.requireItemList[GetIndex()].data.title);
                     InventoryManager.instance.CloseInventory();
                 }
                 return;

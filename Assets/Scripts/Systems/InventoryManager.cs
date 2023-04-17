@@ -95,7 +95,6 @@ public class InventoryManager : MonoBehaviour
                     else
                     {
                         EquipItem(flashlight, false);
-                        PlayerController.instance.equippedTransformLeft.GetChild(0).GetComponent<FlashLightController>().light.SetActive(true);
                     }
                 }
             }
@@ -183,7 +182,7 @@ public class InventoryManager : MonoBehaviour
             {
                 requireItemList.Add(item);
                 Instantiate(item.slot.gameObject, UIManager.instance.inventoryTypeGrid.transform);
-                UIManager.instance.inventoryBackGrid.transform.GetChild(0).GetComponent<InventoryBackSlot>().OnReturnRequiredType += action;
+                UIManager.instance.inventoryBackGrid.transform.GetChild(requireItemList.Count-1).GetComponent<InventoryBackSlot>().OnReturnRequiredType += action;
             }
         }
         OnReturnRequiredType += action;

@@ -5,7 +5,14 @@ using UnityEngine;
 public class FlashLightController : MonoBehaviour
 {
     public GameObject light;
-    // Update is called once per frame
+
+    void OnEnable(){
+        if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl))
+        {
+            light.SetActive(!light.activeInHierarchy);
+        }
+    }
+    
     void Update()
     {
 
