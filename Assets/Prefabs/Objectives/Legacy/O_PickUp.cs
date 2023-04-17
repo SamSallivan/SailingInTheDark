@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class O_PickUp : Objective
 {
+    //comment for github
     public List<ItemData> desiredItems;
     public void OnEnable()
     {
