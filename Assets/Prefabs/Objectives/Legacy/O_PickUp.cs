@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class O_PickUp : Objective
 {
-    public List<ItemData> desiredItems;
+    public ItemData desiredItem;
     public void OnEnable()
     {
         InventoryManager.OnPickUp += OnPickUp;
@@ -17,22 +17,8 @@ public class O_PickUp : Objective
 
     public void OnPickUp(ItemData itemData)
     {
-        if (ItemIsRequired(itemData))
-        {
-            if (desiredItems.Count == 0)
-            {
-                Finish();
-            }
+        if(itemData == desiredItem){
+            Finish();
         }
-    }
-
-    bool ItemIsRequired(ItemData itemData)
-    {
-        if (desiredItems.Contains(itemData))
-        {
-            desiredItems.Remove(itemData);
-            return true;
-        }
-        return false;
     }
 }
