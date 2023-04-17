@@ -8,4 +8,263 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: a050ede2e4487cb4ca93028f0baf6d1b
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld.unity
+    guid: 31cb41e98214aa243aee6e2901b02d55
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-0-0 Sector.unity
+    guid: daa92298923ebd14da9601169d29efde
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-7-0 Sector.unity
+    guid: 807a5baee8669c54fa12cffdc4c1c2d0
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-3-0 Sector.unity
+    guid: 503a9c7d29a9a8e4598a05f0420c567a
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-6-0 Sector.unity
+    guid: 9c0cf1e14a4784940b4746ce7785dc76
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-5-0 Sector.unity
+    guid: d5a532ba582150142bfb24f5562ab6af
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-2-0 Sector.unity
+    guid: 1014690430fe11440abc599a54d624c3
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-6-0 Sector.unity
+    guid: 4844a65605dbb0b4e90092c3c4523c01
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-4-0 Sector.unity
+    guid: 4231f9233dd8da047a64044e721dc59e
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-7-0 Sector.unity
+    guid: aad155ca12c88444896a0f64d0fe09b7
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-5-0 Sector.unity
+    guid: fbc7f756837360a4e81e058351b223c1
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-2-0 Sector.unity
+    guid: 982c7543bcaf936408415fc747e3133b
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-7-0 Sector.unity
+    guid: 963fbbcfac19504478d3e873a201bc22
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-5-0 Sector.unity
+    guid: 7c171ee6f280bcd47b022dd11fa054cb
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-4-0 Sector.unity
+    guid: 6e8e9dd45fe614e4fa932b1e573fa464
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-1-0 Sector.unity
+    guid: f8008ba38fe7e8a4490e7db52e9b0533
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-3-0 Sector.unity
+    guid: 3b432003f4e4cb4499ddbe17861788cf
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-1-0 Sector.unity
+    guid: 3daace7bba272484093e5618c5554c44
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-0-0 Sector.unity
+    guid: 72937564251c9da459b334c59bf17810
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-1-0 Sector.unity
+    guid: 6eddc42ad4090214c822dc27f75d87ae
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-6-0 Sector.unity
+    guid: ad0207fb05ebd0f43a0395fbe6ac53a4
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-7-0 Sector.unity
+    guid: 36afb8d1f2bd8c740b790310f3940a32
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-0-0 Sector.unity
+    guid: 509d532c1bfffe04e84d14858c0cc9b9
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-5-0 Sector.unity
+    guid: 3080a8a652d0aea4caf211bd40162bfe
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-3-0 Sector.unity
+    guid: 5a3cb850f6eb9d3408d711f65dca56f6
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-4-0 Sector.unity
+    guid: 3867da411d83cbc4d83b62ad5eb2102b
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-3-0 Sector.unity
+    guid: ca4c2e5477772e049bc3dfd29d078b26
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-0-0 Sector.unity
+    guid: a53064e901d34ff48bd84f88cf4985e7
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-1-0 Sector.unity
+    guid: 7ecf1f84912b3d54aa93605919840438
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-1-0 Sector.unity
+    guid: 6470c57e570d6aa46aea4f7c119557fd
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-1-0 Sector.unity
+    guid: 6307561abf585cc4d88d72aa5cca9a4b
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-4-0 Sector.unity
+    guid: 0f7ddd13da029b947ab80104636dac21
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-4-0 Sector.unity
+    guid: 9bdccffae030dd0469b5a9e8d68fdbe5
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-0-0 Sector.unity
+    guid: 1fba95957fc24c545afa31f436fcef6a
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-1-0 Sector.unity
+    guid: 65b400b6b93cb1b4ba54105118543e4f
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-6-0 Sector.unity
+    guid: 7386fa44c8c83c6419f3093ac80a1e67
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-7-0 Sector.unity
+    guid: cb2af4e96d1f6f0478d708217a1bf17a
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-2-0 Sector.unity
+    guid: 8e642874b19bad945ab1fe103cfc9a7c
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-7-0 Sector.unity
+    guid: 5c319bdae2957464b918a7c4a7c2eb0b
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 2-2-0 Sector.unity
+    guid: f6da6dd1506746849a1cd4ce79a8ba89
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-5-0 Sector.unity
+    guid: 6bd5d86b096681c47a7618e180f6d768
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 5-7-0 Sector.unity
+    guid: 11ac7ad0e17499d44a456271ebeaf75e
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-5-0 Sector.unity
+    guid: 754b107927bdb334ba8715eca1dae3a0
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-4-0 Sector.unity
+    guid: f462ab620c716414e89a6a59c1ec74ac
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-7-0 Sector.unity
+    guid: 73461305a18b7bc489e2a549e3ae3926
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-3-0 Sector.unity
+    guid: a033b0d1fc1dfdc40885aedb9601d053
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-1-0 Sector.unity
+    guid: cc74187efb223a2459efddbb16ce6dbb
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-3-0 Sector.unity
+    guid: 2b33231724fa55a4b9f82dbef9d3c516
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 0-0-0 Sector.unity
+    guid: d63a189d20050624498fdc5f031bee2e
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-3-0 Sector.unity
+    guid: 46df178e3735e6a4cb47ea75b5f4db6a
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-5-0 Sector.unity
+    guid: b83086f687cd29d4f919ae6a67d97128
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-2-0 Sector.unity
+    guid: 047ed503c7e26c84eb934ed16103af0b
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-2-0 Sector.unity
+    guid: 94ad1b783063a6945b2c887338187940
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-6-0 Sector.unity
+    guid: 9f71890447f834741a601c3de25f7e5d
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-2-0 Sector.unity
+    guid: 66beab9654e5f964eb7e8db4185552d0
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-4-0 Sector.unity
+    guid: 631c661f536abc741a8a0554dca2af28
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-3-0 Sector.unity
+    guid: c56d776397e45a441a6f87cf636209a0
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-0-0 Sector.unity
+    guid: 992ca80dc8056384ebf2240d63fa04a5
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-5-0 Sector.unity
+    guid: 2951af06a929e6a489ae4a5ddaf56398
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 7-6-0 Sector.unity
+    guid: 97ff8aa86ec88614cb0c4859f8c5255e
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 6-0-0 Sector.unity
+    guid: 8282b10ee15794c48b4de71386fd5d24
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 4-6-0 Sector.unity
+    guid: 5119e1f75433fb3478f5b9bca9299346
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-2-0 Sector.unity
+    guid: 9be5e62e7dd6fee4ea0c73741829e3ff
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 3-6-0 Sector.unity
+    guid: 45c92ad0f8a63a8488446464ddb6f362
+  - enabled: 1
+    path: Assets/Procedural Worlds/SECTR/Demos/Stream/OpenWorld/Chunks/OpenWorld_SECTR
+      Terrain 1-4-0 Sector.unity
+    guid: 174a66c7df0183d40b2e1528024e7975
   m_configObjects: {}
