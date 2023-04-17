@@ -20,7 +20,7 @@ MonoBehaviour:
   isStackable: 1
   maxStackAmount: 5
   isEquippable: 1
-  equipType: 1
+  equipType: 0
   equipPosition: {x: 0, y: 0, z: 0}
   equipRotation: {x: 0, y: 0, z: 0.38268346, w: 0.9238795}
   isDroppable: 1

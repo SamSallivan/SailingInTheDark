@@ -227,9 +227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finished: 0
-  newObjectives: []
-  newObjectivesString:
-  - Go to the nearby island with the storage shed.
+  newObjectives:
+  - {fileID: 5064703886506926533, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+  newObjectivesString: []
   objectiveDelay: 0
   assignedDialogue: {fileID: 0}
   finishedDialogue: {fileID: 0}
@@ -258,6 +258,16 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: -6862840669873048489}
     - {fileID: 11500000, guid: 4207e045314b8fc409488bfe5b72bd48, type: 3}
+    - {fileID: 5064703886506926533, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 5064703886506926532, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 5064703886506926530, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 5064703886506926531, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 3251981352543828765, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 5680185163796905694, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 562466956147419543, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 6272206217271929445, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 5116941767820713291, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
+    - {fileID: 6522342803265250126, guid: 12bdff5928aa25544b7f14b5d2f97679, type: 3}
     - {fileID: -5462970258265071297}
     - {fileID: 562466956147419543}
     - {fileID: 6272206217271929445}
@@ -265,4 +275,4 @@ MonoBehaviour:
     - {fileID: 6522342803265250126}
     - {fileID: 2800000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
     - {fileID: 21300000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
-    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340a797f4c17f3a12e0b61cca7859adf5e0d6a7daeab50037719cdc21d8175a0a565126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b
+    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340aa20b8ac63e0b0d5861cca7859adf5e0d6a7daeab500377196f6f494440d1fb0f07d6deba0501623669f4e6b755bcd129ba45aecacbbeba238351bdef5cd2be07f43793c03edf1337cdb57b744e0b9e4d9f1f8afa23304448e444c84cbb8c256ac9205372b06d9766cdc21d8175a0a565126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b

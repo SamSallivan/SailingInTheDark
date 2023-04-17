@@ -90,7 +90,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         foreach (Objective objective in ObjectiveList)
         {
-            if(ObjetiveName == objective.gameObject.name || ObjetiveName == objective.gameObject.GetComponent<TMP_Text>().text)
+            if (ObjetiveName == objective.gameObject.name || ObjetiveName == objective.gameObject.GetComponent<TMP_Text>().text)
             {
                 /*if (objective.subObjectives.Count <= 0)
                 {
