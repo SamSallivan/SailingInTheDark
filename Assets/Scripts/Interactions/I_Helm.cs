@@ -38,7 +38,7 @@ public class I_Helm : Interactable
     [Header("Wheel")]
     public float wheelSpeed = 1;
     [ReadOnly]
-    private float wheelAngle;
+    public float wheelAngle;
     public Transform wheel;
 
     [Header("Enter & Exit")]
