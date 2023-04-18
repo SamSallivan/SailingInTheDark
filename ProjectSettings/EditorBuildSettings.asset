@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/objectives/Chunks/objectives_HomeIsland.unity
     guid: b121063b54bff2d4a95734f1741bf9d4
+  - enabled: 1
+    path: Assets/Scenes/Main/Chunks/Main_Tutorial_Island.unity
+    guid: 659a3abc3eb4c0d478a6a0f1dee66831
   m_configObjects: {}
