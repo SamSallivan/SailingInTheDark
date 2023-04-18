@@ -22,6 +22,8 @@ MonoBehaviour:
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
       amount: 50
   - requiredMaterials:
+    - itemData: {fileID: 11400000, guid: 1c016ddc40499824f977e29152298c8a, type: 2}
+      amount: 1
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
       amount: 100
   itemToTrade: {fileID: 0}

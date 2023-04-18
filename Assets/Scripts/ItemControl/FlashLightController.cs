@@ -7,9 +7,12 @@ public class FlashLightController : MonoBehaviour
     public GameObject light;
 
     void OnEnable(){
-        if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl))
+        if (PlayerController.instance != null)
         {
-            light.SetActive(!light.activeInHierarchy);
+            if (transform.IsChildOf(PlayerController.instance.transform))
+            {
+                light.SetActive(!light.activeInHierarchy);
+            }
         }
     }
     
