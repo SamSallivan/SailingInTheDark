@@ -6,6 +6,7 @@ using TMPro;
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class SaveData
@@ -23,6 +24,9 @@ public class SaveData
 
     public List<InventoryItem> inventoryItems;
     public List<SavedObjective> objectives;
+
+    public bool[] collectedItems = new bool[0];
+    public List<Trigger> oneTimeTriggers;
 
     public float[] playerPosition = new float[3];
     public float[] playerRotation = new float[3];
@@ -49,9 +53,15 @@ public struct SavedObjective
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
+
     List<GameObject> Fragments = new List<GameObject>();
+    public List<Trigger> eventsPending = new List<Trigger>();
+    [Unity.Collections.ReadOnly] public I_InventoryItem[] allItems;
+    public static int fileLoaded = 0;
+
     public SaveData initialSaveData;
     public SaveData saveData = new SaveData();
+
     public bool isGameOver = false;
     public bool clearSaveFile = false;
 
@@ -61,15 +71,16 @@ public class SaveManager : MonoBehaviour
         {
             instance = this;
         }
-
     }
 
     private void Start()
     {
         Fragments.Add(GameObject.Find("Fragment 1"));
         Fragments.Add(GameObject.Find("Fragment 2"));
+        allItems = FindObjectsOfType<I_InventoryItem>();
 
-        if (clearSaveFile)
+        Debug.Log($"save file loaded {fileLoaded} times");
+        if (clearSaveFile && fileLoaded == 0)
         {
             SaveLoader.DeleteSaveData();
             StartCoroutine(Load(initialSaveData));
@@ -115,12 +126,18 @@ public class SaveManager : MonoBehaviour
         saveData.playerRotation[1] = PlayerController.instance.transform.eulerAngles.y;
         saveData.playerRotation[2] = PlayerController.instance.transform.eulerAngles.z;
 
+        for (int i = 0; i < eventsPending.Count; i++)
+            saveData.oneTimeTriggers.Add(eventsPending[i]);
+        eventsPending.Clear();
+
         saveData.inventoryItems = InventoryManager.instance.inventoryItemList;
         saveData.objectives.Clear();
         foreach (Objective objective in ObjectiveManager.instance.ObjectiveList)
-        {
             saveData.objectives.Add(new SavedObjective(objective.prefabRef, objective.gameObject.GetComponent<TMP_Text>().text));
-        }
+
+        saveData.collectedItems = new bool[allItems.Length];
+        for (int i = 0; i<allItems.Length; i++)
+            saveData.collectedItems[i] = allItems[i] == null;
 
         for (int i = 0; i < saveData.mapFragments.Length; i++)
             saveData.mapFragments[i] = !this.Fragments[i].activeSelf;
@@ -139,6 +156,20 @@ public class SaveManager : MonoBehaviour
 
     public IEnumerator Load(SaveData saveData)
     {
+        for (int i = 0; i < saveData.oneTimeTriggers.Count; i++)
+            saveData.oneTimeTriggers[i].triggeredOnce = true;
+        for (int i = 0; i < eventsPending.Count; i++)
+            eventsPending[i].triggeredOnce = false;
+        this.eventsPending.Clear();
+
+        for (int i = 0; i < saveData.collectedItems.Length; i++)
+        {
+            if (saveData.collectedItems[i] && allItems[i] != null)
+            {
+                Destroy(allItems[i].gameObject);
+            }
+        }
+
         while (InventoryManager.instance.inventoryItemList.Count > 0)
             InventoryManager.instance.RemoveItem(InventoryManager.instance.inventoryItemList[0]);
         foreach (InventoryItem item in saveData.inventoryItems)
@@ -267,6 +298,10 @@ public class SaveManager : MonoBehaviour
 
     public void StartFromCheckPoint()
     {
+        fileLoaded++;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        /*
         SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
 
         if (readData != null)
@@ -281,6 +316,7 @@ public class SaveManager : MonoBehaviour
 
         UIManager.instance.gameOverUI.SetActive(false);
         UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
+        */
     }
     
 }

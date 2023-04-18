@@ -37,10 +37,10 @@ public class Trigger : MonoBehaviour
     {
         if (other.CompareTag(targetTag) && !triggeredOnce)
         {
-
             if (triggerOnce)
             {
                 triggeredOnce = true;
+                SaveManager.instance.eventsPending.Add(this);
             }
 
             triggered = true;
