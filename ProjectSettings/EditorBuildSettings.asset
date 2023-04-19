@@ -7,5 +7,5 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Main_Allyson.unity
-    guid: 686cf2c6aad219841a856a952b890a7e
+    guid: 8c3efe3095bdd4d6b8ae8bc381fb15b2
   m_configObjects: {}

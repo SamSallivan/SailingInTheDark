@@ -69,12 +69,15 @@ public class BoatController : MonoBehaviour
         switch (helm.currentMaxGear)
         {
             case 3:
-                Gear3.gameObject.SetActive(true);
+                if(Gear3 != null)
+                    Gear3.gameObject.SetActive(true);
                 break;
 
             case 4:
-                Gear3.gameObject.SetActive(true);
-                Gear4.gameObject.SetActive(true);
+                if (Gear3 != null)
+                    Gear3.gameObject.SetActive(true);
+                if (Gear4 != null)
+                    Gear4.gameObject.SetActive(true);
                 break;
         }
     }
@@ -120,25 +123,37 @@ public class BoatController : MonoBehaviour
         if (seconds < 10)
             sec = "0" + Mathf.RoundToInt(seconds).ToString();
 
-        percentageText.text = percentage.ToString();
-        fuelImage.fillAmount = percentage / 200;
-        fuelBackImage.fillAmount =  maxWattHour / 200; ;
+        percentageText.text = percentage + "%";
+
+        if (fuelImage != null)
+            fuelImage.fillAmount = percentage / 200;
+
+        if (fuelBackImage != null)
+            fuelBackImage.fillAmount =  maxWattHour / 200; ;
+
         usageText.text = Mathf.Round(curWattConsumption / refWattHour / 3600 * 100 * 100) * 0.01f + "% / sec";
         timerText.text = min + ":" + sec;
         componentCountText.text = curActiveComponent + "/" + maxActiveComponent;
-        speedText.text = Mathf.Round(BoatController.instance.boat.Speed) + "km/h";
-        gearImage.GetComponent<RectTransform>().anchoredPosition = new Vector3(610 + helm.currentGear * 75,11.5f,0);
-        switch (helm.currentGear)
+
+        if(speedText != null)
+            speedText.text = Mathf.Round(BoatController.instance.boat.Speed) + "km/h";
+
+
+        if (fuelImage != null)
         {
-            case -1:
-                gearImage.color = Yellow;
-                break;
-            case 0:
-                gearImage.color = Red;
-                break;
-            default:
-                gearImage.color = Green;
-                break;
+            gearImage.GetComponent<RectTransform>().anchoredPosition = new Vector3(610 + helm.currentGear * 75, 11.5f, 0);
+            switch (helm.currentGear)
+            {
+                case -1:
+                    gearImage.color = Yellow;
+                    break;
+                case 0:
+                    gearImage.color = Red;
+                    break;
+                default:
+                    gearImage.color = Green;
+                    break;
+            }
         }
 
 
