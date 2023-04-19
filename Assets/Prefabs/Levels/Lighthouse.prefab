@@ -2473,6 +2473,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampSmall (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 550727714000149266, guid: 8e4909d5cd423364dbe4ee52513fcbd1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 550727714000149267, guid: 8e4909d5cd423364dbe4ee52513fcbd1,
         type: 3}
       propertyPath: m_RootOrder

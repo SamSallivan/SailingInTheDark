@@ -6,36 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: cdd16dc8551a2ff4fa5afd36551e2c8b
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_Island5.unity
-    guid: 804df134b1b73134280ee7457afcd8e4
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_DesertedIsland.unity
-    guid: cb1da19e822285343b9d9b4e4eda4a63
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_small_island 2.unity
-    guid: 9fcddd2c0ecd08742a825c0dd972d2c1
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_AbandonedMine.unity
-    guid: f2f9bfa1cf80de1479cd18e9a6e0a7c7
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_small_island 1.unity
-    guid: 5cd0972a96ecdfa4ca3443332ef55162
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_LotusIsland.unity
-    guid: 3d601f47f9a22114286def4515adbfd9
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_HomeIsland.unity
-    guid: d5d28b5daaaf19446bef126b534e6a25
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_small_island 3.unity
-    guid: d49ba8cf555740146bc855381bfaaeee
-  - enabled: 1
-    path: Assets/Scenes/objectives/Chunks/objectives_HomeIsland.unity
-    guid: b121063b54bff2d4a95734f1741bf9d4
-  - enabled: 1
-    path: Assets/Scenes/Main/Chunks/Main_Tutorial_Island.unity
-    guid: 659a3abc3eb4c0d478a6a0f1dee66831
+    path: Assets/Scenes/Main_Allyson.unity
+    guid: 686cf2c6aad219841a856a952b890a7e
   m_configObjects: {}
