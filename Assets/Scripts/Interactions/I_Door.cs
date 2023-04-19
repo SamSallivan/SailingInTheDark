@@ -67,6 +67,7 @@ public class I_Door : Interactable
     public void DoorSwitch(bool opened)
     {
         transform.rotation =  opened ? openRotation.rotation : closeRotation.rotation;
+        transform.position =  opened ? openRotation.position : closeRotation.position;
     }
 
     public override void Target()

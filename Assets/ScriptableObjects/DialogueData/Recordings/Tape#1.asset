@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: Tape#1
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "Boy, I\u2019m sorry. I am sorry for leaving you at such a young age.  "
+    audioClip: {fileID: 8300000, guid: 1bacdd2b2dafb1842bd1f5326c38f69f, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'The.. the lighthouse, they were not what we think they are.  '
+    audioClip: {fileID: 8300000, guid: c8f00415ad3254548bcc0e479bfa8e74, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'It was all wrong, my entire life has been in pursuit of a wrong idea. '
+    audioClip: {fileID: 8300000, guid: 96bd93af83cbe3141bcd88e1acd3facf, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: You still remember the investigation that I did a few years ago, right?
+    audioClip: {fileID: 8300000, guid: 309b500025ae4a14296af9412aaec598, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Something sinister get into my head. '
+    audioClip: {fileID: 8300000, guid: 8aaca273bd6ab7b49a566db9222cac59, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'It was not how I intended. '
+    audioClip: {fileID: 8300000, guid: e73357fed3aecbe44a153a1b7ceb02e4, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "This thing, started to evolve and I can\u2019t get hold of myself."
+    audioClip: {fileID: 8300000, guid: 02dd3f41f626f5647a52e34b699fb4f9, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'You, boy, you can not live this way, you deserve the truth. '
+    audioClip: {fileID: 8300000, guid: 9552964a4566a78409b6406334953c07, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "I love you, I can\u2019t see you living such an ignorant life like
+      the rest of us. "
+    audioClip: {fileID: 8300000, guid: 99208c9b88618434b9520ba67284e876, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I left some tape on each of the islands that I went to. '
+    audioClip: {fileID: 8300000, guid: 5e05d810b0562604ca98c982fb1a3e86, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: Find them one by one, and you will understand.
+    audioClip: {fileID: 8300000, guid: 6ec0aff4459266741b8d83bc5d811e49, type: 3}
+    intervalAfter: 0
+  subtitles: []
+  audioClips: []

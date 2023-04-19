@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: Tape#3
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Everything changed on Ironclad, once a booming village is now all
+      barren and lifeless. '
+    audioClip: {fileID: 8300000, guid: f634136bc4a1204418f6789ffc167581, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "It\u2019s strange how everyone on the island was so afraid of the
+      lighthouse.  "
+    audioClip: {fileID: 8300000, guid: 7c56c87dacf1ab54b9a14f7d61a41b3f, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'They were controlled by the ruler and then, people started to leave
+      the island.  '
+    audioClip: {fileID: 8300000, guid: 2536391d106a01c429083800d0650b62, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Some even suicide.  '
+    audioClip: {fileID: 8300000, guid: 884ce45591f99254f874a92460b296b4, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'This place makes me feel chills,  '
+    audioClip: {fileID: 8300000, guid: c6434832943439e40a7d4d3db9685d16, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I feel like someone is watching me. '
+    audioClip: {fileID: 8300000, guid: e6fcaf9811adb6e498350bc1627fa17b, type: 3}
+    intervalAfter: 0
+  subtitles: []
+  audioClips: []
