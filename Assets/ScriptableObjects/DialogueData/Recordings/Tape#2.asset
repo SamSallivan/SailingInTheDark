@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: Tape#2
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Twin Isle used to be a thriving village famous for its abundant fish
+      reserve.  '
+    audioClip: {fileID: 8300000, guid: c2a3e4a2abef50d43b8558c464688549, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'They used to never allow outsiders get close, every ship is a threat
+      to steal their fish. '
+    audioClip: {fileID: 8300000, guid: e62a5919b29f2374ea281a29ba71f618, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'However, that one night changed everything.  '
+    audioClip: {fileID: 8300000, guid: 9ea219c79aba91a43ac8bf97dcfd80fb, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "Approximately five years ago, the lighthouse\u2019s light shut down
+      for one night.  "
+    audioClip: {fileID: 8300000, guid: dde6f3f99942f054297482ea61aca72c, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'No one knows the answer, ever since then, the fish they caught become
+      less and less. '
+    audioClip: {fileID: 8300000, guid: 8f1e1353d7999e34eb902ebcaab0d871, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "People started to leave, and for those who don\u2019t want to leave,
+      they died.\u201D "
+    audioClip: {fileID: 8300000, guid: 2d2cf76ff2003194f9c16654512d91ac, type: 3}
+    intervalAfter: 0
+  subtitles: []
+  audioClips: []

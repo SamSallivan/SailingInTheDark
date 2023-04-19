@@ -23,11 +23,11 @@ MonoBehaviour:
   equipPosition: {x: 0, y: 0, z: 0}
   equipRotation: {x: 0, y: 0, z: 0, w: 0}
   isDroppable: 1
-  dropObject: {fileID: 787135118462861994, guid: e8f28519605b64443ac76e37bb36f25d,
+  dropObject: {fileID: 787135118462861994, guid: ad6760b5b1648ce44a8463b62f32f992,
     type: 3}
   examineScale: 1
   examineRotation: {x: 0, y: 0, z: 0, w: 1}
   recordingName: grandpa1
-  recording: {fileID: 11400000, guid: 809900d6ae681a647aee8292e460074a, type: 2}
+  recording: {fileID: 11400000, guid: 148a1597f9aaeca42a5b3ee91a9e58d7, type: 2}
   reelDecreaseCoefficient: 0
   nimbbleInterval: {x: 0, y: 0}

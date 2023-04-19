@@ -291,7 +291,7 @@ MonoBehaviour:
   CastPos: {fileID: 4326547868617401106}
   CastForce: {x: 25, y: 150}
   castCharger: 0
-  waitTimeInterval: {x: 2, y: 4}
+  waitTimeInterval: {x: 10, y: 20}
   waitTime: 3.204279
   waitTimer: 0
   nibbleCountInterval: {x: 1, y: 3}
