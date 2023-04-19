@@ -98,6 +98,22 @@ public class InventoryManager : MonoBehaviour
                     }
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (equippedItemCenter != null && equippedItemCenter.data != null)
+                {
+                    DropItem(equippedItemCenter);
+                }
+                if (equippedItemLeft != null && equippedItemLeft.data != null)
+                {
+                    DropItem(equippedItemLeft);
+                }
+                if (equippedItemRight != null && equippedItemRight.data != null)
+                {
+                    DropItem(equippedItemRight);
+                }
+            }
         }
         else if (activated)
         {
@@ -690,9 +706,14 @@ public class InventoryManager : MonoBehaviour
             UIManager.instance.detailName.text = selectedItem.data.title;
             UIManager.instance.detailDescription.text = selectedItem.data.description;
 
-            if (UIManager.instance.detailObjectPivot.childCount > 0)
+            /*while (UIManager.instance.detailObjectPivot.childCount > 0)
             {
                 Destroy(UIManager.instance.detailObjectPivot.GetChild(0).gameObject);
+            }*/
+
+            foreach (Transform child in UIManager.instance.detailObjectPivot)
+            {
+                Destroy(child.gameObject);
             }
 
             GameObject detailGameObject = Instantiate(selectedItem.data.dropObject, UIManager.instance.detailObjectPivot);

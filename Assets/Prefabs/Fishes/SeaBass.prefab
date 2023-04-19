@@ -383,15 +383,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423cd0cb80b62614db80d064f8a87f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: Sea BaSS
+  textName: Sea Bass
   textPrompt: Pick Up
   textPromptActivated: 
-  highlightTarget: {fileID: 0}
+  highlightTarget: {fileID: 8674442559220863974}
   interactionType: 2
   onceOnly: 0
   interactedOnce: 0
   examineText: 
-  itemData: {fileID: 11400000, guid: 5629cf7c6ebf69c44812a7b8372a7ff0, type: 2}
+  itemData: {fileID: 11400000, guid: 8c7ca302dbcbe404f8b1d775c7c74e64, type: 2}
   itemStatus:
     amount: 1
     durability: 1

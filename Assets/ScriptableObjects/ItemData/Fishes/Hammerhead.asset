@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ee888b371e2b458aee4fa444b52b8, type: 3}
+  m_Name: Hammerhead
+  m_EditorClassIdentifier: 
+  type: 2
+  title: Hammerhead Shark
+  sprite: {fileID: 21300000, guid: ab585eb1d5c4909448a1231c3a025c60, type: 3}
+  description: "I caught a hammerhead shark! \nI hit the nail on the head!"
+  isStackable: 0
+  maxStackAmount: 5
+  isEquippable: 1
+  equipType: 2
+  equipPosition: {x: 0, y: 0, z: 0}
+  equipRotation: {x: -0.1830127, y: 0.68301266, z: -0.1830127, w: -0.68301266}
+  isDroppable: 1
+  dropObject: {fileID: 8674442559220863974, guid: 2095c3b6fb28b194891175e72cbfa1c8,
+    type: 3}
+  examineScale: 0.5
+  examineRotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
+  recordingName: 'DAY 0: Test'
+  recording: {fileID: 0}
+  reelDecreaseCoefficient: 0.4
+  nimbbleInterval: {x: 0, y: 0}

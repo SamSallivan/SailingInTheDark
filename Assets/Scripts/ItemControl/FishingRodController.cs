@@ -4,6 +4,7 @@ using UnityEngine;
 using MyBox;
 using NWH.DWP2.WaterObjects;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class FishingRodController : MonoBehaviour
 {
@@ -236,7 +237,12 @@ public class FishingRodController : MonoBehaviour
                     else
                     if (reelCharger < 1)
                     {
-                        reelCharger = Mathf.MoveTowards(reelCharger, 0, Time.fixedDeltaTime * reelDecreaseCoefficient);
+                        float decreaseCoefficient = reelDecreaseCoefficient;
+                        if (fishHooked.reelDecreaseCoefficient != 0)
+                        {
+                            decreaseCoefficient = fishHooked.reelDecreaseCoefficient;
+                        }
+                        reelCharger = Mathf.MoveTowards(reelCharger, 0, Time.fixedDeltaTime * decreaseCoefficient);
                         targetRotation = Quaternion.Euler(50 + Random.Range(shakeRandomX.x, shakeRandomX.y) * 2.5f, 0, Random.Range(shakeRandomZ.x, shakeRandomZ.y) * 1f);
                         transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * shakeSpeed);
 
@@ -259,6 +265,14 @@ public class FishingRodController : MonoBehaviour
                             //InventoryManager.instance.EquipItem(newItem);
                             InventoryManager.instance.OpenInventory();
                             InventoryManager.instance.selectedPosition = InventoryManager.instance.GetGridPosition(newItem.slot.GetIndex());
+                            InventoryManager.instance.selectedIndex = newItem.slot.GetIndex();
+                            InventoryManager.instance.UpdateSelection(); 
+                            for (int i = 0; i < UIManager.instance.inventoryBackGrid.transform.childCount; i++)
+                            {
+                                UIManager.instance.inventoryBackGrid.transform.GetChild(i).GetComponent<Image>().color = new Color(0.085f, 0.085f, 0.085f, 0.5f);
+                            }
+                            UIManager.instance.inventoryBackGrid.transform.GetChild(newItem.slot.GetIndex()).GetComponent<Image>().color = new Color(0.85f, 0.85f, 0.85f, 0.5f);
+
                         }
 
                         if (fishingZone != null)
