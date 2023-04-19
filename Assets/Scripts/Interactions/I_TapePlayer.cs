@@ -26,7 +26,11 @@ public class I_TapePlayer : Interactable
             //eject it early and stop playing
             RecordingManager.instance.StopCurrentLine();
             RecordingManager.instance.currentRecording = null;
-            EjectTape();
+            //EjectTape();
+            
+            InventoryManager.instance.AddItem(tapeInserted.GetComponentInChildren<I_InventoryItem>().itemData, new ItemStatus(1, 1));
+            BoatController.instance.boatAudio.EjectTapeSound();
+            tapeInserted = null;
         }
 
         //else if have received message
