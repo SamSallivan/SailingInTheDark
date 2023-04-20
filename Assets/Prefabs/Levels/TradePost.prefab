@@ -35,7 +35,7 @@ Transform:
   - {fileID: 3328574143629529082}
   - {fileID: 3398961517496855825}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -1.129, y: 328.924, z: 2.177}
 --- !u!33 &3398961516367935453
 MeshFilter:
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 3398961517496855839}
   - component: {fileID: 3398961517496855838}
   m_Layer: 0
-  m_Name: Trade Post
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
