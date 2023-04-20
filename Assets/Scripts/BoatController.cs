@@ -133,7 +133,7 @@ public class BoatController : MonoBehaviour
 
         usageText.text = Mathf.Round(curWattConsumption / refWattHour / 3600 * 100 * 100) * 0.01f + "% / sec";
         timerText.text = min + ":" + sec;
-        componentCountText.text = curActiveComponent + "/" + maxActiveComponent;
+        //componentCountText.text = curActiveComponent + "/" + maxActiveComponent;
 
         if(speedText != null)
             speedText.text = Mathf.Round(BoatController.instance.boat.Speed) + "km/h";
@@ -165,15 +165,21 @@ public class BoatController : MonoBehaviour
         if (anchor.dockable && anchor.activated)
         {
             curWattHour = Mathf.Lerp(curWattHour, maxWattHour, Time.fixedDeltaTime / 5);
+            fuelImage.color = Color.green;
+
             if (curWattHour < maxWattHour)
             {
-                percentageText.text += " (Charging)";
+                //percentageText.text += "+";
             }
             else
             {
-                percentageText.text += " (Fully Charged)";
+                //percentageText.text += " (Fully Charged)";
             }
             //is charging the boat
+        }
+        else
+        {
+            fuelImage.color = Color.Lerp(Color.red, Color.white, curWattHour/maxWattHour);
         }
 
         if (!SaveManager.instance.isGameOver && curWattHour <= 0) //|| curActiveComponent > maxActiveComponent)

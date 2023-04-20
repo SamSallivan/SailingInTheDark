@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b144db4f72a7448c6b521ce3181d7, type: 3}
   m_Name: Hammerhead
   m_EditorClassIdentifier: 
-  name: Scrap * 20
+  name: Scrap * 35
   type: 0
-  description: 20 Scrap
+  description: 35 Scrap
   sprite: {fileID: 0}
   maxLevel: 11
   costs:
@@ -22,4 +22,4 @@ MonoBehaviour:
     - itemData: {fileID: 11400000, guid: 2be097637e5921540962b1e4dadb5e9d, type: 2}
       amount: 1
   itemToTrade: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
-  itemAmount: 20
+  itemAmount: 35

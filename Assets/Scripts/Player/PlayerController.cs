@@ -776,6 +776,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
         //GetComponentInChildren<PlayerSway>().enabled = true;
         GetComponentInChildren<PlayerSway>().lastRotation = transform.rotation;
         GetComponent<MouseLook>().Reset();
+
+        UIManager.instance.boatUI.SetActive(true);
     }
 
     public void DetachFromBoat()
@@ -802,6 +804,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
             //GetComponentInChildren<PlayerSway>().enabled = false;
 
             //BoatController.instance.helm.ShutDown();
+
+            UIManager.instance.boatUI.SetActive(false);
         }
     }
 

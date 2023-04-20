@@ -35,7 +35,8 @@ public class UIManager : MonoBehaviour
         public TMP_Text dialogueSubtitleUI;
 
         [Header("Helm")]
-        public GameObject helmTips;
+        public GameObject helmUI;
+        public GameObject boatUI;
         public GameObject mapUI;
         public TMP_Text gearText;
         public TMP_Text anchorText;

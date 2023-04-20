@@ -175,7 +175,7 @@ public class I_Helm : Interactable
         {
             Highlight();
             UIManager.instance.generalTips.SetActive(false);
-            UIManager.instance.helmTips.SetActive(true);
+            UIManager.instance.helmUI.SetActive(true);
             PlayerController.instance.LockMovement(true);
             /*InventoryManager.instance.UnequipItem(ItemData.EquipType.Left);
             InventoryManager.instance.UnequipItem(ItemData.EquipType.Right);
@@ -211,7 +211,7 @@ public class I_Helm : Interactable
             //exit top view!!
             topView = false;
             UIManager.instance.generalTips.SetActive(true);
-            UIManager.instance.helmTips.SetActive(false);
+            UIManager.instance.helmUI.SetActive(false);
             PlayerController.instance.headPosition.Slide(0.75f);
             PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
             PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
@@ -286,7 +286,7 @@ public class I_Helm : Interactable
         handleAngle = Mathf.Lerp(handleAngle, speed / 100 * maxHandleAngle, Time.deltaTime * 10);
         handle.localEulerAngles = new Vector3(handleAngle, 0, 0);
 
-        if (thrusterTimer > 0)
+        /*if (thrusterTimer > 0)
         {
             thrusterTimer -= Time.fixedDeltaTime;
             BoatController.instance.boat.input.Throttle2 = Mathf.Sign(BoatController.instance.boat.input.Throttle) * 1;
@@ -304,7 +304,7 @@ public class I_Helm : Interactable
             BoatController.instance.boat.engines[1].isOn = false;
             BoatController.instance.boat.input.Throttle2 = 0;
             UIManager.instance.thrusterText.text = "[Space] Accelerate - Cost 5%";
-        }
+        }*/
 
         if (BoatController.instance.boat.input.Throttle != 0)
         {
@@ -324,7 +324,7 @@ public class I_Helm : Interactable
             // BoatController.instance.waterSphere._weight = 0;
         }
 
-        UIManager.instance.gearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
+        //UIManager.instance.gearText.text = "Gear: " + currentGear + "\nSpeed: " + Mathf.Round(BoatController.instance.boat.Speed);
         BoatController.instance.boat.engines[0].runningSource.volume = Mathf.Lerp(BoatController.instance.boat.engines[0].runningSource.volume, Mathf.Abs(BoatController.instance.boat.input.Throttle), Time.deltaTime);
         BoatController.instance.boat.engines[1].runningSource.volume = Mathf.Lerp(BoatController.instance.boat.engines[1].runningSource.volume, Mathf.Abs(BoatController.instance.boat.input.Throttle2), Time.deltaTime);
 
