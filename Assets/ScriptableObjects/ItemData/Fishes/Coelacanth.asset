@@ -25,9 +25,9 @@ MonoBehaviour:
   isDroppable: 1
   dropObject: {fileID: 8674442559220863974, guid: c6e967ad0b1dc74499d0afa296cfbe1a,
     type: 3}
-  examineScale: 0.5
+  examineScale: 0.6
   examineRotation: {x: 0, y: -0.70710677, z: 0, w: 0.70710677}
   recordingName: 'DAY 0: Test'
   recording: {fileID: 0}
-  reelDecreaseCoefficient: 0.4
+  reelDecreaseCoefficient: 0.5
   nimbbleInterval: {x: 0, y: 0}
