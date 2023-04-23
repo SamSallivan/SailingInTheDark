@@ -17,6 +17,7 @@ public class EnemyTail : MonoBehaviour
     public float wiggleSpeed;
     public float wiggleMagnitude;
     public Transform wiggleDir;
+
     public Transform tailEnd;
     public Transform[] bodySegments;
 
@@ -45,6 +46,6 @@ public class EnemyTail : MonoBehaviour
         }
         lineRenderer.SetPositions(segmentPositions);
 
-        tailEnd.position = segmentPositions[segmentPositions.Length - 1];
+        // tailEnd.position = segmentPositions[segmentPositions.Length - 1];
     }
 }
