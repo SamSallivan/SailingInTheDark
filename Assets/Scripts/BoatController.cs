@@ -66,20 +66,6 @@ public class BoatController : MonoBehaviour
     }
     private void OnEnable()
     {
-        switch (helm.currentMaxGear)
-        {
-            case 3:
-                if(Gear3 != null)
-                    Gear3.gameObject.SetActive(true);
-                break;
-
-            case 4:
-                if (Gear3 != null)
-                    Gear3.gameObject.SetActive(true);
-                if (Gear4 != null)
-                    Gear4.gameObject.SetActive(true);
-                break;
-        }
     }
     public void FixedUpdate()
     {
@@ -154,6 +140,27 @@ public class BoatController : MonoBehaviour
                     gearImage.color = Green;
                     break;
             }
+        }
+        switch (helm.currentMaxGear)
+        {
+            case 3:
+                if (Gear3 != null)
+                    Gear3.gameObject.SetActive(true);
+                break;
+
+            case 4:
+                if (Gear3 != null)
+                    Gear3.gameObject.SetActive(true);
+                if (Gear4 != null)
+                    Gear4.gameObject.SetActive(true);
+                break;
+
+            default:
+                if (Gear3 != null)
+                    Gear3.gameObject.SetActive(false);
+                if (Gear4 != null)
+                    Gear4.gameObject.SetActive(false);
+                break;
         }
 
 

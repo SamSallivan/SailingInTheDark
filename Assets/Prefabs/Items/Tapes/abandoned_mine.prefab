@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423cd0cb80b62614db80d064f8a87f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: Grandpa's Tape #1
+  textName: randpa's Tape #3
   textPrompt: Pickup
   textPromptActivated: 
   highlightTarget: {fileID: 787135118462861994}

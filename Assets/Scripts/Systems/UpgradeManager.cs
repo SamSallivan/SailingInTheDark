@@ -116,7 +116,7 @@ public class UpgradeManager : MonoBehaviour
         {
             case UpgradeType.FuelCapacity:
                 //boatController.maxWattHour = 100 + (25 * option.currentLevel);
-                BoatController.instance.maxWattHour += 50;
+                BoatController.instance.maxWattHour += 25;
                 BoatController.instance.fuelLevel++;
                 break;
 
