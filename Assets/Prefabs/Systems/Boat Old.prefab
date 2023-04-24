@@ -1132,7 +1132,6 @@ MonoBehaviour:
   activated: 0
   excludeOtherInteraction: 0
   triggerZone: {fileID: 0}
-  boat: {fileID: 1247481033295870735}
   boatHull: {fileID: 1247481031674098136}
   dockable: 0
   dockingZone: {fileID: 0}
@@ -4205,13 +4204,16 @@ MonoBehaviour:
   thrusterDuration: 30
   thrusterWattConsumption: 0
   handleSpeed: 2
+  maxHandleAngle: 60
   handle: {fileID: 1247481033178828147}
   wheelSpeed: 1
   wheel: {fileID: 1247481032295269908}
   inControl: 0
-  enterTimer: 0
+  topView: 0
   playerPos: {fileID: 1247481031529231410}
   GearText: {fileID: 1247481031635328281}
+  headHeightOffset1: 0
+  headHeightOffset2: 0
 --- !u!114 &1247481032355944880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7879,6 +7881,7 @@ MonoBehaviour:
   lightLeft: {fileID: 0}
   lightRight: {fileID: 0}
   components: []
+  waterSphere: {fileID: 0}
   refWattHour: 1000
   maxWattHour: 1000
   curWattHour: 1000
