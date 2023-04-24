@@ -3,7 +3,22 @@ guid: 9b4a3f07d2699344fa9470a149025ba3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyesglow
+    second: {fileID: 2100000, guid: e1bac2f028719d34f86cacf195e6cfe2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fins
+    second: {fileID: 2100000, guid: 109b947c0ed2f8445a2ce7edc70918f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scale_bodyfin
+    second: {fileID: 2100000, guid: f79b9caf5147a6b47a77baad3415181e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
