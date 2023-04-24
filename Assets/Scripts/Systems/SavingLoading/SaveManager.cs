@@ -32,6 +32,7 @@ public class SaveData
     public float[] playerRotation = new float[3];
 
     public bool[] mapFragments = new bool[2];
+    public bool[] doorOpen = new bool[3];
 
     public SaveData()
     {
@@ -53,17 +54,15 @@ public struct SavedObjective
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
-
-    List<GameObject> Fragments = new List<GameObject>();
+    public I_MapUpdate[] allFragments;
     public List<Trigger> eventsPending = new List<Trigger>();
     [Unity.Collections.ReadOnly] public I_InventoryItem[] allItems;
-    public static int fileLoaded = 0;
+    [Unity.Collections.ReadOnly] public I_Door[] allDoors;
 
     public SaveData initialSaveData;
     public SaveData saveData = new SaveData();
 
     public bool isGameOver = false;
-    public bool clearSaveFile = false;
 
     private void Awake()
     {
@@ -75,31 +74,20 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        Fragments.Add(GameObject.Find("Fragment 1"));
-        Fragments.Add(GameObject.Find("Fragment 2"));
+        allFragments = FindObjectsOfType<I_MapUpdate>();
         allItems = FindObjectsOfType<I_InventoryItem>();
+        allDoors = FindObjectsOfType<I_Door>();
 
-        Debug.Log($"save file loaded {fileLoaded} times");
-        if (clearSaveFile && fileLoaded == 0)
+        //SaveData readData = SaveLoader.Read();
+        SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
+        if (readData != null)
         {
-            SaveLoader.DeleteSaveData();
-            StartCoroutine(Load(initialSaveData));
+            saveData = readData;
+            StartCoroutine(Load(readData));
         }
         else
         {
-            //SaveData readData = SaveLoader.Read();
-            SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
-            if (readData != null)
-            {
-                saveData = readData;
-                StartCoroutine(Load(readData));
-            }
-            else
-            {
-                StartCoroutine(Load(initialSaveData));
-                //SaveLoader.DeleteSaveData();
-                //Save();
-            }
+            StartCoroutine(Load(initialSaveData));
         }
     }
 
@@ -130,6 +118,9 @@ public class SaveManager : MonoBehaviour
             saveData.oneTimeTriggers.Add(eventsPending[i]);
         eventsPending.Clear();
 
+        for (int i = 0; i < allDoors.Length; i++)
+            saveData.doorOpen[i] = allDoors[i].activated;
+
         saveData.inventoryItems = InventoryManager.instance.inventoryItemList;
         saveData.objectives.Clear();
         foreach (Objective objective in ObjectiveManager.instance.ObjectiveList)
@@ -140,7 +131,7 @@ public class SaveManager : MonoBehaviour
             saveData.collectedItems[i] = allItems[i] == null;
 
         for (int i = 0; i < saveData.mapFragments.Length; i++)
-            saveData.mapFragments[i] = !this.Fragments[i].activeSelf;
+            saveData.mapFragments[i] = (allFragments[i] == null);
 
         //SaveLoader.Write(saveData); 
         ES3.Save("saveData", saveData);
@@ -162,11 +153,12 @@ public class SaveManager : MonoBehaviour
             eventsPending[i].triggeredOnce = false;
         this.eventsPending.Clear();
 
-        for (int i = 0; i < saveData.collectedItems.Length; i++)
+        for (int i = 0; i < saveData.doorOpen.Length; i++)
         {
-            if (saveData.collectedItems[i] && allItems[i] != null)
+            if (saveData.doorOpen[i])
             {
-                Destroy(allItems[i].gameObject);
+                allDoors[i].locked = false;
+                StartCoroutine(allDoors[i].InteractionEvent());
             }
         }
 
@@ -191,15 +183,21 @@ public class SaveManager : MonoBehaviour
         {
             if (saveData.mapFragments[i])
             {
-                GameObject nextFragment = GameObject.Find($"Map Fragement {i + 1}");
-                if (nextFragment != null)
-                    StartCoroutine(nextFragment.GetComponent<I_MapUpdate>().InteractionEvent());
+                StartCoroutine(allFragments[i].InteractionEvent());
+                Destroy(allFragments[i]);
+            }
+        }
+        for (int i = 0; i < saveData.collectedItems.Length; i++)
+        {
+            if (saveData.collectedItems[i] && allItems[i] != null)
+            {
+                Destroy(allItems[i].gameObject);
             }
         }
 
         BoatController.instance.curWattHour = saveData.currWatt;
         BoatController.instance.fuelLevel = saveData.fuelLevel;
-        BoatController.instance.maxWattHour = saveData.fuelLevel * 50 + 50;
+        BoatController.instance.maxWattHour = 100 + (saveData.fuelLevel-1)*25;
 
         BoatController.instance.armorLevel = saveData.armorLevel;
         BoatController.instance.boatArmor = saveData.armorLevel * 0.5f;
@@ -298,25 +296,6 @@ public class SaveManager : MonoBehaviour
 
     public void StartFromCheckPoint()
     {
-        fileLoaded++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        /*
-        SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
-
-        if (readData != null)
-        {
-            saveData = readData;
-            StartCoroutine(Load(readData));
-        }
-        else
-        {
-            StartCoroutine(Load(initialSaveData));
-        }
-
-        UIManager.instance.gameOverUI.SetActive(false);
-        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
-        */
     }
-    
 }
