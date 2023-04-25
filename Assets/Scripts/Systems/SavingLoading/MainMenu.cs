@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using MyBox;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class MainMenu : MonoBehaviour
     [Foldout("Settings", true)]
     public Toggle fullScreen;
     public Slider soundLoudness;
+    public AudioMixer mixer;
 
     SaveData data;
 
@@ -40,6 +42,10 @@ public class MainMenu : MonoBehaviour
 
         fullScreen.isOn = Screen.fullScreen;
         fullScreen.onValueChanged.AddListener(delegate { Screensize(); });
+
+        soundLoudness.value = 0.5f;
+        soundLoudness.onValueChanged.AddListener(delegate { SetLevel(); });
+        SetLevel();
     }
 
     public void Begin()
@@ -69,5 +75,10 @@ public class MainMenu : MonoBehaviour
     public void Screensize()
     {
         Screen.fullScreenMode = (fullScreen.isOn) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
+    }
+
+    public void SetLevel()
+    {
+        mixer.SetFloat("Volume", (Mathf.Log10(soundLoudness.value) * 20));
     }
 }

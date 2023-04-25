@@ -7,6 +7,7 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class SaveData
@@ -54,6 +55,7 @@ public struct SavedObjective
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
+    public AudioMixerGroup mixerOutput;
     public I_MapUpdate[] allFragments;
     public List<Trigger> eventsPending = new List<Trigger>();
     [Unity.Collections.ReadOnly] public I_InventoryItem[] allItems;
@@ -77,6 +79,10 @@ public class SaveManager : MonoBehaviour
         allFragments = FindObjectsOfType<I_MapUpdate>();
         allItems = FindObjectsOfType<I_InventoryItem>();
         allDoors = FindObjectsOfType<I_Door>();
+
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+        for (int i = 0; i < allAudioSources.Length; i++)
+            allAudioSources[i].outputAudioMixerGroup = mixerOutput;
 
         //SaveData readData = SaveLoader.Read();
         SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
