@@ -201,9 +201,9 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        BoatController.instance.curWattHour = saveData.currWatt;
         BoatController.instance.fuelLevel = saveData.fuelLevel;
         BoatController.instance.maxWattHour = 100 + (saveData.fuelLevel-1)*25;
+        BoatController.instance.curWattHour = Mathf.Clamp(saveData.currWatt, 0, BoatController.instance.maxWattHour);
 
         BoatController.instance.armorLevel = saveData.armorLevel;
         BoatController.instance.boatArmor = saveData.armorLevel * 0.5f;
