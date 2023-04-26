@@ -722,7 +722,7 @@ public class InventoryManager : MonoBehaviour
             detailGameObject.transform.localRotation = selectedItem.data.examineRotation;
             foreach (Transform child in UIManager.instance.detailObjectPivot.GetComponentsInChildren<Transform>())
             {
-                child.gameObject.layer = 6;
+                child.gameObject.layer = 0;
             }
 
             Destroy(detailGameObject.transform.GetComponentInChildren<Interactable>());

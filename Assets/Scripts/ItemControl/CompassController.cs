@@ -53,7 +53,7 @@ public class CompassController : MonoBehaviour
                     target.transform.localEulerAngles = new Vector3(0, 0, 0);
                 }
 
-                if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl))
+                if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl) && !SaveManager.instance.isGameOver)
                 {
                     if (Input.GetKey(KeyCode.Mouse1))
                     {

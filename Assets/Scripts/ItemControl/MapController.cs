@@ -8,9 +8,12 @@ public class MapController : MonoBehaviour
     public bool active;
     void Update()
     {
-        if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl || active))
+        if (transform.IsChildOf(PlayerController.instance.transform) && (PlayerController.instance.enableMovement || BoatController.instance.helm.inControl || active) && !SaveManager.instance.isGameOver)
         {
             KeyCode key;
+
+            gameObject.layer = 5;
+            transform.GetChild(0).gameObject.layer = 5;
 
             if (transform.IsChildOf(PlayerController.instance.equippedTransformLeft))
             {
@@ -27,16 +30,14 @@ public class MapController : MonoBehaviour
 
                 transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(4).position, Time.fixedDeltaTime * 5);
                 transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(4).rotation, Time.fixedDeltaTime * 5);
-                gameObject.layer = 5;
-                transform.GetChild(0).gameObject.layer = 6;
             }
             else
             {
                 active = false;
                 transform.localPosition = Vector3.Lerp(transform.localPosition, GetComponent<I_InventoryItem>().itemData.equipPosition, Time.fixedDeltaTime * 5);
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, GetComponent<I_InventoryItem>().itemData.dropObject.transform.localRotation, Time.fixedDeltaTime * 5);
-                gameObject.layer = 0;
-                transform.GetChild(0).gameObject.layer = 0;
+                //gameObject.layer = 0;
+                //transform.GetChild(0).gameObject.layer = 0;
             }
         }
     }

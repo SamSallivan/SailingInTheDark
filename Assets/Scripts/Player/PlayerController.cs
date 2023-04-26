@@ -683,9 +683,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
     }
     public void HandleInteractableCheck()
     {
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, interactDistance, interactableLayer))
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out RaycastHit hitInfo, interactDistance, interactableLayer) && hitInfo.collider.gameObject.layer == 7)
         {
-
             if (targetInteractable == null || targetInteractable.name != hitInfo.collider.name || targetInteractable.triggerZone)
             {
                 if (targetInteractable != null && targetInteractable.name != hitInfo.collider.name)
