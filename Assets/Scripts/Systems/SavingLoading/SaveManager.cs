@@ -165,6 +165,7 @@ public class SaveManager : MonoBehaviour
             {
                 allDoors[i].locked = false;
                 StartCoroutine(allDoors[i].InteractionEvent());
+                allDoors[i].UnTarget();
             }
         }
 
@@ -273,7 +274,7 @@ public class SaveManager : MonoBehaviour
         UpgradeManager.instance.CloseMenu();
 
         UIManager.instance.gameOverUI.SetActive(false);
-        UIManager.instance.GetComponent<LockMouse>().LockCursor(true);
+        UIManager.instance.lockMouse.LockCursor(true);
         Time.timeScale = 1;
         isGameOver = false;
     }
@@ -284,7 +285,7 @@ public class SaveManager : MonoBehaviour
         {
             isGameOver = true;
             UIManager.instance.gameOverUI.SetActive(true);
-            UIManager.instance.GetComponent<LockMouse>().LockCursor(false);
+            UIManager.instance.lockMouse.LockCursor(false);
 
             PlayerController.instance.LockMovement(true);
             PlayerController.instance.LockCamera(true);

@@ -2,37 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.SceneManagement;
-using MyBox;
 using UnityEngine.Audio;
 
-public class MainMenu : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
-    public TMP_Text warning;
-    public Button newGame;
-    public Button continueGame;
-    public Button exit;
+    public Button resumeButton;
+    public Button restartButton;
+    public Button quitButton;
 
     public Toggle fullScreen;
     public Slider soundLoudness;
     public AudioMixer mixer;
 
-    SaveData data;
-
     private void Awake()
     {
-        data = ES3.Load<SaveData>("saveData", data);
-    }
-
-    private void Start()
-    {
-        continueGame.interactable = (data != null);
-        warning.gameObject.SetActive(data != null);
-
-        newGame.onClick.AddListener(Begin);
-        continueGame.onClick.AddListener(Continue);
-        exit.onClick.AddListener(ExitGame);
+        resumeButton.onClick.AddListener(ResumeGame);
+        restartButton.onClick.AddListener(RestartGame);
+        quitButton.onClick.AddListener(QuitGame);
 
         fullScreen.isOn = Screen.fullScreen;
         fullScreen.onValueChanged.AddListener(delegate { Screensize(); });
@@ -42,23 +29,31 @@ public class MainMenu : MonoBehaviour
         SetLevel();
     }
 
-    public void Begin()
+    private void Update()
     {
-        SaveLoader.DeleteSaveData();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            UIManager.instance.pauseUI.SetActive(true);
+            UIManager.instance.lockMouse.LockCursor(false);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        UIManager.instance.pauseUI.SetActive(false);
+        UIManager.instance.lockMouse.LockCursor(true);
+    }
+
+    public void RestartGame()
+    {
         SceneManager.LoadScene(1);
     }
 
-    public void Continue()
+    public void QuitGame()
     {
-        SceneManager.LoadScene(1);
-    }
-
-    public void ExitGame()
-    {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-            Application.Quit();
+        SceneManager.LoadScene(0);
     }
 
     public void Screensize()

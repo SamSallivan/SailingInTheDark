@@ -12,6 +12,7 @@ using Unity.VisualScripting;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    [ReadOnly] public LockMouse lockMouse;
 
     [Foldout("Gameplay", true)]
     public GameObject gameplayUI;
@@ -77,12 +78,16 @@ public class UIManager : MonoBehaviour
     public GameObject gameOverUI;
     public TMP_Text deathText;
 
+    [Foldout("Pause", true)]
+    public GameObject pauseUI;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
+        lockMouse = this.GetComponent<LockMouse>();
     }
 
     // Update is called once per frame
