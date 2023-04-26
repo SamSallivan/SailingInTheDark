@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-    public Transform targetTransform;
     public bool active;
     void Update()
     {
@@ -28,8 +27,8 @@ public class MapController : MonoBehaviour
             {
                 active = true;
 
-                transform.position = Vector3.Lerp(transform.position, PlayerController.instance.tHead.GetChild(4).position, Time.fixedDeltaTime * 5);
-                transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.tHead.GetChild(4).rotation, Time.fixedDeltaTime * 5);
+                transform.position = Vector3.Lerp(transform.position, PlayerController.instance.equippedTransformCenter.parent.GetChild(3).position, Time.fixedDeltaTime * 5);
+                transform.rotation = Quaternion.Lerp(transform.rotation, PlayerController.instance.equippedTransformCenter.parent.GetChild(3).rotation, Time.fixedDeltaTime * 5);
             }
             else
             {

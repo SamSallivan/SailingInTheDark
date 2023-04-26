@@ -135,7 +135,7 @@ public class UIManager : MonoBehaviour
         //UI.SetActive(false);
     }
 
-    public void Examine(string text)
+    public void Examine(string text, Sprite image)
     {
         PlayerController.instance.LockMovement(true);
         PlayerController.instance.LockCamera(true);
@@ -143,6 +143,10 @@ public class UIManager : MonoBehaviour
         examineUI.SetActive(true);
         gameplayUI.SetActive(false);
         examineText.text = text;
+        if(image != null){
+            examineImage.enabled = true;
+            examineImage.sprite = image;
+        }
     }
     public void Unexamine()
     {
@@ -152,6 +156,7 @@ public class UIManager : MonoBehaviour
         examineUI.SetActive(false);
         gameplayUI.SetActive(true);
         examineText.text = "";
+        examineImage.enabled = false;
     }
 
     public enum SubtitleType

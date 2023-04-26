@@ -100,7 +100,8 @@ public class I_Helm : Interactable
 
             if (Input.GetKeyDown(KeyCode.M))
             {
-                InventoryManager.instance.EquipMap();
+                //InventoryManager.instance.EquipMap();
+                UIManager.instance.mapUI.SetActive(!UIManager.instance.mapUI.activeInHierarchy);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -212,6 +213,7 @@ public class I_Helm : Interactable
             topView = false;
             UIManager.instance.generalTips.SetActive(true);
             UIManager.instance.helmUI.SetActive(false);
+            UIManager.instance.mapUI.SetActive(false);
             PlayerController.instance.headPosition.Slide(0.75f);
             PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
             PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);

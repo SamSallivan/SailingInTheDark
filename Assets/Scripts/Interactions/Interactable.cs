@@ -51,6 +51,7 @@ public class Interactable : MonoBehaviour
     //[ConditionalField(nameof(hasText))]
     [TextArea(10, 10)]
     public string examineText;
+    public Sprite examineImage;
 
     [ConditionalField(nameof(interactionType), false, InteractionType.InventoryItem)]//, InteractionType.ExamineAndInventory)]
     public ItemData itemData;
