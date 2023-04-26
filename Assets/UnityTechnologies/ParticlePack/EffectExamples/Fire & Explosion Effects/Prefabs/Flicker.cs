@@ -1,37 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VLB;
 
 public class Flicker : MonoBehaviour
 {
-    public Light _light;
+    public VolumetricLightBeamSD _light;
     public float minTime;
     public float maxTime;
     public float Timer;
 
-    public float minIntensity;
-    public float maxIntensity;
-    public AudioSource audioSource;
-
     private void Start()
     {
         Timer = Random.Range(minTime, maxTime);
+        StartCoroutine(FlickerLight());
     }
 
-    void Update()
+    IEnumerator FlickerLight()
     {
-        FlickerLight();
-    }
-
-    void FlickerLight()
-    {
-        if (Timer > 0)
-            Timer -= Time.deltaTime;
-
-        if (Timer <= 0)
+        while (true)
         {
-            _light.intensity = Random.Range(minIntensity, maxIntensity);
+            _light.enabled = true;
+            yield return new WaitForSeconds(Timer);
             Timer = Random.Range(minTime, maxTime);
+            _light.enabled = false;
+            yield return new WaitForSeconds(Timer / 3f);
         }
     }
 }

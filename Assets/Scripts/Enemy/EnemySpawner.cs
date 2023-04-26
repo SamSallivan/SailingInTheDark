@@ -53,6 +53,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        canSpawn = true;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == boatTag)

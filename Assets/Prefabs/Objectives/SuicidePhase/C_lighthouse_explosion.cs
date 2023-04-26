@@ -14,11 +14,6 @@ public class C_lighthouse_explosion : T_Cutscene
     public CinemachineImpulseSource shakeSource;
     public bool startExplosion = false;
 
-    // private void Start()
-    // {
-    //     shakeSource = GetComponent<CinemachineImpulseSource>();
-    // }
-
     public override IEnumerator StartCutscene()
     {
         // PlayerController.instance.enableMovement = false;

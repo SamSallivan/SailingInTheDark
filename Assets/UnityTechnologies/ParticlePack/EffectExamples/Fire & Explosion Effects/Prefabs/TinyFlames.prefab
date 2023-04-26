@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 364769741712503671}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &198714429152696258
 ParticleSystem:
@@ -4913,7 +4913,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1972207730512856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c2cf89921d5ada45bfb6755ff132b85, type: 3}
   m_Name: 
@@ -4922,9 +4922,6 @@ MonoBehaviour:
   minTime: 0.1
   maxTime: 0.3
   Timer: 0
-  minIntensity: 0.5
-  maxIntensity: 2.5
-  audioSource: {fileID: 4920154645631811930}
 --- !u!114 &-554686994910316791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4964,7 +4961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &364769741712503671
 Transform:
   m_ObjectHideFlags: 0

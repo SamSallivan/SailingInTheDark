@@ -15,8 +15,8 @@ MonoBehaviour:
   type: 3
   title: House Key
   sprite: {fileID: 21300000, guid: 331f3a57a35cf79449dbc551c84c0b28, type: 3}
-  description: "The key for the house. \nGrandpa often locks the door when he goes
-    out at night.\nDid he forgot to bring his key?"
+  description: The key for a custom built door. Until only recently, grandpa locked
+    the door to prevent you from leaving.
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

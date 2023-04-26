@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 0
   title: Map
   sprite: {fileID: 21300000, guid: 7e10a549b1fd5a6498c65b12d563dce0, type: 3}
-  description: A map.
+  description: "\u201CGrandpa\u2019s hand-drawn map. It\u2019s incomplete, half of
+    it torn away at the seams.\u201D\r"
   isStackable: 0
   maxStackAmount: 1
   isEquippable: 1
