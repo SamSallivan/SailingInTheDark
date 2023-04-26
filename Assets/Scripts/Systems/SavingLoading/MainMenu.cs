@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
     [Foldout("Settings", true)]
     public Toggle fullScreen;
     public Slider soundLoudness;
+    public Button closeSettings;
     public AudioMixer mixer;
 
     SaveData data;
@@ -38,6 +39,7 @@ public class MainMenu : MonoBehaviour
         newGame.onClick.AddListener(Begin);
         continueGame.onClick.AddListener(Continue);
         settingsButton.onClick.AddListener(ChangeSettings);
+        closeSettings.onClick.AddListener(ChangeSettings);
         exit.onClick.AddListener(ExitGame);
 
         fullScreen.isOn = Screen.fullScreen;
