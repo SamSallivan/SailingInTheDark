@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 1
   title: Grandpa's Tape #1
   sprite: {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
-  description: A recording left by grandpa.
+  description: "One of Grandpa\u2019s tapes that he keeps around for his travels.
+    He prefers speaking into his recorder to writing letters. (1/4)"
   isStackable: 0
   maxStackAmount: 1
   isEquippable: 1

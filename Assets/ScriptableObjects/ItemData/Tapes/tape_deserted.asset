@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 1
   title: Grandpa's Tape #2
   sprite: {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
-  description: A recording left by grandpa. Found on the Deserted Island.
+  description: "Grandpa\u2019s second tape. Holding it makes me feel uneasy. (2/4)"
   isStackable: 0
   maxStackAmount: 1
   isEquippable: 1

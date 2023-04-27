@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class C_lighthouse_explosion : T_Cutscene
 {
@@ -14,16 +16,16 @@ public class C_lighthouse_explosion : T_Cutscene
     public CinemachineImpulseSource shakeSource;
     public bool startExplosion = false;
 
-    // private void Start()
-    // {
-    //     shakeSource = GetComponent<CinemachineImpulseSource>();
-    // }
-
     public override IEnumerator StartCutscene()
     {
         // PlayerController.instance.enableMovement = false;
         PlayerController.instance.LockMovement(true);
         PlayerController.instance.LockCamera(true);
+
+        director.playableAsset = cutscene_clip;
+        director.Play();
+        yield return new WaitForSeconds(1.3f);
+
 
         _light.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
@@ -54,6 +56,7 @@ public class C_lighthouse_explosion : T_Cutscene
         explosionSFX.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
+        director.playableAsset = null;
         EndCutscene();
     }
 
