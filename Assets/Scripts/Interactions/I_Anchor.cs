@@ -123,6 +123,7 @@ public class I_Anchor : Interactable
             {
                 textPrompt = "Dock";
                 UIManager.instance.anchorText.text = "[X] Dock Boat";
+                StartCoroutine(SaveGame());
             }
 
             UIManager.instance.anchorImage.SetActive(false);
