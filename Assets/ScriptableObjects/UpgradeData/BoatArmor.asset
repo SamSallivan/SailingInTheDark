@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BoatArmor
   m_EditorClassIdentifier: 
   name: Boat Armor
-  type: 5
+  type: 4
   description: Increase damage resistance.
   sprite: {fileID: 0}
   maxLevel: 3
