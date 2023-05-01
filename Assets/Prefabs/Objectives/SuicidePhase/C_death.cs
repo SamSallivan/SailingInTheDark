@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class C_death : T_Cutscene
 {
-    public override IEnumerator StartCutscene()
-    {
-        // PlayerController.instance.enableMovement = false;
-        PlayerController.instance.LockMovement(true);
-        PlayerController.instance.LockCamera(true);
-
-        director.playableAsset = cutscene_clip;
-        director.Play();
-        yield return new WaitForSeconds((float)cutscene_clip.duration);
-        EndCutscene();
-    }
+    // public override IEnumerator PlayCutscene()
+    // {
+    //     director.playableAsset = cutscene_clip;
+    //     director.Play();
+    //     yield return new WaitForSeconds((float)cutscene_clip.duration);
+    //     director.playableAsset = null;
+    //     EndCutscene();
+    // }
 }
