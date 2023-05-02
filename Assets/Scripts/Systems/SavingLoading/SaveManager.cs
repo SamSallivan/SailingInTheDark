@@ -26,6 +26,7 @@ public class SaveData
     public List<InventoryItem> inventoryItems;
     public List<SavedObjective> objectives;
 
+    public int[] remainingFish = new int[0];
     public bool[] collectedItems = new bool[0];
     public List<Trigger> oneTimeTriggers;
 
@@ -60,6 +61,7 @@ public class SaveManager : MonoBehaviour
     public List<Trigger> eventsPending = new List<Trigger>();
     [Unity.Collections.ReadOnly] public I_InventoryItem[] allItems;
     [Unity.Collections.ReadOnly] public I_Door[] allDoors;
+    [Unity.Collections.ReadOnly] public T_FishingZone[] allFishingZones;
 
     public SaveData initialSaveData;
     public SaveData saveData = new SaveData();
@@ -79,6 +81,7 @@ public class SaveManager : MonoBehaviour
         allFragments = FindObjectsOfType<I_MapUpdate>();
         allItems = FindObjectsOfType<I_InventoryItem>();
         allDoors = FindObjectsOfType<I_Door>();
+        allFishingZones = FindObjectsOfType<T_FishingZone>();
 
         AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
         for (int i = 0; i < allAudioSources.Length; i++)
@@ -86,9 +89,15 @@ public class SaveManager : MonoBehaviour
 
         //SaveData readData = SaveLoader.Read();
         SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
+
         if (readData != null)
         {
             saveData = readData;
+            C_Intro introCutscene = FindObjectOfType<C_Intro>();
+            GameObject introObject = introCutscene.introUI;
+
+            Destroy(introCutscene.gameObject);
+            introObject.SetActive(false);
             StartCoroutine(Load(readData));
         }
         else
@@ -129,12 +138,17 @@ public class SaveManager : MonoBehaviour
 
         saveData.inventoryItems = InventoryManager.instance.inventoryItemList;
         saveData.objectives.Clear();
+
         foreach (Objective objective in ObjectiveManager.instance.ObjectiveList)
             saveData.objectives.Add(new SavedObjective(objective.prefabRef, objective.gameObject.GetComponent<TMP_Text>().text));
 
         saveData.collectedItems = new bool[allItems.Length];
         for (int i = 0; i<allItems.Length; i++)
-            saveData.collectedItems[i] = allItems[i] == null;
+            saveData.collectedItems[i] = (allItems[i] == null);
+
+        saveData.remainingFish = new int[allFishingZones.Length];
+        for (int i = 0; i < allFishingZones.Length; i++)
+            saveData.remainingFish[i] = (allFishingZones[i] == null ? 0 : allFishingZones[i].fishAmount);
 
         for (int i = 0; i < saveData.mapFragments.Length; i++)
             saveData.mapFragments[i] = (allFragments[i] == null);
@@ -200,6 +214,13 @@ public class SaveManager : MonoBehaviour
             {
                 Destroy(allItems[i].gameObject);
             }
+        }
+        for (int i = 0; i<saveData.remainingFish.Length; i++)
+        {
+            if (saveData.remainingFish[i] == 0)
+                Destroy(allFishingZones[i].gameObject);
+            else
+                allFishingZones[i].fishAmount = saveData.remainingFish[i];
         }
 
         BoatController.instance.fuelLevel = saveData.fuelLevel;
