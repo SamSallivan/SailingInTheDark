@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fuel lv4 Blueprint
   m_EditorClassIdentifier: 
   type: 0
-  title: Fuel lv4 Blueprint
+  title: Fuel lv3 Blueprint
   sprite: {fileID: 21300000, guid: 3697fd31894060c43892f9e3e56003c6, type: 3}
   description: Fuel lv4 Blueprint
   isStackable: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   equipPosition: {x: 0.25, y: 0, z: 0}
   equipRotation: {x: 0, y: 0, z: 0, w: 0}
   isDroppable: 1
-  dropObject: {fileID: 2361372250977967447, guid: ddc79e9e3c620f64d8952847c455a005,
+  dropObject: {fileID: 2361372250977967447, guid: 5f94235966c07bf4891e968788492e2f,
     type: 3}
   examineScale: 0.75
   examineRotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}

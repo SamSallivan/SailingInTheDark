@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Mist")]
         public GameObject mistUI;
-        public Slider mistSlider;
+        public Image mistSlider;
 
         [Header("Fishing")]
         public GameObject fishingUI;

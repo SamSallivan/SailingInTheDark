@@ -134,7 +134,8 @@ MonoBehaviour:
   onceOnly: 0
   interactedOnce: 0
   examineText: 
-  itemData: {fileID: 11400000, guid: 70979fd5726af2b42957329b4f4c01e8, type: 2}
+  examineImage: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 896b0bf98e7868849b9b47bd9ec612b9, type: 2}
   itemStatus:
     amount: 1
     durability: 1

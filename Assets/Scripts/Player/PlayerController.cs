@@ -848,7 +848,8 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
             }
         }
 
-        UIManager.instance.mistSlider.value = mistTimer / deathTime;
+        UIManager.instance.mistSlider.fillAmount = mistTimer / deathTime;
+        UIManager.instance.mistSlider.color = Color.Lerp(Color.white, Color.red, mistTimer / deathTime);
     }
 }
 

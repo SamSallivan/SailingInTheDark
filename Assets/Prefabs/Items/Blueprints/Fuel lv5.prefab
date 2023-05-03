@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8189837610700865805}
   - component: {fileID: 8940270490150169986}
   m_Layer: 7
-  m_Name: Fuel lv3
+  m_Name: Fuel lv5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423cd0cb80b62614db80d064f8a87f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textName: Fuel lv3 Blueprint
+  textName: Fuel lv5 Blueprint
   textPrompt: Pick Up
   textPromptActivated: 
   highlightTarget: {fileID: 2361372250977967447}
@@ -134,7 +134,8 @@ MonoBehaviour:
   onceOnly: 0
   interactedOnce: 0
   examineText: 
-  itemData: {fileID: 11400000, guid: 896b0bf98e7868849b9b47bd9ec612b9, type: 2}
+  examineImage: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 70979fd5726af2b42957329b4f4c01e8, type: 2}
   itemStatus:
     amount: 1
     durability: 1

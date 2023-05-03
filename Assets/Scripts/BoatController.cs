@@ -54,6 +54,8 @@ public class BoatController : MonoBehaviour
     public Image gearImage;
     public Color Green, Red, Yellow;
     public TMP_Text Gear3, Gear4;
+    public Image lightLeftImage;
+    public Image lightRightImage;
 
     public void Awake()
     {
@@ -141,6 +143,7 @@ public class BoatController : MonoBehaviour
                     break;
             }
         }
+
         switch (helm.currentMaxGear)
         {
             case 3:
@@ -162,6 +165,9 @@ public class BoatController : MonoBehaviour
                     Gear4.gameObject.SetActive(false);
                 break;
         }
+
+        lightLeftImage.enabled = lightLeft.activated;
+        lightRightImage.enabled = lightRight.activated;
 
 
         if (curActiveComponent == 0 || ignoreConsumption || (anchor.dockable && anchor.activated))
