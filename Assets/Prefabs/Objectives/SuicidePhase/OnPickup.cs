@@ -7,11 +7,13 @@ public class OnPickup : MonoBehaviour
     public bool startCutscene;
     public T_Cutscene cutscene;
 
-    private void OnDestroy()
+    private void Start()
     {
-        // Debug.Log("start cutscene");
-        // cutscene.StartCoroutine(cutscene.StartCutscene());
+        gameObject.GetComponent<I_InventoryItem>().OnPickUp += OnPickUp;
+    }
+
+    private void OnPickUp()
+    {
         cutscene.StartCutscene();
-        // TriggerCutscene();
     }
 }

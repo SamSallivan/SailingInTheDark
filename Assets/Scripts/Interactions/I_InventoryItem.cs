@@ -2,6 +2,7 @@ using MyBox;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class I_InventoryItem : Interactable
 {
@@ -16,6 +17,7 @@ public class I_InventoryItem : Interactable
 
     //[ConditionalField(nameof(examineType), false, ExamineType.Object, ExamineType.Paper)]
     //public bool canPickUp;
+    public event Action OnPickUp = delegate { };
 
     public override IEnumerator InteractionEvent()
     {
@@ -24,6 +26,7 @@ public class I_InventoryItem : Interactable
         {
             InventoryItem newItem = InventoryManager.instance.AddItem(itemData, itemStatus);
             Destroy(transform.gameObject);
+            OnPickUp?.Invoke();
             if (newItem != null)
             {
 

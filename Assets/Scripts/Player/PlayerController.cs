@@ -451,9 +451,19 @@ public class PlayerController : MonoBehaviour//, Damagable//, Slappable
                 JumpOrClimb();
             }
 
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (inputDir != Vector3.zero)
             {
-                dynamicSpeed = 1.5f;
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    if (dynamicSpeed == 1.5f)
+                    {
+                        dynamicSpeed = 2.5f;
+                    }
+                    else if (dynamicSpeed == 2.5f)
+                    {
+                        dynamicSpeed = 1.5f;
+                    }
+                }
             }
             else
             {

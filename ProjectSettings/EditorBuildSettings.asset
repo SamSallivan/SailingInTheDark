@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Thomas-StartScreen.unity
-    guid: d6ab0ef08d93d48e6b8133d4f523589d
+    path: Assets/Scenes/Title.unity
+    guid: a4c0a9d2b2d5ad9439a1aca2c420142a
   - enabled: 1
-    path: Assets/Scenes/Main_Allyson.unity
-    guid: 8c3efe3095bdd4d6b8ae8bc381fb15b2
+    path: Assets/Scenes/Main.unity
+    guid: 78cd9b0a74b328b4baf662e6f946a39a
   m_configObjects: {}

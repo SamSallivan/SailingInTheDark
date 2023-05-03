@@ -118,7 +118,7 @@ Transform:
   m_Children:
   - {fileID: 5201151693722335244}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 30, y: 40, z: 0}
 --- !u!33 &6031609714405361452
 MeshFilter:
@@ -238,6 +238,7 @@ MonoBehaviour:
   onceOnly: 0
   interactedOnce: 0
   examineText: 
+  examineImage: {fileID: 0}
   itemData: {fileID: 11400000, guid: 2eea44a72504cd94e9ca8b49a2db126a, type: 2}
   itemStatus:
     amount: 1
