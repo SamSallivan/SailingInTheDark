@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 2
   title: Tuna
   sprite: {fileID: 21300000, guid: 69b3e9b0fc2d48f43a1c6e098267e366, type: 3}
-  description: "I caught a tuna! \nIt's a little off-key!"
+  description: Rare nowadays... they're a prime target for creatures living in the
+    dark ocean.
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

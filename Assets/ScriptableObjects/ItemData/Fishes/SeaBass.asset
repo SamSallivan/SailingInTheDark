@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 2
   title: Sea Bass
   sprite: {fileID: 21300000, guid: 96f0760adac0914409e2f0805d14df68, type: 3}
-  description: A Sea Bass.
+  description: A classic, Grandpa would bring back a lot of these whenever he would
+    go fishing.
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

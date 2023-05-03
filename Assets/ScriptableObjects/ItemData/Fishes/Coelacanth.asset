@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 2
   title: Coelacanth
   sprite: {fileID: 21300000, guid: c4a749caf2f7d5e41ac1455667c826a5, type: 3}
-  description: "Blast from the past! \nThink positive! Be a coela-CAN."
+  description: This fish are always covered in battle scars, I guess their tough
+    armor plating keeps them safe.
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

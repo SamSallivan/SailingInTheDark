@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 0
   title: Fuel lv3 Blueprint
   sprite: {fileID: 21300000, guid: 3697fd31894060c43892f9e3e56003c6, type: 3}
-  description: Fuel lv3 Blueprint
+  description: A blueprint for upgrading a part on your boat. This one is titled
+    "Fuel Capacity Ver. 3".
   isStackable: 0
   maxStackAmount: 1
   isEquippable: 1

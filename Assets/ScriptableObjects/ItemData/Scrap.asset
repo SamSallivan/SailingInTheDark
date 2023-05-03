@@ -15,9 +15,7 @@ MonoBehaviour:
   type: 0
   title: Scrap
   sprite: {fileID: 21300000, guid: 2269bcdf8ecb5eb438080200c32107be, type: 3}
-  description: 'Scrap,
-
-    Can be used to upgrade boat.'
+  description: Metal and wood salvage. Can be used to upgrade your boat.
   isStackable: 1
   maxStackAmount: 10000
   isEquippable: 0

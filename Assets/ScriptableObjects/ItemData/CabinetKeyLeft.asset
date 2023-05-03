@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 3
   title: Left Cabinet Key
   sprite: {fileID: 21300000, guid: 331f3a57a35cf79449dbc551c84c0b28, type: 3}
-  description: "A key to one of grandpa\u2019s drawers."
+  description: "A key to one of Grandpa\u2019s drawers, has the letter 'L' engraved
+    onto it."
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

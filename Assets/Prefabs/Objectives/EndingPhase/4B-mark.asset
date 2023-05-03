@@ -15,7 +15,7 @@ MonoBehaviour:
   lines:
   - intervalBefore: 0
     speaker: 2
-    subtitle: 'Hey there... it doesn''t matter who you are. '
+    subtitle: Hey there... fuck it, it doesn't matter who you are.
     audioClip: {fileID: 8300000, guid: 5f55b17cd1ccb17439347ab7291c121a, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
@@ -35,8 +35,8 @@ MonoBehaviour:
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: 'These lighthouses, these tall guardians of light, they''re not as
-      they appear. '
+    subtitle: 'These-these lighthouses, these tall guardians of radiance, they''re
+      not as they appear. '
     audioClip: {fileID: 8300000, guid: 491cabb8bb7f551409c784ee7060de17, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
@@ -47,23 +47,22 @@ MonoBehaviour:
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: We had faith in them, trusted their sacred power.
+    subtitle: 'We had faith in them, trusted their sacred powers. '
     audioClip: {fileID: 8300000, guid: 647386028e585b8439cff8eedb1e00f7, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: 'But that power, it''s... it''s tainted. It seizes you, transforms
-      you. '
+    subtitle: 'But that power, it''s tainted. It seizes you, it transforms you. '
     audioClip: {fileID: 8300000, guid: 98fa6b2af9b78ee48a02d26f0099600d, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: My grandpa couldn't break free, and now, neither can I.
+    subtitle: My grandpa couldn't break free, and now, I can't either.
     audioClip: {fileID: 8300000, guid: 9fd5370edbadc2642bf9da1577524755, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: There's no truth to discover here, just shadows and insanity/
+    subtitle: 'There''s no truth to discover here, just shadows and insanity. '
     audioClip: {fileID: 8300000, guid: 4f5789bf7608a5f4b818f6b4b3372ab2, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
@@ -79,8 +78,7 @@ MonoBehaviour:
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: 'I beg you, don''t get lured by the lighthouses like my Grandpa and
-      I did. '
+    subtitle: I beg you, don't get lured by the lighthouses like my Grandpa and I.
     audioClip: {fileID: 8300000, guid: ae5b8b6f79a610a43a65ce1db9b33f32, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
@@ -100,23 +98,23 @@ MonoBehaviour:
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: I'm not sure how long I've got, but I hope my words reach someone who
-      can share the truth.
+    subtitle: 'I''m not sure how long I''ve got left, but I hope my words reach someone
+      who can share the truth. '
     audioClip: {fileID: 8300000, guid: 7bcd1648c6b49eb438020329a105aab5, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: Alert the others, let them know not to trust these lighthouses.
+    subtitle: 'Alert the others, let them know not to trust these damned lighthouses. '
     audioClip: {fileID: 8300000, guid: 911fa4e67f9c6d3458fe9f2b0b969389, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: Don't let their glow deceive you, like it did me.
+    subtitle: Don't let their glow deceive you, like it did to me.
     audioClip: {fileID: 8300000, guid: c57e985f47bc22748afd5406cb2ac451, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: Yet, I'm tied to this place, anchored to the lighthouse.
+    subtitle: 'Yet, I''m tied to this place, I''m anchored to the lighthouse. '
     audioClip: {fileID: 8300000, guid: 33b539d4152eb5949843c69b15f20384, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
@@ -129,10 +127,53 @@ MonoBehaviour:
     subtitle: This is Mark, signing off for the final time.
     audioClip: {fileID: 8300000, guid: 1d5b96d1a6d0b0e43a3615f3c5f3c2f7, type: 3}
     intervalAfter: 0
-  - intervalBefore: 0
-    speaker: 2
-    subtitle: Good luck, and godspeed.
-    audioClip: {fileID: 8300000, guid: eaaff0601151b2d46b7f58494b25d72d, type: 3}
-    intervalAfter: 0
-  subtitles: []
-  audioClips: []
+  subtitles:
+  - Hey there... fuck it, it doesn't matter who you are.
+  - My name's Mark.
+  - 'I landed on this island looking for answers, for some purpose. '
+  - I'm leaving this message for you, so you don't repeat my mistakes.
+  - 'These-these lighthouses, these tall guardians of radiance, they''re not as they
+    appear. '
+  - 'I believed they were heavenly, gifts from the gods to show us the way after
+    disaster struck... '
+  - We had faith in them, trusted their sacred power.
+  - 'But that power, it''s tainted. It seizes you, transforms you. '
+  - My grandpa couldn't break free, and now, I can't either.
+  - There's no truth to discover here, just shadows and insanity/
+  - The lighthouse ensnares us in its unending cycle of light and darkness.
+  - 'I''ve witnessed things I can''t put into words, heard murmurs of unspeakable
+    horrors. '
+  - ' I beg you, don''t get lured by the lighthouses like my Grandpa and I.'
+  - Don't let their radiance lead you to oblivion.
+  - I'm leaving this message as a last testament...
+  - '...a warning for any who dare approach these cursed lighthouses. '
+  - 'I''m not sure how long I''ve got left, but I hope my words reach someone who
+    can share the truth. '
+  - Alert the others, let them know not to trust these lighthouses.
+  - Don't let their glow deceive you, like it did me.
+  - Yet, I'm tied to this place, anchored to the lighthouse.
+  - So, I'll wait, alone in the darkness, for the end to find me.
+  - This is Mark, signing off for the final time.
+  audioClips:
+  - {fileID: 8300000, guid: 5f55b17cd1ccb17439347ab7291c121a, type: 3}
+  - {fileID: 8300000, guid: 435cf0eb0c1eea9448be536d34742ba7, type: 3}
+  - {fileID: 8300000, guid: abe95c558a58ca44ab7ff49e9e7ba4f8, type: 3}
+  - {fileID: 8300000, guid: 980e8c04c25149242a5f6bbc8c7b69f1, type: 3}
+  - {fileID: 8300000, guid: 491cabb8bb7f551409c784ee7060de17, type: 3}
+  - {fileID: 8300000, guid: efe0b3157611f2147ad554ad9e33eeca, type: 3}
+  - {fileID: 8300000, guid: 647386028e585b8439cff8eedb1e00f7, type: 3}
+  - {fileID: 8300000, guid: 98fa6b2af9b78ee48a02d26f0099600d, type: 3}
+  - {fileID: 8300000, guid: 9fd5370edbadc2642bf9da1577524755, type: 3}
+  - {fileID: 8300000, guid: 4f5789bf7608a5f4b818f6b4b3372ab2, type: 3}
+  - {fileID: 8300000, guid: aad68712a04e93245825d226f1a5b8e9, type: 3}
+  - {fileID: 8300000, guid: e3c32eda0a2bc4a448f2df0fb942e385, type: 3}
+  - {fileID: 8300000, guid: ae5b8b6f79a610a43a65ce1db9b33f32, type: 3}
+  - {fileID: 8300000, guid: 3835ffdc947e6e24fb8f215dbe973c1b, type: 3}
+  - {fileID: 8300000, guid: 46a4af4190924d043b94faa592ff49f5, type: 3}
+  - {fileID: 8300000, guid: 7a7bf6b5676778e4896a4c7d64481457, type: 3}
+  - {fileID: 8300000, guid: 7bcd1648c6b49eb438020329a105aab5, type: 3}
+  - {fileID: 8300000, guid: 911fa4e67f9c6d3458fe9f2b0b969389, type: 3}
+  - {fileID: 8300000, guid: c57e985f47bc22748afd5406cb2ac451, type: 3}
+  - {fileID: 8300000, guid: 33b539d4152eb5949843c69b15f20384, type: 3}
+  - {fileID: 8300000, guid: ecdc5cec3d352b741b75f09c1f62966c, type: 3}
+  - {fileID: 8300000, guid: 1d5b96d1a6d0b0e43a3615f3c5f3c2f7, type: 3}

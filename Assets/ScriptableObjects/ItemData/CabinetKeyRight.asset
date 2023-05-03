@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 3
   title: Right Cabinet Key
   sprite: {fileID: 21300000, guid: 331f3a57a35cf79449dbc551c84c0b28, type: 3}
-  description: The key for the cabinet in the house.
+  description: "A key to one of Grandpa\u2019s drawers, has the letter 'R' engraved
+    onto it."
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

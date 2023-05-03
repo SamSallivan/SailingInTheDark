@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   title: Blue Marlin
   sprite: {fileID: 21300000, guid: 444e2a7818f206e45a46622f0f0e21b0, type: 3}
-  description: "I caught a blue marlin! \nListen to this fish. it's got a point."
+  description: Their nose is really sharp...
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1
