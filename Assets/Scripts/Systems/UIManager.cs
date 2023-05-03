@@ -25,8 +25,9 @@ public class UIManager : MonoBehaviour
 
         [Header("Objective")]
         public GameObject objectiveUI;
+        public GameObject objectiveUIAnim;
 
-        [Header("Interaction")]
+    [Header("Interaction")]
         public TMP_Text interactionName;
         public TMP_Text interactionPrompt;
         public Animation interactionPromptAnimation;
