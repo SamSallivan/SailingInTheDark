@@ -128,6 +128,7 @@ MonoBehaviour:
   onceOnly: 0
   interactedOnce: 0
   examineText: 
+  examineImage: {fileID: 0}
   itemData: {fileID: 0}
   itemStatus:
     amount: 0

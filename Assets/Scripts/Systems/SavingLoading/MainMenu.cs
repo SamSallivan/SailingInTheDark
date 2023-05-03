@@ -50,6 +50,14 @@ public class MainMenu : MonoBehaviour
         SetLevel();
     }
 
+    public void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape) && settingsPage.activeInHierarchy)
+        {
+            settingsPage.SetActive(false);
+        }
+    }
+
     public void Begin()
     {
         SaveLoader.DeleteSaveData();

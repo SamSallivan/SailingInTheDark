@@ -31,7 +31,7 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && PlayerController.instance.enableMovement)
         {
             Time.timeScale = 0;
             UIManager.instance.pauseUI.SetActive(true);
