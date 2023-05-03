@@ -123,6 +123,7 @@ public class I_Anchor : Interactable
             {
                 textPrompt = "Dock";
                 UIManager.instance.anchorText.text = "[X] Dock Boat";
+                StartCoroutine(SaveGame());
             }
 
             UIManager.instance.anchorImage.SetActive(false);
@@ -167,7 +168,7 @@ public class I_Anchor : Interactable
     public IEnumerator SaveGame()
     {
         UIManager.instance.Notify("Saving... Don't Turn Off");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         SaveManager.instance.Save();
     }
 
