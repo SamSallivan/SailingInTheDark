@@ -88,7 +88,7 @@ public class SaveManager : MonoBehaviour
             allAudioSources[i].outputAudioMixerGroup = mixerOutput;
 
         //SaveData readData = SaveLoader.Read();
-        SaveData readData = ES3.Load<SaveData>("saveData", initialSaveData);
+        SaveData readData = ES3.Load<SaveData>("saveData");
 
         if (readData != null)
         {
