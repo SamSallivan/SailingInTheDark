@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b144db4f72a7448c6b521ce3181d7, type: 3}
   m_Name: Hammerhead
   m_EditorClassIdentifier: 
-  name: Scrap * 35
+  name: Scrap x 35
   type: 0
   description: 35 Scrap
   sprite: {fileID: 0}

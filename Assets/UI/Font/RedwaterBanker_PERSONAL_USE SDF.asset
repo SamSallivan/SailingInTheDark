@@ -967,6 +967,10 @@ MonoBehaviour:
     m_GlyphIndex: 889
     m_Scale: 1
   - m_ElementType: 1
+    m_Unicode: 53
+    m_GlyphIndex: 889
+    m_Scale: 1
+  - m_ElementType: 1
     m_Unicode: 58
     m_GlyphIndex: 813
     m_Scale: 1

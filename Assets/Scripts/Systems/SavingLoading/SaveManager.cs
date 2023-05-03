@@ -108,7 +108,7 @@ public class SaveManager : MonoBehaviour
 
     public void Save()
     {
-        saveData.currWatt = BoatController.instance.curWattHour;
+        saveData.currWatt = BoatController.instance.maxWattHour;
         saveData.fuelLevel = BoatController.instance.fuelLevel;
         saveData.armorLevel = BoatController.instance.armorLevel;
         saveData.lightLevel = BoatController.instance.lightLevel;

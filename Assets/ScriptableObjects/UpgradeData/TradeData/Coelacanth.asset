@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b144db4f72a7448c6b521ce3181d7, type: 3}
   m_Name: Coelacanth
   m_EditorClassIdentifier: 
-  name: Scrap * 50
+  name: Scrap x 50
   type: 0
   description: 50 Scrap
   sprite: {fileID: 0}
-  maxLevel: 1
+  maxLevel: 500
   costs:
   - requiredMaterials:
     - itemData: {fileID: 11400000, guid: 2642c19863e9462449d562f8ac0f8e0e, type: 2}
