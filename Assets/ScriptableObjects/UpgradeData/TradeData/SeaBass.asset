@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6b144db4f72a7448c6b521ce3181d7, type: 3}
   m_Name: SeaBass
   m_EditorClassIdentifier: 
-  name: Scrap * 15
+  name: Scrap x 15
   type: 0
   description: 15 Scrap
   sprite: {fileID: 0}
