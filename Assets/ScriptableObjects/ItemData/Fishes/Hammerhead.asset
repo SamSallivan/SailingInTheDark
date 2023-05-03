@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 2
   title: Hammerhead Shark
   sprite: {fileID: 21300000, guid: ab585eb1d5c4909448a1231c3a025c60, type: 3}
-  description: "I caught a hammerhead shark! \nI hit the nail on the head!"
+  description: A fierce predator... it could probably give the sea monsters a run
+    for their money.
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

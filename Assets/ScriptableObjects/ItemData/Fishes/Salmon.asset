@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   title: Salmon
   sprite: {fileID: 21300000, guid: 2145762ceb5b93747ac3706a72eb75e8, type: 3}
-  description: "I caught a salmon! \nIt's all upstream from here!"
+  description: These weren't very common around the islands me and Grandpa lived...
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

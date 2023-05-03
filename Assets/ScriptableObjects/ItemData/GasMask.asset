@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 0
   title: Gas Mask
   sprite: {fileID: 21300000, guid: e467bb0f70be5974da246be61652ef45, type: 3}
-  description: "Gas Mask. \nEnables breathing in Black Mist when equipped."
+  description: "It\u2019s useful for blocking out fumes, gas\u2026 hell, maybe even
+    that mist. "
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

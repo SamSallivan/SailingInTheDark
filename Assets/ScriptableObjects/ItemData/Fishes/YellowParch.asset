@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   title: Yellow Parch
   sprite: {fileID: 21300000, guid: e55e964b92889e744b09623ff84ced8b, type: 3}
-  description: A Yellow Parch.
+  description: One of the few color creatures left in this world...
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

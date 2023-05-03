@@ -15,10 +15,8 @@ MonoBehaviour:
   type: 1
   title: Grandpa's Tape #3
   sprite: {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
-  description: 'Another tape from Grandpa. I feel an overwhelming sense of dread.
-    (3/4)
-
-'
+  description: "Grandpa must have recorded this one last. The sheen implies it\u2019s
+    a bit newer. But the flecks of blood disturb me. (4/4)"
   isStackable: 0
   maxStackAmount: 1
   isEquippable: 1

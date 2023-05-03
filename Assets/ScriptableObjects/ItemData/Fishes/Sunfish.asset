@@ -15,7 +15,8 @@ MonoBehaviour:
   type: 2
   title: Sunfish
   sprite: {fileID: 21300000, guid: ee6ecbb8312924946a22b75ee262c149, type: 3}
-  description: "I caught an ocean sunfish! \nGood thing I'm wearing ocean sunscreen!"
+  description: Surprising these creatures are still around given their size... and
+    other things.
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

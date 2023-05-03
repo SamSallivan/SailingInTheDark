@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943ee888b371e2b458aee4fa444b52b8, type: 3}
+  m_Name: tape_lotus
+  m_EditorClassIdentifier: 
+  type: 1
+  title: Grandpa's Tape #3
+  sprite: {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
+  description: 'Another tape from Grandpa. I feel an overwhelming sense of dread.
+    (3/4)
+
+'
+  isStackable: 0
+  maxStackAmount: 1
+  isEquippable: 1
+  equipType: 1
+  equipPosition: {x: 0, y: 0, z: 0}
+  equipRotation: {x: 0, y: 0, z: 0, w: 0}
+  isDroppable: 1
+  dropObject: {fileID: 787135118462861994, guid: 271aa905e5b1a234a8e558a9332c308f,
+    type: 3}
+  examineScale: 1
+  examineRotation: {x: 0, y: 0, z: 0, w: 1}
+  recordingName: grandpa1
+  recording: {fileID: 11400000, guid: 56508d58943f08740953e54b2e5aed06, type: 2}
+  reelDecreaseCoefficient: 0
+  nimbbleInterval: {x: 0, y: 0}
