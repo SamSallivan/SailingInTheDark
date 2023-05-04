@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fuel Capacity
   type: 1
-  description: Increase the max amount of fuel your boat can carry.
+  description: Increase your boat's fuel capacity.
   sprite: {fileID: 0}
   maxLevel: 5
   costs:
