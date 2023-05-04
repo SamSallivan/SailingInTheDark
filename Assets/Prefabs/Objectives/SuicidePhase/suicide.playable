@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
   m_Name: AudioPlayableAsset
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: c5021e77a5b9b4f46ae16ace30a8d49a, type: 3}
+  m_Clip: {fileID: 8300000, guid: 43d7073a9c093ae45bec8458c39abb26, type: 3}
   m_Loop: 0
   m_bufferingTime: 0.1
   m_ClipProperties:
@@ -3690,7 +3690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
   m_Name: AudioPlayableAsset
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: 057b5b844936f0a45acb7c27f3f5e15f, type: 3}
+  m_Clip: {fileID: 8300000, guid: ddb00253eb837a34cb472caeaad430d1, type: 3}
   m_Loop: 0
   m_bufferingTime: 0.1
   m_ClipProperties:

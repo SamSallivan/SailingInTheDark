@@ -9,6 +9,13 @@
       },
       "hash": "701527564a2ce99a26a65b8ad9fe53772a3f0739"
     },
+    "com.jeffjadulco.guidregenerator": {
+      "version": "https://github.com/jeffjadulco/unity-guid-regenerator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7dbce4b94bd7f92c33de382439f662a0731a1db9"
+    },
     "com.unity.ai.navigation": {
       "version": "1.1.1",
       "depth": 0,
