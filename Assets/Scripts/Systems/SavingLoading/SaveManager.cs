@@ -93,7 +93,7 @@ public class SaveManager : MonoBehaviour
         if (readData != null)
         {
             saveData = readData;
-            C_Intro introCutscene = FindObjectOfType<C_Intro>();
+            C_Intro introCutscene = FindObjectOfType<C_Intro>(true);
             GameObject introObject = introCutscene.introUI;
 
             Destroy(introCutscene.gameObject);
