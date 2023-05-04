@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fuel lv5 Blueprint
   m_EditorClassIdentifier: 
   type: 0
-  title: Fuel lv4 Blueprint
+  title: Fuel lv5 Blueprint
   sprite: {fileID: 21300000, guid: 3697fd31894060c43892f9e3e56003c6, type: 3}
   description: A blueprint for upgrading a part on your boat. This one is titled
     "Fuel Capacity Ver. 5".
