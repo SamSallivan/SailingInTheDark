@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using System.IO;
 
 [System.Serializable]
 public class SaveData
@@ -87,11 +88,10 @@ public class SaveManager : MonoBehaviour
         for (int i = 0; i < allAudioSources.Length; i++)
             allAudioSources[i].outputAudioMixerGroup = mixerOutput;
 
-        //SaveData readData = SaveLoader.Read();
-        SaveData readData = ES3.Load<SaveData>("saveData");
-
-        if (readData != null)
+        string path = $"{Application.persistentDataPath}/SaveFile.es3";
+        if (File.Exists(path))
         {
+            SaveData readData = ES3.Load<SaveData>("saveData");
             saveData = readData;
             C_Intro introCutscene = FindObjectOfType<C_Intro>(true);
             GameObject introObject = introCutscene.introUI;
