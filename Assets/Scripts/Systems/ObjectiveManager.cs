@@ -10,7 +10,7 @@ public class ObjectiveManager : MonoBehaviour
     public static ObjectiveManager instance;
     public List<Objective> ObjectiveList;
     public GameObject ObjectivePrefab;
-
+    public GameObject ObjectivePrefabAnim;
 
     private void Awake()
     {
@@ -30,6 +30,26 @@ public class ObjectiveManager : MonoBehaviour
         Objective newObjective = Instantiate(ObjectivePrefab, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         newObjective.GetComponent<TMP_Text>().text = ObjectiveText;
         ObjectiveList.Add(newObjective);
+        StartCoroutine(ObjectiveAnimation(newObjective, ObjectiveText));
+    }
+
+    IEnumerator ObjectiveAnimation( Objective tempObjective, string ObjectiveText)
+    {
+        tempObjective.gameObject.SetActive(false);
+        Objective newObjective = Instantiate(ObjectivePrefabAnim, UIManager.instance.objectiveUIAnim.transform).GetComponent<Objective>();
+        newObjective.GetComponent<TMP_Text>().text = ObjectiveText;
+        //newObjective.GetComponent<TMP_Text>().color = new Color(1, 1, 1, 0);
+        yield return null;
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(newObjective.GetComponent<TMP_Text>().DOColor(new Color(1, 1, 1, 1), 3)).PrependInterval(1).Append(newObjective.transform.DOScale(1f, 1))
+          .Append(newObjective.GetComponent<RectTransform>().DOAnchorPos(new Vector2(500, 75), 2)).OnComplete(()
+          => DestoryAndEnable(newObjective.gameObject,tempObjective.gameObject));
+    }
+
+    public void DestoryAndEnable(GameObject destroyedObject, GameObject enabledObject)
+    {
+        Destroy(destroyedObject);
+        enabledObject.SetActive(true);
     }
 
     /*public void AssignObejctive(Objective objective)
@@ -47,6 +67,7 @@ public class ObjectiveManager : MonoBehaviour
         Objective newObjective = Instantiate(objective, UIManager.instance.objectiveUI.transform).GetComponent<Objective>();
         newObjective.prefabRef = objective;
         ObjectiveList.Add(newObjective);
+        StartCoroutine(ObjectiveAnimation(newObjective, newObjective.GetComponent<TMP_Text>().text));
         StartCoroutine(newObjective.OnAssigned());
     }
 
