@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: tape_lotus
   m_EditorClassIdentifier: 
   type: 1
-  title: Grandpa's Tape #3
+  title: Grandpa's Tape #4
   sprite: {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
-  description: 'Another tape from Grandpa. I feel an overwhelming sense of dread.
-    (3/4)
-
-'
+  description: "Grandpa must have recorded this one last. The sheen implies it\u2019s
+    a bit newer. But the flecks of blood disturb me. (3/4)"
   isStackable: 0
   maxStackAmount: 1
   isEquippable: 1
@@ -26,11 +24,11 @@ MonoBehaviour:
   equipPosition: {x: 0, y: 0, z: 0}
   equipRotation: {x: 0, y: 0, z: 0, w: 0}
   isDroppable: 1
-  dropObject: {fileID: 787135118462861994, guid: 271aa905e5b1a234a8e558a9332c308f,
+  dropObject: {fileID: 787135118462861994, guid: ac46ef0a973f92f4a996f5bca5b346d6,
     type: 3}
   examineScale: 1
   examineRotation: {x: 0, y: 0, z: 0, w: 1}
-  recordingName: grandpa1
-  recording: {fileID: 11400000, guid: 56508d58943f08740953e54b2e5aed06, type: 2}
+  recordingName: lotus_island_tape
+  recording: {fileID: 11400000, guid: 6c91c8f02b2bc6a4b9bc912d72a59a39, type: 2}
   reelDecreaseCoefficient: 0
   nimbbleInterval: {x: 0, y: 0}

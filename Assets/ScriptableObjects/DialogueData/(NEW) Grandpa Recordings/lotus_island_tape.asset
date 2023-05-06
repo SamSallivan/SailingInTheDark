@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: lotus_island_tape
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: When I... when I got to the island, my heart just... sank.
+    audioClip: {fileID: 8300000, guid: 157252421874cc645afc0ef205aeb515, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'The bridges were gone, all cut off from the main island. '
+    audioClip: {fileID: 8300000, guid: ba423900180c1bf45bea35b93c7a856b, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: The village and lighthouse, they were up high on a perch.
+    audioClip: {fileID: 8300000, guid: bc27c572c2404174b917435423b4dfb8, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I had no choice but to climb the cliff. But at the top... '
+    audioClip: {fileID: 8300000, guid: 942b4c245cebf9c42a803a082d003e37, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: '...oh god, there wasn''t a single soul left alive. '
+    audioClip: {fileID: 8300000, guid: 63b21db7cd73fc442b377a8b30dda1ef, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'It was... it was a nightmare. '
+    audioClip: {fileID: 8300000, guid: fb0d6fd04a3211d43812d9b716eebed0, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'A bloody mess... people everywhere, dead from some twisted mass ''ascension.'' '
+    audioClip: {fileID: 8300000, guid: 2c38589d915fe144291633261aed90d9, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "The miners, their families \u2013 they'd become the 'Eaters,' and...
+      and they were all gone. "
+    audioClip: {fileID: 8300000, guid: f9de0d7599a6a604eb8a732f674ff9ca, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'My friend... my dear friend, beaten, unrecognizable... he was one
+      of them. '
+    audioClip: {fileID: 8300000, guid: b62723f0a4e13e743a696c299179ba86, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I-I wept. I couldn''t... I couldn''t take it. '
+    audioClip: {fileID: 8300000, guid: 00fc7d7755ad339488004f3503b7909c, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'The sight of my comrades, their wives, their children... my friend,
+      all dead. '
+    audioClip: {fileID: 8300000, guid: 26e876f3745b6ea47a805da4138066c6, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I stumbled back down the island, my heart heavy, my mind reeling. '
+    audioClip: {fileID: 8300000, guid: 179307ed9dead7b48b3725f84befed11, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Fucking miracle that I survived the descent. '
+    audioClip: {fileID: 8300000, guid: f850f495940c6174695f3e6d0b98c68e, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'And the lighthouse... that damned lighthouse... '
+    audioClip: {fileID: 8300000, guid: 1ef2a82ceb98a714c998ff984d27bbd5, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I can''t even look at it anymore. '
+    audioClip: {fileID: 8300000, guid: 0b3487a214730ec43baa2c92791f2897, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: What it's become... it's just... it's just too much.
+    audioClip: {fileID: 8300000, guid: e05af4af3dfb0554781e7ad72022c070, type: 3}
+    intervalAfter: 0
+  subtitles: []
+  audioClips: []
