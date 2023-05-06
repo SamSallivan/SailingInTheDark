@@ -10,6 +10,7 @@ TagManager:
   - Fishing Float
   - Ship
   - ShipCamera
+  - EndingCutscene
   layers:
   - Default
   - TransparentFX

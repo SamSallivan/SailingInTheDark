@@ -15,8 +15,8 @@ MonoBehaviour:
   type: 1
   title: Grandpa's Tape #3
   sprite: {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
-  description: "Grandpa must have recorded this one last. The sheen implies it\u2019s
-    a bit newer. But the flecks of blood disturb me. (4/4)"
+  description: Another tape from Grandpa. I feel an overwhelming sense of dread.
+    (3/4)
   isStackable: 0
   maxStackAmount: 1
   isEquippable: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
     type: 3}
   examineScale: 1
   examineRotation: {x: 0, y: 0, z: 0, w: 1}
-  recordingName: grandpa1
+  recordingName: mine_island_tape
   recording: {fileID: 11400000, guid: 56508d58943f08740953e54b2e5aed06, type: 2}
   reelDecreaseCoefficient: 0
   nimbbleInterval: {x: 0, y: 0}
