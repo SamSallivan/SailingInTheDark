@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Light Intensity
   type: 2
-  description: Increase the Light Intensity.
+  description: Increase the Light Intensity. (Faster monster repel)
   sprite: {fileID: 0}
   maxLevel: 3
   costs:
@@ -22,11 +22,11 @@ MonoBehaviour:
     - itemData: {fileID: 11400000, guid: 3645afac15f0f6b418167a737ff5f67a, type: 2}
       amount: 1
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
-      amount: 50
+      amount: 20
   - requiredMaterials:
     - itemData: {fileID: 11400000, guid: 5426397ca45ebaa408ef11f859f6daf2, type: 2}
       amount: 1
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
-      amount: 100
+      amount: 30
   itemToTrade: {fileID: 0}
   itemAmount: 0

@@ -20,19 +20,19 @@ MonoBehaviour:
   costs:
   - requiredMaterials:
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
-      amount: 50
+      amount: 20
   - requiredMaterials:
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
-      amount: 75
+      amount: 50
   - requiredMaterials:
     - itemData: {fileID: 11400000, guid: 1da9fd32921ce4e32a9f75a73eaa6f02, type: 2}
       amount: 1
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
-      amount: 125
+      amount: 100
   - requiredMaterials:
     - itemData: {fileID: 11400000, guid: fc5efa898c60e41668d9e54342e0ad1f, type: 2}
       amount: 1
     - itemData: {fileID: 11400000, guid: 92eb5336475e0b6459fc2e3d7aa87064, type: 2}
-      amount: 150
+      amount: 125
   itemToTrade: {fileID: 0}
   itemAmount: 0

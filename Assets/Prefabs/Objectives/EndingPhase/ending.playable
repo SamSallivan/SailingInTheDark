@@ -3057,7 +3057,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 119.96667
+    m_StopTime: 120
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -8383,6 +8383,13 @@ AnimationClip:
   m_Events:
   - time: 0.2
     functionName: PlayAudio
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 120
+    functionName: TitleScreen
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

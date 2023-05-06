@@ -147,7 +147,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sail to the next island.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d8b5dec9b6b42b8b57b9865d1d409e, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &687843065601695564
@@ -267,4 +267,4 @@ MonoBehaviour:
     - {fileID: 6522342803265250126}
     - {fileID: 2800000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
     - {fileID: 21300000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
-    _Values: 5072bb4a2aee8a30a362bb2ea4dbdb5e75011622a99d8a5dab72d2f7b0239d621626c42afcaed4426c3a9e996e3b492f43d79c0ce7f0c31202e60a623e7e1e3a011e1f0647be4665b050b56ffff0ef6f29a2b3d986917b0062a61ffe2f1178111b639a8c5b5077021e015b963a541211f79a389bca45b36e9a20a5a19e48363e3839ac64a99dec26
+    _Values: 5072bb4a2aee8a30a362bb2ea4dbdb5e75011622a99d8a5dab72d2f7b0239d629fc25b00f3bdb4196c3a9e996e3b492f43d79c0ce7f0c31202e60a623e7e1e3a011e1f0647be4665b050b56ffff0ef6f29a2b3d986917b0062a61ffe2f1178111b639a8c5b5077021e015b963a541211f79a389bca45b36e9a20a5a19e48363e3839ac64a99dec26

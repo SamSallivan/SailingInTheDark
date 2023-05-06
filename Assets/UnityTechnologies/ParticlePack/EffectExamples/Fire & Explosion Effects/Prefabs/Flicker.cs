@@ -5,26 +5,60 @@ using VLB;
 
 public class Flicker : MonoBehaviour
 {
-    public VolumetricLightBeamSD _light;
-    public float minTime;
-    public float maxTime;
-    public float Timer;
+    [Tooltip("External light to flicker; you can leave this null if you attach script to a light")]
+    public new VolumetricLightBeamSD light;
+    [Tooltip("Minimum random light intensity")]
+    private float minIntensity = 0f;
+    [Tooltip("Maximum random light intensity")]
+    private float maxIntensity = 0.20f;
+    [Tooltip("How much to smooth out the randomness; lower values = sparks, higher = lantern")]
+    [Range(1, 50)]
+    private int smoothing = 2;
 
-    private void Start()
+    // Continuous average calculation via FIFO queue
+    // Saves us iterating every time we update, we just change by the delta
+    Queue<float> smoothQueue;
+    float lastSum = 0;
+
+
+    /// <summary>
+    /// Reset the randomness and start again. You usually don't need to call
+    /// this, deactivating/reactivating is usually fine but if you want a strict
+    /// restart you can do.
+    /// </summary>
+    public void Reset()
     {
-        Timer = Random.Range(minTime, maxTime);
-        StartCoroutine(FlickerLight());
+        smoothQueue.Clear();
+        lastSum = 0;
     }
 
-    IEnumerator FlickerLight()
+    void Start()
     {
-        while (true)
+        smoothQueue = new Queue<float>(smoothing);
+        // External or internal light?
+        if (light == null)
         {
-            _light.enabled = true;
-            yield return new WaitForSeconds(Timer);
-            Timer = Random.Range(minTime, maxTime);
-            _light.enabled = false;
-            yield return new WaitForSeconds(Timer / 3f);
+            light = GetComponent<VolumetricLightBeamSD>();
         }
+    }
+
+    void Update()
+    {
+        if (light == null)
+            return;
+
+        // pop off an item if too big
+        while (smoothQueue.Count >= smoothing)
+        {
+            lastSum -= smoothQueue.Dequeue();
+        }
+
+        // Generate random new item, calculate new average
+        float newVal = Random.Range(minIntensity, maxIntensity);
+        smoothQueue.Enqueue(newVal);
+        lastSum += newVal;
+
+        // Calculate new smoothed average
+        light.intensityGlobal = lastSum / (float)smoothQueue.Count;
     }
 }
