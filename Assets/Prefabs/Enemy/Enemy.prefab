@@ -2588,8 +2588,8 @@ MonoBehaviour:
     m_Bits: 2049
   curState: 0
   movementSpeed: 6
-  defaultSpeed: 10
-  burstSpeed: 15
+  defaultSpeed: 12
+  burstSpeed: 16
   maxAttackCooldown: 8
   attackDamage: 10
   attackRange: 1
