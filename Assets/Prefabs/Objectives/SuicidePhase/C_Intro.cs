@@ -10,6 +10,7 @@ public class C_Intro : MonoBehaviour
     public TextMeshProUGUI displayText;
     public Image backgroundImg;
     public GameObject nextArrow;
+    public GameObject assignObjective;
 
     public string[] cutscene_text;
     private int text_index = 0;
@@ -126,6 +127,7 @@ public class C_Intro : MonoBehaviour
         PlayerController.instance.LockMovement(false);
         PlayerController.instance.LockCamera(false);
 
+        ObjectiveManager.instance.AssignObejctive(assignObjective);
         Destroy(gameObject);
     }
 }

@@ -41,6 +41,11 @@ public class O_PlayTape : Objective
     {
         if (CheckRecordingName())
         {
+            if (enableEndCutscene)
+            {
+                RecorderController.hasHeardLastTape = true;
+            }
+
             Finish();
         }
     }

@@ -31,6 +31,8 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         continueGame.interactable = (data != null);
         warning.gameObject.SetActive(data != null);
 
