@@ -16,7 +16,7 @@ MonoBehaviour:
   title: Gas Mask
   sprite: {fileID: 21300000, guid: e467bb0f70be5974da246be61652ef45, type: 3}
   description: "It\u2019s useful for blocking out fumes, gas\u2026 hell, maybe even
-    that mist. "
+    that mist. [Must be equipped.]"
   isStackable: 0
   maxStackAmount: 5
   isEquippable: 1

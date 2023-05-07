@@ -28,6 +28,6 @@ MonoBehaviour:
   examineScale: 1
   examineRotation: {x: 0, y: 0, z: 0, w: 1}
   recordingName: deserted_island_tape
-  recording: {fileID: 11400000, guid: 148a1597f9aaeca42a5b3ee91a9e58d7, type: 2}
+  recording: {fileID: 11400000, guid: 63e9f9f8e3256094a9cac48e8c7d5e92, type: 2}
   reelDecreaseCoefficient: 0
   nimbbleInterval: {x: 0, y: 0}

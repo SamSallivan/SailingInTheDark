@@ -29,6 +29,6 @@ MonoBehaviour:
   examineScale: 1
   examineRotation: {x: 0, y: 0, z: 0, w: 1}
   recordingName: mine_island_tape
-  recording: {fileID: 11400000, guid: 56508d58943f08740953e54b2e5aed06, type: 2}
+  recording: {fileID: 11400000, guid: 7e160bb5a7c26b74ebc696ee354b70c5, type: 2}
   reelDecreaseCoefficient: 0
   nimbbleInterval: {x: 0, y: 0}

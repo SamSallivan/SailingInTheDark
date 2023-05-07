@@ -145,7 +145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Find a way through the black mist.
+  m_text: Find a way through the black mist to get to the final island.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -229,14 +229,14 @@ MonoBehaviour:
   finished: 0
   newObjectives: []
   newObjectivesString:
-  - 
+  - Look for the Lotus Eater's Island.
   objectiveDelay: 0
   assignedDialogue: {fileID: 0}
   finishedDialogue: {fileID: 0}
   dialogueDelay: 0
   prefabRef: {fileID: 0}
   desiredItems:
-  - {fileID: 11400000, guid: cbd302301ebdcb74b92e5d19ca341bb9, type: 2}
+  - {fileID: 11400000, guid: da4a2c7e514839d4fb6a37a34dc71e00, type: 2}
 --- !u!114 &-5462970258265071297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,20 +259,24 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: -6581962098139527000}
     - {fileID: 11500000, guid: f510793c449dfe5478b5afb458cc4e7a, type: 3}
-    - {fileID: 11400000, guid: cbd302301ebdcb74b92e5d19ca341bb9, type: 2}
+    - {fileID: 11400000, guid: da4a2c7e514839d4fb6a37a34dc71e00, type: 2}
     - {fileID: 11500000, guid: 943ee888b371e2b458aee4fa444b52b8, type: 3}
-    - {fileID: 21300000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
-    - {fileID: 2800000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
-    - {fileID: 787135118462861994, guid: 271aa905e5b1a234a8e558a9332c308f, type: 3}
-    - {fileID: 517253177593069738, guid: 271aa905e5b1a234a8e558a9332c308f, type: 3}
-    - {fileID: 11400000, guid: 56508d58943f08740953e54b2e5aed06, type: 2}
-    - {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
-    - {fileID: 8300000, guid: f634136bc4a1204418f6789ffc167581, type: 3}
-    - {fileID: 8300000, guid: 7c56c87dacf1ab54b9a14f7d61a41b3f, type: 3}
-    - {fileID: 8300000, guid: 2536391d106a01c429083800d0650b62, type: 3}
-    - {fileID: 8300000, guid: 884ce45591f99254f874a92460b296b4, type: 3}
-    - {fileID: 8300000, guid: c6434832943439e40a7d4d3db9685d16, type: 3}
-    - {fileID: 8300000, guid: e6fcaf9811adb6e498350bc1627fa17b, type: 3}
+    - {fileID: 21300000, guid: e467bb0f70be5974da246be61652ef45, type: 3}
+    - {fileID: 2800000, guid: e467bb0f70be5974da246be61652ef45, type: 3}
+    - {fileID: 1978765163774278015, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 5475380698374604729, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 5033462578393428592, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 4557445514691604827, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 8027620655106904718, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 3663232726071301756, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 4825153326982564432, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 2586199161337158036, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 3281173455635563558, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 99412357997848563, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 2410114581874130144, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 5933760852495523797, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 5409635835375778590, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
+    - {fileID: 8207725043608035868, guid: 8330ee93ed5d00f45b73dd26d88a2031, type: 3}
     - {fileID: -5462970258265071297}
     - {fileID: 562466956147419543}
     - {fileID: 6272206217271929445}
@@ -280,4 +284,4 @@ MonoBehaviour:
     - {fileID: 6522342803265250126}
     - {fileID: 2800000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
     - {fileID: 21300000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
-    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340afab846f8e0c24f1629862fb1773b0663e3953048a771a638cf1d733a1a1c242edd82681df38e1a30244fc17a0ee3ec28a6661a2cb0613303ff35aedf53fbdf7f97f963e70e26ce185205f095b8dc82142a2b200b1cf29a3fb7a1d91ac8a170653fc4776da85af81cf888436cf191a8691581cf20b23440667597243915405c035b960b951cc9a854cdc21d8175a0a565126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b
+    _Values: a13301b479c80f78f8b88203149e652df1e7c7218a01a55bbed856002c04734af74b75a3738a314b48386abb23dc7c4c71b4e88d892f9d61715a085e8df1b30cbbc7a524e229f15f162a25ae6816c81ea4f68d1e12ff2c27d8e20079585c7f38138889157e5ed048c389765f0aeff85a6f1546689b6a05449a7dfbc5296bb772aa5e9ae08db39f4526455b8888cd1d3825a5f5bde9e8627e8ecd7a01630a1e572efb4a54aae83222b68c8ee0c58ecd32a13d607b8a06773efb1b52bf399ee21b2603b6841871e30dd71773767743431d65535e5f94661d26850c4fc63af15b536fa907c845514a11216d52a179edb54729cadb7303bd4f72df22f7db3e56b736

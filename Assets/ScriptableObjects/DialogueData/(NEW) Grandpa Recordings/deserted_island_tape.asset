@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: deserted_island_tape
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: '... testing, testing. (Clears throat) One, two. '
+    audioClip: {fileID: 8300000, guid: d52b6164129d94c44aba8d375fe59d73, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Mark, the Twin Isle was a place that once thrived for an abundance
+      of fish. '
+    audioClip: {fileID: 8300000, guid: 58209eef9993bc94cb08ce0ce3a30bac, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: The people there were proud and fiercely protective of their home.
+    audioClip: {fileID: 8300000, guid: 3082e9dee94f76d43a6d8bb650379cf0, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "So much so, they kept outsiders at an arm\u2019s length. "
+    audioClip: {fileID: 8300000, guid: f5a4bcdd3229df54f8a440d0e6db1cbd, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'But everything changed one night about five years ago. '
+    audioClip: {fileID: 8300000, guid: 829e0326e0896ff40a10c3188080531e, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'The lighthouse''s light began to flicker, the villagers panicked. '
+    audioClip: {fileID: 8300000, guid: 018fe6ef790a2e94aa4b0936d49043ea, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'At the same time, fish began to run scarce. '
+    audioClip: {fileID: 8300000, guid: adf92ca4c656f42479613630964ff2b5, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'So the villagers scattered. '
+    audioClip: {fileID: 8300000, guid: 369883327c41d8d43978a7f3aefc25a9, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "Those unable to leave \u2013 they became stranded. "
+    audioClip: {fileID: 8300000, guid: c73402a023a82ef43918fc4d995f04ba, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: And by the time I made my rounds to trade here once again, no one alive
+      remained.
+    audioClip: {fileID: 8300000, guid: 296e9fed8c668ec419732593ccd77163, type: 3}
+    intervalAfter: 0
+  subtitles: []
+  audioClips: []
