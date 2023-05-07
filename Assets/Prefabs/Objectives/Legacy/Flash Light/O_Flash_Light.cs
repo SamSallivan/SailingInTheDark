@@ -11,7 +11,7 @@ public class O_Flash_Light : Objective
     {
         if (InventoryManager.instance.equippedItemLeft != null && InventoryManager.instance.equippedItemLeft.data != null)
         {
-            if (InventoryManager.instance.equippedItemLeft.data.title == "Flash Light")
+            if (InventoryManager.instance.equippedItemLeft.data.title == "Flashlight")
                 return true;
         }
         return false;

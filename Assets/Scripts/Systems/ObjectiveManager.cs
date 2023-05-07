@@ -41,7 +41,7 @@ public class ObjectiveManager : MonoBehaviour
         //newObjective.GetComponent<TMP_Text>().color = new Color(1, 1, 1, 0);
         yield return null;
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(newObjective.GetComponent<TMP_Text>().DOColor(new Color(1, 1, 1, 1), 3)).PrependInterval(1).Append(newObjective.transform.DOScale(1f, 1))
+        mySequence.Append(newObjective.GetComponent<TMP_Text>().DOColor(new Color(1, 1, 1, 1), 1)).PrependInterval(1).Append(newObjective.transform.DOScale(1f, 0.5f))
           .Append(newObjective.GetComponent<TMP_Text>().DOFade(0, 0.5f).OnComplete(()
           => DestoryAndEnable(newObjective.gameObject,tempObjective.gameObject)));
     }

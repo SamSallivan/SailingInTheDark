@@ -147,7 +147,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Increase engine speed to 4 using W or S.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 27d8b5dec9b6b42b8b57b9865d1d409e, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &-6656287463387634323
@@ -274,4 +274,4 @@ MonoBehaviour:
     - {fileID: 6522342803265250126}
     - {fileID: 2800000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
     - {fileID: 21300000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
-    _Values: 69ba4bcd3404ef2861761dbafbbe6b047279506c1856c6456a297273bb1931616478dc490baa03207dd94de53284bd1d3ff8ce6f35264602070a8879600b71654cb54820bedd5041f928488cb2ea5b6b3271d0ed5982457e74548600174e93774cb231e7ccdedb1bb7f096a1902d4b1d52e2542d24a1413106395495a8b0d6546b2e289be4bcc753a95c7c3882b5f267fda9e1e3e85c515fd66b13e09d3a2029ab7891efc3dfbe2e945330480adcd868158903f77c928d5715248eb17fdb241b
+    _Values: 69ba4bcd3404ef2861761dbafbbe6b047279506c1856c6456a297273bb193161ef21e9ea31849b277dd94de53284bd1d3ff8ce6f35264602070a8879600b71654cb54820bedd5041f928488cb2ea5b6b3271d0ed5982457e74548600174e93774cb231e7ccdedb1bb7f096a1902d4b1d52e2542d24a1413106395495a8b0d6546b2e289be4bcc753a95c7c3882b5f267fda9e1e3e85c515fd66b13e09d3a2029ab7891efc3dfbe2e945330480adcd868158903f77c928d5715248eb17fdb241b
