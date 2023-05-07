@@ -51,9 +51,13 @@ public class I_Helm : Interactable
     private float detachTimer;
     public float headHeightOffset1;
 
-    private void Awake()
-    {
+    MouseLook playerLook;
+    MouseLook THeadLook;
 
+    private void Start()
+    {
+        playerLook = PlayerController.instance.GetComponent<MouseLook>();
+        THeadLook = PlayerController.instance.tHead.GetComponent<MouseLook>();
     }
 
     public override IEnumerator InteractionEvent()
@@ -146,8 +150,8 @@ public class I_Helm : Interactable
         PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(false);
         PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(true);
 
-        PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
-        PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 15);
+        playerLook.SetClamp(-360, 360, -85, 15);
+        THeadLook.SetClamp(-360, 360, -85, 15);
         //PlayerController.instance.transform.localRotation = Quaternion.identity;
         //PlayerController.instance.GetComponent<MouseLook>().Load();
         PlayerController.instance.enableInteraction = false;
@@ -162,11 +166,11 @@ public class I_Helm : Interactable
         PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].gameObject.SetActive(true);
         PlayerController.instance.bob.GetComponentsInChildren<CinemachineVirtualCamera>(true)[1].gameObject.SetActive(false);
 
-        PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
-        PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+        playerLook.SetClamp(-120, 120, -60, 60);
+        THeadLook.SetClamp(-120, 120, -60, 60);
 
         PlayerController.instance.transform.localRotation = Quaternion.identity;
-        PlayerController.instance.GetComponent<MouseLook>().Reset();
+        playerLook.Reset();
         PlayerController.instance.enableInteraction = true;
     }
 
@@ -199,10 +203,10 @@ public class I_Helm : Interactable
                 inControl = true;
                 enterTimer = 0;
 
-                PlayerController.instance.GetComponent<MouseLook>().Reset();
-                PlayerController.instance.tHead.GetComponent<MouseLook>().Reset();
-                PlayerController.instance.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
-                PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-120, 120, -60, 60);
+                playerLook.Reset();
+                THeadLook.Reset();
+                playerLook.SetClamp(-120, 120, -60, 60);
+                THeadLook.SetClamp(-120, 120, -60, 60);
                 PlayerController.instance.LockCamera(false);
             }
         }
@@ -215,8 +219,8 @@ public class I_Helm : Interactable
             UIManager.instance.helmUI.SetActive(false);
             UIManager.instance.mapUI.SetActive(false);
             PlayerController.instance.headPosition.Slide(0.75f);
-            PlayerController.instance.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
-            PlayerController.instance.tHead.GetComponent<MouseLook>().SetClamp(-360, 360, -85, 85);
+            playerLook.SetClamp(-360, 360, -85, 85);
+            THeadLook.SetClamp(-360, 360, -85, 85);
             PlayerController.instance.LockMovement(false);
             UnTarget();
             PlayerController.instance.HandleInteractableCheck();

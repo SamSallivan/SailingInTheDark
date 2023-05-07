@@ -2588,17 +2588,17 @@ MonoBehaviour:
     m_Bits: 2049
   curState: 0
   movementSpeed: 6
-  defaultSpeed: 10
-  burstSpeed: 15
+  defaultSpeed: 13
+  burstSpeed: 17
   maxAttackCooldown: 8
-  attackDamage: 10
+  attackDamage: 8
   attackRange: 1
   curAggroMeter: 0
   loseAggroMultiplier: 1
   loseAggro: 0
   isPatrolling: 0
   isDead: 0
-  despawnDistance: 70
+  despawnDistance: 80
   surfaceLevel: 0.1
 --- !u!65 &6034785310361092872
 BoxCollider:
