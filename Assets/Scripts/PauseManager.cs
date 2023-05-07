@@ -31,11 +31,15 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && PlayerController.instance.enableMovement)
+        if (Input.GetKeyDown(KeyCode.Escape) && !UIManager.instance.pauseUI.activeInHierarchy)
         {
             Time.timeScale = 0;
             UIManager.instance.pauseUI.SetActive(true);
             UIManager.instance.lockMouse.LockCursor(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && UIManager.instance.pauseUI.activeInHierarchy)
+        {
+            ResumeGame();
         }
     }
 

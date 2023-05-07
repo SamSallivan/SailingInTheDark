@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         continueGame.interactable = (data != null);
@@ -80,6 +81,10 @@ public class MainMenu : MonoBehaviour
     }
 
     public void Toggle()
+    {
+        settingsPage.SetActive(!settingsPage.activeSelf);
+    }
+    public void Settings()
     {
         settingsPage.SetActive(!settingsPage.activeSelf);
     }
