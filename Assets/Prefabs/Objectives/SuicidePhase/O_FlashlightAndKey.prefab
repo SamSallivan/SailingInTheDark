@@ -147,7 +147,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Get Flashlight and key before going outside.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 27d8b5dec9b6b42b8b57b9865d1d409e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &-5462970258265071297
@@ -246,7 +246,7 @@ MonoBehaviour:
     - {fileID: 6522342803265250126}
     - {fileID: 2800000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
     - {fileID: 21300000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
-    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340afc45e124a4bc6872cdc21d8175a0a5656d26276a80884462761a24044c96f2335ba0bd6b6d4e7e172a2b200b1cf29a3f6eb44314bef75771126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b
+    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340a8832e717721d0f4bcdc21d8175a0a5656d26276a80884462761a24044c96f2335ba0bd6b6d4e7e172a2b200b1cf29a3f6eb44314bef75771126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b
 --- !u!114 &3297565504263028273
 MonoBehaviour:
   m_ObjectHideFlags: 0

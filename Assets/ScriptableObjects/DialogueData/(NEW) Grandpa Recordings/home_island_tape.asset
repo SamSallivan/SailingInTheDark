@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: home_island_tape
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: I'm sorry, boy.
+    audioClip: {fileID: 8300000, guid: df629aa314f7e4a429606940ae44120d, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I truly am. '
+    audioClip: {fileID: 8300000, guid: fafe8e671f9290647a0f8304fd657728, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'By the time you hear this tape, I''ll be long gone. '
+    audioClip: {fileID: 8300000, guid: 38b814ab0848fa64092332776a18ac8c, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'The lighthouses, they weren''t what I believed them to be. '
+    audioClip: {fileID: 8300000, guid: 9a07ff937b0471b41a3bb59f39212185, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I''ve spent my life hiding my past from you, unable to comprehend
+      how it all went wrong. '
+    audioClip: {fileID: 8300000, guid: 675c33969dfa65c4c85a12831f961879, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'But there''s something malevolent about those lighthouses. '
+    audioClip: {fileID: 8300000, guid: aff23c32ee140bd428f9e7e0fe233d21, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'It''s like a virus that seeps into your very being, corrupting all
+      that''s good within you. '
+    audioClip: {fileID: 8300000, guid: d411ec1471c9a2741ad6dba2134c96d7, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Hell, I can''t even recognize who I am anymore. '
+    audioClip: {fileID: 8300000, guid: 4a169713ae26ac341b43ef0ab75bed98, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'And now, in my cowardice, I can no longer face you. '
+    audioClip: {fileID: 8300000, guid: 3869c255aefce1f4eb2befbf38aded1a, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'You don''t deserve to live in ignorance, my boy. '
+    audioClip: {fileID: 8300000, guid: 2f496c323fe97444abe630e70c6b1c0d, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'You deserve to know the truth. '
+    audioClip: {fileID: 8300000, guid: 347e6550a148bfd46b8e468baf78c0f6, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'This is a crime I have done unto you. '
+    audioClip: {fileID: 8300000, guid: 92cbe3110ea8f674b809d125547912af, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I''ve left some tapes on the lighthouses I visited, 4 in total. '
+    audioClip: {fileID: 8300000, guid: a06836424d487474dba1ebc773f9cc95, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: Seek them out, one by one, and you'll see what I mean.
+    audioClip: {fileID: 8300000, guid: 48ef15724e7d2f6439a2df96d6ead7a3, type: 3}
+    intervalAfter: 0
+  subtitles: []
+  audioClips: []

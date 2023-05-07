@@ -29,6 +29,6 @@ MonoBehaviour:
   examineScale: 1
   examineRotation: {x: 0, y: 0, z: 0, w: 1}
   recordingName: grandpa1
-  recording: {fileID: 11400000, guid: 5e1373a5496fbd840ab31289f46bc713, type: 2}
+  recording: {fileID: 11400000, guid: 571090459c7743c4abe17b2c48d71ba2, type: 2}
   reelDecreaseCoefficient: 0
   nimbbleInterval: {x: 0, y: 0}

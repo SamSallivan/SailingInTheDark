@@ -147,7 +147,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pick up the tape Grandpa left.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 27d8b5dec9b6b42b8b57b9865d1d409e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &-6581962098139527000
@@ -275,19 +275,22 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 30cd2e491e5ac3e4daf5f9788636defd, type: 3}
     - {fileID: 787135118462861994, guid: e8f28519605b64443ac76e37bb36f25d, type: 3}
     - {fileID: 517253177593069738, guid: e8f28519605b64443ac76e37bb36f25d, type: 3}
-    - {fileID: 11400000, guid: 5e1373a5496fbd840ab31289f46bc713, type: 2}
+    - {fileID: 11400000, guid: 571090459c7743c4abe17b2c48d71ba2, type: 2}
     - {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
-    - {fileID: 8300000, guid: 1bacdd2b2dafb1842bd1f5326c38f69f, type: 3}
-    - {fileID: 8300000, guid: c8f00415ad3254548bcc0e479bfa8e74, type: 3}
-    - {fileID: 8300000, guid: 96bd93af83cbe3141bcd88e1acd3facf, type: 3}
-    - {fileID: 8300000, guid: 309b500025ae4a14296af9412aaec598, type: 3}
-    - {fileID: 8300000, guid: 8aaca273bd6ab7b49a566db9222cac59, type: 3}
-    - {fileID: 8300000, guid: e73357fed3aecbe44a153a1b7ceb02e4, type: 3}
-    - {fileID: 8300000, guid: 02dd3f41f626f5647a52e34b699fb4f9, type: 3}
-    - {fileID: 8300000, guid: 9552964a4566a78409b6406334953c07, type: 3}
-    - {fileID: 8300000, guid: 99208c9b88618434b9520ba67284e876, type: 3}
-    - {fileID: 8300000, guid: 5e05d810b0562604ca98c982fb1a3e86, type: 3}
-    - {fileID: 8300000, guid: 6ec0aff4459266741b8d83bc5d811e49, type: 3}
+    - {fileID: 8300000, guid: df629aa314f7e4a429606940ae44120d, type: 3}
+    - {fileID: 8300000, guid: fafe8e671f9290647a0f8304fd657728, type: 3}
+    - {fileID: 8300000, guid: 38b814ab0848fa64092332776a18ac8c, type: 3}
+    - {fileID: 8300000, guid: 9a07ff937b0471b41a3bb59f39212185, type: 3}
+    - {fileID: 8300000, guid: 675c33969dfa65c4c85a12831f961879, type: 3}
+    - {fileID: 8300000, guid: aff23c32ee140bd428f9e7e0fe233d21, type: 3}
+    - {fileID: 8300000, guid: d411ec1471c9a2741ad6dba2134c96d7, type: 3}
+    - {fileID: 8300000, guid: 4a169713ae26ac341b43ef0ab75bed98, type: 3}
+    - {fileID: 8300000, guid: 3869c255aefce1f4eb2befbf38aded1a, type: 3}
+    - {fileID: 8300000, guid: 2f496c323fe97444abe630e70c6b1c0d, type: 3}
+    - {fileID: 8300000, guid: 347e6550a148bfd46b8e468baf78c0f6, type: 3}
+    - {fileID: 8300000, guid: 92cbe3110ea8f674b809d125547912af, type: 3}
+    - {fileID: 8300000, guid: a06836424d487474dba1ebc773f9cc95, type: 3}
+    - {fileID: 8300000, guid: 48ef15724e7d2f6439a2df96d6ead7a3, type: 3}
     - {fileID: -5462970258265071297}
     - {fileID: 562466956147419543}
     - {fileID: 6272206217271929445}
@@ -295,4 +298,4 @@ MonoBehaviour:
     - {fileID: 6522342803265250126}
     - {fileID: 2800000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
     - {fileID: 21300000, guid: 30cea74feb1fe448ebb48ce269be016a, type: 3}
-    _Values: 06f91c23dc45981dcade5c99dd597119e837954975202c5afaa53007889a340a7854146a15137a4329862fb1773b0663e3953048a771a638cafd58be52467e1d7b9a62cbfb46d87bd71ef3e78589c0541a313ecfc69f031e1b2517c13e1dc679b6efcc2826222d35e4d7190d849b7c41c4fb5cdef850a82369bb4f2ad1e9c245a986cf6a4367d10724c2fd845afd3a15dd82681df38e1a30244fc17a0ee3ec28a6661a2cb0613303d6193a36a31da874c0008fd1ac8fd67b5766a3262f438c762a2b200b1cf29a3fff793e61b34eb859ab770b5fd69c33689210a53a702a4c58b73275f56229b770941fa2f9459d8c127b6674aace963446333ab83fe8c7e72a2de5aa80d9c3f72cd184344905c5dc2f9db8be0ab6a18a21fe2f289ce1f75933cdc21d8175a0a565126643bca8dab54bc3b455bd374e0b1ab9dd62f5137646596834365e81872b00730d9801221bb544cc05176351461d1b
+    _Values: c37278841a72075255245a457dc3722507301a1ea921261ab4eee8bf93c02826ada86217b95d2d509bc07e8875d26c4ccbd5ae8473d15e1b686d30d376b84014b27e898490be554f898783e8a29da4785b358a686ead9a025cc736f2da2ce31d8095c40ba30e2276d5020314b18987353648d054bd567d04e48627c98863754b945f96c79e4fe34ceeec6c94557aaf2c4000bb915b8f602918bf271ce758ee71734880ad0c406818648341a9c3115a5e35548987a7e3f00502935021d8399a46dbde210df901207f68d42dd74db665069b36186c309936553986ab79ef4640611e8884a23368583774081fd3b618b847f95786a1202d1641a9cbd57355a68f50eb71473bcd3c2c038f50e138b8090b50c00c7f673f60be4c9ec54aff3dcb8c1b976fbe275ff31443d57ced2fb3227761c184346226f78f4b3093d993872c405adefdd027c833b032f73b92c3738e987bb217403e0010bd71fe0956f3cda8ca01bc470cb1f39f29732bfea59d76ad4141

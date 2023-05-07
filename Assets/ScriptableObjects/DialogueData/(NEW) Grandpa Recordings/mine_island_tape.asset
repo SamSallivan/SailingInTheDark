@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: mine_island_tape
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'Ironclad... I can barely recognize it now. '
+    audioClip: {fileID: 8300000, guid: 4eac713f0b334374b9cc734d911dc6a0, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'She used to be a thriving village, full of life. '
+    audioClip: {fileID: 8300000, guid: 50b8f9eea1d65474f8b9a7364d4f1f2d, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I was in a company of miners, and we toiled day in, day out. '
+    audioClip: {fileID: 8300000, guid: d68e12a4fb255a741a990e1e64772638, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'We were the very picture of comradery. '
+    audioClip: {fileID: 8300000, guid: 1d136c2a7f71df74b8636a98ea7b6c94, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'But something shifted, and it''s like a dark cloud settled over the
+      island. '
+    audioClip: {fileID: 8300000, guid: d330ca32865a36443ae5b6ad35600adf, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "Those in the business of governing \u2013 it was like they had the
+      villagers under some kind of spell. "
+    audioClip: {fileID: 8300000, guid: 3601dc1ab83af6c4daa15265ed1ad0ab, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'People began to leave, and others... '
+    audioClip: {fileID: 8300000, guid: dfdfa45f7eb5b944d84421f38e1f7cd6, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: Well, they couldn't bear the weight of it all.
+    audioClip: {fileID: 8300000, guid: 727707f3c3b81cd47bd75ac32e92bb44, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'I can still feel the chills down my spine just thinking about it. '
+    audioClip: {fileID: 8300000, guid: 2a02a20c6e54ef54f94e0728b0625f12, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: But now I know that it must have been then that the lighthouse took
+      hold of the people's hearts Mark.
+    audioClip: {fileID: 8300000, guid: 7ec81a43ce074cd41923cb29a489511f, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'You know of my friend, he was a fellow miner. '
+    audioClip: {fileID: 8300000, guid: ebd0f00c295ac4a4a944c9754913160d, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "We worked side by side, but when things took a turn for the worse
+      \u2013 dammit, I left. "
+    audioClip: {fileID: 8300000, guid: eaeffc529ade62a4992c8deee9115892, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'But just as I knew, those pigs tightened their grip on the island,
+      and we were torn apart when they exiled the mining unit. '
+    audioClip: {fileID: 8300000, guid: fa1e42eaa6266e24fb5f21028b380d66, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'The black mist separated us, and all we had left were letters to keep
+      our connection alive. '
+    audioClip: {fileID: 8300000, guid: 3243f1cacd4ad444d8df39b5c9902314, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: "But when the letters stopped \u2013 Oh, Mark! I had to set sail, I
+      had to find a way to reach him, someway, somehow. "
+    audioClip: {fileID: 8300000, guid: d223b9afc3762e54aa14105bf6e2683e, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'But this place. It makes my skin crawl. '
+    audioClip: {fileID: 8300000, guid: 0634b16113ddd2b45a3466ccacd8e65a, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: 'It''s like someone, or something, is watching me, waiting. '
+    audioClip: {fileID: 8300000, guid: eda2cf34424bba34093ba9b029309592, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 3
+    subtitle: But I won't let fear stop me again.
+    audioClip: {fileID: 8300000, guid: bc58987703d43d448a61712010d7a559, type: 3}
+    intervalAfter: 0
+  subtitles: []
+  audioClips: []
