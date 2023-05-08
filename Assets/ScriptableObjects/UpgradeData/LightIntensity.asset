@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Light Intensity
   type: 2
-  description: Increase the Light Intensity. (Faster monster repel)
+  description: Repels monsters faster.
   sprite: {fileID: 0}
   maxLevel: 3
   costs:
