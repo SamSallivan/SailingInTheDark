@@ -27,7 +27,7 @@ public class DialogueManager : MonoBehaviour
     public void OverrideDialogue(DialogueData tempDialogue, bool autoUnpause = false)
     {
         //Push the current one back in waitlist
-        if (currentDialogue != null¡¡&& currentDialogue != tempDialogue)
+        if (currentDialogue != null && currentDialogue != tempDialogue)
         {
             StopCurrentRecordingLine();
             //if this one is also important
