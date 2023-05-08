@@ -34,7 +34,7 @@ public class DialogueManager : MonoBehaviour
             //dialogueWaitList.Insert(0, currentDialogue);
         }
 
-        if (dialogueInBound)
+        if (dialogueInBound && currentDialogue != tempDialogue)
         {
             currentCoroutine = StartCoroutine(PlayRecording(tempDialogue, 0));
         }

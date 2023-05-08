@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
         [Header("Fishing")]
         public GameObject fishingUI;
         public Slider reelSlider;
+        public Image reelImage;
 
     [Foldout("Inventory", true)]
     public GameObject inventoryUI;

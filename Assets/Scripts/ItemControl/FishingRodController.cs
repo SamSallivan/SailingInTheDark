@@ -255,7 +255,7 @@ public class FishingRodController : MonoBehaviour
                             StartCoroutine(fishingAudio.PlayPlayerPull());
                         }
 
-                        UIManager.instance.reelSlider.value = reelCharger;
+                        UIManager.instance.reelImage.fillAmount = reelCharger;
                     }
                     else if (reelCharger >= 1)
                     {
