@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using MyBox;
 using UnityEngine.Audio;
+using System.IO;
 
 public class MainMenu : MonoBehaviour
 {
@@ -26,7 +27,15 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        data = ES3.Load<SaveData>("saveData", data);
+        string path = $"{Application.persistentDataPath}/SaveFile.es3";
+        if (File.Exists(path))
+        {
+            data = ES3.Load<SaveData>("saveData");
+        }
+        else
+        {
+            data = null;
+        }
     }
 
     private void Start()
@@ -55,6 +64,7 @@ public class MainMenu : MonoBehaviour
 
     public void Update()
     {
+        Time.timeScale = 1;
         if (Input.GetKey(KeyCode.Escape) && settingsPage.activeInHierarchy)
         {
             settingsPage.SetActive(false);

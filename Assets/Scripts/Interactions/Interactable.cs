@@ -35,6 +35,8 @@ public class Interactable : MonoBehaviour
 
     public GameObject highlightTarget;
 
+    public DialogueData dialogueOnInteraction;
+
 
     [Foldout("Settings", true)]
     public InteractionType interactionType;
@@ -115,6 +117,11 @@ public class Interactable : MonoBehaviour
             if (onceOnly)
             {
                 interactedOnce = true;
+            }
+
+            if (dialogueOnInteraction != null)
+            {
+                DialogueManager.instance.OverrideDialogue(dialogueOnInteraction);
             }
         }
     }

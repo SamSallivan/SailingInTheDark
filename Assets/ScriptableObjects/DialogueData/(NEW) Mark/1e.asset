@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: 1e
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: It's locked... What's that rattling sound inside?
+    audioClip: {fileID: 8300000, guid: d301eab78dd62884982edbb3104fad8c, type: 3}
+    intervalAfter: 0
+  subtitles:
+  - 'I remember the stories Grandpa told me, about the lighthouse''s warmth and radiance... '
+  - 'But when he came back, he was so different, cold and distant. '
+  - 'I was angry and scared when I thought he left me here... '
+  - I have to find him and apologize.
+  audioClips:
+  - {fileID: 8300000, guid: e1504bf366e65864e9416a89cb384e79, type: 3}
+  - {fileID: 8300000, guid: fcc79fa213c2d6f4e88eb6447787bd58, type: 3}
+  - {fileID: 8300000, guid: 071da32a3217f1a4880a10c13b994531, type: 3}
+  - {fileID: 8300000, guid: 7729b00cdbc00d1409d7a3bc398ccd3d, type: 3}

@@ -2598,8 +2598,8 @@ MonoBehaviour:
   loseAggro: 0
   isPatrolling: 0
   isDead: 0
-  despawnDistance: 80
-  surfaceLevel: 0.1
+  despawnDistance: 40
+  surfaceLevel: -1
 --- !u!65 &6034785310361092872
 BoxCollider:
   m_ObjectHideFlags: 0

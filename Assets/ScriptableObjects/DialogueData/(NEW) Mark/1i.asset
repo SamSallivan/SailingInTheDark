@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: 1i
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'Grandpa! Where are you?! '
+    audioClip: {fileID: 8300000, guid: 9e214f76155d5e340b00f222217c81f2, type: 3}
+    intervalAfter: 0
+  subtitles:
+  - 'Grandpa! Are you okay?! '
+  - 'What happened to the lighthouse''s light? '
+  - We need it, or we're doomed!
+  audioClips:
+  - {fileID: 8300000, guid: af11bd060920a3044b0ce889a270b07e, type: 3}
+  - {fileID: 8300000, guid: 77fae98dac2223545a824d754576f1ea, type: 3}
+  - {fileID: 8300000, guid: dc05f0e365fd8d045a854fa19eb15383, type: 3}

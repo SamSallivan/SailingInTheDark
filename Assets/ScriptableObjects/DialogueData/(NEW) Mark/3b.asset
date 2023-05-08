@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: 3b
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'What if... what if the lighthouse was never divine or magical like
+      Grandpa believed?  '
+    audioClip: {fileID: 8300000, guid: 15b931b2d69a1d04fbec004016b52393, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'What if this symbol of hope is actually... the root of all this evil? '
+    audioClip: {fileID: 8300000, guid: 5acb6d6e058907f43846c013370360e2, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: It's... it's hard to accept.
+    audioClip: {fileID: 8300000, guid: 71e3891b7059e5f419e78f0a1632c94c, type: 3}
+    intervalAfter: 0
+  subtitles:
+  - Finally, it's unlocked.
+  - Let's see what's in here.
+  audioClips:
+  - {fileID: 8300000, guid: 0c838fb2ee8cd8348b8c74373063635f, type: 3}
+  - {fileID: 8300000, guid: 4e952a42cbc1b8b408ea9f8c953714da, type: 3}

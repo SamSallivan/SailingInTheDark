@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: 1c
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'Grandpa always said the lighthouse was a divine miracle, a beacon
+      of hope after the calamity flooded our world. '
+    audioClip: {fileID: 8300000, guid: cee323db7badb924b915c6b1c4b4042c, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: I used to love listening to his stories...
+    audioClip: {fileID: 8300000, guid: 92ca68e118cb96e498b0a3043c8cc95b, type: 3}
+    intervalAfter: 0
+  subtitles:
+  - Grandpa! Where are you?
+  - 'You shouldn''t be out here after that long journey. '
+  - You need to rest!
+  audioClips:
+  - {fileID: 8300000, guid: 6c7aa2ef3eca67140994ef940cde69f8, type: 3}
+  - {fileID: 8300000, guid: 16a1dbf9e1a4f74498a61f15fc9f28c9, type: 3}
+  - {fileID: 8300000, guid: 80722def97bbe7e4784b551fdad4ca36, type: 3}

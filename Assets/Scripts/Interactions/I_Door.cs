@@ -15,16 +15,22 @@ public class I_Door : Interactable
     [ConditionalField(nameof(needKey), false)]
     public bool locked;
 
+
+    public DialogueData dialogueLocked;
+    public DialogueData dialogueUnlock;
+
     public override IEnumerator InteractionEvent()
     {
         if (locked)
         {
+            DialogueManager.instance.OverrideDialogue(dialogueLocked);
             if (InventoryManager.instance.equippedItemRight != null
                 && InventoryManager.instance.equippedItemRight.data != null
                 && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Key)
             {
                 if(InventoryManager.instance.equippedItemRight.data == keyItem){
                     locked = false;
+                    DialogueManager.instance.OverrideDialogue(dialogueUnlock);
                 }
                 else
                 {
@@ -56,6 +62,8 @@ public class I_Door : Interactable
             activated = !activated;
             DoorSwitch(activated);
             //InventoryManager.instance.RemoveItem(item);
+
+            DialogueManager.instance.OverrideDialogue(dialogueUnlock);
         }
         else
         {

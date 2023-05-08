@@ -52,11 +52,13 @@ public class PauseManager : MonoBehaviour
 
     public void RestartGame()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 

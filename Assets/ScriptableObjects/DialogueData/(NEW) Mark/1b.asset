@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: 1b
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'Where could Grandpa have gone...? '
+    audioClip: {fileID: 8300000, guid: 8e4e131624852cb41bebef6f1b1d9a3b, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: "He was only back for a short time after sailing out there alone\u2026
+      for weeks."
+    audioClip: {fileID: 8300000, guid: 8d06c4523fec72b4a862463aeeeaa0f2, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'What was he even doing out there? '
+    audioClip: {fileID: 8300000, guid: c16a374734d17754bb1f8b61f09c113c, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: I can't help but worry about him.
+    audioClip: {fileID: 8300000, guid: 9678a5ecb9b0d6247b4efce715a2280d, type: 3}
+    intervalAfter: 0
+  subtitles:
+  - Grandpa! Where are you?
+  - 'You shouldn''t be out here after that long journey. '
+  - You need to rest!
+  audioClips:
+  - {fileID: 8300000, guid: 6c7aa2ef3eca67140994ef940cde69f8, type: 3}
+  - {fileID: 8300000, guid: 16a1dbf9e1a4f74498a61f15fc9f28c9, type: 3}
+  - {fileID: 8300000, guid: 80722def97bbe7e4784b551fdad4ca36, type: 3}

@@ -6,7 +6,7 @@ public class O_Shift_Gears : Objective
 {
     public override bool CheckFinished()
     {
-        if (Mathf.Round(BoatController.instance.boat.Speed) >= 4)
+        if (BoatController.instance.gearLevel == 2)
         {
             return true;
         }

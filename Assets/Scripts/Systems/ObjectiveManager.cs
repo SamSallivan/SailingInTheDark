@@ -35,7 +35,7 @@ public class ObjectiveManager : MonoBehaviour
 
     IEnumerator ObjectiveAnimation( Objective tempObjective, string ObjectiveText)
     {
-        tempObjective.gameObject.SetActive(false);
+        //tempObjective.gameObject.SetActive(false);
         Objective newObjective = Instantiate(ObjectivePrefabAnim, UIManager.instance.objectiveUIAnim.transform).GetComponent<Objective>();
         newObjective.GetComponent<TMP_Text>().text = ObjectiveText;
         //newObjective.GetComponent<TMP_Text>().color = new Color(1, 1, 1, 0);

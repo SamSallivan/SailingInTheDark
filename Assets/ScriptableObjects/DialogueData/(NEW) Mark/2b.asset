@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb1c4e70b6439045b22c57f69c75c78, type: 3}
+  m_Name: 2b
+  m_EditorClassIdentifier: 
+  lines:
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'This... I need to do something. '
+    audioClip: {fileID: 8300000, guid: 46e22261fd922294fbe64fb39e933fdf, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'I''ve got to find out what happened. '
+    audioClip: {fileID: 8300000, guid: 96477d66045fe1e4bb68571b11c7d3ba, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: 'I have to find the islands with other lighthouses. '
+    audioClip: {fileID: 8300000, guid: 9af6d1a21df7706468cccba0010b89b0, type: 3}
+    intervalAfter: 0
+  - intervalBefore: 0
+    speaker: 2
+    subtitle: There must be answers there.
+    audioClip: {fileID: 8300000, guid: 55a1f21b0301d28458a85acc003c06cc, type: 3}
+    intervalAfter: 0
+  subtitles:
+  - Finally, it's unlocked.
+  - Let's see what's in here.
+  audioClips:
+  - {fileID: 8300000, guid: 0c838fb2ee8cd8348b8c74373063635f, type: 3}
+  - {fileID: 8300000, guid: 4e952a42cbc1b8b408ea9f8c953714da, type: 3}
