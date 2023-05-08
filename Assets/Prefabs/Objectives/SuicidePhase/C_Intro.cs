@@ -28,6 +28,7 @@ public class C_Intro : MonoBehaviour
 
     private void StartIntro()
     {
+        introUI.SetActive(true);
         PlayerController.instance.LockMovement(true);
         PlayerController.instance.LockCamera(true);
         displayText.text = cutscene_text[text_index];
