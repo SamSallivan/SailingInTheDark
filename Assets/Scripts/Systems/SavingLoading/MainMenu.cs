@@ -57,7 +57,7 @@ public class MainMenu : MonoBehaviour
         fullScreen.isOn = Screen.fullScreen;
         fullScreen.onValueChanged.AddListener(delegate { Screensize(); });
 
-        soundLoudness.value = PlayerPrefs.GetFloat("Volume");
+        soundLoudness.value = (PlayerPrefs.HasKey("Volume")) ? PlayerPrefs.GetFloat("Volume") : 0.75f;
         soundLoudness.onValueChanged.AddListener(delegate { SetLevel(); });
         SetLevel();
     }
