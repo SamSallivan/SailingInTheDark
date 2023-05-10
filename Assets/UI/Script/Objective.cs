@@ -21,7 +21,6 @@ public class Objective : MonoBehaviour
     public DialogueData finishedDialogue;
     public float dialogueDelay;
 
-    [ReadOnly()]
     public GameObject prefabRef;
 
     private void OnEnable()

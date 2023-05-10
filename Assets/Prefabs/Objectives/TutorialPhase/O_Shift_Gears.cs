@@ -6,7 +6,8 @@ public class O_Shift_Gears : Objective
 {
     public override bool CheckFinished()
     {
-        if (BoatController.instance.gearLevel == 2)
+        Debug.Log(BoatController.instance.helm.currentGear);
+        if (BoatController.instance.helm.currentGear >= 2)
         {
             return true;
         }

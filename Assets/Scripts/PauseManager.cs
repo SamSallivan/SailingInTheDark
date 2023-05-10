@@ -40,6 +40,7 @@ public class PauseManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape) && UIManager.instance.pauseUI.activeInHierarchy)
         {
             ResumeGame();
+            UIManager.instance.lockMouse.LockCursor(true);
         }
     }
 
