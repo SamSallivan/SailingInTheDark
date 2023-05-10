@@ -23,14 +23,17 @@ public class I_Door : Interactable
     {
         if (locked)
         {
-            DialogueManager.instance.OverrideDialogue(dialogueLocked);
+            if (dialogueLocked != null)
+                DialogueManager.instance.OverrideDialogue(dialogueLocked);
             if (InventoryManager.instance.equippedItemRight != null
                 && InventoryManager.instance.equippedItemRight.data != null
                 && InventoryManager.instance.equippedItemRight.data.type == ItemData.ItemType.Key)
             {
                 if(InventoryManager.instance.equippedItemRight.data == keyItem){
                     locked = false;
-                    DialogueManager.instance.OverrideDialogue(dialogueUnlock);
+
+                    if(dialogueUnlock != null)
+                        DialogueManager.instance.OverrideDialogue(dialogueUnlock);
                 }
                 else
                 {
@@ -63,7 +66,8 @@ public class I_Door : Interactable
             DoorSwitch(activated);
             //InventoryManager.instance.RemoveItem(item);
 
-            DialogueManager.instance.OverrideDialogue(dialogueUnlock);
+            if (dialogueUnlock != null)
+                DialogueManager.instance.OverrideDialogue(dialogueUnlock);
         }
         else
         {
