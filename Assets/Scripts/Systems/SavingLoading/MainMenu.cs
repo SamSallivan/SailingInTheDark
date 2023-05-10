@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
     public Toggle fullScreen;
     public Slider soundLoudness;
     public AudioMixer mixer;
+    public GameObject loadingScreen;
 
     SaveData data;
 
@@ -73,21 +74,23 @@ public class MainMenu : MonoBehaviour
 
     public void Begin()
     {
+        loadingScreen.SetActive(true);
         SaveLoader.DeleteSaveData();
         SceneManager.LoadScene(1);
     }
 
     public void Continue()
     {
+        loadingScreen.SetActive(true);
         SceneManager.LoadScene(1);
     }
 
     public void ExitGame()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-            Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
 
     public void Toggle()
