@@ -84,7 +84,7 @@ public class SaveManager : MonoBehaviour
         allDoors = FindObjectsOfType<I_Door>();
         allFishingZones = FindObjectsOfType<T_FishingZone>();
 
-        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>(true);
         for (int i = 0; i < allAudioSources.Length; i++)
             allAudioSources[i].outputAudioMixerGroup = mixerOutput;
 

@@ -34,7 +34,7 @@ MonoBehaviour:
   verticalOffset: 0
   distance: 2.5
   distanceFallOff: 0.75
-  maxDistance: 200
+  maxDistance: 350
   maxDistanceFallOff: 1
   terrainFit: 0
   terrainFitResolution: 128
