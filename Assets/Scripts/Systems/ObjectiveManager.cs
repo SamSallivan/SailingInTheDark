@@ -36,6 +36,10 @@ public class ObjectiveManager : MonoBehaviour
     IEnumerator ObjectiveAnimation( Objective tempObjective, string ObjectiveText)
     {
         //tempObjective.gameObject.SetActive(false);
+        foreach (Transform child in UIManager.instance.objectiveUIAnim.transform)
+        {
+            Destroy(child.gameObject);
+        }
         Objective newObjective = Instantiate(ObjectivePrefabAnim, UIManager.instance.objectiveUIAnim.transform).GetComponent<Objective>();
         newObjective.GetComponent<TMP_Text>().text = ObjectiveText;
         //newObjective.GetComponent<TMP_Text>().color = new Color(1, 1, 1, 0);
@@ -43,7 +47,7 @@ public class ObjectiveManager : MonoBehaviour
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(newObjective.GetComponent<TMP_Text>().DOColor(new Color(1, 1, 1, 1), 1)).PrependInterval(1).Append(newObjective.transform.DOScale(1f, 0.5f))
           .Append(newObjective.GetComponent<TMP_Text>().DOFade(0, 0.5f).OnComplete(()
-          => DestoryAndEnable(newObjective.gameObject,tempObjective.gameObject)));
+          => Destroy(newObjective.gameObject)));
     }
 
     public void DestoryAndEnable(GameObject destroyedObject, GameObject enabledObject)

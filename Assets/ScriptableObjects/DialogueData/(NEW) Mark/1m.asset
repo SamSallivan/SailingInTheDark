@@ -20,7 +20,7 @@ MonoBehaviour:
     intervalAfter: 0
   - intervalBefore: 0
     speaker: 2
-    subtitle: Why? What happened to you?"
+    subtitle: Why? What happened to you?
     audioClip: {fileID: 8300000, guid: 01074b8187d7cf34c8c1182207eaf2d6, type: 3}
     intervalAfter: 0
   - intervalBefore: 0
